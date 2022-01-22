@@ -17,6 +17,8 @@ namespace AmazingGame
      * - gameboard
      *   - call functions to update board state
      * - GUI controller
+     *   - inputs:
+     *       whose turn, updated game board
      * - network controller
      * - AI controller
      */
@@ -25,8 +27,20 @@ namespace AmazingGame
     {
         static void Main(string[] args)
         {
+            // Start
 
+            //get AI (easy or difficult) or Network game
 
+            //get starting player
+
+            //starting player and secondary player place pawns
+
+            //while not winning
+                //move pawn
+                //build tower piece
+                //swap player
+
+            //game over
         }
     }
 }

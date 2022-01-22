@@ -36,22 +36,20 @@ namespace AmazingGame
         
         int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
 
-        Coordinates[] PlayerOnePawns = new Coordinates[2]; // Stores locations of Player 1's two pawns
-        Coordinates[] PlayerTwoPawns = new Coordinates[2]; // Stores locations of Player 2's two pawns
-
-        private Player Turn; // Store player turn, either ONE or TWO
-
-        public enum Player
-        {
-            ONE,
-            TWO
-        }
+        private Coordinates[] PlayerOnePawns = new Coordinates[2]; // Stores locations of Player 1's two pawns
+        private Coordinates[] PlayerTwoPawns = new Coordinates[2]; // Stores locations of Player 2's two pawns
 
         enum MoveType
         {
             INVALID,
             VALID,
             WINNING
+        }
+
+        enum Player // *********************** DUPLICATED IN GAMEUTILITIES.CPP
+        {
+            ONE,
+            TWO
         }
 
         public class Coordinates //public ??
@@ -73,21 +71,9 @@ namespace AmazingGame
         }
         
         // Constructor that initializes game board with heights of 0
-        public GameBoard(Player StartingPlayer)
-        {
-            InitializeBoard();
-        }
-
         public GameBoard()
         {
-            Player StartingPlayer = RandomStartingPlayer();
             InitializeBoard();
-        }
-
-        Player RandomStartingPlayer()
-        {
-            int num = new Random().Next(1,3); // Generates a number [1,3)  or 1 <= num < 3
-            return (Player)num; // Return the number 1 or 2 but casted as a Player
         }
 
         public void InitializeBoard()
@@ -103,7 +89,7 @@ namespace AmazingGame
             }
         }
 
-        bool isInBounds(Coordinates loc)
+        bool IsInBounds(Coordinates loc)
         {
             if (loc.X < 0 || loc.X >= BOARD_DIMENSION)
             {
@@ -119,29 +105,73 @@ namespace AmazingGame
             }
         }
 
-        bool isOccupied(Coordinates loc)
+        // Returns an array containing the two pawn coordinates for a player
+        Coordinates[] GetPlayerCoordinates(Player num) // ************************************** DOES THIS GET USED?
         {
-            //if loc in PlayerOnePawns
-                //return true
-            //if loc in PlayerTwoPawns
-                //return true
-            //else
-                //return false
+            if (num == Player.ONE)
+            {
+                return PlayerOnePawns;
+            }
+            else
+            {
+                return PlayerTwoPawns;
+            }
         }
 
-        //verify player turn ??
-
-        bool placePawn(Player whoseTurn, Coordinates loc)
+        // Returns whether a pawn exists in the board coordinate
+        bool IsOccupied(Coordinates loc)
         {
-            //get move
-            //if space is in bounds and unoccupied and not placed both pawns already
-                //place pawn
-                //return true
-            //else
-                //return false
+            if (loc == PlayerOnePawns[0] ||
+                loc == PlayerOnePawns[1] ||
+                loc == PlayerTwoPawns[0] ||
+                loc == PlayerTwoPawns[1])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        MoveType validateMove()
+        //verify player turn ??????????????????????????
+
+        bool PlacePawn(Player whoseTurn, Coordinates loc)  // NEEDS WORK ********************************************************************************
+        {
+            //if space is in bounds and unoccupied
+            if (IsInBounds(loc) && !IsOccupied(loc))
+            {
+                Coordinates[] playerPawns;
+
+                //get player's pawn coordinates
+                if (whoseTurn == Player.ONE)    // && PlayerOnePawns[0] != new Coordinates() && PlayerTwoPawns[1] != new Coordinates())
+                {
+                    playerPawns = PlayerOnePawns;
+                }
+                else
+                {
+                    playerPawns = PlayerTwoPawns;
+                }
+
+                //if player's pawns are not both already placed
+                if (playerPawns[0] != new Coordinates())
+                {
+                    //place pawn
+                }
+                else if (playerPawns[1] != new Coordinates())
+                {
+                    //place pawn
+                }
+                else
+                {
+                    //return false
+                }
+            }
+            //else
+            //return false
+        }
+
+        MoveType ValidateMove()
         {
             //get pawn location, get new move
 
@@ -158,7 +188,7 @@ namespace AmazingGame
             //return MoveType.Invalid
         }
 
-        bool movePawn()
+        bool MovePawn()
         {
             //call validateMove inside here ?? if so, have a return false
 
@@ -169,7 +199,7 @@ namespace AmazingGame
             //ADD THROW EXCEPT TO THIS ???
         }
 
-        bool buildPiece()
+        bool BuildPiece()
         {
             //get location
             //if location unoccupied by pawns
@@ -181,7 +211,7 @@ namespace AmazingGame
 
         }
 
-        void clearBoard()
+        void ClearBoard()
         {
 
         }
