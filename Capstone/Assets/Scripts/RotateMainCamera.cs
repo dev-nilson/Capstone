@@ -1,18 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RotateMainCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public Button rotateRight;
+	public Button rotateLeft;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	void Start()
+	{
+		Button right = rotateRight.GetComponent<Button>();
+		right.onClick.AddListener(rotateRightClick);
+
+		Button left = rotateLeft.GetComponent<Button>();
+		left.onClick.AddListener(rotateLeftClick);
+	}
+
+	void rotateRightClick()
+	{
+		Debug.Log("You have clicked the right button!");
+	}
+
+	void rotateLeftClick()
+	{
+		Debug.Log("You have clicked the left button!");
+	}
 }
