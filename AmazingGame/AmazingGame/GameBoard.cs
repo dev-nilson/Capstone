@@ -76,9 +76,9 @@ namespace AmazingGame
             InitializeBoard();
         }
 
-        public void InitializeBoard()
+        public void InitializeBoard(bool resize=true)
         {
-            heights = new int[BOARD_DIMENSION, BOARD_DIMENSION];
+            if (resize) heights = new int[BOARD_DIMENSION, BOARD_DIMENSION];
 
             for (int x = 0; x < 5; ++x)
             {
@@ -143,77 +143,123 @@ namespace AmazingGame
             {
                 Coordinates[] playerPawns;
 
-                //get player's pawn coordinates
-                if (whoseTurn == Player.ONE)    // && PlayerOnePawns[0] != new Coordinates() && PlayerTwoPawns[1] != new Coordinates())
+                if (whoseTurn == Player.ONE)
                 {
-                    playerPawns = PlayerOnePawns;
+                    if (PlayerOnePawns[0] != new Coordinates()) // If first pawn is not already placed
+                    {
+                        //place pawn
+                    }
+                    else if (PlayerOnePawns[1] != new Coordinates()) // If second pawn is not already placed
+                    {
+                        //place pawn
+                    }
+                    else // If both pawns are already placed, no new pawn can be placed
+                    {
+                        //return false
+                    }
                 }
-                else
+                else if (whoseTurn == Player.TWO)
                 {
-                    playerPawns = PlayerTwoPawns;
+                    if (PlayerTwoPawns[0] != new Coordinates())
+                    {
+                        //place pawn
+                    }
+                    else if (PlayerTwoPawns[1] != new Coordinates())
+                    {
+                        //place pawn
+                    }
+                    else
+                    {
+                        //return false
+                    }
                 }
+                else //ERROR -- NO PLAYER'S TURN
+            }
+            else // return false (space is occupied or out of bounds)
+        }
 
-                //if player's pawns are not both already placed
-                if (playerPawns[0] != new Coordinates())
+        MoveType ValidateMove(Coordinates curLoc, Coordinates newLoc)
+        {
+            //check if move in bounds ??
+            //if new space is unoccupied and current space is occupied
+            if (IsInBounds(curLoc) && IsOccupied(curLoc) && IsInBounds(newLoc) && !IsOccupied(newLoc))
+            {
+                //check if move is within one space of pawn's location
+                if (abs(newLoc.X - curLoc.X) == 1 || abs(newLoc.Y - curLoc.Y) == 1)
                 {
-                    //place pawn
-                }
-                else if (playerPawns[1] != new Coordinates())
-                {
-                    //place pawn
-                }
-                else
-                {
-                    //return false
+                    //if new height - current height <= 1
+                    if (heights[newLoc.X, newLoc.Y] - heights[curLoc.X, curLoc.Y] <= 1) // CREATE FUNCTION TO RETURN HEIGHT AT A SPECIFIC COORDINATE ?????????
+                    {
+                        // If moving to a 3-tiered tower, the game is won!
+                        if (heights[newLoc.X, newLoc.Y] == 3)
+                        {
+                            return MoveType.WINNING;
+                        }
+                        else
+                        {
+                            return MoveType.VALID;
+                        }
+                    }
                 }
             }
-            //else
-            //return false
+            return MoveType.INVALID;
         }
 
-        MoveType ValidateMove()
+        bool ValidateBuild(Coordinates curLoc, Coordinates newLoc)
         {
-            //get pawn location, get new move
-
             //check if move in bounds ??
-            //check if move is within one space of pawn's location
-                //abs(newLoc.X - curLoc.X) == 1 || abs(newLoc.Y - curLoc.Y) == 1
             //if new space is unoccupied and current space is occupied
-            //if new height - current height <= 1
-            //if new height equals 3
-            //return MoveType.Winning
-            //else
-            //return MoveType.Valid
-            //else
-            //return MoveType.Invalid
+            if (IsInBounds(curLoc) && IsOccupied(curLoc) && IsInBounds(newLoc) && !IsOccupied(newLoc))
+            {
+                //check if move is within one space of pawn's location
+                if (abs(newLoc.X - curLoc.X) == 1 || abs(newLoc.Y - curLoc.Y) == 1)
+                {
+                    //if new height < 4
+                    if (heights[newLoc.X, newLoc.Y] < 4)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
-        bool MovePawn()
+        bool MovePawn(Coordinates curLoc, Coordinates newLoc)
         {
             //call validateMove inside here ?? if so, have a return false
+            MoveType move = ValidateMove(curLoc, newLoc);
+            if (move == MoveType.INVALID || move == MoveType.WINNING)
+            {
+                return false;
+            }
 
-            //get current location, get new location
-            //fill new location with pawn
-            //old pawn location marked as unoccupied
-            //return true
+            // the move is valid
+            else
+            {
+                //update pawn location
+                //return true
+            }
             //ADD THROW EXCEPT TO THIS ???
         }
 
-        bool BuildPiece()
+        bool BuildPiece(Coordinates curLoc, Coordinates newLoc)
         {
-            //get location
-            //if location unoccupied by pawns
-                //if location height > 3
-                    //return false
-                //if location height <= 3
-                    //location height incremented by 1
-                    //return true
-
+            if (ValidateBuild(curLoc, newLoc))
+            {
+                heights[newLoc.X, newLoc.Y] += 1;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         void ClearBoard()
         {
-
+            Coordinates[] PlayerOnePawns = new Coordinates[2];
+            Coordinates[] PlayerTwoPawns = new Coordinates[2];
+            InitializeBoard(false);
         }
     }
 }

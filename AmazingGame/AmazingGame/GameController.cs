@@ -32,6 +32,8 @@ namespace AmazingGame
             //get AI (easy or difficult) or Network game
 
             //get starting player
+                //if quick play, take player selection
+                //if network, get? or choose?
 
             //starting player and secondary player place pawns
 
