@@ -37,6 +37,11 @@ namespace AmazingGame
             return (Player)num; // Return the number 1 or 2 but casted as a Player
         }
 
+        void setStartingPlayer(Player starting)
+        {
+            playerTurn = starting;
+        }
+
         Player whoseTurn()
         {
             return playerTurn;

@@ -25,6 +25,7 @@ namespace AmazingGame
 
     class GameController
     {
+        /*
         static void Main(string[] args)
         {
             // Start
@@ -35,14 +36,18 @@ namespace AmazingGame
                 //if quick play, take player selection
                 //if network, get? or choose?
 
+            //initialize game board
+
             //starting player and secondary player place pawns
 
             //while not winning
                 //move pawn
                 //build tower piece
                 //swap player
+                //if restart? or exit game?
 
             //game over
         }
+        */
     }
 }
