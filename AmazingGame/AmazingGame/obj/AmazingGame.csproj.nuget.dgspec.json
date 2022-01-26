@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Team06\\Desktop\\AmazingGame\\AmazingGame\\AmazingGame.csproj": {}
+    "C:\\Users\\Team06\\Desktop\\Capstone\\AmazingGame\\AmazingGame\\AmazingGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Team06\\Desktop\\AmazingGame\\AmazingGame\\AmazingGame.csproj": {
+    "C:\\Users\\Team06\\Desktop\\Capstone\\AmazingGame\\AmazingGame\\AmazingGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Team06\\Desktop\\AmazingGame\\AmazingGame\\AmazingGame.csproj",
+        "projectUniqueName": "C:\\Users\\Team06\\Desktop\\Capstone\\AmazingGame\\AmazingGame\\AmazingGame.csproj",
         "projectName": "AmazingGame",
-        "projectPath": "C:\\Users\\Team06\\Desktop\\AmazingGame\\AmazingGame\\AmazingGame.csproj",
+        "projectPath": "C:\\Users\\Team06\\Desktop\\Capstone\\AmazingGame\\AmazingGame\\AmazingGame.csproj",
         "packagesPath": "C:\\Users\\Team06\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Team06\\Desktop\\AmazingGame\\AmazingGame\\obj\\",
+        "outputPath": "C:\\Users\\Team06\\Desktop\\Capstone\\AmazingGame\\AmazingGame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Team06\\AppData\\Roaming\\NuGet\\NuGet.Config",

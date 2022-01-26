@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 /* GAMEBOARD
  * - 5x5
@@ -14,9 +15,6 @@ using System.Text;
  * Function to move pieces
  * 
  * Function to check for valid new builds
- * 
- * 4 pawns
- * - player 1 or 2
  * 
  * 
  * Game start:
@@ -30,26 +28,17 @@ using System.Text;
 
 namespace AmazingGame
 {
-    class GameBoard //public  ??
+    public class GameBoard //public  ??
     {
         const int BOARD_DIMENSION = 5;
         
         int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
-
-        private Coordinates[] PlayerOnePawns = new Coordinates[2]; // Stores locations of Player 1's two pawns
-        private Coordinates[] PlayerTwoPawns = new Coordinates[2]; // Stores locations of Player 2's two pawns
 
         enum MoveType
         {
             INVALID,
             VALID,
             WINNING
-        }
-
-        enum Player // *********************** DUPLICATED IN GAMEUTILITIES.CPP
-        {
-            ONE,
-            TWO
         }
 
         public class Coordinates //public ??
@@ -105,26 +94,12 @@ namespace AmazingGame
             }
         }
 
-        // Returns an array containing the two pawn coordinates for a player
-        Coordinates[] GetPlayerCoordinates(Player num) // ************************************** DOES THIS GET USED?
-        {
-            if (num == Player.ONE)
-            {
-                return PlayerOnePawns;
-            }
-            else
-            {
-                return PlayerTwoPawns;
-            }
-        }
-
         // Returns whether a pawn exists in the board coordinate
         bool IsOccupied(Coordinates loc)
         {
-            if (loc == PlayerOnePawns[0] ||
-                loc == PlayerOnePawns[1] ||
-                loc == PlayerTwoPawns[0] ||
-                loc == PlayerTwoPawns[1])
+            // Get a list of pawns (four total between both players)
+            Coordinates[] allPawns = Player.GetBothPlayersPawns();
+            if (allPawns.Contains(loc))
             {
                 return true;
             }
@@ -134,49 +109,89 @@ namespace AmazingGame
             }
         }
 
-        //verify player turn ??????????????????????????
-
-        bool PlacePawn(Player whoseTurn, Coordinates loc)  // NEEDS WORK ********************************************************************************
+        public bool PlacePawn(Player player, Coordinates loc)
         {
             //if space is in bounds and unoccupied
             if (IsInBounds(loc) && !IsOccupied(loc))
             {
-                Coordinates[] playerPawns;
-
-                if (whoseTurn == Player.ONE)
+                if (player.isMyTurn())
                 {
-                    if (PlayerOnePawns[0] != new Coordinates()) // If first pawn is not already placed
+                    if (player.addNewPawn(loc))
                     {
-                        //place pawn
-                    }
-                    else if (PlayerOnePawns[1] != new Coordinates()) // If second pawn is not already placed
-                    {
-                        //place pawn
+                        return true;
                     }
                     else // If both pawns are already placed, no new pawn can be placed
                     {
-                        //return false
+                        return false;
                     }
                 }
-                else if (whoseTurn == Player.TWO)
+                else
+                { //not my turn
+                    return false;
+                }
+            }
+            else
+            {
+                return false; //space is occupied or out of bounds
+            }
+        }
+
+        bool MovePawn(Player player, Coordinates curLoc, Coordinates newLoc)
+        {
+            //call validateMove inside here ?? if so, have a return false
+            MoveType move = ValidateMove(curLoc, newLoc);
+            if (move == MoveType.INVALID || move == MoveType.WINNING)
+            {
+                return false;
+            }
+            else // the move is valid
+            {
+                if (player.isMyTurn())
                 {
-                    if (PlayerTwoPawns[0] != new Coordinates())
+                    if (player.updatePawn(curLoc, newLoc)) //update pawn location
                     {
-                        //place pawn
-                    }
-                    else if (PlayerTwoPawns[1] != new Coordinates())
-                    {
-                        //place pawn
+                        return true;
                     }
                     else
                     {
-                        //return false
+                        return false;
                     }
                 }
-                else //ERROR -- NO PLAYER'S TURN
+                else //not my turn
+                {
+                    return false;
+                }
             }
-            else // return false (space is occupied or out of bounds)
         }
+
+        bool BuildPiece(Coordinates curLoc, Coordinates newLoc)
+        {
+            if (ValidateBuild(curLoc, newLoc))
+            {
+                heights[newLoc.X, newLoc.Y] += 1;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        void ClearBoard()
+        {
+            Coordinates[] PlayerOnePawns = new Coordinates[2];
+            Coordinates[] PlayerTwoPawns = new Coordinates[2];
+            InitializeBoard(false);
+        }
+
+
+
+
+
+        // DON'T MAKE PUBLIC ????????????????????
+
+
+
 
         MoveType ValidateMove(Coordinates curLoc, Coordinates newLoc)
         {
@@ -185,7 +200,7 @@ namespace AmazingGame
             if (IsInBounds(curLoc) && IsOccupied(curLoc) && IsInBounds(newLoc) && !IsOccupied(newLoc))
             {
                 //check if move is within one space of pawn's location
-                if (abs(newLoc.X - curLoc.X) == 1 || abs(newLoc.Y - curLoc.Y) == 1)
+                if (Math.Abs(newLoc.X - curLoc.X) == 1 || Math.Abs(newLoc.Y - curLoc.Y) == 1)
                 {
                     //if new height - current height <= 1
                     if (heights[newLoc.X, newLoc.Y] - heights[curLoc.X, curLoc.Y] <= 1) // CREATE FUNCTION TO RETURN HEIGHT AT A SPECIFIC COORDINATE ?????????
@@ -212,7 +227,7 @@ namespace AmazingGame
             if (IsInBounds(curLoc) && IsOccupied(curLoc) && IsInBounds(newLoc) && !IsOccupied(newLoc))
             {
                 //check if move is within one space of pawn's location
-                if (abs(newLoc.X - curLoc.X) == 1 || abs(newLoc.Y - curLoc.Y) == 1)
+                if (Math.Abs(newLoc.X - curLoc.X) == 1 || Math.Abs(newLoc.Y - curLoc.Y) == 1)
                 {
                     //if new height < 4
                     if (heights[newLoc.X, newLoc.Y] < 4)
@@ -222,44 +237,6 @@ namespace AmazingGame
                 }
             }
             return false;
-        }
-
-        bool MovePawn(Coordinates curLoc, Coordinates newLoc)
-        {
-            //call validateMove inside here ?? if so, have a return false
-            MoveType move = ValidateMove(curLoc, newLoc);
-            if (move == MoveType.INVALID || move == MoveType.WINNING)
-            {
-                return false;
-            }
-
-            // the move is valid
-            else
-            {
-                //update pawn location
-                //return true
-            }
-            //ADD THROW EXCEPT TO THIS ???
-        }
-
-        bool BuildPiece(Coordinates curLoc, Coordinates newLoc)
-        {
-            if (ValidateBuild(curLoc, newLoc))
-            {
-                heights[newLoc.X, newLoc.Y] += 1;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        void ClearBoard()
-        {
-            Coordinates[] PlayerOnePawns = new Coordinates[2];
-            Coordinates[] PlayerTwoPawns = new Coordinates[2];
-            InitializeBoard(false);
         }
     }
 }

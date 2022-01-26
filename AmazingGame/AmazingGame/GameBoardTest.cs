@@ -5,8 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using GameBoard;
-using GameUtilities;
+using AmazingGame;
 
 namespace AmazingGame
 {
@@ -17,25 +16,35 @@ namespace AmazingGame
             // Start
             Console.WriteLine("You are playing Pyramid Paradox!");
 
-            //get AI (easy or difficult) or Network game
+            //Initialize P1;
+            Console.WriteLine("P1's username: ");
+            string username = Console.ReadLine();
+            bool first = true;
+            bool local = true;
 
+            Player P1 = new Player(local, username, first);
 
-            //get starting player
-            setStartingPlayer(RandomStartingPlayer());
-                //if quick play, take player selection
-                //if network, get? or choose?
+            //Initialize P2;
+            Console.WriteLine("P2's username: ");
+            username = Console.ReadLine();
+            first = false;
+            local = false;
+
+            Player P2 = new Player(local, username, first);
 
             //initialize game board
             GameBoard board = new GameBoard();
 
             //starting player and secondary player place pawns
 
-            for (int i = 0; i < 2; ++i)
-            {
-                //get loc for player
-                if !(PlacePawn(whoseTurn(), loc)) Console.WriteLine("Error placing pawn");
-                swapPlayerTurn();
-            }
+            //place starting pawns
+            Console.WriteLine("P1s move?\n Enter X and Y (1-5)");
+            int x = Convert.ToInt32(Console.ReadLine());
+            int y = Convert.ToInt32(Console.ReadLine());
+            GameBoard.Coordinates loc = new GameBoard.Coordinates(x - 1, y - 1);
+            if (!board.PlacePawn(P1,loc)) Console.WriteLine("Error placing P1's pawn");
+
+            
 
             //get curLoc and newLoc
             while (ValidateMove(curLoc, newLoc) != MoveType.WINNING)

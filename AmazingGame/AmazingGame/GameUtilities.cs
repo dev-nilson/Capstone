@@ -14,40 +14,22 @@ namespace AmazingGame
 {
     public class GameUtilities //public  ??
     {
-        private Player playerTurn;
-
         private GameType gameType;
 
-        enum Player
-        {
-            ONE,
-            TWO
-        }
-
-        enum GameType
+        public enum GameType
         {
             EASY,
             DIFFICULT,
             NETWORK
         }
 
-        Player RandomStartingPlayer()
+        public Player.Tag RandomStartingPlayer()
         {
             int num = new Random().Next(1, 3); // Generates a number [1,3)  or 1 <= num < 3
-            return (Player)num; // Return the number 1 or 2 but casted as a Player
+            return (Player.Tag)num; // Return the number 1 or 2 but casted as a Player
         }
 
-        void setStartingPlayer(Player starting)
-        {
-            playerTurn = starting;
-        }
-
-        Player whoseTurn()
-        {
-            return playerTurn;
-        }
-
-        void swapPlayerTurn()
+        /*void swapPlayerTurn()
         {
             if (playerTurn == Player.ONE)
             {
@@ -57,7 +39,7 @@ namespace AmazingGame
             {
                 playerTurn = Player.ONE;
             }
-        }
+        }*/
 
         void setGameType(GameType type)
         {
