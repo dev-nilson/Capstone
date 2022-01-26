@@ -1,0 +1,11 @@
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.exe
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.deps.json
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.runtimeconfig.json
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.runtimeconfig.dev.json
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.dll
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.pdb
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.csprojAssemblyReference.cache
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.AssemblyInfoInputs.cache
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.AssemblyInfo.cs
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.dll
+C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.pdb

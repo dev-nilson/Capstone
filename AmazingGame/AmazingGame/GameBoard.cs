@@ -57,6 +57,35 @@ namespace AmazingGame
                 X = -1; //initialized to -1 for PlacePawn function *** ?? restructure ??
                 Y = -1;
             }
+
+            /*public bool Contains<Coordinates>(Coordinates loc)
+            {
+                GameBoard.Coordinates[] allPawns = Player.GetBothPlayersPawns();
+                for (int i = 0; i < allPawns.Length; ++i)
+                {
+                    if (loc == allPawns[i]) return true;
+                }
+                return false;
+            }*/
+
+            public override bool Equals(object loc)
+            {
+                return Equals(loc as Coordinates);
+            }
+
+            public bool Equals(Coordinates loc)
+            {
+                if (loc is null) return false;
+                else return this.X == loc.X && this.Y == loc.Y;
+            }
+
+            public static bool operator ==(Coordinates loc1, Coordinates loc2)
+            {
+                if (loc1.X == loc2.X && loc1.Y == loc2.Y) return true;
+                else return false;
+            }
+
+            public static bool operator !=(Coordinates loc1, Coordinates loc2) => !(loc1 == loc2);
         }
         
         // Constructor that initializes game board with heights of 0
@@ -116,14 +145,7 @@ namespace AmazingGame
             {
                 if (player.isMyTurn())
                 {
-                    if (player.addNewPawn(loc))
-                    {
-                        return true;
-                    }
-                    else // If both pawns are already placed, no new pawn can be placed
-                    {
-                        return false;
-                    }
+                    return player.addNewPawn(loc); // Returns true if succeeded. Else both pawns are already placed, no new pawn can be placed
                 }
                 else
                 { //not my turn

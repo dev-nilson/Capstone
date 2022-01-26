@@ -19,7 +19,8 @@ namespace AmazingGame
 
         // Stores locations of the player's two pawns
         // Local player gets [0,] and opposing player gets [1,]
-        private static GameBoard.Coordinates[][] Pawns = { new GameBoard.Coordinates[2], new GameBoard.Coordinates[2] };
+        private static GameBoard.Coordinates[][] Pawns = { new GameBoard.Coordinates[] { new GameBoard.Coordinates(), new GameBoard.Coordinates() },
+                                                           new GameBoard.Coordinates[] { new GameBoard.Coordinates(), new GameBoard.Coordinates() } };
 
 
 
@@ -40,20 +41,20 @@ namespace AmazingGame
         }
 
         // Returns an array containing the two pawn coordinates for a player
-        GameBoard.Coordinates[] GetPlayerCoordinates() // ************************************** DOES THIS GET USED?
+        public GameBoard.Coordinates[] GetPlayerCoordinates() // ************************************** DOES THIS GET USED?
         {
             return Pawns[(int)this.player];
         }
 
         public bool addNewPawn(GameBoard.Coordinates loc)
         {
-            if (Pawns[(int)this.player][0] != new GameBoard.Coordinates()) // If first pawn is not already placed
+            if (Pawns[(int)this.player][0] == new GameBoard.Coordinates()) // If first pawn is not already placed
             {
                 //place pawn
                 Pawns[(int)this.player][0] = loc;
                 return true;
             }
-            else if (Pawns[(int)this.player][1] != new GameBoard.Coordinates()) // If second pawn is not already placed
+            else if (Pawns[(int)this.player][1] == new GameBoard.Coordinates()) // If second pawn is not already placed
             {
                 //place pawn
                 Pawns[(int)this.player][1] = loc;
