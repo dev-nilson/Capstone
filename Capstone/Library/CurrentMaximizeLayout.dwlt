@@ -20,10 +20,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 730.8
-  m_MinSize: {x: 679, y: 342}
-  m_MaxSize: {x: 12004, y: 8042}
+  m_MinSize: {x: 678, y: 471}
+  m_MaxSize: {x: 12003, y: 14021}
   vertical: 0
-  controlID: 35440
+  controlID: 36853
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -134,10 +134,10 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 730.8
-  m_MinSize: {x: 679, y: 342}
-  m_MaxSize: {x: 12004, y: 8042}
+  m_MinSize: {x: 678, y: 471}
+  m_MaxSize: {x: 12003, y: 14021}
   vertical: 1
-  controlID: 35441
+  controlID: 36854
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -160,10 +160,10 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 453.6
-  m_MinSize: {x: 679, y: 221}
-  m_MaxSize: {x: 12004, y: 4021}
+  m_MinSize: {x: 678, y: 221}
+  m_MaxSize: {x: 12003, y: 4021}
   vertical: 0
-  controlID: 35442
+  controlID: 36855
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -494,8 +494,8 @@ MonoBehaviour:
     y: 0
     width: 477.59998
     height: 453.6
-  m_MinSize: {x: 276, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -532,7 +532,7 @@ MonoBehaviour:
     m_CachedPref: -160
     m_ControlHash: 1412526313
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -1
+  m_LastInspectedObjectInstanceID: -25832
   m_LastVerticalScrollValue: 0
   m_AssetGUID: 
   m_InstanceID: 0
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -558,15 +558,15 @@ MonoBehaviour:
     y: 453.6
     width: 1536
     height: 277.19998
-  m_MinSize: {x: 100, y: 121}
-  m_MaxSize: {x: 4000, y: 4021}
-  m_ActualView: {fileID: 15}
+  m_MinSize: {x: 230, y: 250}
+  m_MaxSize: {x: 10000, y: 10000}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
   - {fileID: 15}
   - {fileID: 16}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -605,20 +605,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts
     m_Globs: []
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Maggie\Desktop\CAPSTONE\Capstone\Capstone
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f8380000
-    m_LastClickedID: 14584
+    m_SelectedIDs: fc380000
+    m_LastClickedID: 14588
     m_ExpandedIDs: 00000000ea38000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -672,9 +672,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 9c370000
-    m_LastClickedInstanceID: 14236
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 189bffff
+    m_LastClickedInstanceID: -25832
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c623000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -691,7 +691,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 13}
+      m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -755,4 +755,4 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 14210
+  m_LastSelectedObjectID: 14124

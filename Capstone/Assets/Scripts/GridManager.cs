@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    public int[,] Grid;
+    public GameObject[,] Grid;
     int Col = 5, Row = 5;
     int Horizontal = 5, Vertical = 5;
     public GameObject prefab;
@@ -15,23 +15,26 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        Grid = new int[Col, Row];
+        Grid = new GameObject[Col, Row];
         CreateEmptyBoard();
+
+        Debug.Log(Grid[1,1].name);
+        Grid[0, 0].GetComponent<Renderer>().material.color = Color.green;
     }
 
     private void CreateEmptyBoard()
     {
-        for (var i = 0; i < Col; i++)
+        for (var i = 0; i < Row; i++)
         {
-            for (var j = 0; j < Row; j++)
+            for (var j = 0; j < Col; j++)
             {
-                Grid[i, j] = Random.Range(0, 10);
-                GameObject tile = new GameObject("X: " + i + "Y: " + j);
-                child = Instantiate(prefab, new Vector3(i, j, 0), Quaternion.identity);
+                child = Instantiate(prefab, new Vector3(j, Row - i, 0), Quaternion.identity);
+                child.name = ("X: " + i + " Y: " + j);
                 child.transform.parent = parent.transform;
-                tile.transform.position = new Vector3(i - (Horizontal + 1f), j - (Vertical - 1f));
+                Grid[i,j] = child;
             }
         }
+
         parent.transform.position = new Vector3(0f, 0f, 0f);
         parent.transform.localScale = new Vector3(5f, 5f, 1f);
         parent.transform.rotation = Quaternion.Euler(70, 0, 0);

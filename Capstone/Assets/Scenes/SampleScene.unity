@@ -358,10 +358,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5b92185d261004288e19d5d5ae2deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateRight: {fileID: 0}
-  rotateLeft: {fileID: 0}
-  rotateUp: {fileID: 0}
-  rotateDown: {fileID: 0}
+  rotateRight: {fileID: 1070575755}
+  rotateLeft: {fileID: 903822664}
+  rotateUp: {fileID: 903822664}
+  rotateDown: {fileID: 496811441}
 --- !u!1 &335689576
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,10 +572,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5b92185d261004288e19d5d5ae2deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateRight: {fileID: 0}
-  rotateLeft: {fileID: 0}
-  rotateUp: {fileID: 0}
-  rotateDown: {fileID: 0}
+  rotateRight: {fileID: 1070575755}
+  rotateLeft: {fileID: 185621118}
+  rotateUp: {fileID: 903822664}
+  rotateDown: {fileID: 496811441}
 --- !u!114 &496811441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,10 +801,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5b92185d261004288e19d5d5ae2deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateRight: {fileID: 0}
-  rotateLeft: {fileID: 0}
-  rotateUp: {fileID: 0}
-  rotateDown: {fileID: 0}
+  rotateRight: {fileID: 1070575755}
+  rotateLeft: {fileID: 185621118}
+  rotateUp: {fileID: 903822664}
+  rotateDown: {fileID: 496811441}
 --- !u!114 &903822664
 MonoBehaviour:
   m_ObjectHideFlags: 0
