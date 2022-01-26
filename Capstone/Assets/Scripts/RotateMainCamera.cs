@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RotateMainCamera : MonoBehaviour
 {
-	/*public Button rotateRight;
+	public Button rotateRight;
 	public Button rotateLeft;
 	public Button rotateUp;
 	public Button rotateDown;
@@ -28,8 +28,6 @@ public class RotateMainCamera : MonoBehaviour
 	void rotateRightClick()
 	{
 		Debug.Log("You have clicked the right button!");
-
-
 	}
 
 	void rotateLeftClick()
@@ -44,5 +42,5 @@ public class RotateMainCamera : MonoBehaviour
 	void rotateDownClick()
 	{
 		Debug.Log("You have clicked the down button!");
-	}*/
+	}
 }
