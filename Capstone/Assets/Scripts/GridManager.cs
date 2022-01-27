@@ -5,25 +5,26 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    public GameObject[,] Grid;
-    int Col = 5, Row = 5;
-    int Horizontal = 5, Vertical = 5;
-    public GameObject prefab;
-    public GameObject child;
-    public GameObject parent;
+    public static GameObject[,] Grid;
+    static int Col = 5, Row = 5;
+    public static GameObject prefab;
+    public static GameObject child;
+    public static GameObject parent;
 
 
     void Start()
     {
         Grid = new GameObject[Col, Row];
-        CreateEmptyBoard();
+        //CreateEmptyBoard();
 
-        Debug.Log(Grid[1,1].name);
-        Grid[0, 0].GetComponent<Renderer>().material.color = Color.green;
+        //Debug.Log(Grid[1,1].name);
+        //Grid[0, 0].GetComponent<Renderer>().material.color = Color.green;
     }
 
-    private void CreateEmptyBoard()
+    public static void CreateEmptyBoard()
     {
+        Grid = new GameObject[Col, Row];
+
         for (var i = 0; i < Row; i++)
         {
             for (var j = 0; j < Col; j++)

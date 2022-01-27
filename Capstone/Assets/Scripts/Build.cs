@@ -9,6 +9,8 @@ public class Build : MonoBehaviour
     public Rigidbody level2;
     public Rigidbody level3;
 
+    public GameObject[,] BuildingGrid;
+
     private void OnMouseOver()
     {
         // mouse was clicked
@@ -17,6 +19,8 @@ public class Build : MonoBehaviour
             // Instantiate the projectile at the position and rotation of this transform
             Rigidbody clone;
             clone = Instantiate(level1, transform.position, transform.rotation);
+            //GridManager.Grid[0, 0] = 
+            //Debug.Log(GridManager.Grid[0,0]);
         }
     }
 }
