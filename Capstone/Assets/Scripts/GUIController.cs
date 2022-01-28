@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GUIController : MonoBehaviour
 {
+    //CREATE BOARD
+    //PLACE PLAYERS
+    //BUILD
+    //CHANGE SCREENS??
+
 
     // Start is called before the first frame update
     void Start()
