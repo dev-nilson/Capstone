@@ -18,8 +18,8 @@ public class GridManager : MonoBehaviour
         Grid = new GameObject[Col, Row];
         CreateEmptyBoard();
 
-        //Debug.Log(Grid[1,1].name);
-        Grid[0, 0].GetComponent<Renderer>().material.color = Color.green;
+        Debug.Log(Grid[1,1].name);
+        //Grid[0, 0].GetComponent<Renderer>().material.color = Color.green;
     }
 
     void CreateEmptyBoard()
@@ -53,7 +53,9 @@ public class GridManager : MonoBehaviour
         }
         parent.transform.position = new Vector3(0f, 0f, 0f);
         parent.transform.localScale = new Vector3(5f, 5f, 1f);
-        parent.transform.rotation = Quaternion.Euler(70, 0, 0);
+        parent.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+        child = Instantiate(prefab, Grid[0,0].transform.position, Quaternion.identity);
 
         /*Vector3 sumVector = new Vector3(0f, 0f, 0f);
 
@@ -68,6 +70,7 @@ public class GridManager : MonoBehaviour
 
         //parent.transform.RotateAround(groupCenter, parent.transform.V, 90);
     }
+
 
 }
 
