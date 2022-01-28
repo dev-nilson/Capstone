@@ -8,9 +8,9 @@ public class GUIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GridManager gridManager;
+        /*GridManager gridManager;
         gridManager = new GridManager();
-        gridManager.CreateEmptyBoard();
+        gridManager.CreateEmptyBoard();*/
     }
 
     // Update is called once per frame

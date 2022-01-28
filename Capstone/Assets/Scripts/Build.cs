@@ -9,7 +9,7 @@ public class Build : MonoBehaviour
     public Rigidbody level2;
     public Rigidbody level3;
 
-    public GameObject[,] BuildingGrid;
+    //public GameObject[,] BuildingGrid;
 
     private void OnMouseOver()
     {
