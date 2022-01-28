@@ -23,13 +23,15 @@ public class MouseClick : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             clicked = this.gameObject;
-            Debug.Log(clicked);
+            Debug.Log(clicked.name);
+            //Debug.Log(clicked.transform.position.y);
+            //Grid_M.Grid[clicked.transform.position.x, clicked.transform.position.y].GetComponent<Renderer>().material.color = Color.green;
         }
     }
 
     private void Update()
     {
-        OnMouseDown();
+        //OnMouseDown();
     }
 }
 

@@ -33,13 +33,15 @@ public class Build : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             // Instantiate the projectile at the position and rotation of this transform
-            /*Rigidbody clone;
+            Rigidbody clone;
             clone = Instantiate(level1, transform.position, transform.rotation);
             clone.transform.rotation = Quaternion.Euler(180, 0, 0);
-            clone.transform.position = new Vector3(transform.position.x, 15f, transform.position.z);*/
+            clone.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
             //GridManager.Grid[0, 0] = clone;
-            //Debug.Log(GridManager.Grid[0,0]);*/
+            //Debug.Log(GridManager.Grid[0,0]);
 
+
+            /*//LOOP THROUGH EACH TILE
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -47,7 +49,7 @@ public class Build : MonoBehaviour
                     Rigidbody clone;
                     clone = Instantiate(level1, Grid_M.Grid[i, j].transform.position, transform.rotation);
                     clone.transform.rotation = Quaternion.Euler(180, 0, 0);
-                    clone.transform.position = new Vector3(Grid_M.Grid[i, j].transform.position.x, 15f, Grid_M.Grid[i, j].transform.position.z);
+                    clone.transform.position = new Vector3(Grid_M.Grid[i, j].transform.position.x, 1f, Grid_M.Grid[i, j].transform.position.z);
                 }
             }
 
@@ -58,7 +60,7 @@ public class Build : MonoBehaviour
                     Rigidbody clone;
                     clone = Instantiate(level2, Grid_M.Grid[i, j].transform.position, transform.rotation);
                     clone.transform.rotation = Quaternion.Euler(180, 0, 0);
-                    clone.transform.position = new Vector3(Grid_M.Grid[i, j].transform.position.x, 15.5f, Grid_M.Grid[i, j].transform.position.z);
+                    clone.transform.position = new Vector3(Grid_M.Grid[i, j].transform.position.x, 1.5f, Grid_M.Grid[i, j].transform.position.z);
                 }
             }
 
@@ -69,17 +71,10 @@ public class Build : MonoBehaviour
                     Rigidbody clone;
                     clone = Instantiate(level3, Grid_M.Grid[i, j].transform.position, transform.rotation);
                     clone.transform.rotation = Quaternion.Euler(180, 0, 0);
-                    clone.transform.position = new Vector3(Grid_M.Grid[i, j].transform.position.x, 16f, Grid_M.Grid[i, j].transform.position.z);
+                    clone.transform.position = new Vector3(Grid_M.Grid[i, j].transform.position.x, 2f, Grid_M.Grid[i, j].transform.position.z);
                 }
-            }
+            }*/
 
-            /*Rigidbody clone;
-            clone = Instantiate(level1, Grid_M.Grid[0,0].transform.position, transform.rotation);
-            clone.transform.rotation = Quaternion.Euler(180, 0, 0);
-            clone.transform.position = new Vector3(Grid_M.Grid[0, 0].transform.position.x, 15f, Grid_M.Grid[0, 0].transform.position.z);*/
-            //Grid[i, j] = child;
-
-            //Debug.Log(Input.mousePosition);
         }
 
         //Instantiate(level1, gridManager.Grid[0, 0].transform.position, transform.rotation);
