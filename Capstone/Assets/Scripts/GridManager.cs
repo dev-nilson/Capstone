@@ -19,7 +19,7 @@ public class GridManager : MonoBehaviour
         CreateEmptyBoard();
 
         //Debug.Log(Grid[1,1].name);
-        //Grid[0, 0].GetComponent<Renderer>().material.color = Color.green;
+        Grid[0, 0].GetComponent<Renderer>().material.color = Color.green;
     }
 
     void CreateEmptyBoard()
@@ -45,6 +45,7 @@ public class GridManager : MonoBehaviour
         {
             for (var j = 0; j < Col; j++)
             {
+
                 child = Instantiate(prefab, new Vector3(j, Row - i, 0), Quaternion.identity);
                 child.name = ("X: " + i + " Y: " + j);
                 child.transform.parent = parent.transform;

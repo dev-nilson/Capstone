@@ -41,6 +41,7 @@ public class Build : MonoBehaviour
             //Debug.Log(GridManager.Grid[0,0]);
 
 
+
             /*//LOOP THROUGH EACH TILE
             for (int i = 0; i < 5; i++)
             {

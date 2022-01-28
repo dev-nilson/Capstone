@@ -18,7 +18,7 @@ public class MouseClick : MonoBehaviour
         //Debug.Log(Grid_M.Grid[0, 1].name);
     }
 
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
         if (Input.GetMouseButtonDown(0))
         {

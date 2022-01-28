@@ -21,6 +21,7 @@ public class Hover : MonoBehaviour
     void OnMouseOver()
     {
         Renderer.material.color = MouseOverColor;
+        //Debug.Log(Renderer);
     }
 
     void OnMouseExit()
