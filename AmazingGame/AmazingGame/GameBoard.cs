@@ -88,14 +88,17 @@ namespace AmazingGame
             public static bool operator !=(Coordinates loc1, Coordinates loc2) => !(loc1 == loc2);
         }
         
-        // Constructor that initializes game board with heights of 0
+
+        // Constructor that creates a game board object and initializes game board with heights of 0
         public GameBoard()
         {
             InitializeBoard();
         }
 
+        // Iinitializes game board with heights of 0
         public void InitializeBoard(bool resize=true)
         {
+            // "heights" represents the board - each index holds the height value (0,1,2,3) of the corresponding board tile
             if (resize) heights = new int[BOARD_DIMENSION, BOARD_DIMENSION];
 
             for (int x = 0; x < 5; ++x)
@@ -107,6 +110,7 @@ namespace AmazingGame
             }
         }
 
+        // Returns whether a coordinate exists within the bounds of the board
         bool IsInBounds(Coordinates loc)
         {
             if (loc.X < 0 || loc.X >= BOARD_DIMENSION)
@@ -123,7 +127,7 @@ namespace AmazingGame
             }
         }
 
-        // Returns whether a pawn exists in the board coordinate
+        // Returns whether a pawn exists on the board coordinate
         bool IsOccupied(Coordinates loc)
         {
             // Get a list of pawns (four total between both players)
@@ -138,6 +142,7 @@ namespace AmazingGame
             }
         }
 
+        // Puts a starting pawn down on the board. Returns false if the location selected for the pawn is either out of bounds or is already occupied
         public bool PlacePawn(Player player, Coordinates loc)
         {
             //if space is in bounds and unoccupied
@@ -158,13 +163,36 @@ namespace AmazingGame
             }
         }
 
-        bool MovePawn(Player player, Coordinates curLoc, Coordinates newLoc)
+        // Returns list of available moves for a pawn
+        public List<Coordinates> AvailableMoves(Coordinates pawnLoc)
+        {
+            // Declare list to hold available moves
+            List<Coordinates> availableMoves = new List<Coordinates>();
+            // Loop through surrounding tiles (<= 8)
+            for (int i = pawnLoc.X - 1; i <= pawnLoc.X + 1; ++i)
+            {
+                for (int j = pawnLoc.Y - 1; i <= pawnLoc.Y + 1; ++j)
+                {
+                    Coordinates newLoc = new Coordinates(i, j);
+
+                    // If newLoc is not the pawn's current location and the move is either valid or a winning move
+                    if ((newLoc != pawnLoc) && ValidateMove(pawnLoc, newLoc) != MoveType.INVALID)
+                    {
+                        availableMoves.Add(newLoc);
+                    }
+                }
+            }
+            return availableMoves;
+        }
+
+        // Moves a player's pawn from one coordinate to another coordinate. Returns false if the move is invalid
+        int MovePawn(Player player, Coordinates curLoc, Coordinates newLoc)
         {
             //call validateMove inside here ?? if so, have a return false
             MoveType move = ValidateMove(curLoc, newLoc);
-            if (move == MoveType.INVALID || move == MoveType.WINNING)
+            if (move == MoveType.INVALID)
             {
-                return false;
+                return (int)move;
             }
             else // the move is valid
             {
@@ -172,18 +200,40 @@ namespace AmazingGame
                 {
                     if (player.updatePawn(curLoc, newLoc)) //update pawn location
                     {
-                        return true;
+                        return (int)move;
                     }
                     else
                     {
-                        return false;
+                        return (int)MoveType.INVALID;
                     }
                 }
                 else //not my turn
                 {
-                    return false;
+                    return (int)MoveType.INVALID;
                 }
             }
+        }
+
+        // Return list of available builds for a pawn
+        List<Coordinates> AvailableBuilds(Coordinates pawnLoc)
+        {
+            // Declare list to hold available builds
+            List<Coordinates> availableBuilds = new List<Coordinates>();
+            // Loop through surrounding tiles (<= 8)
+            for (int i = pawnLoc.X - 1; i <= pawnLoc.X + 1; ++i)
+            {
+                for (int j = pawnLoc.Y - 1; i <= pawnLoc.Y + 1; ++j)
+                {
+                    Coordinates newLoc = new Coordinates(i, j);
+
+                    // If newLoc is not the pawn's current location and the build is valid
+                    if ((newLoc != pawnLoc) && ValidateBuild(pawnLoc, newLoc))
+                    {
+                        availableBuilds.Add(newLoc);
+                    }
+                }
+            }
+            return availableBuilds;
         }
 
         bool BuildPiece(Coordinates curLoc, Coordinates newLoc)

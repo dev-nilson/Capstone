@@ -35,42 +35,74 @@ namespace AmazingGame
 
             //initialize game board
             GameBoard board = new GameBoard();
-
+            bool success = true;
+            int x, y;
+            GameBoard.Coordinates loc = new GameBoard.Coordinates();
             //starting player and secondary player place pawns
 
             //P1 place starting pawns
-            Console.WriteLine("\nP1's move? Enter X and Y (1-5)");
-            int x = Convert.ToInt32(Console.ReadLine());
-            int y = Convert.ToInt32(Console.ReadLine());
-            GameBoard.Coordinates loc = new GameBoard.Coordinates(x - 1, y - 1);
-            if (!board.PlacePawn(P1, loc)) Console.WriteLine("Error placing P1's pawn");
-            else DisplayPawns(P1,P2);
+            do
+            {
+                Console.WriteLine("\nP1's move? Enter X and Y (0-4)");
+                x = Convert.ToInt32(Console.ReadLine());
+                y = Convert.ToInt32(Console.ReadLine());
+                loc = new GameBoard.Coordinates(x, y);
+
+                success = board.PlacePawn(P1, loc);
+                if (!success) Console.WriteLine("Error placing P1's pawn");
+            } while (!success);
+            DisplayPawns(P1,P2);
             P1.changeTurn(); P2.changeTurn();
 
             //P2 place starting pawns
-            Console.WriteLine("\nP2's move? Enter X and Y (1-5)");
-            x = Convert.ToInt32(Console.ReadLine());
-            y = Convert.ToInt32(Console.ReadLine());
-            loc = new GameBoard.Coordinates(x - 1, y - 1);
-            if (!board.PlacePawn(P2, loc)) Console.WriteLine("Error placing P2's pawn");
-            else DisplayPawns(P1,P2);
+            do
+            {
+                Console.WriteLine("\nP2's move? Enter X and Y (0-4)");
+                x = Convert.ToInt32(Console.ReadLine());
+                y = Convert.ToInt32(Console.ReadLine());
+                loc = new GameBoard.Coordinates(x, y);
+
+                success = board.PlacePawn(P2, loc);
+                if (!success) Console.WriteLine("Error placing P2's pawn");
+            } while (!success); 
+            DisplayPawns(P1,P2);
 
             //P2 place starting pawns
-            Console.WriteLine("\nP2's move? Enter X and Y (1-5)");
-            x = Convert.ToInt32(Console.ReadLine());
-            y = Convert.ToInt32(Console.ReadLine());
-            loc = new GameBoard.Coordinates(x - 1, y - 1);
-            if (!board.PlacePawn(P2, loc)) Console.WriteLine("Error placing P2's pawn");
-            else DisplayPawns(P1,P2);
+            do
+            {
+                Console.WriteLine("\nP2's move? Enter X and Y (0-4)");
+                x = Convert.ToInt32(Console.ReadLine());
+                y = Convert.ToInt32(Console.ReadLine());
+                loc = new GameBoard.Coordinates(x, y);
+
+                success = board.PlacePawn(P2, loc);
+                if (!success) Console.WriteLine("Error placing P2's pawn");
+            } while (!success);
+            DisplayPawns(P1,P2);
             P1.changeTurn(); P2.changeTurn();
 
             //P1 place starting pawns
-            Console.WriteLine("\nP1's move? Enter X and Y (1-5)");
+            do
+            {
+                Console.WriteLine("\nP1's move? Enter X and Y (0-4)");
+                x = Convert.ToInt32(Console.ReadLine());
+                y = Convert.ToInt32(Console.ReadLine());
+                loc = new GameBoard.Coordinates(x, y);
+
+                success = board.PlacePawn(P1, loc);
+                if (!success) Console.WriteLine("Error placing P1's pawn");
+            } while (!success);
+            DisplayPawns(P1,P2);
+
+            //Time for P1's first move
+            Console.WriteLine("\nTime for P1's first move! Enter X and Y (0-4)");
+            GameBoard.Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
+            Console.WriteLine("Which pawn would you like to move? " + pawnLocs[0].X + "," + pawnLocs[0].Y + " or " + pawnLocs[1].X + "," + pawnLocs[1].Y + "?");
             x = Convert.ToInt32(Console.ReadLine());
             y = Convert.ToInt32(Console.ReadLine());
-            loc = new GameBoard.Coordinates(x - 1, y - 1);
-            if (!board.PlacePawn(P1, loc)) Console.WriteLine("Error placing P1's pawn");
-            else DisplayPawns(P1,P2);
+
+            List<GameBoard.Coordinates> moves = board.AvailableMoves(new GameBoard.Coordinates(x, y));
+            Console.WriteLine("\nWhere would you like to move it to?" + )
 
 
             /*
@@ -131,6 +163,11 @@ namespace AmazingGame
                 Console.Write("\n");
             }
         }
+
+        /*static void DisplayPawns(Player P1, Player P2, List<GameBoard.Coordinates>)
+        {
+
+        }*/
 
         /*void DisplayHeights()
         {
