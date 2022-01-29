@@ -37,6 +37,8 @@ public class Build : MonoBehaviour
             clone = Instantiate(level1, transform.position, transform.rotation);
             clone.transform.rotation = Quaternion.Euler(180, 0, 0);
             clone.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
+
+            Debug.Log(transform.position);
             //GridManager.Grid[0, 0] = clone;
             //Debug.Log(GridManager.Grid[0,0]);
 

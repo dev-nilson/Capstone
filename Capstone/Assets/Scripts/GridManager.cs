@@ -11,10 +11,6 @@ public class GridManager : MonoBehaviour
     public GameObject parent;
     GameObject child;
 
-    void Start()
-    {
-    }
-
     public void CreateEmptyBoard()
     {
         Grid = new GameObject[Col, Row];
@@ -27,6 +23,7 @@ public class GridManager : MonoBehaviour
                 child = Instantiate(prefab, new Vector3(j, Row - i, 0), Quaternion.identity);
                 child.name = ("X: " + i + " Y: " + j);
                 child.transform.parent = parent.transform;
+                //Debug.Log(child.transform.position);
                 Grid[i, j] = child;
             }
         }

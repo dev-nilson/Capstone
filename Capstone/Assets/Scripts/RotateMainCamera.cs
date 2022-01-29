@@ -21,30 +21,7 @@ public class RotateMainCamera : MonoBehaviour
 
 		gridManager = GameObject.Find("GridManager");
 		Grid_M = gridManager.GetComponent<GridManager>();
-
-		//findCenterOfParent();
 	}
-
-	/*void findCenterOfParent()
-    {
-		var totalX = 0f;
-		var totalY = 0f;
-
-		for (int i = 0; i < 5; i++)
-		{
-			for (int j = 0; j < 5; j++)
-			{
-				totalX += Grid_M.Grid[i, j].transform.position.x;
-				totalY += Grid_M.Grid[i, j].transform.position.y;
-
-				Debug.Log(totalX);
-				Debug.Log(totalY);
-			}
-		}
-
-		Debug.Log(totalX);
-		Debug.Log(totalY);
-	}*/
 
 	void rotateRightClick()
 	{
