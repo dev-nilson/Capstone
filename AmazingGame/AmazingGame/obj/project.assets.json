@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Team06\\.nuget\\packages\\": {}
+    "C:\\Users\\laura\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Team06\\Desktop\\Capstone\\AmazingGame\\AmazingGame\\AmazingGame.csproj",
+      "projectUniqueName": "C:\\Users\\laura\\Documents\\GitHub\\Capstone\\AmazingGame\\AmazingGame\\AmazingGame.csproj",
       "projectName": "AmazingGame",
-      "projectPath": "C:\\Users\\Team06\\Desktop\\Capstone\\AmazingGame\\AmazingGame\\AmazingGame.csproj",
-      "packagesPath": "C:\\Users\\Team06\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Team06\\Desktop\\Capstone\\AmazingGame\\AmazingGame\\obj\\",
+      "projectPath": "C:\\Users\\laura\\Documents\\GitHub\\Capstone\\AmazingGame\\AmazingGame\\AmazingGame.csproj",
+      "packagesPath": "C:\\Users\\laura\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\laura\\Documents\\GitHub\\Capstone\\AmazingGame\\AmazingGame\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Team06\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\laura\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -32,6 +32,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -43,6 +44,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "imports": [
           "net461",
           "net462",
@@ -58,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

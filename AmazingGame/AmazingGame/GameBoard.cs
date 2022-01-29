@@ -32,7 +32,7 @@ namespace AmazingGame
     {
         const int BOARD_DIMENSION = 5;
         
-        int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
+        public int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
 
         enum MoveType
         {
@@ -171,7 +171,7 @@ namespace AmazingGame
             // Loop through surrounding tiles (<= 8)
             for (int i = pawnLoc.X - 1; i <= pawnLoc.X + 1; ++i)
             {
-                for (int j = pawnLoc.Y - 1; i <= pawnLoc.Y + 1; ++j)
+                for (int j = pawnLoc.Y - 1; j <= pawnLoc.Y + 1; ++j)
                 {
                     Coordinates newLoc = new Coordinates(i, j);
 
@@ -186,7 +186,7 @@ namespace AmazingGame
         }
 
         // Moves a player's pawn from one coordinate to another coordinate. Returns false if the move is invalid
-        int MovePawn(Player player, Coordinates curLoc, Coordinates newLoc)
+        public int MovePawn(Player player, Coordinates curLoc, Coordinates newLoc)
         {
             //call validateMove inside here ?? if so, have a return false
             MoveType move = ValidateMove(curLoc, newLoc);
@@ -215,14 +215,14 @@ namespace AmazingGame
         }
 
         // Return list of available builds for a pawn
-        List<Coordinates> AvailableBuilds(Coordinates pawnLoc)
+        public List<Coordinates> AvailableBuilds(Coordinates pawnLoc)
         {
             // Declare list to hold available builds
             List<Coordinates> availableBuilds = new List<Coordinates>();
             // Loop through surrounding tiles (<= 8)
             for (int i = pawnLoc.X - 1; i <= pawnLoc.X + 1; ++i)
             {
-                for (int j = pawnLoc.Y - 1; i <= pawnLoc.Y + 1; ++j)
+                for (int j = pawnLoc.Y - 1; j <= pawnLoc.Y + 1; ++j)
                 {
                     Coordinates newLoc = new Coordinates(i, j);
 
@@ -236,7 +236,7 @@ namespace AmazingGame
             return availableBuilds;
         }
 
-        bool BuildPiece(Coordinates curLoc, Coordinates newLoc)
+        public bool BuildPiece(Coordinates curLoc, Coordinates newLoc)
         {
             if (ValidateBuild(curLoc, newLoc))
             {

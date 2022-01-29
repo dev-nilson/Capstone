@@ -9,3 +9,16 @@ C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1
 C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.AssemblyInfo.cs
 C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.dll
 C:\Users\Team06\Desktop\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.pdb
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.csprojAssemblyReference.cache
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.AssemblyInfoInputs.cache
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.AssemblyInfo.cs
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.csproj.CoreCompileInputs.cache
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.dll
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.exe
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.deps.json
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.runtimeconfig.json
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.runtimeconfig.dev.json
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.dll
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.pdb
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.pdb
+C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.genruntimeconfig.cache

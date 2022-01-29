@@ -94,16 +94,57 @@ namespace AmazingGame
             } while (!success);
             DisplayPawns(P1,P2);
 
+            //**************************
+            int newx, newy, status;
+            //**************************
+
             //Time for P1's first move
-            Console.WriteLine("\nTime for P1's first move! Enter X and Y (0-4)");
+            Console.WriteLine("\nTime for P1's move! Enter X and Y (0-4)");
             GameBoard.Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
-            Console.WriteLine("Which pawn would you like to move? " + pawnLocs[0].X + "," + pawnLocs[0].Y + " or " + pawnLocs[1].X + "," + pawnLocs[1].Y + "?");
-            x = Convert.ToInt32(Console.ReadLine());
-            y = Convert.ToInt32(Console.ReadLine());
+            do
+            {
+                Console.WriteLine("Which pawn would you like to move? " + pawnLocs[0].X + "," + pawnLocs[0].Y + " or " + pawnLocs[1].X + "," + pawnLocs[1].Y + "?");
+                x = Convert.ToInt32(Console.ReadLine());
+                y = Convert.ToInt32(Console.ReadLine());
 
-            List<GameBoard.Coordinates> moves = board.AvailableMoves(new GameBoard.Coordinates(x, y));
-            Console.WriteLine("\nWhere would you like to move it to?" + )
+                List<GameBoard.Coordinates> moves = board.AvailableMoves(new GameBoard.Coordinates(x, y));
+                Console.Write("\nWhere would you like to move it to?");
+                for (int i = 0; i < moves.Count; ++i)
+                {
+                    Console.Write("  " + moves[i].X + "," + moves[i].Y);
+                } Console.WriteLine();
+                newx = Convert.ToInt32(Console.ReadLine());
+                newy = Convert.ToInt32(Console.ReadLine());
+                status = board.MovePawn(P1, new GameBoard.Coordinates(x, y), new GameBoard.Coordinates(newx, newy));
+                if (status == 0) Console.WriteLine("Error moving P1's pawn");
+                else if (status == 2) Console.WriteLine("You won!");
+            } while (status == 0);
+            DisplayPawns(P1, P2);
+            DisplayHeights(board);
 
+            //P1's first build
+            Console.WriteLine("P1's first build! Enter X and Y (0-4)");
+            pawnLocs = P1.GetPlayerCoordinates();
+            do
+            {
+                Console.WriteLine("Which pawn would you like to build from?  " + pawnLocs[0].X + "," + pawnLocs[0].Y + " or " + pawnLocs[1].X + "," + pawnLocs[1].Y + "?");
+                x = Convert.ToInt32(Console.ReadLine());
+                y = Convert.ToInt32(Console.ReadLine());
+
+                List<GameBoard.Coordinates> builds = board.AvailableBuilds(new GameBoard.Coordinates(x, y));
+                Console.Write("\nWhere would you like to build?");
+                for (int i = 0; i < builds.Count; ++i)
+                {
+                    Console.Write("  " + builds[i].X + "," + builds[i].Y);
+                }
+                Console.WriteLine();
+                newx = Convert.ToInt32(Console.ReadLine());
+                newy = Convert.ToInt32(Console.ReadLine());
+                success = board.BuildPiece(new GameBoard.Coordinates(x, y), new GameBoard.Coordinates(newx, newy));
+                if (!success) Console.WriteLine("Error building piece");
+            } while (!success);
+            DisplayPawns(P1, P2);
+            DisplayHeights(board);
 
             /*
             //get curLoc and newLoc
@@ -144,7 +185,7 @@ namespace AmazingGame
             GameBoard.Coordinates[] P1pawns = P1.GetPlayerCoordinates();
             GameBoard.Coordinates[] P2pawns = P2.GetPlayerCoordinates();
             
-            Console.WriteLine();
+            Console.WriteLine("\n-PAWNS-");
             for (int i = 0; i < 5; ++i)
             {
                 for (int j = 0; j < 5; ++j)
@@ -169,9 +210,16 @@ namespace AmazingGame
 
         }*/
 
-        /*void DisplayHeights()
+        static void DisplayHeights(GameBoard board)
         {
-
-        }*/
+            Console.WriteLine("\n-HEIGHTS-");
+            for (int i = 0; i < 5; ++i)
+            {
+                for (int j = 0; j < 5; ++j)
+                {
+                    Console.Write(board.heights[i,j]);
+                } Console.WriteLine();
+            }
+        }
     }
 }
