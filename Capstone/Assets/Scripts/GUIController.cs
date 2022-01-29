@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class GUIController : MonoBehaviour
 {
-    //CREATE BOARD
     //PLACE PLAYERS
     //BUILD
     //CHANGE SCREENS??
 
+    GridManager gridManager;
+
+    public GameObject[,] Grid;
+    public GameObject prefab;
+    public GameObject parent;
+    public GameObject board;
+
+    GameObject child;
+
+    int Col = 5, Row = 5;
+
+    void Awake()
+    {
+        gridManager = board.GetComponent<GridManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        /*GridManager gridManager;
-        gridManager = new GridManager();
-        gridManager.CreateEmptyBoard();*/
+        //CREATE BOARD
+        gridManager.CreateEmptyBoard();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

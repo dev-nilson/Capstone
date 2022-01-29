@@ -27,7 +27,7 @@ public class PlacePlayer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(player1, transform.position, transform.rotation);
+            placePlayerOne();
         }
     }
 
