@@ -11,6 +11,7 @@ public class RotateMainCamera : MonoBehaviour
 	public Button rotateRight;
 	public Button rotateLeft;
 
+	//lol
 	void Start()
 	{
 		Button right = rotateRight.GetComponent<Button>();
