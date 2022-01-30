@@ -544,6 +544,8 @@ MonoBehaviour:
   prefab: {fileID: 5638226049318727965, guid: edcae60f68456c84dac84600f28a5a5e, type: 3}
   parent: {fileID: 960253812}
   board: {fileID: 960253812}
+  player: {fileID: 960253812}
+  player1: {fileID: 7846403189435030061, guid: 19a1244204b05164ea52aa688e47c0a2, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
