@@ -95,7 +95,8 @@ namespace AmazingGame
             DisplayPawns(P1,P2);
 
             //**************************
-            int newx, newy, status;
+            int newx, newy;
+            GameBoard.MoveType status;
             //**************************
 
             //Time for P1's first move
@@ -108,6 +109,10 @@ namespace AmazingGame
                 y = Convert.ToInt32(Console.ReadLine());
 
                 List<GameBoard.Coordinates> moves = board.AvailableMoves(new GameBoard.Coordinates(x, y));
+                if (moves.Count == 0)
+                {
+                    Console.WriteLine("You have no available moves for this pawn");
+                } // WHAT ABOUT OTHER PAWN??????????????????????
                 Console.Write("\nWhere would you like to move it to?");
                 for (int i = 0; i < moves.Count; ++i)
                 {
@@ -116,9 +121,9 @@ namespace AmazingGame
                 newx = Convert.ToInt32(Console.ReadLine());
                 newy = Convert.ToInt32(Console.ReadLine());
                 status = board.MovePawn(P1, new GameBoard.Coordinates(x, y), new GameBoard.Coordinates(newx, newy));
-                if (status == 0) Console.WriteLine("Error moving P1's pawn");
-                else if (status == 2) Console.WriteLine("You won!");
-            } while (status == 0);
+                if (status == GameBoard.MoveType.INVALID) Console.WriteLine("Error moving P1's pawn");
+                else if (status == GameBoard.MoveType.WINNING) Console.WriteLine("You won!");
+            } while (status == GameBoard.MoveType.INVALID);
             DisplayPawns(P1, P2);
             DisplayHeights(board);
 
