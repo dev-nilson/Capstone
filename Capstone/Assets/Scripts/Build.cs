@@ -13,15 +13,15 @@ public class Build : MonoBehaviour
     private GameObject child;
     private GameObject parent;
 
-    GameObject gridManager;
-    GridManager Grid_M;
+    GameObject boardController;
+    GridManager Board;
 
     //public GameObject[,] BuildingGrid;
 
     private void Start()
     {
-        gridManager = GameObject.Find("GridManager");
-        Grid_M = gridManager.GetComponent<GridManager>();
+        boardController = GameObject.Find("GridManager");
+        Board = boardController.GetComponent<GridManager>();
 
         //Debug.Log(Grid_M.Grid[0, 0].name);
     }

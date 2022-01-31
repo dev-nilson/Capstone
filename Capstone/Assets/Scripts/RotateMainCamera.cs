@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class RotateMainCamera : MonoBehaviour
 {
-	GameObject gridManager;
-	GridManager Grid_M;
+	GameObject boardController;
+	GridManager Board;
 
 	public Button rotateRight;
 	public Button rotateLeft;
@@ -20,15 +20,15 @@ public class RotateMainCamera : MonoBehaviour
 		Button left = rotateLeft.GetComponent<Button>();
 		left.onClick.AddListener(rotateLeftClick);
 
-		gridManager = GameObject.Find("GridManager");
-		Grid_M = gridManager.GetComponent<GridManager>();
+		boardController = GameObject.Find("GridManager");
+		Board = boardController.GetComponent<GridManager>();
 	}
 
 	void rotateRightClick()
 	{
 		Debug.Log("You have clicked the right button!");
 		//Grid_M.transform.position = new Vector3(100f, 0f, 0f);
-		Grid_M.transform.rotation = Quaternion.Euler(90, 90, 0);
+		Board.transform.rotation = Quaternion.Euler(90, 90, 0);
 
 	}
 

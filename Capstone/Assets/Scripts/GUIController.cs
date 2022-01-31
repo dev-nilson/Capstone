@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GUIController : MonoBehaviour
 {
-    GridManager gridManager;
-    GridManager Grid_M;
+    GridManager boardController;
+    GridManager Board;
 
     ClickPositionManager clickPositionManager;
     PlayerController playerController;
@@ -24,8 +24,8 @@ public class GUIController : MonoBehaviour
 
     void Awake()
     {
-        gridManager = board.GetComponent<GridManager>();
-        Grid_M = gridManager.GetComponent<GridManager>();
+        boardController = board.GetComponent<GridManager>();
+        Board = boardController.GetComponent<GridManager>();
         //clickPositionManager = player.GetComponent<ClickPositionManager>();
         playerController = player.GetComponent<PlayerController>();
 
@@ -35,9 +35,17 @@ public class GUIController : MonoBehaviour
     void Start()
     {
         //CREATE EMPTY BOARD
-        gridManager.CreateEmptyBoard();
+        boardController.CreateEmptyBoard();
+
+        //PLACE PLAYERS
         playerController.placePlayer(1,1);
         playerController.placePlayer(1,2);
+
+        //MOVE PLAYERS
+        //playerController.movePlayer(1, 1, 1, 3);
+
+        //BUILD AT A SPECIFIC LOCATION
+
 
 
     }
