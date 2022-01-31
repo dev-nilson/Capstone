@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class ClickPositionManager : MonoBehaviour
 {
-
-    void Update()
-    {
-        
-    }
-
     void GetClickPostion()
     {
         if (Input.GetMouseButtonDown(0))

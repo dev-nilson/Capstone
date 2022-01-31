@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class GUIController : MonoBehaviour
 {
-    //PLACE PLAYERS
-    //BUILD
-    //CHANGE SCREENS??
-
     GridManager gridManager;
-    ClickPositionManager clickPositionManager;
+    GridManager Grid_M;
 
+    ClickPositionManager clickPositionManager;
+    PlayerController playerController;
 
     public GameObject[,] Grid;
     public GameObject prefab;
@@ -22,23 +20,26 @@ public class GUIController : MonoBehaviour
 
     GameObject child;
 
-
     int Col = 5, Row = 5;
 
     void Awake()
     {
         gridManager = board.GetComponent<GridManager>();
-        clickPositionManager = player.GetComponent<ClickPositionManager>();
+        Grid_M = gridManager.GetComponent<GridManager>();
+        //clickPositionManager = player.GetComponent<ClickPositionManager>();
+        playerController = player.GetComponent<PlayerController>();
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //CREATE BOARD
+        //CREATE EMPTY BOARD
         gridManager.CreateEmptyBoard();
+        playerController.placePlayer(1,1);
+        playerController.placePlayer(1,2);
 
-        player = Instantiate(player1, clickPositionManager.transform.position, clickPositionManager.transform.rotation);
+
     }
 
     // Update is called once per frame
