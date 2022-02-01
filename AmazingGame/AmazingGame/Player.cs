@@ -86,6 +86,22 @@ namespace AmazingGame
             }
         }
 
+        // Returns whether a player has any available moves (Used to determine whether a player loses)
+        public bool HasNoMoves(GameBoard board)
+        {
+            GameBoard.Coordinates[] pawnLocs = GetPlayerCoordinates();
+            for (int i = 0; i < pawnLocs.Length; ++i)
+            {
+                GameBoard.Coordinates pawnLoc = pawnLocs[i];
+                List<GameBoard.Coordinates> moves = board.AvailableMoves(pawnLoc);
+
+                // If one of the pawns is able to make a move, return false
+                if (moves.Count > 0) return false;
+            }
+            // If no moves exist, return true
+            return true;
+        }
+
         public bool isMyTurn()
         {
             return this.myTurn;

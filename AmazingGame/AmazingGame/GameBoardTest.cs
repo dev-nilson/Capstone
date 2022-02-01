@@ -103,12 +103,19 @@ namespace AmazingGame
             GameBoard.Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
             do
             {
+                if (P1.HasNoMoves(board))
+                {
+                    Console.WriteLine("P1 loses because there are no available moves :(");
+                    break;
+                }
+
                 Console.WriteLine("Which pawn would you like to move? " + pawnLocs[0].X + "," + pawnLocs[0].Y + " or " + pawnLocs[1].X + "," + pawnLocs[1].Y + "?");
                 x = Convert.ToInt32(Console.ReadLine());
                 y = Convert.ToInt32(Console.ReadLine());
 
                 List<GameBoard.Coordinates> moves = board.AvailableMoves(new GameBoard.Coordinates(x, y));
                 Console.Write("\nWhere would you like to move it to?");
+                
                 for (int i = 0; i < moves.Count; ++i)
                 {
                     Console.Write("  " + moves[i].X + "," + moves[i].Y);
