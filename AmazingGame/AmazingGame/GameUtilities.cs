@@ -12,9 +12,12 @@ using System.Text;
 
 namespace AmazingGame
 {
-    public class GameUtilities //public  ??
+    public static class GameUtilities //public  ??
     {
-        private GameType gameType;
+        //////////////////////////////////////
+        // Variable & Types
+        //////////////////////////////////////
+        private static GameType gameType;
 
         public enum GameType
         {
@@ -23,32 +26,51 @@ namespace AmazingGame
             NETWORK
         }
 
-        public Player.Tag RandomStartingPlayer()
+        private static PlayerTurn playerTurn;
+
+        public enum PlayerTurn
         {
-            int num = new Random().Next(1, 3); // Generates a number [1,3)  or 1 <= num < 3
-            return (Player.Tag)num; // Return the number 1 or 2 but casted as a Player
+            ONE = 1,
+            TWO = 2
         }
 
-        /*void swapPlayerTurn()
-        {
-            if (playerTurn == Player.ONE)
-            {
-                playerTurn = Player.TWO;
-            }
-            else
-            {
-                playerTurn = Player.ONE;
-            }
-        }*/
-
-        void setGameType(GameType type)
+        //////////////////////////////////////
+        // Game type functionalities
+        //////////////////////////////////////
+        public static void setGameType(GameType type)
         {
             gameType = type;
         }
 
-        GameType getGameType()
+        public static GameType getGameType()
         {
             return gameType;
+        }
+
+        //////////////////////////////////////
+        // Player turn functionalities
+        //////////////////////////////////////
+        public static void SetPlayerTurn(PlayerTurn turn)
+        {
+            playerTurn = turn;
+        }
+
+        public static PlayerTurn GetPlayerTurn()
+        {
+            return playerTurn;
+        }
+
+        public static PlayerTurn RandomStartingPlayer()
+        {
+            int num = new Random().Next(1, 3); // Generates a number [1,3)  or 1 <= num < 3
+            playerTurn = (PlayerTurn)num; //Return the number 1 or 2 but casted as a Player
+            return playerTurn;
+        }
+
+        public static void SwapPlayerTurn()
+        {
+            if (playerTurn == PlayerTurn.ONE) playerTurn = PlayerTurn.TWO;
+            else playerTurn = PlayerTurn.ONE;
         }
     }
 }
