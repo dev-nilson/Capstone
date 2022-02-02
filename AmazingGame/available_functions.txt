@@ -1,0 +1,29 @@
+GAMEBOARD.CS
+
+ bool IsInBounds(Coordinates loc)
+
+ bool IsOccupied(Coordinates loc)
+
+ public bool PlacePawn(Player player, Coordinates loc)
+
+ bool MovePawn(Player player, Coordinates curLoc, Coordinates newLoc)
+  * returns false if invalid move or if move failed
+  * using:  MoveType ValidateMove(Coordinates curLoc, Coordinates newLoc)
+
+ bool BuildPiece(Coordinates curLoc, Coordinates newLoc)
+  * returns false if invalid build or if build failed
+  * using:  bool ValidateBuild(Coordinates curLoc, Coordinates newLoc)
+
+
+ TO ADD?
+  * get list of valid moves for a pawn
+  * get list of valid builds for a pawn
+
+
+PLAYER.CS
+
+ public static GameBoard.Coordinates[] GetBothPlayersPawns()
+  * Returns an array containing the coordinates of all four pawns on the board
+
+ GameBoard.Coordinates[] GetPlayerCoordinates()
+  * Returns an array containing the two pawn coordinates for a player
