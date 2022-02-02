@@ -12,9 +12,9 @@ using System.Text;
 
 namespace AmazingGame
 {
-    public class GameUtilities //public  ??
+    public static class GameUtilities //public  ??
     {
-        private GameType gameType;
+        private static GameType gameType;
 
         public enum GameType
         {
@@ -23,7 +23,7 @@ namespace AmazingGame
             NETWORK
         }
 
-        public Player.Tag RandomStartingPlayer()
+        public static Player.Tag RandomStartingPlayer()
         {
             int num = new Random().Next(1, 3); // Generates a number [1,3)  or 1 <= num < 3
             return (Player.Tag)num; // Return the number 1 or 2 but casted as a Player
@@ -41,12 +41,12 @@ namespace AmazingGame
             }
         }*/
 
-        void setGameType(GameType type)
+        public static void setGameType(GameType type)
         {
             gameType = type;
         }
 
-        GameType getGameType()
+        public static GameType getGameType()
         {
             return gameType;
         }

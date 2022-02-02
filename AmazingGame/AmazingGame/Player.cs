@@ -111,5 +111,10 @@ namespace AmazingGame
         {
             this.myTurn = !this.myTurn;
         }
+
+        public Tag Type()
+        {
+            return this.player;
+        }
     }
 }

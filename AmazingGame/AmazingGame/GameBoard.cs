@@ -58,16 +58,6 @@ namespace AmazingGame
                 Y = -1;
             }
 
-            /*public bool Contains<Coordinates>(Coordinates loc)
-            {
-                GameBoard.Coordinates[] allPawns = Player.GetBothPlayersPawns();
-                for (int i = 0; i < allPawns.Length; ++i)
-                {
-                    if (loc == allPawns[i]) return true;
-                }
-                return false;
-            }*/
-
             public override bool Equals(object loc)
             {
                 return Equals(loc as Coordinates);
