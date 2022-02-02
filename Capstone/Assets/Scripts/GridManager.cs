@@ -21,12 +21,18 @@ public class GridManager : MonoBehaviour
         {
             for (var j = 0; j < Col; j++)
             {
-
+                // IF THE HEIGHT IS 0 THEN I WILL JUST CREATE THE TILE
                 child = Instantiate(prefab, new Vector3(j, Row - i, 0), Quaternion.identity);
                 child.name = ("X: " + i + " Y: " + j);
                 child.transform.parent = parent.transform;
                 //Debug.Log(child.transform.position);
                 Grid[i, j] = child;
+
+                //IF HEIGHT IS 1 THEN BUILD TILE PLUE ONE LEVEL
+
+                // ETC
+
+                //
             }
         }
         parent.transform.position = new Vector3(0f, 0f, 0f);
