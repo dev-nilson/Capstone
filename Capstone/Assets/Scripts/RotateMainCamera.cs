@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class RotateMainCamera : MonoBehaviour
 {
-	GameObject gridManager;
-	GridManager Grid_M;
+	GameObject boardController;
+	GridManager Board;
 
 	public Button rotateRight;
 	public Button rotateLeft;
 
-	//lol
+	int x = 0, z = 0;
+
 	void Start()
 	{
 		Button right = rotateRight.GetComponent<Button>();
@@ -20,20 +21,76 @@ public class RotateMainCamera : MonoBehaviour
 		Button left = rotateLeft.GetComponent<Button>();
 		left.onClick.AddListener(rotateLeftClick);
 
-		gridManager = GameObject.Find("GridManager");
-		Grid_M = gridManager.GetComponent<GridManager>();
+		boardController = GameObject.Find("GridManager");
+		Board = boardController.GetComponent<GridManager>();
 	}
 
 	void rotateRightClick()
 	{
-		Debug.Log("You have clicked the right button!");
-		//Grid_M.transform.position = new Vector3(100f, 0f, 0f);
-		Grid_M.transform.rotation = Quaternion.Euler(90, 90, 0);
+		if(x == 0)
+        {
+			x = -5;
+			z = 25;
+			Board.transform.position = new Vector3(x, 0f, z);
+			Board.transform.rotation = Quaternion.Euler(90, 90, 0);
+		}
+		else if (x == -5)
+		{
+			x = 20;
+			z = 30;
+			Board.transform.position = new Vector3(x, 0f, z);
+			Board.transform.rotation = Quaternion.Euler(90, 0, 180);
+		}
+		else if (x == 20)
+		{
+			x = 25;
+			z = 5;
+			Board.transform.position = new Vector3(x, 0f, z);
+			Board.transform.rotation = Quaternion.Euler(90, 0, -270);
+		}
+		else if (x == 25)
+		{
+			x = 0;
+			z = 0;
+			Board.transform.position = new Vector3(x, 0f, z);
+			Board.transform.rotation = Quaternion.Euler(90, 0, 0);
+		}
 
+		Debug.Log("You have clicked the right button!");
 	}
 
 	void rotateLeftClick()
 	{
+		if (x == 0)
+		{
+			x = 25;
+			z = 5;
+			Board.transform.position = new Vector3(x, 0f, z);
+			Board.transform.rotation = Quaternion.Euler(90, 0, 90);
+		}
+		else if (x == 25)
+		{
+			Debug.Log("HERE");
+
+			x = 20;
+			z = 30;
+			Board.transform.position = new Vector3(x, 0f, z);
+			Board.transform.rotation = Quaternion.Euler(90, 0, 180);
+		}
+		else if (x == 20)
+		{
+			x = -5;
+			z = 25;
+			Board.transform.position = new Vector3(x, 0f, z);
+			Board.transform.rotation = Quaternion.Euler(90, 0, 270);
+		}
+		else if (x == -5)
+		{
+			x = 0;
+			z = 0;
+			Board.transform.position = new Vector3(x, 0f, z);
+			Board.transform.rotation = Quaternion.Euler(90, 0, 0);
+		}
 		Debug.Log("You have clicked the left button!");
 	}
 }
