@@ -1,6 +1,6 @@
 /*
  *  Author: Laura Grace Ashburn
- *  Description: This file includes implementation of the game board data and functionalities. That data includes ...
+ *  Description: ...
  */
 using System;
 using System.Collections.Generic;
@@ -244,7 +244,7 @@ class GameBoardTest
         {
             for (int j = 0; j < 5; ++j)
             {
-                Console.Write(board.heights[i,j]);
+                //Console.Write(board.heights[i,j]);
             } Console.WriteLine();
         }
     }

@@ -30,7 +30,7 @@ public class GameBoard //public  ??
 {
     const int BOARD_DIMENSION = 5;
         
-    public int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
+    private static int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
 
     public enum MoveType
     {
@@ -96,6 +96,11 @@ public class GameBoard //public  ??
                 heights[x, y] = 0;
             }
         }
+    }
+
+    public int[,] GetHeights()
+    {
+        return heights;
     }
 
     // Puts a starting pawn down on the board. Returns false if the location selected for the pawn is either out of bounds or is already occupied

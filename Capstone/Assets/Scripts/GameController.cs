@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+ *  Author: Laura Grace Ashburn
+ *  Description: ...
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +39,10 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
+        //  OPPONENT'S USERNAME
+        //  STARTING PLAYER?
+
         //GC:  INITIALIZE BOARD
         GameBoard board = new GameBoard();
         //GUI: CREATE EMPTY BOARD
@@ -46,33 +55,44 @@ public class GameController : MonoBehaviour
         //GC: CREATE PLAYERS
         Player P1 = new Player(local, username);
 
+        //who is starting player?
+
+        int[,] boardHeights = board.GetHeights();
         //PLACE PLAYERS
+        //GUI: GET COORDINATE FROM PLAYER
         //playerController.placePlayer(1, 1);
+
+        //GC: UPDATE BOARD AND PASS BACK
+
+        //GUI: GET COORDINATE FROM PLAYER
         //playerController.placePlayer(1, 2);
 
-        //GC UPDATE BOARD AND PASS BACK 
+        //GC: UPDATE BOARD AND PASS BACK
+
 
 
         //LOOP WHILE NO ERROR
+            //MOVE PLAYERS ------
+            //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
+            //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
+            //GUI: TELL GC WHICH PAWN WAS CLICKED
+            //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
+            //GUI: HIGHLIGHT THE VALID MOVES
+            //GUI: SEND GC WHAT TILE WAS CLICKED
+            //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
+            //GUI: UPDATE BOARD
 
-        //MOVE PLAYERS ------
-        //IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
-        //till move is selected
-        //GUI TELLS GC WHICH PAWN WAS CLICKED
-        //GC TELLS GUI WHAT MOVES ARE VALID
-        //GUI HIGHLIGHTs THE VALID MOVES
-        //GUI SENDS GC WHAT TILE WAS CLICKED (break)
-        //GC UPDATE BOARD AND SEND TO ME
-        //I UPDATE
+            //BUILD------
+            //GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
+            //GUI: SEND GC THE SELECTED TILE TO BUILD ON
+            //GC: UPDATE BOARD, RETURN BOARD TO GUI
+            //GUI UPDATE BOARD
 
-        //BUILD------
-        //GC GIVES ME ALL THE VALID BUILD SPACES
-        // I SEND GC THE CLICK
-        //GC BUILDS, UPDATES, SEND BACK TO ME
-        //I UPDATE BOARD
+            //GC: SWAP PLAYERS
+
+        //DETERMINE IF WON OR LOST & REACT TO THAT
 
 
-        //IF WON OR LOST REACT TO THAT
 
         //playerController.movePlayer(1, 1, 1, 3);
 
