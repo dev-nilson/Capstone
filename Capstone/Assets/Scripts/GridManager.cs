@@ -11,6 +11,8 @@ public class GridManager : MonoBehaviour
     public GameObject parent;
     GameObject child;
 
+
+
     public void CreateEmptyBoard()
     {
         Grid = new GameObject[Col, Row];
@@ -30,6 +32,20 @@ public class GridManager : MonoBehaviour
         parent.transform.position = new Vector3(0f, 0f, 0f);
         parent.transform.localScale = new Vector3(5f, 5f, 1f);
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+        Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+
+    }
+
+    public void updateBoard(GameObject[,] updatedBoard)
+    {
+        for (var i = 0; i < Row; i++)
+        {
+            for (var j = 0; j < Col; j++)
+            {
+                Grid[i, j] = updatedBoard[i,j];
+            }
+        }
     }
 }
 
