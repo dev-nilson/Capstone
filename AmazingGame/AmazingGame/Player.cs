@@ -15,7 +15,7 @@ namespace AmazingGame
 
         string username;
 
-        private bool myTurn;
+        //private bool myTurn;
 
         // Stores locations of the player's two pawns
         // Local player gets [0,] and opposing player gets [1,]
@@ -24,13 +24,13 @@ namespace AmazingGame
 
         
         //constructor w/ input for Local/Opponent, username, myTurn
-        public Player(bool local, string _name, bool _turn)
+        public Player(bool local, string _name/*, bool _turn*/)
         {
             if (local) player = Tag.LOCAL;
             else player = Tag.OPPONENT;
 
             username = _name;
-            myTurn = _turn;
+            //myTurn = _turn;
         }
 
         public static GameBoard.Coordinates[] GetBothPlayersPawns()
@@ -103,15 +103,15 @@ namespace AmazingGame
             return true;
         }
 
-        public bool isMyTurn()
-        {
-            return this.myTurn;
-        }
+        //public bool isMyTurn()
+        //{
+        //    return this.myTurn;
+        //}
 
-        public void changeTurn()
-        {
-            this.myTurn = !this.myTurn;
-        }
+        //public void changeTurn()
+        //{
+        //    this.myTurn = !this.myTurn;
+        //}
 
         public Tag Type()
         {
