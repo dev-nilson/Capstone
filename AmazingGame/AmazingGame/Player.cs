@@ -22,8 +22,7 @@ namespace AmazingGame
         private static GameBoard.Coordinates[][] Pawns = { new GameBoard.Coordinates[] { new GameBoard.Coordinates(), new GameBoard.Coordinates() },
                                                            new GameBoard.Coordinates[] { new GameBoard.Coordinates(), new GameBoard.Coordinates() } };
 
-
-
+        
         //constructor w/ input for Local/Opponent, username, myTurn
         public Player(bool local, string _name, bool _turn)
         {
@@ -46,6 +45,7 @@ namespace AmazingGame
             return Pawns[(int)this.player];
         }
 
+        // SHOULD NOT BE WIDELY USED -- FOR USE IN GameBoard.cs
         public bool addNewPawn(GameBoard.Coordinates loc)
         {
             if (Pawns[(int)this.player][0] == new GameBoard.Coordinates()) // If first pawn is not already placed
@@ -66,6 +66,7 @@ namespace AmazingGame
             }
         }
 
+        // SHOULD NOT BE WIDELY USED -- FOR USE IN GameBoard.cs
         public bool updatePawn(GameBoard.Coordinates curLoc, GameBoard.Coordinates newLoc)
         {
             if (Pawns[(int)this.player][0] == curLoc) // If moving the first pawn

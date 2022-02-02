@@ -34,7 +34,7 @@ namespace AmazingGame
         
         public int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
 
-        enum MoveType
+        public enum MoveType
         {
             INVALID,
             VALID,
@@ -100,38 +100,6 @@ namespace AmazingGame
             }
         }
 
-        // Returns whether a coordinate exists within the bounds of the board
-        bool IsInBounds(Coordinates loc)
-        {
-            if (loc.X < 0 || loc.X >= BOARD_DIMENSION)
-            {
-                return false;
-            }
-            if (loc.Y < 0 || loc.Y >= BOARD_DIMENSION)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        // Returns whether a pawn exists on the board coordinate
-        bool IsOccupied(Coordinates loc)
-        {
-            // Get a list of pawns (four total between both players)
-            Coordinates[] allPawns = Player.GetBothPlayersPawns();
-            if (allPawns.Contains(loc))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         // Puts a starting pawn down on the board. Returns false if the location selected for the pawn is either out of bounds or is already occupied
         public bool PlacePawn(Player player, Coordinates loc)
         {
@@ -176,13 +144,13 @@ namespace AmazingGame
         }
 
         // Moves a player's pawn from one coordinate to another coordinate. Returns false if the move is invalid
-        public int MovePawn(Player player, Coordinates curLoc, Coordinates newLoc)
+        public MoveType MovePawn(Player player, Coordinates curLoc, Coordinates newLoc)
         {
             //call validateMove inside here ?? if so, have a return false
             MoveType move = ValidateMove(curLoc, newLoc);
             if (move == MoveType.INVALID)
             {
-                return (int)move;
+                return move;
             }
             else // the move is valid
             {
@@ -190,7 +158,7 @@ namespace AmazingGame
                 {
                     if (player.updatePawn(curLoc, newLoc)) //update pawn location
                     {
-                        return (int)move;
+                        return move;
                     }
                     else
                     {
@@ -199,7 +167,7 @@ namespace AmazingGame
                 }
                 else //not my turn
                 {
-                    return (int)MoveType.INVALID;
+                    return MoveType.INVALID;
                 }
             }
         }
@@ -299,6 +267,38 @@ namespace AmazingGame
                 }
             }
             return false;
+        }
+
+        // Returns whether a coordinate exists within the bounds of the board
+        bool IsInBounds(Coordinates loc)
+        {
+            if (loc.X < 0 || loc.X >= BOARD_DIMENSION)
+            {
+                return false;
+            }
+            if (loc.Y < 0 || loc.Y >= BOARD_DIMENSION)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        // Returns whether a pawn exists on the board coordinate
+        bool IsOccupied(Coordinates loc)
+        {
+            // Get a list of pawns (four total between both players)
+            Coordinates[] allPawns = Player.GetBothPlayersPawns();
+            if (allPawns.Contains(loc))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
