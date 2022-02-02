@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
         //GC:  INITIALIZE BOARD
         GameBoard board = new GameBoard();
         //GUI: CREATE EMPTY BOARD
-        boardController.CreateEmptyBoard();
+        boardController.displayBoard();
 
         // GUI: GET A USERNAME FROM USER
         string username = "Player one";

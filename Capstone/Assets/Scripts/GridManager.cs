@@ -11,9 +11,7 @@ public class GridManager : MonoBehaviour
     public GameObject parent;
     GameObject child;
 
-
-
-    public void CreateEmptyBoard()
+    public void displayBoard()
     {
         Grid = new GameObject[Col, Row];
 
@@ -43,7 +41,7 @@ public class GridManager : MonoBehaviour
 
     }
 
-    public void updateBoard(GameObject[,] updatedBoard)
+    public void Board(GameObject[,] updatedBoard)
     {
         for (var i = 0; i < Row; i++)
         {
