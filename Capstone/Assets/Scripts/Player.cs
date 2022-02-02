@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ *  Author: Laura Grace Ashburn
+ *  Description: ...
+ */
+using System;
 using System.Collections.Generic;
 using System.Text;
 
