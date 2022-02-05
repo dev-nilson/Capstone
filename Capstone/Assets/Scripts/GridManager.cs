@@ -6,7 +6,6 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     public GameObject[,] Grid;
-    public GameObject[,] Buildings;
     int Col = 5, Row = 5;
     public GameObject tile;
     public GameObject level1;
@@ -17,11 +16,24 @@ public class GridManager : MonoBehaviour
     GameObject gridSpace;
     GameObject child;
 
+    Color MouseOverColor = Color.cyan;
+    Color Original;
+
+    //get GameObject’s material and color
+    MeshRenderer Renderer;
+
+    void Start()
+    {
+        //get mesh renderer component
+        Renderer = GetComponent<MeshRenderer>();
+        //get original color of the GameObject
+        Original = Renderer.material.color;
+    }
+
 
     public void displayBoard(int[,] temp)
     {
         Grid = new GameObject[Col, Row];
-        Buildings = new GameObject[Col, Row];
 
         //place all tiles
         for (var i = 0; i < Row; i++)
@@ -43,7 +55,21 @@ public class GridManager : MonoBehaviour
         {
             for (var j = 0; j < Col; j++)
             {
-                if(temp[i,j] == 0)
+                if(temp[i,j] == 1)
+                {
+                    child = Instantiate(level1, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
+                    child.transform.parent = Grid[i, j].transform;
+                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
+                }
+                else if (temp[i,j] == 2)
+                {
+                    child = Instantiate(level2, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
+                    child.transform.parent = Grid[i, j].transform;
+                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
+                }
+                else if (temp[i, j] == 3)
                 {
                     child = Instantiate(level3, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
                     child.transform.rotation = Quaternion.Euler(180, 0, 0);
@@ -53,18 +79,18 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        
-
         Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
     }
-
-    public void Board(GameObject[,] updatedBoard)
+    public void highlightValidTiles(int[,] temp)
     {
         for (var i = 0; i < Row; i++)
         {
             for (var j = 0; j < Col; j++)
             {
-                Grid[i, j] = updatedBoard[i,j];
+                if (temp[i, j] == 0)
+                {
+                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
+                }
             }
         }
     }
