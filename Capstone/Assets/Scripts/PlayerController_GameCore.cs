@@ -40,11 +40,31 @@ class PlayerController_GameCore
 
     public GameBoard.Coordinates GetMove()
     {
-        return new GameBoard.Coordinates();
+        if (player.Type() == Player.Tag.LOCAL)
+        {
+            
+            return new GameBoard.Coordinates();
+        }
+        else if (GameUtilities.getGameType() == GameType.NETWORK)
+        {
+
+            return new GameBoard.Coordinates();
+        }
+        else if (GameUtilities.getGameType() == GameType.EASY)
+        {
+
+            return new GameBoard.Coordinates();
+        }
+        else // GameUtilities.getGameType() == GameType.DIFFICULT
+        {
+
+            return new GameBoard.Coordinates();
+        }
     }
 
     public GameBoard.Coordinates GetBuild()
     {
+        
         return new GameBoard.Coordinates();
     }
 
@@ -52,18 +72,22 @@ class PlayerController_GameCore
     {
         if (player.Type() == Player.Tag.LOCAL)
         {
+
             return new GameBoard.Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
+
             return new GameBoard.Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
+
             return new GameBoard.Coordinates();
         }
         else // GameUtilities.getGameType() == GameType.DIFFICULT
         {
+
             return new GameBoard.Coordinates();
         }
     }

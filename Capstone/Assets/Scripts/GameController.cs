@@ -58,38 +58,79 @@ public class GameController : MonoBehaviour
         //who is starting player?
 
         int[,] boardHeights = board.GetHeights();
+
+        ////////////////////////////////////////////
         //PLACE PLAYERS
-        //GUI: GET COORDINATE FROM PLAYER
+        ////////////////////////////////////////////
+        // Starting player place pawn
+        // if(player_turn is P1) P1 placepawn()
+        // else P2 placepawn()
+        // swapturn()
+
+        // Second player place pawn
+        // if(player_turn is P1) P1 placepawn()
+        // else P2 placepawn()
+
+        // Second player place pawn
+        // if(player_turn is P1) P1 placepawn()
+        // else P2 placepawn()
+        // swapturn()
+
+        // Starting player place pawn
+        // if(player_turn is P1) P1 placepawn()
+        // else P2 placepawn()
+
+
+        //GUI: GET COORDINATE FROM PLAYER -- an X & Y
         //playerController.placePlayer(1, 1);
 
         //GC: UPDATE BOARD AND PASS BACK
+        /*do
+        {
+            loc = new GameBoard.Coordinates(x, y);
+            success = board.PlacePawn(P1, loc);
+            if (!success) // log error: "Error placing P1's pawn"
+        } while (!success);
+        SwapPlayerTurn();*/
 
-        //GUI: GET COORDINATE FROM PLAYER
-        //playerController.placePlayer(1, 2);
-
-        //GC: UPDATE BOARD AND PASS BACK
 
 
 
+        ////////////////////////////////////////////
+        //PLAYER TURN
+        ////////////////////////////////////////////
         //LOOP WHILE NO ERROR
-            //MOVE PLAYERS ------
-            //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
-            //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
-            //GUI: TELL GC WHICH PAWN WAS CLICKED
-            //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
-            //GUI: HIGHLIGHT THE VALID MOVES
-            //GUI: SEND GC WHAT TILE WAS CLICKED
-            //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
-            //GUI: UPDATE BOARD
+        //{
 
-            //BUILD------
-            //GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
-            //GUI: SEND GC THE SELECTED TILE TO BUILD ON
-            //GC: UPDATE BOARD, RETURN BOARD TO GUI
-            //GUI UPDATE BOARD
+        ////if local player's turn
+        ////MOVE PLAYERS ------
+        ////GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
+        ////GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
+        ////GUI: TELL GC WHICH PAWN WAS CLICKED
+        ////GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
+        ////GUI: HIGHLIGHT THE VALID MOVES
+        ////GUI: SEND GC WHAT TILE WAS CLICKED
+        ////GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
+        ////GUI: UPDATE BOARD
 
-            //GC: SWAP PLAYERS
+        ////BUILD------
+        ////GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
+        ////GUI: SEND GC THE SELECTED TILE TO BUILD ON
+        ////GC: UPDATE BOARD, RETURN BOARD TO GUI
+        ////GUI UPDATE BOARD
+        
+        ////else ask for move & build from opponent, get return value if they won or lost ?
+        ////GC: UPDATE BOARD, RETURN BOARD TO GUI
+        ////GUI: UPDATE BOARD
 
+        //GC: SWAP PLAYERS
+
+        //}
+
+        ////////////////////////////////////////////
+        //END GAME
+        ////////////////////////////////////////////
+        
         //DETERMINE IF WON OR LOST & REACT TO THAT
 
 
