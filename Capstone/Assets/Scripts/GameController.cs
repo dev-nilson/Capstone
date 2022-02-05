@@ -46,7 +46,8 @@ public class GameController : MonoBehaviour
         //GC:  INITIALIZE BOARD
         GameBoard board = new GameBoard();
         //GUI: CREATE EMPTY BOARD
-        boardController.displayBoard();
+        int[,] boardHeights = board.GetHeights();
+        boardController.displayBoard(boardHeights);
 
         // GUI: GET A USERNAME FROM USER
         string username = "Player one";
@@ -57,7 +58,6 @@ public class GameController : MonoBehaviour
 
         //who is starting player?
 
-        int[,] boardHeights = board.GetHeights();
         //PLACE PLAYERS
         //GUI: GET COORDINATE FROM PLAYER
         //playerController.placePlayer(1, 1);

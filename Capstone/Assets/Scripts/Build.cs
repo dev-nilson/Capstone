@@ -9,6 +9,9 @@ public class Build : MonoBehaviour
     public Rigidbody level2;
     public Rigidbody level3;
 
+    public Rigidbody temp;
+
+
     private GameObject prefab;
     private GameObject child;
     private GameObject parent;
