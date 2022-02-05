@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
         //GUI: CREATE EMPTY BOARD
         int[,] boardHeights = board.GetHeights();
         boardController.displayBoard(boardHeights);
-        boardController.highlightValidTiles(boardHeights);
+        //boardController.highlightValidTiles(boardHeights);
 
 
         // GUI: GET A USERNAME FROM USER
