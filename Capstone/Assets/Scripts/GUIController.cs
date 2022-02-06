@@ -7,7 +7,6 @@ public class GUIController : MonoBehaviour
     GridManager boardController;
     GridManager Board;
 
-    ClickPositionManager clickPositionManager;
     PlayerController playerController;
 
     public GameObject[,] Grid;
@@ -26,7 +25,6 @@ public class GUIController : MonoBehaviour
     {
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
-        //clickPositionManager = player.GetComponent<ClickPositionManager>();
         playerController = player.GetComponent<PlayerController>();
 
     }

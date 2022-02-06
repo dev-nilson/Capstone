@@ -12,7 +12,6 @@ public class GameController : MonoBehaviour
     GridManager boardController;
     GridManager Board;
 
-    ClickPositionManager clickPositionManager;
     PlayerController playerController;
 
     public GameObject[,] Grid;
