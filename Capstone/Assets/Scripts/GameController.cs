@@ -39,6 +39,13 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Variables
+        //int x, y, newx, newy;
+        //MoveType status;
+
+
+
+
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
         //  OPPONENT'S USERNAME
         //  STARTING PLAYER?
@@ -63,9 +70,10 @@ public class GameController : MonoBehaviour
         //PLACE PLAYERS
         //GUI: GET COORDINATE FROM PLAYER
         //playerController.placePlayer(1, 1);
+        Coordinates loc = new Coordinates(1, 1);
 
         //GC: UPDATE BOARD AND PASS BACK
-        board.PlacePawn(P1, ConvertToCoordinate(1, 1));
+        board.PlacePawn(P1, loc);
 
         //GUI: GET COORDINATE FROM PLAYER
         //playerController.placePlayer(1, 2);
@@ -81,7 +89,7 @@ public class GameController : MonoBehaviour
         //GUI: TELL GC WHICH PAWN WAS CLICKED
         int x = 1, y = 1;
         //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
-        int[,] validMoves = ConvertToBinaryBoard(board.AvailableMoves(ConvertToCoordinate(x, y)));
+        int[,] validMoves = ConvertToBinaryBoard(board.AvailableMoves(new Coordinates(x, y)));
         //GUI: HIGHLIGHT THE VALID MOVES
         boardController.highlightValidTiles(validMoves);
         //GUI: SEND GC WHAT TILE WAS CLICKED

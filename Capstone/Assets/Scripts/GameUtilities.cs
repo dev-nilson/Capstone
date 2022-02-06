@@ -85,6 +85,7 @@ public static class GameUtilities //public  ??
     // Data type conversions
     //////////////////////////////////////
     // Convert list of GameBoard.Coordinates to binary 5x5 grid
+    // 0 is valid, -1 is invalid
     public static int[,] ConvertToBinaryBoard(List<Coordinates> locs)
     {
         int size = GameBoard.BOARD_DIMENSION;
@@ -107,10 +108,5 @@ public static class GameUtilities //public  ??
         }
 
         return board;
-    }
-
-    public static Coordinates ConvertToCoordinate(int x, int y)
-    {
-        return new Coordinates(x, y);
     }
 }
