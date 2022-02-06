@@ -13,10 +13,15 @@ using System.Text;
 public static class GameUtilities //public  ??
 {
     //////////////////////////////////////
-    // Variable & Types
+    // Variables
     //////////////////////////////////////
     private static GameType gameType;
 
+    private static PlayerTurn playerTurn;
+
+    //////////////////////////////////////
+    // Data types
+    //////////////////////////////////////
     public enum GameType
     {
         EASY,
@@ -24,12 +29,17 @@ public static class GameUtilities //public  ??
         NETWORK
     }
 
-    private static PlayerTurn playerTurn;
-
     public enum PlayerTurn
     {
         ONE = 1,
         TWO = 2
+    }
+
+    public enum MoveType
+    {
+        INVALID,
+        VALID,
+        WINNING
     }
 
     //////////////////////////////////////
@@ -69,5 +79,38 @@ public static class GameUtilities //public  ??
     {
         if (playerTurn == PlayerTurn.ONE) playerTurn = PlayerTurn.TWO;
         else playerTurn = PlayerTurn.ONE;
+    }
+
+    //////////////////////////////////////
+    // Data type conversions
+    //////////////////////////////////////
+    // Convert list of GameBoard.Coordinates to binary 5x5 grid
+    public static int[,] ConvertToBinaryBoard(List<Coordinates> locs)
+    {
+        int size = GameBoard.BOARD_DIMENSION;
+
+        int[,] board = new int[size, size];
+
+        for (int x = 0; x < size; ++x)
+        {
+            for (int y = 0; y < size; ++y)
+            {
+                if (locs.Contains(new Coordinates(x,y)))
+                {
+                    board[x, y] = 0;
+                }
+                else
+                {
+                    board[x, y] = -1;
+                }
+            }
+        }
+
+        return board;
+    }
+
+    public static Coordinates ConvertToCoordinate(int x, int y)
+    {
+        return new Coordinates(x, y);
     }
 }

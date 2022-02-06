@@ -21,8 +21,8 @@ public class Player
 
     // Stores locations of the player's two pawns
     // Local player gets [0,] and opposing player gets [1,]
-    private static GameBoard.Coordinates[][] Pawns = { new GameBoard.Coordinates[] { new GameBoard.Coordinates(), new GameBoard.Coordinates() },
-                                                       new GameBoard.Coordinates[] { new GameBoard.Coordinates(), new GameBoard.Coordinates() } };
+    private static Coordinates[][] Pawns = { new Coordinates[] { new Coordinates(), new Coordinates() },
+                                                       new Coordinates[] { new Coordinates(), new Coordinates() } };
 
         
     //constructor w/ input for Local/Opponent, username, myTurn
@@ -35,28 +35,28 @@ public class Player
         //myTurn = _turn;
     }
 
-    public static GameBoard.Coordinates[] GetBothPlayersPawns()
+    public static Coordinates[] GetBothPlayersPawns()
     {
-        GameBoard.Coordinates[] allPawns = { Pawns[0][0], Pawns[0][1], Pawns[1][0], Pawns[1][1] };
+        Coordinates[] allPawns = { Pawns[0][0], Pawns[0][1], Pawns[1][0], Pawns[1][1] };
         return allPawns;
     }
 
     // Returns an array containing the two pawn coordinates for a player
-    public GameBoard.Coordinates[] GetPlayerCoordinates() // ************************************** DOES THIS GET USED?
+    public Coordinates[] GetPlayerCoordinates() // ************************************** DOES THIS GET USED?
     {
         return Pawns[(int)this.player];
     }
 
     // SHOULD NOT BE WIDELY USED -- FOR USE IN GameBoard.cs
-    public bool addNewPawn(GameBoard.Coordinates loc)
+    public bool addNewPawn(Coordinates loc)
     {
-        if (Pawns[(int)this.player][0] == new GameBoard.Coordinates()) // If first pawn is not already placed
+        if (Pawns[(int)this.player][0] == new Coordinates()) // If first pawn is not already placed
         {
             //place pawn
             Pawns[(int)this.player][0] = loc;
             return true;
         }
-        else if (Pawns[(int)this.player][1] == new GameBoard.Coordinates()) // If second pawn is not already placed
+        else if (Pawns[(int)this.player][1] == new Coordinates()) // If second pawn is not already placed
         {
             //place pawn
             Pawns[(int)this.player][1] = loc;
@@ -69,7 +69,7 @@ public class Player
     }
 
     // SHOULD NOT BE WIDELY USED -- FOR USE IN GameBoard.cs
-    public bool updatePawn(GameBoard.Coordinates curLoc, GameBoard.Coordinates newLoc)
+    public bool updatePawn(Coordinates curLoc, Coordinates newLoc)
     {
         if (Pawns[(int)this.player][0] == curLoc) // If moving the first pawn
         {
@@ -92,11 +92,11 @@ public class Player
     // Returns whether a player has any available moves (Used to determine whether a player loses)
     public bool HasNoMoves(GameBoard board)
     {
-        GameBoard.Coordinates[] pawnLocs = GetPlayerCoordinates();
+        Coordinates[] pawnLocs = GetPlayerCoordinates();
         for (int i = 0; i < pawnLocs.Length; ++i)
         {
-            GameBoard.Coordinates pawnLoc = pawnLocs[i];
-            List<GameBoard.Coordinates> moves = board.AvailableMoves(pawnLoc);
+            Coordinates pawnLoc = pawnLocs[i];
+            List<Coordinates> moves = board.AvailableMoves(pawnLoc);
 
             // If one of the pawns is able to make a move, return false
             if (moves.Count > 0) return false;
@@ -104,15 +104,6 @@ public class Player
         // If no moves exist, return true
         return true;
     }
-
-    //public bool isMyTurn()
-    //{
-    //    return this.myTurn;
-    //}
-          //public void changeTurn()
-    //{
-    //    this.myTurn = !this.myTurn;
-    //}
 
     public Tag Type()
     {

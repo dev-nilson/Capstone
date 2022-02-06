@@ -34,7 +34,7 @@ class GameBoardTest
         GameBoard board = new GameBoard();
         bool success = true;
         int x, y;
-        GameBoard.Coordinates loc = new GameBoard.Coordinates();
+        Coordinates loc = new Coordinates();
         //starting player and secondary player place pawns
 
         //P1 place starting pawns
@@ -43,7 +43,7 @@ class GameBoardTest
             Console.WriteLine("\nP1's move? Enter X and Y (0-4)");
             x = Convert.ToInt32(Console.ReadLine());
             y = Convert.ToInt32(Console.ReadLine());
-            loc = new GameBoard.Coordinates(x, y);
+            loc = new Coordinates(x, y);
             
             success = board.PlacePawn(P1, loc);
             if (!success) Console.WriteLine("Error placing P1's pawn");
@@ -57,7 +57,7 @@ class GameBoardTest
             Console.WriteLine("\nP2's move? Enter X and Y (0-4)");
             x = Convert.ToInt32(Console.ReadLine());
             y = Convert.ToInt32(Console.ReadLine());
-            loc = new GameBoard.Coordinates(x, y);
+            loc = new Coordinates(x, y);
 
             success = board.PlacePawn(P2, loc);
             if (!success) Console.WriteLine("Error placing P2's pawn");
@@ -70,7 +70,7 @@ class GameBoardTest
             Console.WriteLine("\nP2's move? Enter X and Y (0-4)");
             x = Convert.ToInt32(Console.ReadLine());
             y = Convert.ToInt32(Console.ReadLine());
-            loc = new GameBoard.Coordinates(x, y);
+            loc = new Coordinates(x, y);
 
             success = board.PlacePawn(P2, loc);
             if (!success) Console.WriteLine("Error placing P2's pawn");
@@ -84,7 +84,7 @@ class GameBoardTest
             Console.WriteLine("\nP1's move? Enter X and Y (0-4)");
             x = Convert.ToInt32(Console.ReadLine());
             y = Convert.ToInt32(Console.ReadLine());
-            loc = new GameBoard.Coordinates(x, y);
+            loc = new Coordinates(x, y);
 
             success = board.PlacePawn(P1, loc);
             if (!success) Console.WriteLine("Error placing P1's pawn");
@@ -93,12 +93,12 @@ class GameBoardTest
 
         /////////////////////////////
         int newx, newy;
-        GameBoard.MoveType status;
+        MoveType status;
         /////////////////////////////
 
         //Time for P1's move
         Console.WriteLine("\nTime for P1's move! Enter X and Y (0-4)");
-        GameBoard.Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
+        Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
         do
         {
             // Determine which pawn is going to be moved. Or, if no moves are available, the player loses
@@ -131,7 +131,7 @@ class GameBoardTest
             }
                 
 
-            List<GameBoard.Coordinates> moves = board.AvailableMoves(new GameBoard.Coordinates(x, y));
+            List<Coordinates> moves = board.AvailableMoves(new Coordinates(x, y));
             Console.Write("\nWhere would you like to move it to?");
                 
             for (int i = 0; i < moves.Count; ++i)
@@ -140,10 +140,10 @@ class GameBoardTest
             } Console.WriteLine();
             newx = Convert.ToInt32(Console.ReadLine());
             newy = Convert.ToInt32(Console.ReadLine());
-            status = board.MovePawn(P1, new GameBoard.Coordinates(x, y), new GameBoard.Coordinates(newx, newy));
-            if (status == GameBoard.MoveType.INVALID) Console.WriteLine("Error moving P1's pawn");
-            else if (status == GameBoard.MoveType.WINNING) Console.WriteLine("You won!");
-        } while (status == GameBoard.MoveType.INVALID);
+            status = board.MovePawn(P1, new Coordinates(x, y), new Coordinates(newx, newy));
+            if (status == MoveType.INVALID) Console.WriteLine("Error moving P1's pawn");
+            else if (status == MoveType.WINNING) Console.WriteLine("You won!");
+        } while (status == MoveType.INVALID);
         DisplayPawns(P1, P2);
         DisplayHeights(board);
 
@@ -156,7 +156,7 @@ class GameBoardTest
             x = Convert.ToInt32(Console.ReadLine());
             y = Convert.ToInt32(Console.ReadLine());
 
-            List<GameBoard.Coordinates> builds = board.AvailableBuilds(new GameBoard.Coordinates(x, y));
+            List<Coordinates> builds = board.AvailableBuilds(new Coordinates(x, y));
             Console.Write("\nWhere would you like to build?");
             for (int i = 0; i < builds.Count; ++i)
             {
@@ -165,7 +165,7 @@ class GameBoardTest
             Console.WriteLine();
             newx = Convert.ToInt32(Console.ReadLine());
             newy = Convert.ToInt32(Console.ReadLine());
-            success = board.BuildPiece(new GameBoard.Coordinates(x, y), new GameBoard.Coordinates(newx, newy));
+            success = board.BuildPiece(new Coordinates(x, y), new Coordinates(newx, newy));
             if (!success) Console.WriteLine("Error building piece");
         } while (!success);
         DisplayPawns(P1, P2);
@@ -209,15 +209,15 @@ class GameBoardTest
 
     static void DisplayPawns(Player P1, Player P2)
     {
-        GameBoard.Coordinates[] P1pawns = P1.GetPlayerCoordinates();
-        GameBoard.Coordinates[] P2pawns = P2.GetPlayerCoordinates();
+        Coordinates[] P1pawns = P1.GetPlayerCoordinates();
+        Coordinates[] P2pawns = P2.GetPlayerCoordinates();
             
         Console.WriteLine("\n-PAWNS-");
         for (int i = 0; i < 5; ++i)
         {
             for (int j = 0; j < 5; ++j)
             {
-                GameBoard.Coordinates loc = new GameBoard.Coordinates(i, j);
+                Coordinates loc = new Coordinates(i, j);
                 if (P1pawns.Contains(loc))
                 {
                     Console.Write("1");

@@ -38,57 +38,57 @@ class PlayerController_GameCore
     }
     */
 
-    public GameBoard.Coordinates GetMove()
+    public Coordinates GetMove()
     {
         if (player.Type() == Player.Tag.LOCAL)
         {
             
-            return new GameBoard.Coordinates();
+            return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
 
-            return new GameBoard.Coordinates();
+            return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
 
-            return new GameBoard.Coordinates();
+            return new Coordinates();
         }
         else // GameUtilities.getGameType() == GameType.DIFFICULT
         {
 
-            return new GameBoard.Coordinates();
+            return new Coordinates();
         }
     }
 
-    public GameBoard.Coordinates GetBuild()
+    public Coordinates GetBuild()
     {
         
-        return new GameBoard.Coordinates();
+        return new Coordinates();
     }
 
-    public GameBoard.Coordinates GetCoordinate()
+    public Coordinates GetCoordinate()
     {
         if (player.Type() == Player.Tag.LOCAL)
         {
 
-            return new GameBoard.Coordinates();
+            return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
 
-            return new GameBoard.Coordinates();
+            return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
 
-            return new GameBoard.Coordinates();
+            return new Coordinates();
         }
         else // GameUtilities.getGameType() == GameType.DIFFICULT
         {
 
-            return new GameBoard.Coordinates();
+            return new Coordinates();
         }
     }
 }

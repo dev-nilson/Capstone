@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameUtilities;
 
 public class GameController : MonoBehaviour
 {
@@ -64,6 +65,7 @@ public class GameController : MonoBehaviour
         //playerController.placePlayer(1, 1);
 
         //GC: UPDATE BOARD AND PASS BACK
+        board.PlacePawn(P1, ConvertToCoordinate(1, 1));
 
         //GUI: GET COORDINATE FROM PLAYER
         //playerController.placePlayer(1, 2);
@@ -73,23 +75,26 @@ public class GameController : MonoBehaviour
 
 
         //LOOP WHILE NO ERROR
-            //MOVE PLAYERS ------
-            //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
-            //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
-            //GUI: TELL GC WHICH PAWN WAS CLICKED
-            //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
-            //GUI: HIGHLIGHT THE VALID MOVES
-            //GUI: SEND GC WHAT TILE WAS CLICKED
-            //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
-            //GUI: UPDATE BOARD
+        //MOVE PLAYERS ------
+        //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
+        //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
+        //GUI: TELL GC WHICH PAWN WAS CLICKED
+        int x = 1, y = 1;
+        //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
+        int[,] validMoves = ConvertToBinaryBoard(board.AvailableMoves(ConvertToCoordinate(x, y)));
+        //GUI: HIGHLIGHT THE VALID MOVES
+        boardController.highlightValidTiles(validMoves);
+        //GUI: SEND GC WHAT TILE WAS CLICKED
+        //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
+        //GUI: UPDATE BOARD
 
-            //BUILD------
-            //GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
-            //GUI: SEND GC THE SELECTED TILE TO BUILD ON
-            //GC: UPDATE BOARD, RETURN BOARD TO GUI
-            //GUI UPDATE BOARD
+        //BUILD------
+        //GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
+        //GUI: SEND GC THE SELECTED TILE TO BUILD ON
+        //GC: UPDATE BOARD, RETURN BOARD TO GUI
+        //GUI UPDATE BOARD
 
-            //GC: SWAP PLAYERS
+        //GC: SWAP PLAYERS
 
         //DETERMINE IF WON OR LOST & REACT TO THAT
 
