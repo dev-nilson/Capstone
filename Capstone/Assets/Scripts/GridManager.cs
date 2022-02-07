@@ -83,8 +83,8 @@ public class GridManager : MonoBehaviour
         }
 
         Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-        Debug.Log(Grid[0, 0].name);
-        Debug.Log(Grid[0, 0].transform.position);
+        //Debug.Log(Grid[0, 0].name);
+        //Debug.Log(Grid[0, 0].transform.position);
 
     }
 
@@ -112,10 +112,8 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public bool GetPlayerClick()
+    /*public bool GetPlayerClick()
     {
-        //Grid = new GameObject[Col, Row];
-
         if (Input.GetButtonDown("Fire1"))
         {
             for (var i = 0; i < Row; i++)
@@ -124,23 +122,38 @@ public class GridManager : MonoBehaviour
                 {
                     if (Grid[i, j].transform.position == transform.position)
                     {
-                        //Debug.Log(Grid[i, j].transform.position.x);
-                        //Debug.Log(Grid[i, j].transform.position.y);
-
                         int x = Int32.Parse(Grid[i, j].name.Split(' ')[0]);
                         int y = Int32.Parse(Grid[i, j].name.Split(' ')[1]);
                         
                         selectedTile = new Coordinates(x, y);
-                        Debug.Log(x + " " + y);
-                        //Debug.Log(transform.position);
-
+                        //Debug.Log(x + " " + y);
                         return true;
                     }
                 }
             }
         }
-
         return false;
+    }*/
+
+    public void OnMouseDown()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            for (var i = 0; i < Row; i++)
+            {
+                for (var j = 0; j < Col; j++)
+                {
+                    if (Grid[i, j].transform.position == transform.position)
+                    {
+                        int x = Int32.Parse(Grid[i, j].name.Split(' ')[0]);
+                        int y = Int32.Parse(Grid[i, j].name.Split(' ')[1]);
+
+                        selectedTile = new Coordinates(x, y);
+                        Debug.Log(x + " " + y);
+                    }
+                }
+            }
+        }
     }
 }
 

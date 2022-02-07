@@ -36,7 +36,6 @@ public class GameController : MonoBehaviour
         Board = boardController.GetComponent<GridManager>();
         //clickPositionManager = player.GetComponent<ClickPositionManager>();
         playerController = player.GetComponent<PlayerController>();
-
     }
 
     // Start is called before the first frame update
@@ -45,9 +44,6 @@ public class GameController : MonoBehaviour
         // Variables
         //int x, y, newx, newy;
         //MoveType status;
-
-
-
 
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
         //  OPPONENT'S USERNAME
@@ -60,15 +56,6 @@ public class GameController : MonoBehaviour
         boardController.displayBoard(boardHeights);
         //boardController.highlightValidTiles(boardHeights);
 
-
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
         // GUI: GET A USERNAME FROM USER
         string username = "Player one";
         bool local = true;
@@ -80,9 +67,19 @@ public class GameController : MonoBehaviour
 
         //PLACE PLAYERS
         //GUI: GET COORDINATE FROM PLAYER
-        Coordinates loc = null;
-        if (boardController.GetPlayerClick())
+
+        /*if(boardController.getSelectedTile() != null)
         {
+            Coordinates loc;
+            loc = boardController.getSelectedTile();
+
+            Debug.Log(loc.X);
+        }*/
+
+        if (boardController.getSelectedTile() != null)
+        {
+            //Debug.Log("here");
+            Coordinates loc;
             loc = boardController.getSelectedTile();
             Debug.Log(loc);
 
@@ -133,6 +130,14 @@ public class GameController : MonoBehaviour
 
         }
 
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+        
+        
+        
     }
 }
