@@ -10,6 +10,9 @@ using static GameUtilities;
 
 public class GameController : MonoBehaviour
 {
+    GameBoard board_gc;
+
+
     GridManager boardController;
     GridManager Board;
 
@@ -51,12 +54,19 @@ public class GameController : MonoBehaviour
         //  STARTING PLAYER?
 
         //GC:  INITIALIZE BOARD
-        GameBoard board = new GameBoard();
+        board_gc = new GameBoard();
         //GUI: CREATE EMPTY BOARD
-        int[,] boardHeights = board.GetHeights();
+        int[,] boardHeights = board_gc.GetHeights();
         boardController.displayBoard(boardHeights);
         //boardController.highlightValidTiles(boardHeights);
 
+
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
 
         // GUI: GET A USERNAME FROM USER
@@ -71,62 +81,58 @@ public class GameController : MonoBehaviour
         //PLACE PLAYERS
         //GUI: GET COORDINATE FROM PLAYER
         Coordinates loc = null;
-        while (loc == null)
+        if (boardController.GetPlayerClick())
         {
             loc = boardController.getSelectedTile();
             Debug.Log(loc);
+
+
+            //playerController.placePlayer(1, 1);
+
+            //GC: UPDATE BOARD AND PASS BACK
+            board_gc.PlacePawn(P1, loc);
+
+            //GUI: GET COORDINATE FROM PLAYER
+            //playerController.placePlayer(1, 2);
+
+            //GC: UPDATE BOARD AND PASS BACK
+
+
+
+            //LOOP WHILE NO ERROR
+            //MOVE PLAYERS ------
+            //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
+            //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
+            //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
+            //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
+            //GUI: TELL GC WHICH PAWN WAS CLICKED
+            int x = 1, y = 1;
+            //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
+            int[,] validMoves = ConvertToBinaryBoard(board_gc.AvailableMoves(new Coordinates(x, y)));
+            //GUI: HIGHLIGHT THE VALID MOVES
+            boardController.highlightValidTiles(validMoves);
+            //GUI: SEND GC WHAT TILE WAS CLICKED
+            //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
+            //GUI: UPDATE BOARD
+
+            //BUILD------
+            //GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
+            //GUI: SEND GC THE SELECTED TILE TO BUILD ON
+            //GC: UPDATE BOARD, RETURN BOARD TO GUI
+            //GUI UPDATE BOARD
+
+            //GC: SWAP PLAYERS
+
+            //DETERMINE IF WON OR LOST & REACT TO THAT
+
+
+
+            //playerController.movePlayer(1, 1, 1, 3);
+
+            //BUILD AT A SPECIFIC LOCATION
+
         }
 
-        //playerController.placePlayer(1, 1);
-        
-        //GC: UPDATE BOARD AND PASS BACK
-        board.PlacePawn(P1, loc);
 
-        //GUI: GET COORDINATE FROM PLAYER
-        //playerController.placePlayer(1, 2);
-
-        //GC: UPDATE BOARD AND PASS BACK
-
-
-
-        //LOOP WHILE NO ERROR
-        //MOVE PLAYERS ------
-        //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
-        //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
-         //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
-         //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
-        //GUI: TELL GC WHICH PAWN WAS CLICKED
-        int x = 1, y = 1;
-        //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
-        int[,] validMoves = ConvertToBinaryBoard(board.AvailableMoves(new Coordinates(x, y)));
-        //GUI: HIGHLIGHT THE VALID MOVES
-        boardController.highlightValidTiles(validMoves);
-        //GUI: SEND GC WHAT TILE WAS CLICKED
-        //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
-        //GUI: UPDATE BOARD
-
-        //BUILD------
-        //GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
-        //GUI: SEND GC THE SELECTED TILE TO BUILD ON
-        //GC: UPDATE BOARD, RETURN BOARD TO GUI
-        //GUI UPDATE BOARD
-
-        //GC: SWAP PLAYERS
-
-        //DETERMINE IF WON OR LOST & REACT TO THAT
-
-
-
-        //playerController.movePlayer(1, 1, 1, 3);
-
-        //BUILD AT A SPECIFIC LOCATION
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

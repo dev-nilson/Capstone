@@ -112,7 +112,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private void OnMouseOver()
+    public bool GetPlayerClick()
     {
         //Grid = new GameObject[Col, Row];
 
@@ -129,16 +129,18 @@ public class GridManager : MonoBehaviour
 
                         int x = Int32.Parse(Grid[i, j].name.Split(' ')[0]);
                         int y = Int32.Parse(Grid[i, j].name.Split(' ')[1]);
-                        //Debug.Log(y);
+                        
                         selectedTile = new Coordinates(x, y);
                         Debug.Log(x + " " + y);
                         //Debug.Log(transform.position);
+
+                        return true;
                     }
                 }
             }
         }
 
-        
+        return false;
     }
 }
 
