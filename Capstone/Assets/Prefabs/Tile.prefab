@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5930787508765908235}
   - component: {fileID: -5243199426821425159}
   - component: {fileID: 6502761850459445607}
-  - component: {fileID: 6352683793027094243}
+  - component: {fileID: 764648210954940479}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -114,6 +114,7 @@ MonoBehaviour:
   level1: {fileID: -3885931040627128214, guid: 122eab3a709511249b1135241a30fbd4, type: 3}
   level2: {fileID: 6568228643449758982, guid: 3766d1907cf8ea1418c3efe66ed39851, type: 3}
   level3: {fileID: -7051163489644043104, guid: 4c933ad5c49dd074cb4ffa3547c1e87b, type: 3}
+  temp: {fileID: 0}
 --- !u!54 &-5243199426821425159
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ef700ef2667f54d82a9dce90e4b9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6352683793027094243
+--- !u!114 &764648210954940479
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,6 +152,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5638226049318727965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92b9652d25d74374d801f72a20203c43, type: 3}
+  m_Script: {fileID: 11500000, guid: 66fd1c535f2915d459c4f2ebe678aad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tile: {fileID: 5638226049318727965}
+  level1: {fileID: 5456894690179295032, guid: 122eab3a709511249b1135241a30fbd4, type: 3}
+  level2: {fileID: 5456894690179295032, guid: 3766d1907cf8ea1418c3efe66ed39851, type: 3}
+  level3: {fileID: 5456894690179295032, guid: 4c933ad5c49dd074cb4ffa3547c1e87b, type: 3}
+  parent: {fileID: 0}

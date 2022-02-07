@@ -38,6 +38,7 @@ public class Coordinates
 
     public static bool operator ==(Coordinates loc1, Coordinates loc2)
     {
+        if (loc2 is null) return false;
         if (loc1.X == loc2.X && loc1.Y == loc2.Y) return true;
         else return false;
     }

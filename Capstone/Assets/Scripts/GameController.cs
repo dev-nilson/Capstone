@@ -58,6 +58,7 @@ public class GameController : MonoBehaviour
         //boardController.highlightValidTiles(boardHeights);
 
 
+
         // GUI: GET A USERNAME FROM USER
         string username = "Player one";
         bool local = true;
@@ -69,9 +70,15 @@ public class GameController : MonoBehaviour
 
         //PLACE PLAYERS
         //GUI: GET COORDINATE FROM PLAYER
-        //playerController.placePlayer(1, 1);
-        Coordinates loc = new Coordinates(1, 1);
+        Coordinates loc = null;
+        while (loc == null)
+        {
+            loc = boardController.getSelectedTile();
+            Debug.Log(loc);
+        }
 
+        //playerController.placePlayer(1, 1);
+        
         //GC: UPDATE BOARD AND PASS BACK
         board.PlacePawn(P1, loc);
 
@@ -86,6 +93,8 @@ public class GameController : MonoBehaviour
         //MOVE PLAYERS ------
         //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
         //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
+         //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
+         //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
         //GUI: TELL GC WHICH PAWN WAS CLICKED
         int x = 1, y = 1;
         //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
@@ -119,6 +128,5 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 }

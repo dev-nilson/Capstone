@@ -52,8 +52,8 @@ public class PlayerController : MonoBehaviour
     {
         PlayerPosition = new GameObject[Row, Col];
 
-        player = Instantiate(player1, Board.Grid[row, col].transform.position, transform.rotation);
-        player.transform.position = new Vector3(Board.Grid[row, col].transform.position.x, 1f, Board.Grid[row, col].transform.position.z);
+        player = Instantiate(player1, Board.getBoardTile(row, col).transform.position, transform.rotation);
+        player.transform.position = new Vector3(Board.getBoardTile(row, col).transform.position.x, 1f, Board.getBoardTile(row, col).transform.position.z);
         player.name = ("X: " + row + " Y: " + col);
         player.transform.parent = playerParent.transform;
 

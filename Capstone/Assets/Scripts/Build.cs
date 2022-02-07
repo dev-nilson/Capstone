@@ -26,7 +26,7 @@ public class Build : MonoBehaviour
         boardController = GameObject.Find("GridManager");
         Board = boardController.GetComponent<GridManager>();
 
-        //Debug.Log(Grid_M.Grid[0, 0].name);
+        //Debug.Log(Board.Grid[0, 0].transform.position);
     }
 
     private void OnMouseOver()
@@ -41,7 +41,10 @@ public class Build : MonoBehaviour
             clone.transform.rotation = Quaternion.Euler(180, 0, 0);
             clone.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
 
-            Debug.Log(transform.position);
+            //Debug.Log(transform.position);
+
+            //Debug.Log(Board.Grid[,].name);
+
             //GridManager.Grid[0, 0] = clone;
             //Debug.Log(GridManager.Grid[0,0]);
 
@@ -84,20 +87,7 @@ public class Build : MonoBehaviour
         }
 
         //Instantiate(level1, gridManager.Grid[0, 0].transform.position, transform.rotation);
-       // Debug.Log(gridManager.Grid[0, 0].name);
+        //Debug.Log(boardController.Board[0, 0].name);
     }
 
-    private void OnMouseDown()
-    {
-        //Debug.Log(gridManager.Grid[0, 0]);
-        // Check for mouse input
-        /*if (Input.GetMouseButton(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            // Casts the ray and get the first game object hit
-            Physics.Raycast(ray, out hit);
-            Debug.Log("This hit at " + hit.point);
-        }*/
-    }
 }
