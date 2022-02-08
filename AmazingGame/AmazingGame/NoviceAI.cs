@@ -8,31 +8,31 @@ namespace AmazingGame
     {
         /*
          *  Height Difference Heuristic
-         *  This heuristic looks at the all of the workers’ positions, assigning a value of:
-         *  -   0   points if the builder is at level 0.
-         *  -   10  points if the builder is at level 1.
-         *  -   20  points if the builder is at level 2.
-         *  The combined value of the current player’s workers minus the value of the opponents workers is returned.
+         *  This heuristic looks at all of the workers' positions, assigning a value of:
+         *  -   0   points if worker is at level 0.
+         *  -   10  points if worker is at level 1.
+         *  -   20  points if worker is at level 2.
+         *  The combined value of the current player's workers minus the value of the opponent's workers is returned.
          */
         public int HeightDifference(GameBoard.Coordinates[] allPawns)
         {
             int heightDifference = 0;
 
             //  TODO: Figure out heights[,] rows and columns. What goes first? What goes second?
-            int currentPlayerHeight  = (GameBoard.heights[allPawns[0].X, allPawns[0].Y] + GameBoard.heights[allPawns[1].X, allPawns[1].Y]) * 10;
-            int opponentPlayerHeight = (GameBoard.heights[allPawns[2].X, allPawns[2].Y] + GameBoard.heights[allPawns[3].X, allPawns[3].Y]) * 10;
+            int playerHeight    = (GameBoard.heights[allPawns[0].X, allPawns[0].Y] + GameBoard.heights[allPawns[1].X, allPawns[1].Y]) * 10;
+            int opponentHeight  = (GameBoard.heights[allPawns[2].X, allPawns[2].Y] + GameBoard.heights[allPawns[3].X, allPawns[3].Y]) * 10;
 
-            heightDifference = currentPlayerHeight - opponentPlayerHeight;
+            heightDifference = playerHeight - opponentHeight;
 
             return heightDifference;
         }
 
         /*
          *  Centricity Heuristic
-         *  This heuristic looks at the all of the workers’ positions, assigning a value of:
-         *  -   0   points if the builder is in the border spaces.
-         *  -   5   points if the builder is in the inner 3x3 ring.
-         *  -   10  points if the builder is in the middle space.
+         *  This heuristic looks at all of the player's workers' positions, assigning a value of:
+         *  -   0   points if worker is in the border spaces.
+         *  -   5   points if worker is in the inner 3x3 ring.
+         *  -   10  points if worker is in the middle space.
          *  The combined value of the current player’s workers is returned.
          */
         public int Centricity(GameBoard.Coordinates[] playerPawns)
@@ -150,12 +150,33 @@ namespace AmazingGame
             return centricity;
         }
 
-
-        public int WinningThreat(int currentWorker1X, int currentWorker1Y, int currentWorker2X, int currentWorker2Y)
+        /*  
+         *  Winning Threat Heuristic
+         *  This heuristic looks at all of the player's workers' positions at level 2, assigning a value of:
+         *  -   0   points if worker has no adjacent level 3 tiles.
+         *  -   100 points for each of the worker's adjacent level 3 tiles.
+         */
+        public int WinningThreat(GameBoard.Coordinates[] playerPawns)
         {
             int winningThreat = 0;
 
-            
+            for (int i = 0; i < 2; ++i)
+            {
+                List<Coordinates> availableMoves;
+
+                if (GameBoard.heights(playerPawns[i].X, playerPawns[i].Y) == 2)
+                {
+                    availableMoves = GameBoard.AvailableMoves(playerPawns[i].X, playerPawns[i].Y);
+                }
+
+                for (int j = 0; j < availableMoves.Count; ++j)
+                {
+                    if (GameBoard.heights(availableMoves[j].X, availableMoves[j].Y) == 3)
+                    {
+                        winningThreat += 100;
+                    }
+                }
+            }
 
             return winningThreat;
         }
