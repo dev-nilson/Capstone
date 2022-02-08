@@ -6,7 +6,6 @@ namespace AmazingGame
 {
     class NoviceAI
     {
-        //  TODO: Replace ints for Coordinates
         /*
          *  Height Difference Heuristic
          *  This heuristic looks at the all of the workers’ positions, assigning a value of:
@@ -15,20 +14,19 @@ namespace AmazingGame
          *  -   20  points if the builder is at level 2.
          *  The combined value of the current player’s workers minus the value of the opponents workers is returned.
          */
-        public int HeightDifference(int currentWorker1X, int currentWorker1Y, int currentWorker2X, int currentWorker2Y, int opponentWorker1X, int opponentWorker1Y, int opponentWorker2X, int opponentWorker2Y)
+        public int HeightDifference(GameBoard.Coordinates[] allPawns)
         {
             int heightDifference = 0;
 
             //  TODO: Figure out heights[,] rows and columns. What goes first? What goes second?
-            int currentPlayerHeight  = (heights[currentWorker1X, currentWorker1Y] + heights[currentWorker2X, currentWorker2Y]) * 10;
-            int opponentPlayerHeight = (heights[opponentWorker1X, opponentWorker1Y] + heights[opponentWorker2X, opponentWorker2Y]) * 10;
+            int currentPlayerHeight  = (GameBoard.heights[allPawns[0].X, allPawns[0].Y] + GameBoard.heights[allPawns[1].X, allPawns[1].Y]) * 10;
+            int opponentPlayerHeight = (GameBoard.heights[allPawns[2].X, allPawns[2].Y] + GameBoard.heights[allPawns[3].X, allPawns[3].Y]) * 10;
 
             heightDifference = currentPlayerHeight - opponentPlayerHeight;
 
             return heightDifference;
         }
 
-        //  TODO: Replace ints for Coordinates
         /*
          *  Centricity Heuristic
          *  This heuristic looks at the all of the workers’ positions, assigning a value of:
@@ -37,7 +35,7 @@ namespace AmazingGame
          *  -   10  points if the builder is in the middle space.
          *  The combined value of the current player’s workers is returned.
          */
-        public int Centricity(int currentWorker1X, int currentWorker1Y, int currentWorker2X, int currentWorker2Y)
+        public int Centricity(GameBoard.Coordinates[] playerPawns)
         {
             int centricity = 0;
 
@@ -48,8 +46,10 @@ namespace AmazingGame
              *  ■ ■ ■ ■ ■
              *  ■ ■ ■ ■ ■
              */
-            if ((currentWorker1X == 1 && currentWorker1Y == 1) || (currentWorker2X == 1 && currentWorker2Y == 1))
+            if ((playerPawns[0].X == 1 && playerPawns[0].Y == 1) || (playerPawns[1].X == 1 && playerPawns[1].Y == 1))
+            {
                 centricity += 5;
+            }
 
             /*  
              *  ■ ■ ■ ■ ■
@@ -58,8 +58,10 @@ namespace AmazingGame
              *  ■ ■ ■ ■ ■
              *  ■ ■ ■ ■ ■
              */
-            if ((currentWorker1X == 1 && currentWorker1Y == 2) || (currentWorker2X == 1 && currentWorker2Y == 2))
+            if ((playerPawns[0].X == 1 && playerPawns[0].Y == 2) || (playerPawns[1].X == 1 && playerPawns[1].Y == 2))
+            {
                 centricity += 5;
+            }
 
             /*  
              *  ■ ■ ■ ■ ■
@@ -68,8 +70,10 @@ namespace AmazingGame
              *  ■ ■ ■ ■ ■
              *  ■ ■ ■ ■ ■
              */
-            if ((currentWorker1X == 1 && currentWorker1Y == 3) || (currentWorker2X == 1 && currentWorker2Y == 3))
+            if ((playerPawns[0].X == 1 && playerPawns[0].Y == 3) || (playerPawns[1].X == 1 && playerPawns[1].Y == 3))
+            {
                 centricity += 5;
+            }
 
             /*  
              *  ■ ■ ■ ■ ■
@@ -78,8 +82,10 @@ namespace AmazingGame
              *  ■ ■ ■ ■ ■
              *  ■ ■ ■ ■ ■
              */
-            if ((currentWorker1X == 2 && currentWorker1Y == 1) || (currentWorker2X == 2 && currentWorker2Y == 1))
+            if ((playerPawns[0].X == 2 && playerPawns[0].Y == 1) || (playerPawns[1].X == 2 && playerPawns[1].Y == 1))
+            {
                 centricity += 5;
+            }
 
             /*  
              *  ■ ■ ■ ■ ■
@@ -88,8 +94,10 @@ namespace AmazingGame
              *  ■ ■ ■ ■ ■
              *  ■ ■ ■ ■ ■
              */
-            if ((currentWorker1X == 2 && currentWorker1Y == 2) || (currentWorker2X == 2 && currentWorker2Y == 2))
+            if ((playerPawns[0].X == 2 && playerPawns[0].Y == 2) || (playerPawns[1].X == 2 && playerPawns[1].Y == 2))
+            {
                 centricity += 10;
+            }
 
             /*  
              *  ■ ■ ■ ■ ■
@@ -98,8 +106,10 @@ namespace AmazingGame
              *  ■ ■ ■ ■ ■
              *  ■ ■ ■ ■ ■
              */
-            if ((currentWorker1X == 2 && currentWorker1Y == 3) || (currentWorker2X == 2 && currentWorker2Y == 3))
+            if ((playerPawns[0].X == 2 && playerPawns[0].Y == 3) || (playerPawns[1].X == 2 && playerPawns[1].Y == 3))
+            {
                 centricity += 5;
+            }
 
             /*  
              *  ■ ■ ■ ■ ■
@@ -108,8 +118,10 @@ namespace AmazingGame
              *  ■ X ■ ■ ■
              *  ■ ■ ■ ■ ■
              */
-            if ((currentWorker1 X == 3 && currentWorker1Y == 1) || (currentWorker2X == 3 && currentWorker2Y == 1))
+            if ((playerPawns[0].X == 3 && playerPawns[0].Y == 1) || (playerPawns[1].X == 3 && playerPawns[1].Y == 1))
+            {
                 centricity += 5;
+            }
 
             /*  
              *  ■ ■ ■ ■ ■
@@ -118,8 +130,10 @@ namespace AmazingGame
              *  ■ ■ X ■ ■
              *  ■ ■ ■ ■ ■
              */
-            if ((currentWorker1X == 3 && currentWorker1Y == 2) || (currentWorker2X == 3 && currentWorker2Y == 2))
+            if ((playerPawns[0].X == 3 && playerPawns[0].Y == 2) || (playerPawns[1].X == 3 && playerPawns[1].Y == 2))
+            {
                 centricity += 5;
+            }
 
             /*  
              *  ■ ■ ■ ■ ■
@@ -128,10 +142,22 @@ namespace AmazingGame
              *  ■ ■ ■ X ■
              *  ■ ■ ■ ■ ■
              */
-            if ((currentWorker1X == 3 && currentWorker1Y == 3) || (currentWorker2X == 3 && currentWorker2Y == 3))
+            if ((playerPawns[0].X == 3 && playerPawns[0].Y == 3) || (playerPawns[1].X == 3 && playerPawns[1].Y == 3))
+            {
                 centricity += 5;
+            }
 
             return centricity;
+        }
+
+
+        public int WinningThreat(int currentWorker1X, int currentWorker1Y, int currentWorker2X, int currentWorker2Y)
+        {
+            int winningThreat = 0;
+
+            
+
+            return winningThreat;
         }
     }
 }
