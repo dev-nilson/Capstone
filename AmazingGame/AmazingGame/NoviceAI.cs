@@ -155,12 +155,13 @@ namespace AmazingGame
          *  This heuristic looks at all of the player's workers' positions at level 2, assigning a value of:
          *  -   0   points if worker has no adjacent level 3 tiles.
          *  -   100 points for each of the worker's adjacent level 3 tiles.
+         *  The combined value of the current player’s workers is returned.
          */
         public int WinningThreat(GameBoard.Coordinates[] playerPawns)
         {
             int winningThreat = 0;
 
-            for (int i = 0; i < 2; ++i)
+            for (int i = 0; i < playerPawns.Length; ++i)
             {
                 List<Coordinates> availableMoves;
 
@@ -179,6 +180,38 @@ namespace AmazingGame
             }
 
             return winningThreat;
+        }
+
+        /*
+         *  Movility Heuristic
+         *  This heuristic looks at all of the workers' positions, assigning a value of:
+         *  -   0   points for each of the worker's blocked moves.
+         *  -   5   points for each of the worker's available moves.
+         *  The combined value of the current player's workers minus the value of the opponent's workers is returned.
+         */
+        public int Mobility(GameBoard.Coordinates[] allPawns)
+        {
+            int mobility = 0;
+            List<Coordinates> playerAvailableMoves;
+            List<Coordinates> opponentAvailableMoves;
+
+            for (int i = 0; i < allPawns.Length; ++i)
+            {
+                if (i < 2)
+                {
+                    playerAvailableMoves = GameBoard.AvailableMoves(allPawns[i].X, allPawns[i].Y);
+                    mobility += playerAvailableMoves.Count;
+                }
+                else
+                {
+                    opponentAvailableMoves = GameBoard.AvailableMoves(allPawns[i].X, allPawns[i].Y);
+                    mobility -= opponentAvailableMoves.Count;
+                }
+            }
+
+            mobility *= 5;
+
+            return mobility;
         }
     }
 }
