@@ -76,6 +76,13 @@ public class GameController : MonoBehaviour
             Debug.Log(loc.X);
         }*/
 
+        
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (boardController.getSelectedTile() != null)
         {
             //Debug.Log("here");
@@ -87,7 +94,7 @@ public class GameController : MonoBehaviour
             //playerController.placePlayer(1, 1);
 
             //GC: UPDATE BOARD AND PASS BACK
-            board_gc.PlacePawn(P1, loc);
+            //board_gc.PlacePawn(P1, loc);
 
             //GUI: GET COORDINATE FROM PLAYER
             //playerController.placePlayer(1, 2);
@@ -129,15 +136,5 @@ public class GameController : MonoBehaviour
             //BUILD AT A SPECIFIC LOCATION
 
         }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        
-        
-        
     }
 }

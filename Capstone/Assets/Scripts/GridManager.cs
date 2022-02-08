@@ -95,6 +95,7 @@ public class GridManager : MonoBehaviour
 
     public Coordinates getSelectedTile()
     {
+        Debug.Log("here :" + selectedTile);
         return selectedTile;
     }
 
@@ -126,7 +127,7 @@ public class GridManager : MonoBehaviour
                         int y = Int32.Parse(Grid[i, j].name.Split(' ')[1]);
                         
                         selectedTile = new Coordinates(x, y);
-                        //Debug.Log(x + " " + y);
+                        Debug.Log(x + " " + y);
                         return true;
                     }
                 }

@@ -9,6 +9,8 @@ ScriptsOnlyBuild:
     - RotateMainCamera
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    Unity.Timeline.Editor.dll:
+    - TimelineProjectSettings
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -61,33 +63,31 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11726}
+      Script: {instanceID: 11716}
     - Class: 114
-      Script: {instanceID: 11908}
+      Script: {instanceID: 11898}
     - Class: 114
-      Script: {instanceID: 11948}
+      Script: {instanceID: 11938}
     - Class: 114
-      Script: {instanceID: 12088}
+      Script: {instanceID: 12078}
     - Class: 114
-      Script: {instanceID: 12162}
+      Script: {instanceID: 12152}
     - Class: 114
-      Script: {instanceID: 12388}
+      Script: {instanceID: 12378}
     - Class: 114
-      Script: {instanceID: 12768}
+      Script: {instanceID: 12758}
     - Class: 114
-      Script: {instanceID: 12850}
+      Script: {instanceID: 12840}
     - Class: 114
-      Script: {instanceID: 13386}
+      Script: {instanceID: 13378}
     - Class: 114
-      Script: {instanceID: 13486}
+      Script: {instanceID: 13592}
     - Class: 114
-      Script: {instanceID: 13600}
+      Script: {instanceID: 13604}
     - Class: 114
-      Script: {instanceID: 13612}
+      Script: {instanceID: 13622}
     - Class: 114
-      Script: {instanceID: 13630}
-    - Class: 114
-      Script: {instanceID: 13784}
+      Script: {instanceID: 13778}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -128,21 +128,21 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11726}
+      Script: {instanceID: 11716}
     - Class: 114
-      Script: {instanceID: 11908}
+      Script: {instanceID: 11898}
     - Class: 114
-      Script: {instanceID: 11948}
+      Script: {instanceID: 11938}
     - Class: 114
-      Script: {instanceID: 12388}
+      Script: {instanceID: 12378}
     - Class: 114
-      Script: {instanceID: 12850}
+      Script: {instanceID: 12840}
     - Class: 114
-      Script: {instanceID: 12878}
+      Script: {instanceID: 12868}
     - Class: 114
-      Script: {instanceID: 13386}
+      Script: {instanceID: 13378}
     - Class: 114
-      Script: {instanceID: 13784}
+      Script: {instanceID: 13778}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -474,6 +474,12 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: ccfa9c6bd2bcf516153216f3eb1e12bb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SwitchScreens
+  - hash:
+      serializedVersion: 2
       Hash: 760787567e1b60d64a3e421ab83ee14a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -622,14 +628,8 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: ccfa9c6bd2bcf516153216f3eb1e12bb
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SwitchScreens
   platform: 5
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/GameBoard.unity
-  playerPath: C:/Users/Maggie/Desktop/CAPSTONE/Capstone/Capstone/Capstone.exe
+  playerPath: C:/Users/Team06/Desktop/Capstone2.0/Capstone/test build/Capstone.exe

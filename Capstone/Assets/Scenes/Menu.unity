@@ -174,7 +174,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 105
+  field of view: 14
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -524,7 +524,7 @@ RectTransform:
   m_GameObject: {fileID: 1094871672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 16, y: 10, z: 0}
+  m_LocalScale: {x: 20, y: 15, z: 0}
   m_Children: []
   m_Father: {fileID: 1466198158}
   m_RootOrder: 0
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: e05046373bbbfb04488529272106dbec, type: 3}
+  m_Texture: {fileID: 2800000, guid: 1e59cd12e5e02a7459c8cb0f577fffb2, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
