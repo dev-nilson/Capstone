@@ -83,12 +83,15 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (boardController.getSelectedTile() != null)
+        if (boardController.GetPlayerClick() != null)
         {
             //Debug.Log("here");
             Coordinates loc;
             loc = boardController.getSelectedTile();
-            Debug.Log(loc);
+            if(loc != null)
+            {
+                Debug.Log(loc);
+            }
 
 
             //playerController.placePlayer(1, 1);

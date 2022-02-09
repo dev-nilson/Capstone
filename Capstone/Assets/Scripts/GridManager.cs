@@ -95,7 +95,6 @@ public class GridManager : MonoBehaviour
 
     public Coordinates getSelectedTile()
     {
-        Debug.Log("here :" + selectedTile);
         return selectedTile;
     }
 
@@ -113,7 +112,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    /*public bool GetPlayerClick()
+    public Coordinates GetPlayerClick()
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -128,15 +127,15 @@ public class GridManager : MonoBehaviour
                         
                         selectedTile = new Coordinates(x, y);
                         Debug.Log(x + " " + y);
-                        return true;
+                        return selectedTile;
                     }
                 }
             }
         }
-        return false;
-    }*/
+        return null;
+    }
 
-    public void OnMouseDown()
+    /*public void OnMouseDown()
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -155,7 +154,7 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }
 
 
