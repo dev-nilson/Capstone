@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 87616223}
   - component: {fileID: 87616222}
   - component: {fileID: 87616221}
+  - component: {fileID: 87616224}
   m_Layer: 5
   m_Name: Multiplayer
   m_TagString: Untagged
@@ -149,13 +150,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 87616219}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 260033387}
-  m_Father: {fileID: 1466198158}
-  m_RootOrder: 2
+  m_Father: {fileID: 537237128}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -243,6 +244,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 87616219}
   m_CullTransparentMesh: 0
+--- !u!114 &87616224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87616219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485f76bb1f9f4704aaf90a2b5b93f2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quickGame: {fileID: 2124057699}
+  multiplayer: {fileID: 87616221}
+  tutorial: {fileID: 1106222060}
+  storyMode: {fileID: 1621470740}
 --- !u!1 &199476533
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +450,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2124057698}
+  - {fileID: 87616220}
+  - {fileID: 1106222059}
+  - {fileID: 1621470739}
   m_Father: {fileID: 1466198158}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -739,6 +760,7 @@ GameObject:
   - component: {fileID: 1106222062}
   - component: {fileID: 1106222061}
   - component: {fileID: 1106222060}
+  - component: {fileID: 1106222063}
   m_Layer: 5
   m_Name: Tutorial
   m_TagString: Untagged
@@ -753,13 +775,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106222058}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1636425972}
-  m_Father: {fileID: 1466198158}
-  m_RootOrder: 3
+  m_Father: {fileID: 537237128}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -847,6 +869,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106222058}
   m_CullTransparentMesh: 0
+--- !u!114 &1106222063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106222058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485f76bb1f9f4704aaf90a2b5b93f2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quickGame: {fileID: 2124057699}
+  multiplayer: {fileID: 87616221}
+  tutorial: {fileID: 1106222060}
+  storyMode: {fileID: 1621470740}
 --- !u!1 &1375165073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,10 +1042,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 537237128}
-  - {fileID: 2124057698}
-  - {fileID: 87616220}
-  - {fileID: 1106222059}
-  - {fileID: 1621470739}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1028,6 +1062,7 @@ GameObject:
   - component: {fileID: 1621470742}
   - component: {fileID: 1621470741}
   - component: {fileID: 1621470740}
+  - component: {fileID: 1621470743}
   m_Layer: 5
   m_Name: Story Mode
   m_TagString: Untagged
@@ -1042,13 +1077,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621470738}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 898751617}
-  m_Father: {fileID: 1466198158}
-  m_RootOrder: 4
+  m_Father: {fileID: 537237128}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1136,6 +1171,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621470738}
   m_CullTransparentMesh: 0
+--- !u!114 &1621470743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621470738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485f76bb1f9f4704aaf90a2b5b93f2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quickGame: {fileID: 2124057699}
+  multiplayer: {fileID: 87616221}
+  tutorial: {fileID: 1106222060}
+  storyMode: {fileID: 1621470740}
 --- !u!1 &1636425971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1278,7 @@ GameObject:
   - component: {fileID: 2124057701}
   - component: {fileID: 2124057700}
   - component: {fileID: 2124057699}
+  - component: {fileID: 2124057702}
   m_Layer: 5
   m_Name: Quick Game
   m_TagString: Untagged
@@ -1241,13 +1293,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124057697}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 748959377}
-  m_Father: {fileID: 1466198158}
-  m_RootOrder: 1
+  m_Father: {fileID: 537237128}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1335,3 +1387,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124057697}
   m_CullTransparentMesh: 0
+--- !u!114 &2124057702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124057697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485f76bb1f9f4704aaf90a2b5b93f2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quickGame: {fileID: 2124057699}
+  multiplayer: {fileID: 87616221}
+  tutorial: {fileID: 1106222060}
+  storyMode: {fileID: 1621470740}

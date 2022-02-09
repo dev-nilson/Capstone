@@ -5,8 +5,18 @@ ScriptsOnlyBuild:
     - GameController
     - GridManager
     - Hover
+    - MenuScreen
     - PlayerController
     - RotateMainCamera
+    Unity.2D.Animation.Editor.dll:
+    - UnityEditor.U2D.Animation.BoneCache
+    - UnityEditor.U2D.Animation.BoneGizmo
+    - UnityEditor.U2D.Animation.SkinningCachePersistentState
+    Unity.2D.IK.Editor.dll:
+    - UnityEditor.Experimental.U2D.IK.IKEditorManager
+    - UnityEditor.Experimental.U2D.IK.IKGizmos
+    Unity.2D.IK.Runtime.dll:
+    - UnityEditor.Experimental.U2D.IK.IKEditorManagerHelper
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.Timeline.Editor.dll:
@@ -140,6 +150,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12868}
     - Class: 114
+      Script: {instanceID: 13286}
+    - Class: 114
       Script: {instanceID: 13378}
     - Class: 114
       Script: {instanceID: 13778}
@@ -152,6 +164,135 @@ ScriptsOnlyBuild:
     - Class: 196
       Script: {instanceID: 0}
     - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/Multiplayer.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11716}
+    - Class: 114
+      Script: {instanceID: 11898}
+    - Class: 114
+      Script: {instanceID: 12378}
+    - Class: 114
+      Script: {instanceID: 13378}
+    - Class: 114
+      Script: {instanceID: 13778}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/Story Mode.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11716}
+    - Class: 114
+      Script: {instanceID: 11898}
+    - Class: 114
+      Script: {instanceID: 12378}
+    - Class: 114
+      Script: {instanceID: 13378}
+    - Class: 114
+      Script: {instanceID: 13778}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/Tutorial.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11716}
+    - Class: 114
+      Script: {instanceID: 11898}
+    - Class: 114
+      Script: {instanceID: 12378}
+    - Class: 114
+      Script: {instanceID: 13378}
+    - Class: 114
+      Script: {instanceID: 13778}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
       Script: {instanceID: 0}
     - Class: 222
       Script: {instanceID: 0}
@@ -474,10 +615,10 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: ccfa9c6bd2bcf516153216f3eb1e12bb
+      Hash: 8c57679067c7a597f7f700dce5a8400b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: SwitchScreens
+    className: MenuScreen
   - hash:
       serializedVersion: 2
       Hash: 760787567e1b60d64a3e421ab83ee14a
@@ -628,8 +769,71 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 87cef3c82381dc586f6772c3e27561b6
+    assemblyName: Unity.2D.Animation.Runtime.dll
+    namespaceName: UnityEngine.Experimental.U2D.Animation
+    className: SpriteLibrary
+  - hash:
+      serializedVersion: 2
+      Hash: b424b4eeb810aecb0ff91c62639241e9
+    assemblyName: Unity.2D.Animation.Runtime.dll
+    namespaceName: UnityEngine.Experimental.U2D.Animation
+    className: SpriteResolver
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Unity.2D.Animation.Runtime.dll
+    namespaceName: UnityEngine.U2D.Animation
+    className: SpriteSkinEntity
+  - hash:
+      serializedVersion: 2
+      Hash: 71b711096c6c32621c1d4c02310898b7
+    assemblyName: Unity.2D.Animation.Runtime.dll
+    namespaceName: UnityEngine.U2D.Animation
+    className: SpriteSkin
+  - hash:
+      serializedVersion: 2
+      Hash: 28cfb4bd305dd11c6326cc3ee7c14138
+    assemblyName: Unity.2D.Animation.Runtime.dll
+    namespaceName: UnityEngine.Experimental.U2D.Animation
+    className: SpriteLibraryAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 762a30c8d779b11af16ed9ce1f2d32fa
+    assemblyName: Unity.2D.IK.Runtime.dll
+    namespaceName: UnityEngine.Experimental.U2D.IK
+    className: FabrikSolver2D
+  - hash:
+      serializedVersion: 2
+      Hash: 9b2d72155209a515197b0788f9f11a91
+    assemblyName: Unity.2D.IK.Runtime.dll
+    namespaceName: UnityEngine.Experimental.U2D.IK
+    className: LimbSolver2D
+  - hash:
+      serializedVersion: 2
+      Hash: d1b036fbe5adcfe372c77a9d812c7e37
+    assemblyName: Unity.2D.IK.Runtime.dll
+    namespaceName: UnityEditor.Experimental.U2D.IK
+    className: IKEditorManagerHelper
+  - hash:
+      serializedVersion: 2
+      Hash: cfdd0010efd7b54c2b7512656dbc9119
+    assemblyName: Unity.2D.IK.Runtime.dll
+    namespaceName: UnityEngine.Experimental.U2D.IK
+    className: IKManager2D
+  - hash:
+      serializedVersion: 2
+      Hash: 59ce5902048c1041729c804e2772b2ce
+    assemblyName: Unity.2D.IK.Runtime.dll
+    namespaceName: UnityEngine.Experimental.U2D.IK
+    className: CCDSolver2D
   platform: 5
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/GameBoard.unity
+  - Assets/Scenes/Multiplayer.unity
+  - Assets/Scenes/Tutorial.unity
+  - Assets/Scenes/Story Mode.unity
   playerPath: C:/Users/Team06/Desktop/Capstone2.0/Capstone/test build/Capstone.exe
