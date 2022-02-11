@@ -66,8 +66,8 @@ public class GameController : MonoBehaviour
 
         //GC: CREATE PLAYERS
         P1 = new Player(local, username);
+        //playerController.placePlayer(3, 4);
 
-        playerController.placePlayer(3, 4);
         Debug.Log("HERE");
 
         player1TurnActive = true;
@@ -122,7 +122,7 @@ public class GameController : MonoBehaviour
                 //playerController.placePlayer(1, 1);
 
                 //GC: UPDATE BOARD AND PASS BACK
-                board_gc.PlacePawn(P1, loc);
+                //board_gc.PlacePawn(P1, loc);
             }
             //GUI: GET COORDINATE FROM PLAYER
             //playerController.placePlayer(1, 2);

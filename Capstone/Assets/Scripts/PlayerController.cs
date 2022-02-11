@@ -68,18 +68,21 @@ public class PlayerController : MonoBehaviour
         Debug.Log(PlayerPosition[1, 1]);
     }*/
 
-    public void placePlayer(int row, int col)
+    private void OnMouseOver()
     {
-        PlayerPosition = new GameObject[Row, Col];
-        //playerParent = Board.getBoardTile(row, col);
+        if (Input.GetMouseButtonDown(0))
+        {
+            PlayerPosition = new GameObject[Row, Col];
+            //playerParent = Board.getBoardTile(row, col);
 
-        player = Instantiate(player1, Board.getBoardTile(row, col).transform.position, transform.rotation);
-        player.transform.position = new Vector3(Board.getBoardTile(row, col).transform.position.x, 1f, Board.getBoardTile(row, col).transform.position.z);
-        player.transform.rotation = Quaternion.Euler(0, 0, 0);
-        player.name = ("X: " + row + " Y: " + col);
-        player.transform.parent = playerParent.transform;
+            player = Instantiate(player1, transform.position, transform.rotation);
+            player.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
+            player.transform.rotation = Quaternion.Euler(0, 0, 0);
+            //player.name = ("X: " + row + " Y: " + col);
+            //player.transform.parent = playerParent.transform;
 
-        PlayerPosition[row, col] = player;
-        //Debug.Log(PlayerPosition[0,0]);
+            //PlayerPosition[row, col] = player;
+            Debug.Log(transform.position.x + " " + transform.position.y);
+        }
     }
 }
