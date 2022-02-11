@@ -30,6 +30,9 @@ public class GameController : MonoBehaviour
     GameObject child;
 
     int Col = 5, Row = 5;
+    Coordinates loc = new Coordinates(-1, -1);
+
+    public bool player1TurnActive = false;
 
     void Awake()
     {
@@ -64,6 +67,21 @@ public class GameController : MonoBehaviour
         //GC: CREATE PLAYERS
         P1 = new Player(local, username);
 
+        playerController.placePlayer(3,4);
+        Debug.Log("HERE");
+
+        player1TurnActive = true;
+
+        /*Coordinates loc;
+        loc = boardController.getSelectedTile();
+        Debug.Log(loc.X + " " + loc.Y);*/
+
+        //GC: UPDATE BOARD AND PASS BACK
+        //board_gc.PlacePawn(P1, loc);
+
+        //Debug.Log(loc.X + " " + loc.Y);
+        //playerController.placePlayer(loc.X, loc.Y);
+
         //who is starting player?
 
         //PLACE PLAYERS
@@ -78,17 +96,22 @@ public class GameController : MonoBehaviour
         }*/
 
 
+<<<<<<< HEAD
         // Game begins with no place pawn, move, or build phase
         DisablePhases(); SwapPlacePawnPhase();
         //SwapBuildPhase();
+=======
+>>>>>>> 755bf74d4dfdef270ae29894d0472e31606539bb
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (boardController.GetPlayerClick() != null)
+
+        if (Input.GetMouseButtonDown(0))
         {
+<<<<<<< HEAD
             if (CanPlacePawn())
             {
                 //Debug.Log("here");
@@ -109,21 +132,41 @@ public class GameController : MonoBehaviour
             //playerController.placePlayer(1, 2);
 
             //GC: UPDATE BOARD AND PASS BACK
+=======
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.transform.name);
+                playerController.placePlayer((int)hit.transform.position.x, (int)hit.transform.position.y);
+            }
+        }
+        //playerController.placePlayer(1, 1);
+
+        //GC: UPDATE BOARD AND PASS BACK
+        //board_gc.PlacePawn(P1, loc);
+
+        //GUI: GET COORDINATE FROM PLAYER
+        //playerController.placePlayer(1, 2);
+
+        //GC: UPDATE BOARD AND PASS BACK
+>>>>>>> 755bf74d4dfdef270ae29894d0472e31606539bb
 
 
 
-            //LOOP WHILE NO ERROR
-            //MOVE PLAYERS ------
-            //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
-            //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
-            //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
-            //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
-            //GUI: TELL GC WHICH PAWN WAS CLICKED
-            int x = 1, y = 1;
+        //LOOP WHILE NO ERROR
+        //MOVE PLAYERS ------
+        //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
+        //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
+        //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
+        //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
+        //GUI: TELL GC WHICH PAWN WAS CLICKED
+        int x = 1, y = 1;
             //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
-            int[,] validMoves = ConvertToBinaryBoard(board_gc.AvailableMoves(new Coordinates(x, y)));
+            //int[,] validMoves = ConvertToBinaryBoard(board_gc.AvailableMoves(new Coordinates(x, y)));
             //GUI: HIGHLIGHT THE VALID MOVES
-            boardController.highlightValidTiles(validMoves);
+            //boardController.highlightValidTiles(validMoves);
             //GUI: SEND GC WHAT TILE WAS CLICKED
             //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
             //GUI: UPDATE BOARD
@@ -144,6 +187,6 @@ public class GameController : MonoBehaviour
 
             //BUILD AT A SPECIFIC LOCATION
 
-        }
+        
     }
 }

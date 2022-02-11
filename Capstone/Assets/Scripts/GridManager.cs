@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GridManager : MonoBehaviour
 {
     public static GameObject[,] Grid;
     public static Coordinates selectedTile;
+
+    GameController gameController;
 
     int Col = 5, Row = 5;
     public GameObject tile;
@@ -16,6 +19,8 @@ public class GridManager : MonoBehaviour
     public GameObject level3;
 
     public GameObject parent;
+    public GameObject levelParent;
+
     GameObject gridSpace;
     GameObject child;
 
@@ -32,7 +37,6 @@ public class GridManager : MonoBehaviour
         //get original color of the GameObject
         Original = Renderer.material.color;
     }
-
 
     public void displayBoard(int[,] temp)
     {
@@ -53,6 +57,11 @@ public class GridManager : MonoBehaviour
         parent.transform.localScale = new Vector3(5f, 5f, 1f);
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
 
+        child = Instantiate(level1, Grid[0, 1].transform.position, Grid[0, 1].transform.rotation);
+        child.transform.rotation = Quaternion.Euler(180, 0, 0);
+        child.transform.position = new Vector3(Grid[0, 1].transform.position.x, 1f, Grid[0, 1].transform.position.z);
+        child.transform.parent = levelParent.transform;
+
         //place all tiles
         for (var i = 0; i < Row; i++)
         {
@@ -60,10 +69,11 @@ public class GridManager : MonoBehaviour
             {
                 if (temp[i, j] == 1)
                 {
+                    //Debug.Log(gridSpace);
                     child = Instantiate(level1, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
                     child.transform.rotation = Quaternion.Euler(180, 0, 0);
-                    child.transform.parent = Grid[i, j].transform;
                     child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
+                    child.transform.parent = levelParent.transform;
                 }
                 else if (temp[i, j] == 2)
                 {
@@ -132,7 +142,29 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        return null;
+        selectedTile = new Coordinates(-1, -1);
+
+        return selectedTile;
+    }
+
+    public void click()
+    {
+        Debug.Log("here");
+        for (var i = 0; i < Row; i++)
+        {
+            for (var j = 0; j < Col; j++)
+            {
+                if (Grid[i, j].transform.position == transform.position)
+                {
+                    int x = Int32.Parse(Grid[i, j].name.Split(' ')[0]);
+                    int y = Int32.Parse(Grid[i, j].name.Split(' ')[1]);
+
+                    selectedTile = new Coordinates(x, y);
+                    Debug.Log(x + " " + y);
+                    Debug.Log(selectedTile.X + " " + selectedTile.Y);
+                }
+            }
+        }
     }
 
     /*public void OnMouseDown()
@@ -154,6 +186,7 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+        
     }*/
 }
 

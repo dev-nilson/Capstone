@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class PlayerController : MonoBehaviour
     GridManager Board;
 
     public GameObject player1;
-    public GameObject player2;
     GameObject player;
 
     public GameObject playerParent;
@@ -28,8 +28,28 @@ public class PlayerController : MonoBehaviour
         Board = boardController.GetComponent<GridManager>();
     }
 
-    public void choosePlayer()
+    public Coordinates GetPlayerClick()
     {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            for (var i = 0; i < Row; i++)
+            {
+                for (var j = 0; j < Col; j++)
+                {
+                    if (player1.transform.position == transform.position)
+                    {
+                        /*int x = Int32.Parse(Grid[i, j].name.Split(' ')[0]);
+                        int y = Int32.Parse(Grid[i, j].name.Split(' ')[1]);
+
+                        selectedTile = new Coordinates(x, y);
+                        Debug.Log(x + " " + y);
+                        return selectedTile;*/
+                        Debug.Log(player1.transform.position);
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /*public void movePlayer(int startRow, int startCol, int endRow, int endCol)
@@ -51,13 +71,15 @@ public class PlayerController : MonoBehaviour
     public void placePlayer(int row, int col)
     {
         PlayerPosition = new GameObject[Row, Col];
+        //playerParent = Board.getBoardTile(row, col);
 
         player = Instantiate(player1, Board.getBoardTile(row, col).transform.position, transform.rotation);
         player.transform.position = new Vector3(Board.getBoardTile(row, col).transform.position.x, 1f, Board.getBoardTile(row, col).transform.position.z);
+        player.transform.rotation = Quaternion.Euler(0, 0, 0);
         player.name = ("X: " + row + " Y: " + col);
         player.transform.parent = playerParent.transform;
 
         PlayerPosition[row, col] = player;
-        Debug.Log(PlayerPosition[1,1]);
+        //Debug.Log(PlayerPosition[0,0]);
     }
 }

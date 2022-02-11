@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 249588578842912549}
   - component: {fileID: 1444579336136560576}
   - component: {fileID: -3885931040627128214}
+  - component: {fileID: -7822284024734353574}
+  - component: {fileID: 9037243052167146781}
   m_Layer: 0
   m_Name: Level 1
   m_TagString: Untagged
@@ -112,3 +114,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7822284024734353574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5456894690179295032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fd1c535f2915d459c4f2ebe678aad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 5638226049318727965, guid: edcae60f68456c84dac84600f28a5a5e, type: 3}
+  level1: {fileID: 5456894690179295032}
+  level2: {fileID: 5456894690179295032, guid: 3766d1907cf8ea1418c3efe66ed39851, type: 3}
+  level3: {fileID: 5456894690179295032, guid: 4c933ad5c49dd074cb4ffa3547c1e87b, type: 3}
+  parent: {fileID: 0}
+  levelParent: {fileID: 0}
+--- !u!114 &9037243052167146781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5456894690179295032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c24441ead75d634183c8a386bc10eb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level1: {fileID: -3885931040627128214}
+  level2: {fileID: 6568228643449758982, guid: 3766d1907cf8ea1418c3efe66ed39851, type: 3}
+  level3: {fileID: -7051163489644043104, guid: 4c933ad5c49dd074cb4ffa3547c1e87b, type: 3}
+  parent: {fileID: 0}
