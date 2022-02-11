@@ -19,6 +19,10 @@ public static class GameUtilities //public  ??
 
     private static PlayerTurn playerTurn;
 
+    private static bool PlacePawnPhase;
+    private static bool MovePhase;
+    private static bool BuildPhase;
+
     //////////////////////////////////////
     // Data types
     //////////////////////////////////////
@@ -53,6 +57,46 @@ public static class GameUtilities //public  ??
     public static GameType getGameType()
     {
         return gameType;
+    }
+
+    //////////////////////////////////////
+    // Game phase functionalities
+    //////////////////////////////////////
+    public static void DisablePhases()
+    {
+        PlacePawnPhase = false;
+        MovePhase = false;
+        BuildPhase = false;
+    }
+
+    public static bool CanPlacePawn()
+    {
+        return PlacePawnPhase;
+    }
+
+    public static bool CanMove()
+    {
+        return MovePhase;
+    }
+
+    public static bool CanBuild()
+    {
+        return BuildPhase;
+    }
+
+    public static void SwapPlacePawnPhase()
+    {
+        PlacePawnPhase = !PlacePawnPhase;
+    }
+
+    public static void SwapMovePhase()
+    {
+        MovePhase = !MovePhase;
+    }
+
+    public static void SwapBuildPhase()
+    {
+        BuildPhase = !BuildPhase;
     }
 
     //////////////////////////////////////

@@ -32,15 +32,16 @@ public class Coordinates
 
     public bool Equals(Coordinates loc)
     {
-        if (loc is null) return false;
+        if (this is null && loc is null) return true;
+        else if (this is null || loc is null) return false;
         else return this.X == loc.X && this.Y == loc.Y;
     }
 
     public static bool operator ==(Coordinates loc1, Coordinates loc2)
     {
-        if (loc2 is null) return false;
-        if (loc1.X == loc2.X && loc1.Y == loc2.Y) return true;
-        else return false;
+        if (loc1 is null && loc2 is null) return true;
+        else if (loc1 is null || loc2 is null) return false;
+        else return loc1.X == loc2.X && loc1.Y == loc2.Y;
     }
 
     public static bool operator !=(Coordinates loc1, Coordinates loc2) => !(loc1 == loc2);

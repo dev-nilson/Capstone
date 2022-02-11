@@ -11,6 +11,7 @@ using static GameUtilities;
 public class GameController : MonoBehaviour
 {
     GameBoard board_gc;
+    Player P1;
 
 
     GridManager boardController;
@@ -61,7 +62,7 @@ public class GameController : MonoBehaviour
         bool local = true;
 
         //GC: CREATE PLAYERS
-        Player P1 = new Player(local, username);
+        P1 = new Player(local, username);
 
         //who is starting player?
 
@@ -76,7 +77,10 @@ public class GameController : MonoBehaviour
             Debug.Log(loc.X);
         }*/
 
-        
+
+        // Game begins with no place pawn, move, or build phase
+        DisablePhases(); SwapPlacePawnPhase();
+        //SwapBuildPhase();
 
     }
 
@@ -85,20 +89,22 @@ public class GameController : MonoBehaviour
     {
         if (boardController.GetPlayerClick() != null)
         {
-            //Debug.Log("here");
-            Coordinates loc;
-            loc = boardController.getSelectedTile();
-            if(loc != null)
+            if (CanPlacePawn())
             {
-                Debug.Log(loc);
+                //Debug.Log("here");
+                Coordinates loc;
+                loc = boardController.getSelectedTile();
+                if (loc != null)
+                {
+                    Debug.Log(loc);
+                }
+
+
+                //playerController.placePlayer(1, 1);
+
+                //GC: UPDATE BOARD AND PASS BACK
+                board_gc.PlacePawn(P1, loc);
             }
-
-
-            //playerController.placePlayer(1, 1);
-
-            //GC: UPDATE BOARD AND PASS BACK
-            //board_gc.PlacePawn(P1, loc);
-
             //GUI: GET COORDINATE FROM PLAYER
             //playerController.placePlayer(1, 2);
 
