@@ -192,19 +192,19 @@ namespace AmazingGame
         public int Mobility(GameBoard.Coordinates[] allPawns)
         {
             int mobility = 0;
-            List<Coordinates> playerAvailableMoves;
-            List<Coordinates> opponentAvailableMoves;
 
             for (int i = 0; i < allPawns.Length; ++i)
             {
+                //  available moves for player
                 if (i < 2)
                 {
-                    playerAvailableMoves = GameBoard.AvailableMoves(allPawns[i].X, allPawns[i].Y);
+                    List<Coordinates> playerAvailableMoves = GameBoard.AvailableMoves(allPawns[i].X, allPawns[i].Y);
                     mobility += playerAvailableMoves.Count;
                 }
+                //  available moves for opponent
                 else
                 {
-                    opponentAvailableMoves = GameBoard.AvailableMoves(allPawns[i].X, allPawns[i].Y);
+                    List<Coordinates> opponentAvailableMoves = GameBoard.AvailableMoves(allPawns[i].X, allPawns[i].Y);
                     mobility -= opponentAvailableMoves.Count;
                 }
             }
@@ -212,6 +212,57 @@ namespace AmazingGame
             mobility *= 5;
 
             return mobility;
+        }
+
+        /*
+         *  Verticality Heuristic
+         *  This heuristic looks at all of the workers' positions, assigning a value of:
+         *  -   0   points for each of the worker's adjacent lower level spaces.
+         *  -   1   points for each of the worker's adjacent higher or equal level spaces.
+         *  The combined percentage of the current player's workers minus the percentage of the opponent's workers is returned.
+         */
+        public int Verticality(GameBoard.Coordinates[] allPawns)
+        {
+            int verticality = 0;
+
+            int playerVerticalMovesCount = 0;
+            int opponentVerticalMovesCount = 0;
+
+            for (int i = 0; i < allPawns.Length; ++i)
+            {
+                //  available moves for player
+                if (i < 2)
+                {
+                    List<Coordinates> playerAvailableMoves = GameBoard.AvailableMoves(allPawns[i].X, allPawns[i].Y);
+                    
+                    foreach (var move in playerAvailableMoves)
+                    {
+                        if (GameBoard.heights(move[j].X, move[j].Y) > GameBoard.heights(allPawns[i].X, allPawns[j].Y))
+                        {
+                            ++playerVerticalMovesCount;
+                        }
+                    }
+
+                    verticality += Math.Round((double)playerVerticalMovesCount / playerAvailableMoves.Count);
+                }
+                //  available moves for opponent
+                else
+                {
+                    List<Coordinates> opponentAvailableMoves = GameBoard.AvailableMoves(allPawns[i].X, allPawns[i].Y);
+
+                    foreach (var move in opponentAvailableMoves)
+                    {
+                        if (GameBoard.heights(move[j].X, move[j].Y) > GameBoard.heights(allPawns[i].X, allPawns[j].Y))
+                        {
+                            ++opponentVerticalMovesCount;
+                        }
+                    }
+
+                    verticality -= Math.Round((double)opponentVerticalMovesCount / opponentAvailableMoves.Count);
+                }
+            }
+
+            return verticality;
         }
     }
 }
