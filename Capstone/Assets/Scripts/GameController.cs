@@ -11,6 +11,7 @@ using static GameUtilities;
 public class GameController : MonoBehaviour
 {
     GameBoard board_gc;
+    int[,] boardHeights;
     Player P1;
 
 
@@ -32,7 +33,7 @@ public class GameController : MonoBehaviour
     int Col = 5, Row = 5;
     Coordinates loc = new Coordinates(-1, -1);
 
-    public bool player1TurnActive = false;
+    //public bool player1TurnActive = false;
 
     void Awake()
     {
@@ -56,9 +57,8 @@ public class GameController : MonoBehaviour
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
         //GUI: CREATE EMPTY BOARD
-        int[,] boardHeights = board_gc.GetHeights();
+        boardHeights = board_gc.GetHeights();
         boardController.displayBoard(boardHeights);
-        //boardController.highlightValidTiles(boardHeights);
 
         // GUI: GET A USERNAME FROM USER
         string username = "Player one";
@@ -68,9 +68,19 @@ public class GameController : MonoBehaviour
         P1 = new Player(local, username);
         //playerController.placePlayer(3, 4);
 
-        Debug.Log("HERE");
+        //player1TurnActive = true;
+        if (GetPlayerTurn() == PlayerTurn.ONE)
+            Debug.Log("P1's turn!");
 
-        player1TurnActive = true;
+        
+        //boardController.displayBoard(boardHeights);
+
+        //List<Coordinates> validTiles = board_gc.AvailableMoves(newLoc);
+        
+        //boardController.highlightValidTiles(validTiles);
+
+        //player.name = ("X: " + row + " Y: " + col);
+        //player.transform.parent = playerParent.transform;
 
         /*Coordinates loc;
         loc = boardController.getSelectedTile();
@@ -97,7 +107,8 @@ public class GameController : MonoBehaviour
 
 
         // Game begins with no place pawn, move, or build phase
-        DisablePhases(); SwapPlacePawnPhase();
+        DisablePhases();
+        SwapPlacePawnPhase();
         //SwapBuildPhase();
 
     }
@@ -105,29 +116,44 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        boardHeights = board_gc.GetHeights();
+        //boardController.displayBoard(boardHeights);
+        Coordinates newLoc = new Coordinates(0, 2);
 
         if (Input.GetMouseButtonDown(0))
         {
             if (CanPlacePawn())
             {
+                
                 //Debug.Log("here");
-                Coordinates loc;
-                loc = boardController.getSelectedTile();
-                if (loc != null)
-                {
-                    Debug.Log(loc);
-                }
+                Coordinates loc = boardController.getSelectedTile();
+                if (board_gc.PlacePawn(P1, loc)) SwapPlacePawnPhase();
+                List<Coordinates> validTiles = board_gc.AvailableMoves(loc);
+                boardController.highlightValidTiles(validTiles);
+
+                //loc = boardController.getSelectedTile();
+                //if (loc != null)
+                //{
+                //    Debug.Log(loc);
+                //}
 
 
                 //playerController.placePlayer(1, 1);
 
                 //GC: UPDATE BOARD AND PASS BACK
                 //board_gc.PlacePawn(P1, loc);
-            }
-            //GUI: GET COORDINATE FROM PLAYER
-            //playerController.placePlayer(1, 2);
 
-            //GC: UPDATE BOARD AND PASS BACK
+                SwapPlacePawnPhase(); SwapMovePhase();
+            }
+            if (CanMove())
+            {
+                //GUI: GET COORDINATE FROM PLAYER
+                Coordinates loc = boardController.getSelectedTile();
+                //playerController.placePlayer(1, 2);
+
+                //GC: UPDATE BOARD AND PASS BACK
+            }
+
 
 
 

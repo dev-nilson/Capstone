@@ -545,6 +545,7 @@ GameObject:
   - component: {fileID: 960253818}
   - component: {fileID: 960253815}
   - component: {fileID: 960253819}
+  - component: {fileID: 960253820}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -568,6 +569,7 @@ MonoBehaviour:
   level1: {fileID: 5456894690179295032, guid: 122eab3a709511249b1135241a30fbd4, type: 3}
   level2: {fileID: 5456894690179295032, guid: 3766d1907cf8ea1418c3efe66ed39851, type: 3}
   level3: {fileID: 5456894690179295032, guid: 4c933ad5c49dd074cb4ffa3547c1e87b, type: 3}
+  player: {fileID: 2413851275917778590, guid: 929dc814c6ebd1e4da601e78f43c180b, type: 3}
   parent: {fileID: 960253812}
   levelParent: {fileID: 960253812}
 --- !u!224 &960253814
@@ -673,8 +675,9 @@ MonoBehaviour:
   prefab: {fileID: 5638226049318727965, guid: edcae60f68456c84dac84600f28a5a5e, type: 3}
   parent: {fileID: 960253812}
   board: {fileID: 960253812}
-  player: {fileID: 960253812}
-  player1: {fileID: 7846403189435030061, guid: 19a1244204b05164ea52aa688e47c0a2, type: 3}
+  player: {fileID: 2413851275917778590, guid: 929dc814c6ebd1e4da601e78f43c180b, type: 3}
+  player1: {fileID: 2413851275917778590, guid: 929dc814c6ebd1e4da601e78f43c180b, type: 3}
+  player1TurnActive: 0
 --- !u!114 &960253819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,6 +707,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &960253820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960253812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1273aed8630aa749bd6a14945f8816d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 0}
+  playerParent: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

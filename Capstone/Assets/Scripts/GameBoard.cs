@@ -218,6 +218,10 @@ public class GameBoard //public  ??
     // Returns whether a coordinate exists within the bounds of the board
     bool IsInBounds(Coordinates loc)
     {
+        if (loc == null)
+        {
+            return false;
+        }
         if (loc.X < 0 || loc.X >= BOARD_DIMENSION)
         {
             return false;

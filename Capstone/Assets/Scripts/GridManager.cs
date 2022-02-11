@@ -18,6 +18,8 @@ public class GridManager : MonoBehaviour
     public GameObject level2;
     public GameObject level3;
 
+    public GameObject player;
+
     public GameObject parent;
     public GameObject levelParent;
 
@@ -62,7 +64,13 @@ public class GridManager : MonoBehaviour
         child.transform.position = new Vector3(Grid[0, 1].transform.position.x, 1f, Grid[0, 1].transform.position.z);
         child.transform.parent = levelParent.transform;
 
-        //place all tiles
+        //player = Instantiate(player, Grid[0, 2].transform.position, Grid[0, 2].transform.rotation);
+        //player.transform.position = new Vector3(Grid[0, 2].transform.position.x, 1f, Grid[0, 2].transform.position.z);
+        //player.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //player.name = ("X: " + row + " Y: " + col);
+        //player.transform.parent = playerParent.transform;
+
+        //place all levels
         for (var i = 0; i < Row; i++)
         {
             for (var j = 0; j < Col; j++)
@@ -92,13 +100,29 @@ public class GridManager : MonoBehaviour
             }
         }
 
+        //place all players
+        for (var i = 0; i < Row; i++)
+        {
+            for (var j = 0; j < Col; j++)
+            {
+                Coordinates loc = new Coordinates(i, j);
+                if (Player.GetBothPlayersPawns().Contains(loc))
+                {
+                    player = Instantiate(player, Grid[i,j].transform.position, Grid[i, j].transform.rotation);
+                    player.transform.position = new Vector3(Grid[i, j].transform.position.x, 1f, Grid[i, j].transform.position.z);
+                    player.transform.rotation = Quaternion.Euler(0, 0, 0);
+                }
+            }
+        }
+
+
         Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
         //Debug.Log(Grid[0, 0].name);
         //Debug.Log(Grid[0, 0].transform.position);
 
     }
 
-    public GameObject getBoardTile(int row, int col)
+    public static GameObject getBoardTile(int row, int col)
     {
         return Grid[row, col];
     }
@@ -108,6 +132,19 @@ public class GridManager : MonoBehaviour
         return selectedTile;
     }
 
+    public void highlightValidTiles(List<Coordinates> locs)
+    {
+        for (var i = 0; i < Row; ++i)
+        {
+            for (var j = 0; j < Col; ++j)
+            {
+                if (locs.Contains(new Coordinates(i,j)))
+                {
+                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
+                }
+            }
+        }
+    }
     public void highlightValidTiles(int[,] temp)
     {
         for (var i = 0; i < Row; i++)
@@ -167,7 +204,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    /*public void OnMouseDown()
+    public void OnMouseDown()
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -187,7 +224,7 @@ public class GridManager : MonoBehaviour
             }
         }
         
-    }*/
+    }
 }
 
 
