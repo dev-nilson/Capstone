@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour
         //GC: CREATE PLAYERS
         P1 = new Player(local, username);
 
-        playerController.placePlayer(3,4);
+        playerController.placePlayer(3, 4);
         Debug.Log("HERE");
 
         player1TurnActive = true;
@@ -96,12 +96,9 @@ public class GameController : MonoBehaviour
         }*/
 
 
-<<<<<<< HEAD
         // Game begins with no place pawn, move, or build phase
         DisablePhases(); SwapPlacePawnPhase();
         //SwapBuildPhase();
-=======
->>>>>>> 755bf74d4dfdef270ae29894d0472e31606539bb
 
     }
 
@@ -111,7 +108,6 @@ public class GameController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-<<<<<<< HEAD
             if (CanPlacePawn())
             {
                 //Debug.Log("here");
@@ -132,37 +128,17 @@ public class GameController : MonoBehaviour
             //playerController.placePlayer(1, 2);
 
             //GC: UPDATE BOARD AND PASS BACK
-=======
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if(Physics.Raycast(ray, out hit))
-            {
-                Debug.Log(hit.transform.name);
-                playerController.placePlayer((int)hit.transform.position.x, (int)hit.transform.position.y);
-            }
-        }
-        //playerController.placePlayer(1, 1);
-
-        //GC: UPDATE BOARD AND PASS BACK
-        //board_gc.PlacePawn(P1, loc);
-
-        //GUI: GET COORDINATE FROM PLAYER
-        //playerController.placePlayer(1, 2);
-
-        //GC: UPDATE BOARD AND PASS BACK
->>>>>>> 755bf74d4dfdef270ae29894d0472e31606539bb
 
 
 
-        //LOOP WHILE NO ERROR
-        //MOVE PLAYERS ------
-        //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
-        //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
-        //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
-        //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
-        //GUI: TELL GC WHICH PAWN WAS CLICKED
-        int x = 1, y = 1;
+            //LOOP WHILE NO ERROR
+            //MOVE PLAYERS ------
+            //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
+            //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
+            //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
+            //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
+            //GUI: TELL GC WHICH PAWN WAS CLICKED
+            int x = 1, y = 1;
             //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
             //int[,] validMoves = ConvertToBinaryBoard(board_gc.AvailableMoves(new Coordinates(x, y)));
             //GUI: HIGHLIGHT THE VALID MOVES
@@ -187,6 +163,7 @@ public class GameController : MonoBehaviour
 
             //BUILD AT A SPECIFIC LOCATION
 
-        
+
+        }
     }
 }
