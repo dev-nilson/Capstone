@@ -65,14 +65,16 @@ namespace AmazingGame
 
             public bool Equals(Coordinates loc)
             {
-                if (loc is null) return false;
+                if (this is null && loc is null) return true;
+                else if (this is null || loc is null) return false;
                 else return this.X == loc.X && this.Y == loc.Y;
             }
 
             public static bool operator ==(Coordinates loc1, Coordinates loc2)
             {
-                if (loc1.X == loc2.X && loc1.Y == loc2.Y) return true;
-                else return false;
+                if (loc1 is null && loc2 is null) return true;
+                else if (loc1 is null || loc2 is null) return false;
+                else return loc1.X == loc2.X && loc1.Y == loc2.Y;
             }
 
             public static bool operator !=(Coordinates loc1, Coordinates loc2) => !(loc1 == loc2);
@@ -106,14 +108,7 @@ namespace AmazingGame
             //if space is in bounds and unoccupied
             if (IsInBounds(loc) && !IsOccupied(loc))
             {
-                if (player.isMyTurn())
-                {
-                    return player.addNewPawn(loc); // Returns true if succeeded. Else both pawns are already placed, no new pawn can be placed
-                }
-                else
-                { //not my turn
-                    return false;
-                }
+                return player.addNewPawn(loc); // Returns true if succeeded. Else both pawns are already placed, no new pawn can be placed
             }
             else
             {
@@ -154,20 +149,13 @@ namespace AmazingGame
             }
             else // the move is valid
             {
-                if (player.isMyTurn())
+                if (player.updatePawn(curLoc, newLoc)) //update pawn location
                 {
-                    if (player.updatePawn(curLoc, newLoc)) //update pawn location
-                    {
-                        return move;
-                    }
-                    else
-                    {
-                        return (int)MoveType.INVALID;
-                    }
+                    return move;
                 }
-                else //not my turn
+                else
                 {
-                    return MoveType.INVALID;
+                    return (int)MoveType.INVALID;
                 }
             }
         }
