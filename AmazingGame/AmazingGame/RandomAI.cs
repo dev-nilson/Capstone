@@ -28,5 +28,17 @@ namespace AmazingGame
 
             return coordinates;
         }
+
+        public GameBoard.Coordinates BuildRandomly(GameBoard.Coordinates playerPawn, GameBoard gameBoard)
+        {
+            GameBoard.Coordinates coordinates;
+
+            Random random = new Random();
+            List<GameBoard.Coordinates> availableBuilds = gameBoard.AvailableBuilds(playerPawn);
+            int coordinatesIndex = random.Next(0, availableBuilds.Count);
+            coordinates = availableBuilds[coordinatesIndex];
+
+            return coordinates;
+        }
     }
 }
