@@ -13,7 +13,8 @@ public class GameController : MonoBehaviour
     GameBoard board_gc;
     int[,] boardHeights;
     Player P1;
-
+    Coordinates curLoc;
+    Coordinates newLoc;
 
     GridManager boardController;
     GridManager Board;
@@ -46,6 +47,9 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        
+
         // Variables
         //int x, y, newx, newy;
         //MoveType status;
@@ -58,6 +62,7 @@ public class GameController : MonoBehaviour
         board_gc = new GameBoard();
         //GUI: CREATE EMPTY BOARD
         boardHeights = board_gc.GetHeights();
+        boardController.createBoard(boardHeights);
         boardController.displayBoard(boardHeights);
 
         // GUI: GET A USERNAME FROM USER
@@ -72,11 +77,22 @@ public class GameController : MonoBehaviour
         if (GetPlayerTurn() == PlayerTurn.ONE)
             Debug.Log("P1's turn!");
 
-        
+        Coordinates newLoc = new Coordinates(0, 2);
+        board_gc.PlacePawn(P1, newLoc);
+        //List<Coordinates> validTiles = board_gc.AvailableMoves(newLoc);
+        //boardController.highlightValidTiles(validTiles);
+        boardController.displayBoard(boardHeights);
+
+        //Coordinates newLoc = new Coordinates(0, 2);
+        //board_gc.PlacePawn(P1, newLoc);
+        //List<Coordinates> validTiles = board_gc.AvailableMoves(newLoc);
+        //boardController.highlightValidTiles(validTiles);
+
+
         //boardController.displayBoard(boardHeights);
 
         //List<Coordinates> validTiles = board_gc.AvailableMoves(newLoc);
-        
+
         //boardController.highlightValidTiles(validTiles);
 
         //player.name = ("X: " + row + " Y: " + col);
@@ -108,7 +124,8 @@ public class GameController : MonoBehaviour
 
         // Game begins with no place pawn, move, or build phase
         DisablePhases();
-        SwapPlacePawnPhase();
+        //SwapPlacePawnPhase();
+        SwapMovePhase();
         //SwapBuildPhase();
 
     }
@@ -116,9 +133,9 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        boardHeights = board_gc.GetHeights();
+        //boardHeights = board_gc.GetHeights();
         //boardController.displayBoard(boardHeights);
-        Coordinates newLoc = new Coordinates(0, 2);
+        
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -129,7 +146,7 @@ public class GameController : MonoBehaviour
                 Coordinates loc = boardController.getSelectedTile();
                 if (board_gc.PlacePawn(P1, loc)) SwapPlacePawnPhase();
                 List<Coordinates> validTiles = board_gc.AvailableMoves(loc);
-                boardController.highlightValidTiles(validTiles);
+                //boardController.highlightValidTiles(validTiles);
 
                 //loc = boardController.getSelectedTile();
                 //if (loc != null)
@@ -137,21 +154,48 @@ public class GameController : MonoBehaviour
                 //    Debug.Log(loc);
                 //}
 
-
                 //playerController.placePlayer(1, 1);
 
                 //GC: UPDATE BOARD AND PASS BACK
-                //board_gc.PlacePawn(P1, loc);
+                //board_gc.PlacePawn(P1, newLoc);
 
-                SwapPlacePawnPhase(); SwapMovePhase();
+                //SwapPlacePawnPhase();
+                //SwapMovePhase();
             }
             if (CanMove())
             {
-                //GUI: GET COORDINATE FROM PLAYER
-                Coordinates loc = boardController.getSelectedTile();
-                //playerController.placePlayer(1, 2);
+                // If no tile has been clicked yet, do nothing
 
-                //GC: UPDATE BOARD AND PASS BACK
+                // If first file is clicked & while waiting for the second tile to be clicked
+                if (playerController.FirstTileClicked())
+                {
+                    Debug.Log("TESTING");
+
+                    // Collect the first tile
+                    curLoc = boardController.getSelectedTile();
+
+                    List<Coordinates> validTiles = board_gc.AvailableMoves(curLoc);
+                    boardController.highlightValidTiles(validTiles);
+                }
+                else
+                {
+                    Debug.Log("TESTING2");
+                    newLoc = boardController.getSelectedTile();
+
+                    if (board_gc.MovePawn(P1, curLoc, newLoc) == MoveType.VALID)
+                    {
+                        //display the board
+                        //Board.displayBoard(boardHeights);
+                        
+
+                        Debug.Log("Pawn1: " + P1.GetPlayerCoordinates()[0].X + ", " + P1.GetPlayerCoordinates()[0].Y);
+                        Debug.Log("Pawn2: " + P1.GetPlayerCoordinates()[1].X + ", " + P1.GetPlayerCoordinates()[1].Y);
+
+                        //board_gc.PlacePawn(P1, newLoc);
+                        //List<Coordinates> validTiles = board_gc.AvailableMoves(newLoc);
+                        //boardController.highlightValidTiles(validTiles);
+                    }
+                }
             }
 
 

@@ -23,6 +23,9 @@ public class GridManager : MonoBehaviour
     public GameObject parent;
     public GameObject levelParent;
 
+    private Vector3 StartPoint;
+
+
     GameObject gridSpace;
     GameObject child;
 
@@ -40,7 +43,7 @@ public class GridManager : MonoBehaviour
         Original = Renderer.material.color;
     }
 
-    public void displayBoard(int[,] temp)
+    public void createBoard(int[,] temp)
     {
         Grid = new GameObject[Col, Row];
 
@@ -55,6 +58,7 @@ public class GridManager : MonoBehaviour
                 Grid[i, j] = gridSpace;
             }
         }
+
         parent.transform.position = new Vector3(0f, 0f, 0f);
         parent.transform.localScale = new Vector3(5f, 5f, 1f);
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
@@ -63,6 +67,10 @@ public class GridManager : MonoBehaviour
         child.transform.rotation = Quaternion.Euler(180, 0, 0);
         child.transform.position = new Vector3(Grid[0, 1].transform.position.x, 1f, Grid[0, 1].transform.position.z);
         child.transform.parent = levelParent.transform;
+    }
+
+    public void displayBoard(int[,] temp)
+    {
 
         //player = Instantiate(player, Grid[0, 2].transform.position, Grid[0, 2].transform.rotation);
         //player.transform.position = new Vector3(Grid[0, 2].transform.position.x, 1f, Grid[0, 2].transform.position.z);
@@ -70,35 +78,35 @@ public class GridManager : MonoBehaviour
         //player.name = ("X: " + row + " Y: " + col);
         //player.transform.parent = playerParent.transform;
 
-        //place all levels
-        for (var i = 0; i < Row; i++)
-        {
-            for (var j = 0; j < Col; j++)
-            {
-                if (temp[i, j] == 1)
-                {
-                    //Debug.Log(gridSpace);
-                    child = Instantiate(level1, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
-                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
-                    child.transform.parent = levelParent.transform;
-                }
-                else if (temp[i, j] == 2)
-                {
-                    child = Instantiate(level2, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
-                    child.transform.parent = Grid[i, j].transform;
-                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
-                }
-                else if (temp[i, j] == 3)
-                {
-                    child = Instantiate(level3, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
-                    child.transform.parent = Grid[i, j].transform;
-                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
-                }
-            }
-        }
+        ////place all levels
+        //for (var i = 0; i < Row; i++)
+        //{
+        //    for (var j = 0; j < Col; j++)
+        //    {
+        //        if (temp[i, j] == 1)
+        //        {
+        //            //Debug.Log(gridSpace);
+        //            child = Instantiate(level1, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+        //            child.transform.rotation = Quaternion.Euler(180, 0, 0);
+        //            child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
+        //            child.transform.parent = levelParent.transform;
+        //        }
+        //        else if (temp[i, j] == 2)
+        //        {
+        //            child = Instantiate(level2, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+        //            child.transform.rotation = Quaternion.Euler(180, 0, 0);
+        //            child.transform.parent = Grid[i, j].transform;
+        //            child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
+        //        }
+        //        else if (temp[i, j] == 3)
+        //        {
+        //            child = Instantiate(level3, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+        //            child.transform.rotation = Quaternion.Euler(180, 0, 0);
+        //            child.transform.parent = Grid[i, j].transform;
+        //            child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
+        //        }
+        //    }
+        //}
 
         //place all players
         for (var i = 0; i < Row; i++)
@@ -108,9 +116,10 @@ public class GridManager : MonoBehaviour
                 Coordinates loc = new Coordinates(i, j);
                 if (Player.GetBothPlayersPawns().Contains(loc))
                 {
-                    player = Instantiate(player, Grid[i,j].transform.position, Grid[i, j].transform.rotation);
+                    player = Instantiate(player, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
                     player.transform.position = new Vector3(Grid[i, j].transform.position.x, 1f, Grid[i, j].transform.position.z);
                     player.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    player.transform.parent = Grid[i, j].transform;
                 }
             }
         }
@@ -119,7 +128,6 @@ public class GridManager : MonoBehaviour
         Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
         //Debug.Log(Grid[0, 0].name);
         //Debug.Log(Grid[0, 0].transform.position);
-
     }
 
     public static GameObject getBoardTile(int row, int col)
@@ -218,7 +226,7 @@ public class GridManager : MonoBehaviour
                         int y = Int32.Parse(Grid[i, j].name.Split(' ')[1]);
 
                         selectedTile = new Coordinates(x, y);
-                        Debug.Log(x + " " + y);
+                        //Debug.Log(x + " " + y);
                     }
                 }
             }

@@ -463,6 +463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 2413851275917778590}
   playerParent: {fileID: 0}
+  board: {fileID: 5638226049318727965, guid: edcae60f68456c84dac84600f28a5a5e, type: 3}
 --- !u!50 &7491091254720261888
 Rigidbody2D:
   serializedVersion: 4

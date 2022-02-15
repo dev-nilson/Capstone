@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-    GameObject boardController;
+    GridManager boardController;
     GridManager Board;
 
     public GameObject player1;
@@ -17,6 +17,12 @@ public class PlayerController : MonoBehaviour
     public GameObject[,] PlayerPosition;
     GameObject[,] tempPlayer;
 
+    int[,] boardHeights;
+    private bool moveStatus; //False means waiting for first click, True means waiting for second click
+    private static Coordinates curLoc;
+    private static Coordinates newLoc;
+
+    public GameObject board;
 
     int Col = 5, Row = 5;
 
@@ -24,8 +30,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        boardController = GameObject.Find("GridManager");
+        boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
+        moveStatus = false;
     }
 
     public Coordinates GetPlayerClick()
@@ -82,24 +89,53 @@ public class PlayerController : MonoBehaviour
                 player.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
                 player.transform.rotation = Quaternion.Euler(0, 0, 0);
                 //player.name = ("X: " + row + " Y: " + col);
-                //player.transform.parent = playerParent.transform;
+                player.transform.parent = playerParent.transform;
 
                 //PlayerPosition[row, col] = player;
-                Debug.Log(transform.position.x + " " + transform.position.y);
+               
             }
+
         }
 
         //CODE TO MOVE A PLAYER
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Name: " + gameObject.name);
-
             if (GameUtilities.CanMove())
             {
+                if (moveStatus == false)
+                {
+                    //Get the player they want to move
+                    curLoc = boardController.getSelectedTile();
+                }
+                else
+                {
+                    //Get the player they want to move
+                    newLoc = boardController.getSelectedTile();
 
+                    //DESTROY THE PAWN
+
+                    //CREATE A NEW PAWN
+
+                }
             }
         }
 
     }
+
+    public bool FirstTileClicked()
+    {
+        return !moveStatus;
+    }
+
+    /*void FireRay()
+    {
+
+        Ray ray = new Ray(transform.position, transform.localPosition);
+        RaycastHit hitData;
+        Physics.Raycast(ray, out hitData);
+
+        GameObject hitObject = hitData.transform.gameObject;
+        Debug.Log(hitObject.tag);
+    }*/
 }

@@ -111,7 +111,7 @@ public class GameBoard //public  ??
             {
                 return move;
             }
-            else //not my turn
+            else
             {
                 return MoveType.INVALID;
             }

@@ -5,21 +5,28 @@ using UnityEngine;
 public class Hover : MonoBehaviour
 {
     Color MouseOverColor = Color.green;
-    Color Original;
+    //Color Original;
+    //Color ValidTileColor = Color.cyan;
+
+    Color OriginalColor;
 
     //get GameObject’s material and color
     MeshRenderer Renderer;
 
-    void Start()
+    /*void Start()
     {
         //get mesh renderer component
         Renderer = GetComponent<MeshRenderer>();
         //get original color of the GameObject
-        Original = Renderer.material.color;
+        //Original = Renderer.material.color;
+        //ValidTileColor = Renderer.material.color;
+        OriginalColor = Renderer.material.color;
+
     }
 
     void OnMouseOver()
     {
+        OriginalColor = Renderer.material.color;
         Renderer.material.color = MouseOverColor;
         //Debug.Log(Renderer);
     }
@@ -27,6 +34,6 @@ public class Hover : MonoBehaviour
     void OnMouseExit()
     {
         //reset color
-        Renderer.material.color = Original;
-    }
+        Renderer.material.color = OriginalColor;
+    }*/
 }
