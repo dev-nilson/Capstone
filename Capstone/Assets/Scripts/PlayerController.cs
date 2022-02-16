@@ -98,7 +98,6 @@ public class PlayerController : MonoBehaviour
         }
 
         //CODE TO MOVE A PLAYER
-
         if (Input.GetMouseButtonDown(0))
         {
             if (GameUtilities.CanMove())
@@ -112,10 +111,16 @@ public class PlayerController : MonoBehaviour
                 {
                     //Get the player they want to move
                     newLoc = boardController.getSelectedTile();
-
+                    Debug.Log("here");
                     //DESTROY THE PAWN
+                    boardController.clearBoard();
 
-                    //CREATE A NEW PAWN
+                    //ADD PLAYER TO GAMECORE PLAYER LOCATION LIST!!
+
+                    //CREATE A NEW PAWN (by displaying the board)
+                    boardController.displayBoard(boardHeights);
+
+                    
 
                 }
             }
@@ -127,15 +132,4 @@ public class PlayerController : MonoBehaviour
     {
         return !moveStatus;
     }
-
-    /*void FireRay()
-    {
-
-        Ray ray = new Ray(transform.position, transform.localPosition);
-        RaycastHit hitData;
-        Physics.Raycast(ray, out hitData);
-
-        GameObject hitObject = hitData.transform.gameObject;
-        Debug.Log(hitObject.tag);
-    }*/
 }

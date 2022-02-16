@@ -63,10 +63,10 @@ public class GridManager : MonoBehaviour
         parent.transform.localScale = new Vector3(5f, 5f, 1f);
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
 
-        child = Instantiate(level1, Grid[0, 1].transform.position, Grid[0, 1].transform.rotation);
+        /*child = Instantiate(level1, Grid[0, 1].transform.position, Grid[0, 1].transform.rotation);
         child.transform.rotation = Quaternion.Euler(180, 0, 0);
         child.transform.position = new Vector3(Grid[0, 1].transform.position.x, 1f, Grid[0, 1].transform.position.z);
-        child.transform.parent = levelParent.transform;
+        child.transform.parent = levelParent.transform;*/
     }
 
     public void displayBoard(int[,] temp)
@@ -124,10 +124,15 @@ public class GridManager : MonoBehaviour
             }
         }
 
-
+        //Debug.Log(Grid[0, 2].tag);
         Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
         //Debug.Log(Grid[0, 0].name);
         //Debug.Log(Grid[0, 0].transform.position);
+    }
+
+    public void clearBoard()
+    {
+        Destroy(GameObject.FindWithTag("Alien"));
     }
 
     public static GameObject getBoardTile(int row, int col)
@@ -167,7 +172,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public Coordinates GetPlayerClick()
+    /*public Coordinates GetPlayerClick()
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -190,27 +195,7 @@ public class GridManager : MonoBehaviour
         selectedTile = new Coordinates(-1, -1);
 
         return selectedTile;
-    }
-
-    public void click()
-    {
-        Debug.Log("here");
-        for (var i = 0; i < Row; i++)
-        {
-            for (var j = 0; j < Col; j++)
-            {
-                if (Grid[i, j].transform.position == transform.position)
-                {
-                    int x = Int32.Parse(Grid[i, j].name.Split(' ')[0]);
-                    int y = Int32.Parse(Grid[i, j].name.Split(' ')[1]);
-
-                    selectedTile = new Coordinates(x, y);
-                    Debug.Log(x + " " + y);
-                    Debug.Log(selectedTile.X + " " + selectedTile.Y);
-                }
-            }
-        }
-    }
+    }*/
 
     public void OnMouseDown()
     {

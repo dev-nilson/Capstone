@@ -172,10 +172,15 @@ public class GameController : MonoBehaviour
                     Debug.Log("TESTING");
 
                     // Collect the first tile
-                    curLoc = boardController.getSelectedTile();
+                    if (boardController.getSelectedTile() != null)
+                    {
+                        curLoc = boardController.getSelectedTile();
+                        Debug.Log(curLoc.X + " " + curLoc.Y);
+                   
 
-                    List<Coordinates> validTiles = board_gc.AvailableMoves(curLoc);
-                    boardController.highlightValidTiles(validTiles);
+                        List<Coordinates> validTiles = board_gc.AvailableMoves(curLoc);
+                        boardController.highlightValidTiles(validTiles);
+                    }
                 }
                 else
                 {
