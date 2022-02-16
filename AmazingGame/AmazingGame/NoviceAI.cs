@@ -14,7 +14,7 @@ namespace AmazingGame
          *  -   20  points if worker is at level 2.
          *  The combined value of the current player's workers minus the value of the opponent's workers is returned.
          */
-        public int HeightDifference(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
+        public static int HeightDifference(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
         {
             int heightDifference = 0;
 
@@ -35,7 +35,7 @@ namespace AmazingGame
          *  -   10  points if worker is in the middle space.
          *  The combined value of the current player’s workers is returned.
          */
-        public int Centricity(GameBoard.Coordinates[] playerPawns)
+        public static int Centricity(GameBoard.Coordinates[] playerPawns)
         {
             int centricity = 0;
 
@@ -157,7 +157,7 @@ namespace AmazingGame
          *  -   100 points for each of the worker's adjacent level 3 tiles.
          *  The combined value of the current player’s workers is returned.
          */
-        public int WinningThreat(GameBoard.Coordinates[] playerPawns, GameBoard gameBoard)
+        public static int WinningThreat(GameBoard.Coordinates[] playerPawns, GameBoard gameBoard)
         {
             int winningThreat = 0;
 
@@ -189,7 +189,7 @@ namespace AmazingGame
          *  -   5   points for each of the worker's available moves.
          *  The combined value of the current player's workers minus the value of the opponent's workers is returned.
          */
-        public int Mobility(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
+        public static int Mobility(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
         {
             int mobility = 0;
 
@@ -221,7 +221,7 @@ namespace AmazingGame
          *  -   1   points for each of the worker's adjacent higher or equal level spaces.
          *  The combined percentage of the current player's workers minus the percentage of the opponent's workers is returned.
          */
-        public int Verticality(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
+        public static int Verticality(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
         {
             int verticality = 0;
 

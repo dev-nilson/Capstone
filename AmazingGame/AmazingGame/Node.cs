@@ -6,12 +6,15 @@ namespace AmazingGame
 {
     class Node
     {
-        public int score = 0;
+        public int score;
+        public Player player;
+        public GameBoard gameBoard;
+        public GameBoard.Coordinates moveFrom;
+        public GameBoard.Coordinates moveTo;
+        public GameBoard.Coordinates buildFrom;
+        public GameBoard.Coordinates buildTo;
         public List<Node> children;
 
-        public Node(int score)
-        {
-            this.score = score;
-        }
+       
     }
 }

@@ -6,7 +6,7 @@ namespace AmazingGame
 {
     class RandomAI
     {
-        public GameBoard.Coordinates MoveRandomly(GameBoard.Coordinates[] playerPawns, GameBoard gameBoard)
+        public static GameBoard.Coordinates MoveRandomly(GameBoard.Coordinates[] playerPawns, GameBoard gameBoard)
         {
             GameBoard.Coordinates coordinates;
             Random random = new Random();
@@ -29,7 +29,7 @@ namespace AmazingGame
             return coordinates;
         }
 
-        public GameBoard.Coordinates BuildRandomly(GameBoard.Coordinates playerPawn, GameBoard gameBoard)
+        public static GameBoard.Coordinates BuildRandomly(GameBoard.Coordinates playerPawn, GameBoard gameBoard)
         {
             GameBoard.Coordinates coordinates;
 
