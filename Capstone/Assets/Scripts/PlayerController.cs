@@ -76,45 +76,44 @@ public class PlayerController : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (GameUtilities.CanPlacePawn())
-            {
-            //CODE TO PLACE A PLAYER
-            
-                PlayerPosition = new GameObject[Row, Col];
-                //playerParent = Board.getBoardTile(row, col);
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    //CODE TO PLACE A PLAYER
+        //    if (GameUtilities.CanPlacePawn())
+        //    {
+        //        PlayerPosition = new GameObject[Row, Col];
+        //        //playerParent = Board.getBoardTile(row, col);
 
-                //player = Instantiate(player1, transform.position, transform.rotation);
-                //player.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
-                //player.transform.rotation = Quaternion.Euler(0, 0, 0);
-                ////player.name = ("X: " + row + " Y: " + col);
-                //player.transform.parent = playerParent.transform;
+        //        //player = Instantiate(player1, transform.position, transform.rotation);
+        //        //player.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
+        //        //player.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //        ////player.name = ("X: " + row + " Y: " + col);
+        //        //player.transform.parent = playerParent.transform;
 
-                //PlayerPosition[row, col] = player;
+        //        //PlayerPosition[row, col] = player;
                
-            }
+        //    }
 
 
-            //CODE TO GET A PAWN MOVE
-            if (GameUtilities.CanMove())
-            {
-                if (GameUtilities.WaitingForFirstTile())
-                {
-                    //Get the pawn they want to move
-                    curLoc = boardController.getSelectedTile();
+        //    //CODE TO GET A PAWN MOVE
+        //    if (GameUtilities.CanMove())
+        //    {
+        //        if (GameUtilities.WaitingForFirstTile())
+        //        {
+        //            //Get the pawn they want to move
+        //            curLoc = boardController.getSelectedTile();
 
-                    Debug.Log("PlayerController: get first loc");
-                }
-                else
-                {
-                    Debug.Log("PlayerController: get second loc");
+        //            Debug.Log("PlayerController: get first loc");
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("PlayerController: get second loc");
 
-                    //Get the location they want to move to
-                    newLoc = boardController.getSelectedTile();
-                }
-            }
-        }
+        //            //Get the location they want to move to
+        //            newLoc = boardController.getSelectedTile();
+        //        }
+        //    }
+        //}
 
     }
 }
