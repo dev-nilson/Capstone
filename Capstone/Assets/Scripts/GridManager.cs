@@ -69,7 +69,7 @@ public class GridManager : MonoBehaviour
         child.transform.parent = levelParent.transform;*/
     }
 
-    public void displayBoard(int[,] temp)
+    public void displayBoard(int[,] temp, Player P1, Player P2)
     {
         //place all levels
         for (var i = 0; i < Row; i++)
@@ -101,8 +101,10 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        Coordinates[] Pawns = Player.GetBothPlayersPawns();
-        Debug.Log("All pawns: " + Pawns[0].X + "," + Pawns[0].Y + "   " + Pawns[1].X + "," + Pawns[1].Y + "   " + Pawns[2].X + "," + Pawns[2].Y + "   " + Pawns[3].X + "," + Pawns[3].Y);
+        Coordinates[] P1pawns = P1.GetPlayerCoordinates();
+        Coordinates[] P2pawns = P2.GetPlayerCoordinates();
+
+        Debug.Log("All pawns: " + P1pawns[0].X + "," + P1pawns[0].Y + "   " + P1pawns[1].X + "," + P1pawns[1].Y + "   " + P2pawns[0].X + "," + P2pawns[0].Y + "   " + P2pawns[1].X + "," + P2pawns[1].Y);
         //place all players
         for (var i = 0; i < Row; i++)
         {
@@ -111,7 +113,6 @@ public class GridManager : MonoBehaviour
                 Coordinates loc = new Coordinates(i, j);
                 if (Player.GetBothPlayersPawns().Contains(loc))
                 {
-                    Debug.Log("enter");
                     player = Instantiate(player, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
                     player.transform.position = new Vector3(Grid[i, j].transform.position.x, 1f, Grid[i, j].transform.position.z);
                     player.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -130,7 +131,6 @@ public class GridManager : MonoBehaviour
 
     public void clearBoard()
     {
-        Debug.Log("clear");
         Debug.Log(GameObject.FindGameObjectsWithTag("Alien").Length);
         Destroy(GameObject.FindWithTag("Alien"));
     }

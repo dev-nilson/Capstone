@@ -37,8 +37,8 @@ public static class GameUtilities //public  ??
 
     public enum PlayerTurn
     {
-        ONE = 1,
-        TWO = 2
+        ONE,
+        TWO
     }
 
     public enum MoveType

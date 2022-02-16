@@ -61,27 +61,26 @@ public class GameController : MonoBehaviour
         //  STARTING PLAYER?
         SetPlayerTurn(PlayerTurn.ONE);
 
+        // GUI: GET A USERNAME FROM USER
+        string username = "Player one";
+        P1 = new Player(true, username);
+
+        // GET USERNAME FROM OPPONENT
+        username = "Player two";
+        P2 = new Player(true, username);
+
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
 
         //GUI: CREATE EMPTY BOARD
         boardHeights = board_gc.GetHeights();
         boardController.createBoard(boardHeights);
-        boardController.displayBoard(boardHeights);
-
-        // GUI: GET A USERNAME FROM USER
-        string username = "Player one";
-        P1 = new Player(true, username);
-
-
-        // GET USERNAME FROM OPPONENT
-        username = "Player two";
-        P2 = new Player(true, username);
+        boardController.displayBoard(boardHeights, P1, P2);
         
 
         //player1TurnActive = true;
-        if (GetPlayerTurn() == PlayerTurn.ONE)
-            Debug.Log("P1's turn!");
+        //if (GetPlayerTurn() == PlayerTurn.ONE)
+        //    Debug.Log("P1's turn!");
 
 
 
@@ -102,20 +101,26 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Player CurrentPlayer;
+        if (GetPlayerTurn() == PlayerTurn.ONE) CurrentPlayer = P1;
+        else CurrentPlayer = P2;
         if (CanPlacePawn())
         {
             if (Input.GetMouseButtonDown(0))
             {
+                if (GetPlayerTurn() == PlayerTurn.ONE) Debug.Log("P1's turn!");
+                else Debug.Log("P2's turn!");
+
+
                 // If the mouse was clicked, store that coordinate
                 Coordinates loc = boardController.getSelectedTile();
 
                 // If the pawn was successfully placed in the game core board...
-                if (board_gc.PlacePawn(P1, loc))
+                if (board_gc.PlacePawn(CurrentPlayer, loc))
                 {
                     // Clear the pawns from the board then re-display them
                     boardController.clearBoard();
-                    boardController.displayBoard(board_gc.GetHeights());
+                    boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
                     // Turn off the "place pawn" phase and turn on the "move" phase
                     SwapPlacePawnPhase();
@@ -124,6 +129,8 @@ public class GameController : MonoBehaviour
                 else
                 {
                     // Should we notify the player that they are not clicking a valid tile?
+
+                    Debug.Log("Failed to place player's pawn :(");
                 }
             }
         }
@@ -165,7 +172,7 @@ public class GameController : MonoBehaviour
                     newLoc = boardController.getSelectedTile();
 
                     // Collect the second tile
-                    MoveType moveStatus = board_gc.MovePawn(P1, curLoc, newLoc);
+                    MoveType moveStatus = board_gc.MovePawn(CurrentPlayer, curLoc, newLoc);
 
                     // If the pawn was successfully moved in the game core board...
                     if (moveStatus == MoveType.VALID || moveStatus == MoveType.WINNING)
@@ -173,15 +180,11 @@ public class GameController : MonoBehaviour
                         //Section for debugging
                         Debug.Log("GameController: collected second tile and moved pawn");
                         Coordinates[] Pawns = Player.GetBothPlayersPawns();
-                        Debug.Log("All pawns: " + Pawns[0].X + "," + Pawns[0].Y + "   " + Pawns[1].X + "," + Pawns[1].Y + "   " + Pawns[2].X + "," + Pawns[2].Y + "   " + Pawns[3].X + "," + Pawns[3].Y);
-                        //Debug.Log("Pawn1: " + P1.GetPlayerCoordinates()[0].X + ", " + P1.GetPlayerCoordinates()[0].Y);
-                        //Debug.Log("Pawn2: " + P1.GetPlayerCoordinates()[1].X + ", " + P1.GetPlayerCoordinates()[1].Y);
-
 
                         // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                         boardController.unhighlightTiles(validTiles);
                         boardController.clearBoard();
-                        boardController.displayBoard(board_gc.GetHeights());
+                        boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
                         // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
                         CollectedSecondTile();
@@ -249,7 +252,7 @@ public class GameController : MonoBehaviour
                         // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                         boardController.unhighlightTiles(validTiles);
                         boardController.clearBoard();
-                        boardController.displayBoard(board_gc.GetHeights());
+                        boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
                         // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
                         CollectedSecondTile();
@@ -258,6 +261,9 @@ public class GameController : MonoBehaviour
 
                         //For testing purposes, return to place pawn phase
                         SwapPlacePawnPhase();
+
+                        //For testing purposes, go ahead and swap player turns
+                        SwapPlayerTurn();
                     }
                     else
                     {
