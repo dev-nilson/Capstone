@@ -164,6 +164,10 @@ public class GameController : MonoBehaviour
             }
             if (CanMove())
             {
+
+                boardController.clearBoard();
+                boardController.displayBoard(boardHeights);
+
                 // If no tile has been clicked yet, do nothing
 
                 // If first file is clicked & while waiting for the second tile to be clicked

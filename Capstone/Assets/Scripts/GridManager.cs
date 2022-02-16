@@ -119,6 +119,7 @@ public class GridManager : MonoBehaviour
                     player = Instantiate(player, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
                     player.transform.position = new Vector3(Grid[i, j].transform.position.x, 1f, Grid[i, j].transform.position.z);
                     player.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    player.transform.localScale = new Vector3(.2f, .2f, .2f);
                     player.transform.parent = Grid[i, j].transform;
                 }
             }
