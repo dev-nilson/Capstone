@@ -188,7 +188,8 @@ public class GameController : MonoBehaviour
                         SwapMovePhase();
 
                         //For testing purposes, return to place pawn phase
-                        SwapPlacePawnPhase();
+                        //SwapPlacePawnPhase();
+                        SwapBuildPhase();
                     }
                     if (moveStatus == MoveType.WINNING)
                     {
