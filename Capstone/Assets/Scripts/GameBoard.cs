@@ -63,6 +63,8 @@ public class GameBoard //public  ??
     // Puts a starting pawn down on the board. Returns false if the location selected for the pawn is either out of bounds or is already occupied
     public bool PlacePawn(Player player, Coordinates loc)
     {
+        if (player == null) return false;
+
         //if space is in bounds and unoccupied
         if (IsInBounds(loc) && !IsOccupied(loc))
         {
@@ -99,21 +101,26 @@ public class GameBoard //public  ??
     // Moves a player's pawn from one coordinate to another coordinate. Returns false if the move is invalid
     public MoveType MovePawn(Player player, Coordinates curLoc, Coordinates newLoc)
     {
-        //call validateMove inside here ?? if so, have a return false
-        MoveType move = ValidateMove(curLoc, newLoc);
-        if (move == MoveType.INVALID)
+        if (player == null || curLoc == null || newLoc == null)
+            return MoveType.INVALID;
+        else
         {
-            return move;
-        }
-        else // the move is valid
-        {
-            if (player.updatePawn(curLoc, newLoc)) //update pawn location
+            //call validateMove inside here ?? if so, have a return false
+            MoveType move = ValidateMove(curLoc, newLoc);
+            if (move == MoveType.INVALID)
             {
                 return move;
             }
-            else
+            else // the move is valid
             {
-                return MoveType.INVALID;
+                if (player.updatePawn(curLoc, newLoc)) //update pawn location
+                {
+                    return move;
+                }
+                else
+                {
+                    return MoveType.INVALID;
+                }
             }
         }
     }

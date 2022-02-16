@@ -54,12 +54,7 @@ public class GameController : MonoBehaviour
 
         //get mesh renderer component
         Renderer = GetComponent<MeshRenderer>();
-        //get original color of the GameObject
-        //Original = Renderer.material.color;
 
-        // Variables
-        //int x, y, newx, newy;
-        //MoveType status;
 
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
         //  OPPONENT'S USERNAME
@@ -67,6 +62,7 @@ public class GameController : MonoBehaviour
 
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
+
         //GUI: CREATE EMPTY BOARD
         boardHeights = board_gc.GetHeights();
         boardController.createBoard(boardHeights);
@@ -78,95 +74,57 @@ public class GameController : MonoBehaviour
 
         //GC: CREATE PLAYERS
         P1 = new Player(local, username);
-        //playerController.placePlayer(3, 4);
 
         //player1TurnActive = true;
         if (GetPlayerTurn() == PlayerTurn.ONE)
             Debug.Log("P1's turn!");
 
-        Coordinates newLoc = new Coordinates(0, 2);
-        board_gc.PlacePawn(P1, newLoc);
-        //List<Coordinates> validTiles = board_gc.AvailableMoves(newLoc);
-        //boardController.highlightValidTiles(validTiles);
-        boardController.displayBoard(boardHeights);
-
-        //Coordinates newLoc = new Coordinates(0, 2);
-        //board_gc.PlacePawn(P1, newLoc);
-        //List<Coordinates> validTiles = board_gc.AvailableMoves(newLoc);
-        //boardController.highlightValidTiles(validTiles);
 
 
-        //boardController.displayBoard(boardHeights);
-
-        //List<Coordinates> validTiles = board_gc.AvailableMoves(newLoc);
-
-        //boardController.highlightValidTiles(validTiles);
 
         //player.name = ("X: " + row + " Y: " + col);
         //player.transform.parent = playerParent.transform;
 
-        /*Coordinates loc;
-        loc = boardController.getSelectedTile();
-        Debug.Log(loc.X + " " + loc.Y);*/
-
-        //GC: UPDATE BOARD AND PASS BACK
-        //board_gc.PlacePawn(P1, loc);
-
-        //Debug.Log(loc.X + " " + loc.Y);
-        //playerController.placePlayer(loc.X, loc.Y);
+        
+        
 
         //who is starting player?
 
-        //PLACE PLAYERS
-        //GUI: GET COORDINATE FROM PLAYER
-
-        /*if(boardController.getSelectedTile() != null)
-        {
-            Coordinates loc;
-            loc = boardController.getSelectedTile();
-
-            Debug.Log(loc.X);
-        }*/
-
+        
 
         // Game begins with no place pawn, move, or build phase
         DisablePhases();
-        //SwapPlacePawnPhase();
-        SwapMovePhase();
+        SwapPlacePawnPhase();
+        //SwapMovePhase();
         //SwapBuildPhase();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        //boardHeights = board_gc.GetHeights();
-        //boardController.displayBoard(boardHeights);
-        
 
         if (CanPlacePawn())
         {
             if (Input.GetMouseButtonDown(0))
             {
-                //Debug.Log("here");
+                // If the mouse was clicked, store that coordinate
                 Coordinates loc = boardController.getSelectedTile();
-                if (board_gc.PlacePawn(P1, loc)) SwapPlacePawnPhase();
-                List<Coordinates> validTiles = board_gc.AvailableMoves(loc);
-                //boardController.highlightValidTiles(validTiles);
 
-                //loc = boardController.getSelectedTile();
-                //if (loc != null)
-                //{
-                //    Debug.Log(loc);
-                //}
+                // If the pawn was successfully placed in the game core board...
+                if (board_gc.PlacePawn(P1, loc))
+                {
+                    // Clear the pawns from the board then re-display them
+                    boardController.clearBoard();
+                    boardController.displayBoard(board_gc.GetHeights());
 
-                //playerController.placePlayer(1, 1);
-
-                //GC: UPDATE BOARD AND PASS BACK
-                //board_gc.PlacePawn(P1, newLoc);
-
-                //SwapPlacePawnPhase();
-                //SwapMovePhase();
+                    // Turn off the "place pawn" phase and turn on the "move" phase
+                    SwapPlacePawnPhase();
+                    SwapMovePhase();
+                }
+                else
+                {
+                    // Should we notify the player that they are not clicking a valid tile?
+                }
             }
         }
         if (CanMove())
@@ -178,6 +136,7 @@ public class GameController : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
+                    // If the mouse was clicked, store that new coordinate
                     curLoc = boardController.getSelectedTile();
 
                     // Collect the first tile
@@ -192,35 +151,52 @@ public class GameController : MonoBehaviour
                         // Record the fact that the first tile has been collected for the "move" phase. Will begin waiting for the second tile
                         CollectedFirstTile();
                     }
+                    else
+                    {
+                        // Should we notify the player that they are not clicking a valid tile?
+                    }
                 }
             }
             else //WaitingForSecondTile()
             {
                 if (Input.GetMouseButtonDown(0))
                 {
+                    // If the mouse was clicked, store that new coordinate
                     newLoc = boardController.getSelectedTile();
 
                     // Collect the second tile
-                    if (newLoc != null && validTiles.Contains(newLoc))
+                    MoveType moveStatus = board_gc.MovePawn(P1, curLoc, newLoc);
+
+                    // If the pawn was successfully moved in the game core board...
+                    if (moveStatus == MoveType.VALID || moveStatus == MoveType.WINNING)
                     {
-
-                        if (board_gc.MovePawn(P1, curLoc, newLoc) == MoveType.VALID)
-                        {
-                            Debug.Log("GameController: collected second tile and moved pawn");
-
-                            //Debug.Log("Pawn1: " + P1.GetPlayerCoordinates()[0].X + ", " + P1.GetPlayerCoordinates()[0].Y);
-                            //Debug.Log("Pawn2: " + P1.GetPlayerCoordinates()[1].X + ", " + P1.GetPlayerCoordinates()[1].Y);
-
-                            boardController.unhighlightTiles(validTiles);
-                            boardController.clearBoard();
-                            boardController.displayBoard(board_gc.GetHeights());
-                        }
-
-                        //ELSE MOVE TYPE IS INVALID OR WINNING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        //Section for debugging
+                        Debug.Log("GameController: collected second tile and moved pawn");
+                        Coordinates[]Pawns = Player.GetBothPlayersPawns();
+                        Debug.Log("All pawns: " + Pawns[0].X + "," + Pawns[0].Y + "   " + Pawns[1].X + "," + Pawns[1].Y + "   " + Pawns[2].X + "," + Pawns[2].Y + "   " + Pawns[3].X + "," + Pawns[3].Y);
+                        //Debug.Log("Pawn1: " + P1.GetPlayerCoordinates()[0].X + ", " + P1.GetPlayerCoordinates()[0].Y);
+                        //Debug.Log("Pawn2: " + P1.GetPlayerCoordinates()[1].X + ", " + P1.GetPlayerCoordinates()[1].Y);
 
 
+                        // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
+                        boardController.unhighlightTiles(validTiles);
+                        boardController.clearBoard();
+                        boardController.displayBoard(board_gc.GetHeights());
+
+                        // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
                         CollectedSecondTile();
                         SwapMovePhase();
+
+                        //For testing purposes, return to place pawn phase
+                        SwapPlacePawnPhase();
+                    }
+                    if (moveStatus == MoveType.WINNING)
+                    {
+                        //NOTIFY PLAYER!!!!!!!!!!!!
+                    }
+                    else if (moveStatus == MoveType.INVALID)
+                    {
+                        // Should we notify the player that they are not clicking a valid tile?
                     }
                 }
             }
@@ -232,38 +208,29 @@ public class GameController : MonoBehaviour
 
 
 
-            //LOOP WHILE NO ERROR
-            //MOVE PLAYERS ------
-            //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
-            //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
-            //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
-            //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
-            //GUI: TELL GC WHICH PAWN WAS CLICKED
-            int x = 1, y = 1;
-            //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
-            //int[,] validMoves = ConvertToBinaryBoard(board_gc.AvailableMoves(new Coordinates(x, y)));
-            //GUI: HIGHLIGHT THE VALID MOVES
-            //boardController.highlightValidTiles(validMoves);
-            //GUI: SEND GC WHAT TILE WAS CLICKED
-            //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
-            //GUI: UPDATE BOARD
+        //LOOP WHILE NO ERROR
+        //MOVE PLAYERS ------
+        //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
+        //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
+        //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
+        //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
+        //GUI: TELL GC WHICH PAWN WAS CLICKED
+        //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
+        //int[,] validMoves = ConvertToBinaryBoard(board_gc.AvailableMoves(new Coordinates(x, y)));
+        //GUI: HIGHLIGHT THE VALID MOVES
+        //boardController.highlightValidTiles(validMoves);
+        //GUI: SEND GC WHAT TILE WAS CLICKED
+        //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
+        //GUI: UPDATE BOARD
 
-            //BUILD------
-            //GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
-            //GUI: SEND GC THE SELECTED TILE TO BUILD ON
-            //GC: UPDATE BOARD, RETURN BOARD TO GUI
-            //GUI UPDATE BOARD
+        //BUILD------
+        //GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
+        //GUI: SEND GC THE SELECTED TILE TO BUILD ON
+        //GC: UPDATE BOARD, RETURN BOARD TO GUI
+        //GUI UPDATE BOARD
+        //GC: SWAP PLAYERS
 
-            //GC: SWAP PLAYERS
-
-            //DETERMINE IF WON OR LOST & REACT TO THAT
-
-
-
-            //playerController.movePlayer(1, 1, 1, 3);
-
-            //BUILD AT A SPECIFIC LOCATION
-
+        //DETERMINE IF WON OR LOST & REACT TO THAT
 
         }
     }
