@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     GameBoard board_gc;
     int[,] boardHeights;
     Player P1;
+    Player P2;
     Coordinates curLoc;
     Coordinates newLoc;
     List<Coordinates> validTiles;
@@ -36,7 +37,6 @@ public class GameController : MonoBehaviour
     MeshRenderer Renderer;
 
     int Col = 5, Row = 5;
-    Coordinates loc = new Coordinates(-1, -1);
 
     //public bool player1TurnActive = false;
 
@@ -59,6 +59,7 @@ public class GameController : MonoBehaviour
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
         //  OPPONENT'S USERNAME
         //  STARTING PLAYER?
+        SetPlayerTurn(PlayerTurn.ONE);
 
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
@@ -70,10 +71,13 @@ public class GameController : MonoBehaviour
 
         // GUI: GET A USERNAME FROM USER
         string username = "Player one";
-        bool local = true;
+        P1 = new Player(true, username);
 
-        //GC: CREATE PLAYERS
-        P1 = new Player(local, username);
+
+        // GET USERNAME FROM OPPONENT
+        username = "Player two";
+        P2 = new Player(false, username);
+        
 
         //player1TurnActive = true;
         if (GetPlayerTurn() == PlayerTurn.ONE)
@@ -185,6 +189,7 @@ public class GameController : MonoBehaviour
 
                         // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
                         CollectedSecondTile();
+                        validTiles.Clear();
                         SwapMovePhase();
 
                         //For testing purposes, return to place pawn phase
@@ -204,7 +209,66 @@ public class GameController : MonoBehaviour
         }
         if (CanBuild())
         {
+            //If not currently waiting for any tiles, change this to wait for tiles
+            if (!WaitingForFirstTile() && !WaitingForSecondTile())
+                ReadyForTwoTiles();
+            else if (WaitingForFirstTile())
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    // If the mouse was clicked, store that new coordinate
+                    curLoc = boardController.getSelectedTile();
 
+                    // Collect the first tile
+                    if (curLoc != null && Player.IsAPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
+                    {
+                        Debug.Log("GameController: collect first tile for build");
+
+                        // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
+                        validTiles = board_gc.AvailableBuilds(curLoc);
+                        boardController.highlightValidTiles(validTiles);
+
+                        // Record the fact that the first tile has been collected for the "build" phase. Will begin waiting for the second tile
+                        CollectedFirstTile();
+                    }
+                    else
+                    {
+                        // Should we notify the player that they are not clicking a valid tile?
+                    }
+                }
+            }
+            else //WaitingForSecondTile()
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    // If the mouse was clicked, store that new coordinate
+                    newLoc = boardController.getSelectedTile();
+
+                    // If the pawn was successfully moved in the game core board...
+                    if (board_gc.BuildPiece(curLoc, newLoc))
+                    {
+                        //Section for debugging
+                        Debug.Log("GameController: collected second tile and built piece");
+
+                        // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
+                        boardController.unhighlightTiles(validTiles);
+                        boardController.clearBoard();
+                        boardController.displayBoard(board_gc.GetHeights());
+
+                        // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
+                        CollectedSecondTile();
+                        validTiles.Clear();
+                        SwapBuildPhase();
+
+                        //For testing purposes, return to place pawn phase
+                        SwapPlacePawnPhase();
+                    }
+                    else
+                    {
+                        // Should we notify the player that they are not clicking a valid tile?
+                    }
+                }
+            }
         }
 
                 

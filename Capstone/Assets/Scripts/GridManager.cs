@@ -71,43 +71,38 @@ public class GridManager : MonoBehaviour
 
     public void displayBoard(int[,] temp)
     {
+        //place all levels
+        for (var i = 0; i < Row; i++)
+        {
+            for (var j = 0; j < Col; j++)
+            {
+                if (temp[i, j] == 1)
+                {
+                    //Debug.Log(gridSpace);
+                    child = Instantiate(level1, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
+                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 1f, Grid[i, j].transform.position.z);
+                    child.transform.parent = Grid[i, j].transform;
+                }
+                else if (temp[i, j] == 2)
+                {
+                    child = Instantiate(level2, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
+                    child.transform.parent = Grid[i, j].transform;
+                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 2f, Grid[i, j].transform.position.z);
+                }
+                else if (temp[i, j] == 3)
+                {
+                    child = Instantiate(level3, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
+                    child.transform.parent = Grid[i, j].transform;
+                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
+                }
+            }
+        }
 
-        //player = Instantiate(player, Grid[0, 2].transform.position, Grid[0, 2].transform.rotation);
-        //player.transform.position = new Vector3(Grid[0, 2].transform.position.x, 1f, Grid[0, 2].transform.position.z);
-        //player.transform.rotation = Quaternion.Euler(0, 0, 0);
-        //player.name = ("X: " + row + " Y: " + col);
-        //player.transform.parent = playerParent.transform;
-
-        ////place all levels
-        //for (var i = 0; i < Row; i++)
-        //{
-        //    for (var j = 0; j < Col; j++)
-        //    {
-        //        if (temp[i, j] == 1)
-        //        {
-        //            //Debug.Log(gridSpace);
-        //            child = Instantiate(level1, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-        //            child.transform.rotation = Quaternion.Euler(180, 0, 0);
-        //            child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
-        //            child.transform.parent = levelParent.transform;
-        //        }
-        //        else if (temp[i, j] == 2)
-        //        {
-        //            child = Instantiate(level2, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-        //            child.transform.rotation = Quaternion.Euler(180, 0, 0);
-        //            child.transform.parent = Grid[i, j].transform;
-        //            child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
-        //        }
-        //        else if (temp[i, j] == 3)
-        //        {
-        //            child = Instantiate(level3, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-        //            child.transform.rotation = Quaternion.Euler(180, 0, 0);
-        //            child.transform.parent = Grid[i, j].transform;
-        //            child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
-        //        }
-        //    }
-        //}
-
+        Coordinates[] Pawns = Player.GetBothPlayersPawns();
+        Debug.Log("All pawns: " + Pawns[0].X + "," + Pawns[0].Y + "   " + Pawns[1].X + "," + Pawns[1].Y + "   " + Pawns[2].X + "," + Pawns[2].Y + "   " + Pawns[3].X + "," + Pawns[3].Y);
         //place all players
         for (var i = 0; i < Row; i++)
         {
@@ -116,11 +111,13 @@ public class GridManager : MonoBehaviour
                 Coordinates loc = new Coordinates(i, j);
                 if (Player.GetBothPlayersPawns().Contains(loc))
                 {
+                    Debug.Log("enter");
                     player = Instantiate(player, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
                     player.transform.position = new Vector3(Grid[i, j].transform.position.x, 1f, Grid[i, j].transform.position.z);
                     player.transform.rotation = Quaternion.Euler(0, 0, 0);
                     player.transform.localScale = new Vector3(.2f, .2f, .2f);
                     player.transform.parent = Grid[i, j].transform;
+
                 }
             }
         }
@@ -133,6 +130,8 @@ public class GridManager : MonoBehaviour
 
     public void clearBoard()
     {
+        Debug.Log("clear");
+        Debug.Log(GameObject.FindGameObjectsWithTag("Alien").Length);
         Destroy(GameObject.FindWithTag("Alien"));
     }
 
