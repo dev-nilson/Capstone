@@ -172,7 +172,7 @@ public class GameController : MonoBehaviour
                     {
                         //Section for debugging
                         Debug.Log("GameController: collected second tile and moved pawn");
-                        Coordinates[]Pawns = Player.GetBothPlayersPawns();
+                        Coordinates[] Pawns = Player.GetBothPlayersPawns();
                         Debug.Log("All pawns: " + Pawns[0].X + "," + Pawns[0].Y + "   " + Pawns[1].X + "," + Pawns[1].Y + "   " + Pawns[2].X + "," + Pawns[2].Y + "   " + Pawns[3].X + "," + Pawns[3].Y);
                         //Debug.Log("Pawn1: " + P1.GetPlayerCoordinates()[0].X + ", " + P1.GetPlayerCoordinates()[0].Y);
                         //Debug.Log("Pawn2: " + P1.GetPlayerCoordinates()[1].X + ", " + P1.GetPlayerCoordinates()[1].Y);
@@ -201,10 +201,15 @@ public class GameController : MonoBehaviour
                     }
                 }
             }
+        }
+        if (CanBuild())
+        {
+
+        }
 
                 
                 
-        
+            
 
 
 
@@ -233,6 +238,6 @@ public class GameController : MonoBehaviour
 
         //DETERMINE IF WON OR LOST & REACT TO THAT
 
-        }
+        
     }
 }
