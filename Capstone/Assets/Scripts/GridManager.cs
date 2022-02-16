@@ -173,6 +173,20 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public void unhighlightTiles(List<Coordinates> locs)
+    {
+        for (var i = 0; i < Row; ++i)
+        {
+            for (var j = 0; j < Col; ++j)
+            {
+                if (locs.Contains(new Coordinates(i, j)))
+                {
+                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Original);
+                }
+            }
+        }
+    }
+
     /*public Coordinates GetPlayerClick()
     {
         if (Input.GetButtonDown("Fire1"))

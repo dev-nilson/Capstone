@@ -40,7 +40,7 @@ public class GameBoard //public  ??
         InitializeBoard();
     }
 
-    // Iinitializes game board with heights of 0
+    // Initializes game board with heights of 0
     public void InitializeBoard(bool resize=true)
     {
         // "heights" represents the board - each index holds the height value (0,1,2,3) of the corresponding board tile

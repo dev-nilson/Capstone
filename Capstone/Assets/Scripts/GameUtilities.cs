@@ -22,6 +22,8 @@ public static class GameUtilities //public  ??
     private static bool PlacePawnPhase;
     private static bool MovePhase;
     private static bool BuildPhase;
+    private static bool GetFirstTile;
+    private static bool GetSecondTile;
 
     //////////////////////////////////////
     // Data types
@@ -67,7 +69,9 @@ public static class GameUtilities //public  ??
         PlacePawnPhase = false;
         MovePhase = false;
         BuildPhase = false;
-    }
+        GetFirstTile = false;
+        GetSecondTile = false;
+}
 
     public static bool CanPlacePawn()
     {
@@ -97,6 +101,33 @@ public static class GameUtilities //public  ??
     public static void SwapBuildPhase()
     {
         BuildPhase = !BuildPhase;
+    }
+
+    public static bool WaitingForFirstTile()
+    {
+        return GetFirstTile;
+    }
+
+    public static bool WaitingForSecondTile()
+    {
+        return GetSecondTile;
+    }
+
+    public static void ReadyForTwoTiles()
+    {
+        GetFirstTile = true;
+        GetSecondTile = false;
+    }
+
+    public static void CollectedFirstTile()
+    {
+        GetFirstTile = false;
+        GetSecondTile = true;
+    }
+    public static void CollectedSecondTile()
+    {
+        GetSecondTile = false;
+        GetFirstTile = false;
     }
 
     //////////////////////////////////////

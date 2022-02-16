@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     Player P1;
     Coordinates curLoc;
     Coordinates newLoc;
+    List<Coordinates> validTiles;
 
     GridManager boardController;
     GridManager Board;
@@ -30,6 +31,9 @@ public class GameController : MonoBehaviour
     public GameObject player1;
 
     GameObject child;
+
+    //get GameObject’s material and color
+    MeshRenderer Renderer;
 
     int Col = 5, Row = 5;
     Coordinates loc = new Coordinates(-1, -1);
@@ -48,7 +52,10 @@ public class GameController : MonoBehaviour
     void Start()
     {
 
-        
+        //get mesh renderer component
+        Renderer = GetComponent<MeshRenderer>();
+        //get original color of the GameObject
+        //Original = Renderer.material.color;
 
         // Variables
         //int x, y, newx, newy;
@@ -137,11 +144,10 @@ public class GameController : MonoBehaviour
         //boardController.displayBoard(boardHeights);
         
 
-        if (Input.GetMouseButtonDown(0))
+        if (CanPlacePawn())
         {
-            if (CanPlacePawn())
+            if (Input.GetMouseButtonDown(0))
             {
-                
                 //Debug.Log("here");
                 Coordinates loc = boardController.getSelectedTile();
                 if (board_gc.PlacePawn(P1, loc)) SwapPlacePawnPhase();
@@ -162,50 +168,66 @@ public class GameController : MonoBehaviour
                 //SwapPlacePawnPhase();
                 //SwapMovePhase();
             }
-            if (CanMove())
+        }
+        if (CanMove())
+        {
+            //If not currently waiting for any tiles, change this to wait for tiles
+            if (!WaitingForFirstTile() && !WaitingForSecondTile())
+                ReadyForTwoTiles();
+            else if (WaitingForFirstTile())
             {
-
-                boardController.clearBoard();
-                boardController.displayBoard(boardHeights);
-
-                // If no tile has been clicked yet, do nothing
-
-                // If first file is clicked & while waiting for the second tile to be clicked
-                if (playerController.FirstTileClicked())
+                if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log("TESTING");
+                    curLoc = boardController.getSelectedTile();
 
                     // Collect the first tile
-                    if (boardController.getSelectedTile() != null)
+                    if (curLoc != null && Player.IsAPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
                     {
-                        curLoc = boardController.getSelectedTile();
-                        Debug.Log(curLoc.X + " " + curLoc.Y);
-                   
+                        Debug.Log("GameController: collect first tile");
 
-                        List<Coordinates> validTiles = board_gc.AvailableMoves(curLoc);
+                        // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
+                        validTiles = board_gc.AvailableMoves(curLoc);
                         boardController.highlightValidTiles(validTiles);
-                    }
-                }
-                else
-                {
-                    Debug.Log("TESTING2");
-                    newLoc = boardController.getSelectedTile();
 
-                    if (board_gc.MovePawn(P1, curLoc, newLoc) == MoveType.VALID)
-                    {
-                        //display the board
-                        //Board.displayBoard(boardHeights);
-                        
-
-                        Debug.Log("Pawn1: " + P1.GetPlayerCoordinates()[0].X + ", " + P1.GetPlayerCoordinates()[0].Y);
-                        Debug.Log("Pawn2: " + P1.GetPlayerCoordinates()[1].X + ", " + P1.GetPlayerCoordinates()[1].Y);
-
-                        //board_gc.PlacePawn(P1, newLoc);
-                        //List<Coordinates> validTiles = board_gc.AvailableMoves(newLoc);
-                        //boardController.highlightValidTiles(validTiles);
+                        // Record the fact that the first tile has been collected for the "move" phase. Will begin waiting for the second tile
+                        CollectedFirstTile();
                     }
                 }
             }
+            else //WaitingForSecondTile()
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    newLoc = boardController.getSelectedTile();
+
+                    // Collect the second tile
+                    if (newLoc != null && validTiles.Contains(newLoc))
+                    {
+
+                        if (board_gc.MovePawn(P1, curLoc, newLoc) == MoveType.VALID)
+                        {
+                            Debug.Log("GameController: collected second tile and moved pawn");
+
+                            //Debug.Log("Pawn1: " + P1.GetPlayerCoordinates()[0].X + ", " + P1.GetPlayerCoordinates()[0].Y);
+                            //Debug.Log("Pawn2: " + P1.GetPlayerCoordinates()[1].X + ", " + P1.GetPlayerCoordinates()[1].Y);
+
+                            boardController.unhighlightTiles(validTiles);
+                            boardController.clearBoard();
+                            boardController.displayBoard(board_gc.GetHeights());
+                        }
+
+                        //ELSE MOVE TYPE IS INVALID OR WINNING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+                        CollectedSecondTile();
+                        SwapMovePhase();
+                    }
+                }
+            }
+
+                
+                
+        
 
 
 

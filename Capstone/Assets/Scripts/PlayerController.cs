@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     GameObject[,] tempPlayer;
 
     int[,] boardHeights;
-    private bool moveStatus; //False means waiting for first click, True means waiting for second click
+
     private static Coordinates curLoc;
     private static Coordinates newLoc;
 
@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     {
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
-        moveStatus = false;
     }
 
     public Coordinates GetPlayerClick()
@@ -77,11 +76,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (GameUtilities.CanPlacePawn())
+        if (Input.GetMouseButtonDown(0))
         {
-            //CODE TO PLACE A PLAYER
-            if (Input.GetMouseButtonDown(0))
+            if (GameUtilities.CanPlacePawn())
             {
+            //CODE TO PLACE A PLAYER
+            
                 PlayerPosition = new GameObject[Row, Col];
                 //playerParent = Board.getBoardTile(row, col);
 
@@ -95,41 +95,26 @@ public class PlayerController : MonoBehaviour
                
             }
 
-        }
 
-        //CODE TO MOVE A PLAYER
-        if (Input.GetMouseButtonDown(0))
-        {
+            //CODE TO GET A PAWN MOVE
             if (GameUtilities.CanMove())
             {
-                if (moveStatus == false)
+                if (GameUtilities.WaitingForFirstTile())
                 {
-                    //Get the player they want to move
+                    //Get the pawn they want to move
                     curLoc = boardController.getSelectedTile();
+
+                    Debug.Log("PlayerController: get first loc");
                 }
                 else
                 {
-                    //Get the player they want to move
+                    Debug.Log("PlayerController: get second loc");
+
+                    //Get the location they want to move to
                     newLoc = boardController.getSelectedTile();
-                    Debug.Log("here");
-                    //DESTROY THE PAWN
-                    boardController.clearBoard();
-
-                    //ADD PLAYER TO GAMECORE PLAYER LOCATION LIST!!
-
-                    //CREATE A NEW PAWN (by displaying the board)
-                    boardController.displayBoard(boardHeights);
-
-                    
-
                 }
             }
         }
 
-    }
-
-    public bool FirstTileClicked()
-    {
-        return !moveStatus;
     }
 }
