@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour
 
         // GET USERNAME FROM OPPONENT
         username = "Player two";
-        P2 = new Player(false, username);
+        P2 = new Player(true, username);
         
 
         //player1TurnActive = true;
@@ -89,10 +89,6 @@ public class GameController : MonoBehaviour
         //player.name = ("X: " + row + " Y: " + col);
         //player.transform.parent = playerParent.transform;
 
-        
-        
-
-        //who is starting player?
 
         
 
