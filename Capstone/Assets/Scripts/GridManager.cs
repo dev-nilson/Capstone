@@ -17,8 +17,10 @@ public class GridManager : MonoBehaviour
     public GameObject level1;
     public GameObject level2;
     public GameObject level3;
+    public GameObject level4;
 
-    public GameObject player;
+    public GameObject player1;
+    public GameObject player2;
 
     public GameObject parent;
     public GameObject levelParent;
@@ -98,6 +100,13 @@ public class GridManager : MonoBehaviour
                     child.transform.parent = Grid[i, j].transform;
                     child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
                 }
+                else if (temp[i, j] == 4)
+                {
+                    child = Instantiate(level4, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
+                    child.transform.parent = Grid[i, j].transform;
+                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 4f, Grid[i, j].transform.position.z);
+                }
             }
         }
 
@@ -111,14 +120,22 @@ public class GridManager : MonoBehaviour
             for (var j = 0; j < Col; j++)
             {
                 Coordinates loc = new Coordinates(i, j);
-                if (Player.GetBothPlayersPawns().Contains(loc))
+                if (P1pawns.Contains(loc))
                 {
-                    player = Instantiate(player, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    player.transform.position = new Vector3(Grid[i, j].transform.position.x, 1f, Grid[i, j].transform.position.z);
-                    player.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    player.transform.localScale = new Vector3(.2f, .2f, .2f);
-                    player.transform.parent = Grid[i, j].transform;
+                    player1 = Instantiate(player1, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    player1.transform.position = new Vector3(Grid[i, j].transform.position.x, 1f, Grid[i, j].transform.position.z);
+                    player1.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    player1.transform.localScale = new Vector3(.2f, .2f, .2f);
+                    player1.transform.parent = Grid[i, j].transform;
 
+                }
+                else if (P2pawns.Contains(loc))
+                {
+                    player2 = Instantiate(player2, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    player2.transform.position = new Vector3(Grid[i, j].transform.position.x, 2f, Grid[i, j].transform.position.z);
+                    player2.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    player2.transform.localScale = new Vector3(1f, 1f, 1f);
+                    player2.transform.parent = Grid[i, j].transform;
                 }
             }
         }

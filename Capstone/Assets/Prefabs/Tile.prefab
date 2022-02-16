@@ -161,7 +161,9 @@ MonoBehaviour:
   level1: {fileID: 5456894690179295032, guid: 122eab3a709511249b1135241a30fbd4, type: 3}
   level2: {fileID: 5456894690179295032, guid: 3766d1907cf8ea1418c3efe66ed39851, type: 3}
   level3: {fileID: 5456894690179295032, guid: 4c933ad5c49dd074cb4ffa3547c1e87b, type: 3}
-  player: {fileID: 2413851275917778590, guid: 929dc814c6ebd1e4da601e78f43c180b, type: 3}
+  level4: {fileID: 5456894690179295032, guid: 67055cc95b8302b408806b3b185163c7, type: 3}
+  player1: {fileID: 2413851275917778590, guid: 929dc814c6ebd1e4da601e78f43c180b, type: 3}
+  player2: {fileID: 678481456461886712, guid: 6e38aeaf4861da9429029eaa16f1e460, type: 3}
   parent: {fileID: 0}
   levelParent: {fileID: 0}
 --- !u!114 &7876926238896132641

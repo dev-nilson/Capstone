@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour
 
         // GET USERNAME FROM OPPONENT
         username = "Player two";
-        P2 = new Player(true, username);
+        P2 = new Player(false, username);
 
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
