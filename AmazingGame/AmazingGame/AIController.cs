@@ -8,7 +8,8 @@ namespace AmazingGame
     {
         public int Minimax(Node node, int depth, bool isMaximizingPlayer)
         {
-            if (node.children == null) return node.score;
+            if (node.children == null)
+                return node.score;
 
             if (isMaximizingPlayer)
             {
