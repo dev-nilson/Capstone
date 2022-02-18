@@ -114,7 +114,7 @@ public class GameController : MonoBehaviour
 
 
                 // If the mouse was clicked, store that coordinate
-                Coordinates loc = boardController.getSelectedTile();
+                Coordinates loc = playerController.GetCoordinate(CurrentPlayer); //boardController.getSelectedTile();
 
                 // If the pawn was successfully placed in the game core board...
                 if (board_gc.PlacePawn(CurrentPlayer, loc))
@@ -160,7 +160,7 @@ public class GameController : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         // If the mouse was clicked, store that new coordinate
-                        curLoc = boardController.getSelectedTile();
+                        curLoc = playerController.GetCoordinate(CurrentPlayer);
 
                         // Collect the first tile
                         if (curLoc != null && Player.IsAPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
@@ -194,7 +194,7 @@ public class GameController : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         // If the mouse was clicked, store that new coordinate
-                        newLoc = boardController.getSelectedTile();
+                        newLoc = playerController.GetCoordinate(CurrentPlayer);
 
                         // Collect the second tile
                         MoveType moveStatus = board_gc.MovePawn(CurrentPlayer, curLoc, newLoc);
@@ -270,7 +270,7 @@ public class GameController : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     // If the mouse was clicked, store that new coordinate
-                    newLoc = boardController.getSelectedTile();
+                    newLoc = playerController.GetCoordinate(CurrentPlayer);
 
                     // If the pawn was successfully moved in the game core board...
                     if (board_gc.BuildPiece(curLoc, newLoc))

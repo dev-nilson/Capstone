@@ -157,7 +157,7 @@ public class GridManager : MonoBehaviour
         return Grid[row, col];
     }
 
-    public Coordinates getSelectedTile()
+    public static Coordinates getSelectedTile()
     {
         return selectedTile;
     }
