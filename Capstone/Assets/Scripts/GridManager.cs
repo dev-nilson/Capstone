@@ -313,7 +313,7 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log(transform.position);
+
     }
 }
 
