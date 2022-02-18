@@ -13,7 +13,12 @@ public class GridManager : MonoBehaviour
     GameController gameController;
 
     int Col = 5, Row = 5;
-    public GameObject tile;
+    public GameObject tile1;
+    public GameObject tile2;
+    public GameObject tile3;
+    public GameObject tile4;
+    public GameObject tile5;
+
     public GameObject level1;
     public GameObject level2;
     public GameObject level3;
@@ -48,13 +53,34 @@ public class GridManager : MonoBehaviour
     public void createBoard(int[,] temp)
     {
         Grid = new GameObject[Col, Row];
+        System.Random rnd = new System.Random();
 
         //place all tiles
         for (var i = 0; i < Row; i++)
         {
             for (var j = 0; j < Col; j++)
             {
-                gridSpace = Instantiate(tile, new Vector3(j, Row - i, 0), Quaternion.identity);
+                int tileNum = rnd.Next(1, 6);   // creates a number between 1 and 5
+                if(tileNum == 1)
+                {
+                    gridSpace = Instantiate(tile1, new Vector3(j, Row - i, 0), Quaternion.identity);
+                }
+                else if (tileNum == 2)
+                {
+                    gridSpace = Instantiate(tile2, new Vector3(j, Row - i, 0), Quaternion.identity);
+                }
+                else if (tileNum == 3)
+                {
+                    gridSpace = Instantiate(tile3, new Vector3(j, Row - i, 0), Quaternion.identity);
+                }
+                else if (tileNum == 4)
+                {
+                    gridSpace = Instantiate(tile4, new Vector3(j, Row - i, 0), Quaternion.identity);
+                }
+                else if (tileNum == 5)
+                {
+                    gridSpace = Instantiate(tile5, new Vector3(j, Row - i, 0), Quaternion.identity);
+                }
                 gridSpace.name = (i + " " + j);
                 gridSpace.transform.parent = parent.transform;
                 Grid[i, j] = gridSpace;

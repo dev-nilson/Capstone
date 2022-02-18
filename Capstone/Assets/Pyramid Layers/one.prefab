@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66fd1c535f2915d459c4f2ebe678aad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 0}
+  tile1: {fileID: 5638226049318727965, guid: edcae60f68456c84dac84600f28a5a5e, type: 3}
+  tile2: {fileID: 8191874363350356236, guid: 3cc821dca2c00fe4ead679de8678e2ef, type: 3}
+  tile3: {fileID: 6359731640391664434, guid: 2c0293aedf4e8914796c9ae1e017fa05, type: 3}
+  tile4: {fileID: 6022215942326097140, guid: 49278f5567ec26f42adfd8c9e4b9ddb1, type: 3}
+  tile5: {fileID: 908592063232923110, guid: cb9903db36439d84694b0235fcc771bd, type: 3}
   level1: {fileID: 1001910046952135676}
   level2: {fileID: 5424361190378693783, guid: 54542fb6fc681ee438175def720b0f27, type: 3}
   level3: {fileID: 4966038803555105557, guid: 95715f79ac92c8e4ebfb328b66d196db, type: 3}
