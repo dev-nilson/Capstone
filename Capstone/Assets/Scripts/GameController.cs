@@ -104,6 +104,7 @@ public class GameController : MonoBehaviour
         Player CurrentPlayer;
         if (GetPlayerTurn() == PlayerTurn.ONE) CurrentPlayer = P1;
         else CurrentPlayer = P2;
+
         if (CanPlacePawn())
         {
             if (Input.GetMouseButtonDown(0))
@@ -113,7 +114,7 @@ public class GameController : MonoBehaviour
 
 
                 // If the mouse was clicked, store that coordinate
-                Coordinates loc = boardController.getSelectedTile();
+                Coordinates loc = playerController.GetCoordinate(CurrentPlayer); //boardController.getSelectedTile();
 
                 // If the pawn was successfully placed in the game core board...
                 if (board_gc.PlacePawn(CurrentPlayer, loc))
@@ -122,9 +123,16 @@ public class GameController : MonoBehaviour
                     boardController.clearBoard();
                     boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
-                    // Turn off the "place pawn" phase and turn on the "move" phase
-                    SwapPlacePawnPhase();
-                    SwapMovePhase();
+                    // If both players have placed their pawns, turn off the "place pawn" phase, turn on the "move" phase, and swap player turns
+                    if (Player.GetBothPlayersPawns()[1] != new Coordinates() && Player.GetBothPlayersPawns()[3] != new Coordinates())
+                    {
+                        SwapPlacePawnPhase();
+                        SwapMovePhase();
+                        SwapPlayerTurn();
+                    }
+                    // Otherwise, if only the current player has placed his pawns simply swap player turns
+                    else if (CurrentPlayer.GetPlayerCoordinates()[1] != new Coordinates())
+                        SwapPlayerTurn();
                 }
                 else
                 {
@@ -136,72 +144,94 @@ public class GameController : MonoBehaviour
         }
         if (CanMove())
         {
-            //If not currently waiting for any tiles, change this to wait for tiles
-            if (!WaitingForFirstTile() && !WaitingForSecondTile())
-                ReadyForTwoTiles();
-            else if (WaitingForFirstTile())
+            if (CurrentPlayer.HasNoMoves(board_gc))
             {
-                if (Input.GetMouseButtonDown(0))
+                // GAME OVER: CURRENT PLAYER HAS NO AVAILABLE MOVES AND THEREFORE LOSES
+                Debug.Log("Current player loses: no available moves");
+
+            }
+            else
+            {
+                //If not currently waiting for any tiles, change this to wait for tiles
+                if (!WaitingForFirstTile() && !WaitingForSecondTile())
+                    ReadyForTwoTiles();
+                else if (WaitingForFirstTile())
                 {
-                    // If the mouse was clicked, store that new coordinate
-                    curLoc = boardController.getSelectedTile();
-
-                    // Collect the first tile
-                    if (curLoc != null && Player.IsAPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        Debug.Log("GameController: collect first tile");
+                        // If the mouse was clicked, store that new coordinate
+                        curLoc = playerController.GetCoordinate(CurrentPlayer);
 
-                        // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
-                        validTiles = board_gc.AvailableMoves(curLoc);
-                        boardController.highlightValidTiles(validTiles);
+                        // Collect the first tile
+                        if (curLoc != null && Player.IsAPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
+                        {
+                            Debug.Log("GameController: collect first tile");
 
-                        // Record the fact that the first tile has been collected for the "move" phase. Will begin waiting for the second tile
-                        CollectedFirstTile();
-                    }
-                    else
-                    {
-                        // Should we notify the player that they are not clicking a valid tile?
+                            // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
+                            validTiles = board_gc.AvailableMoves(curLoc);
+
+                            if (validTiles.Count == 0)
+                            {
+                                // NOTIFY PLAYER THAT THIS PAWN HAS NO AVAILABLE MOVES
+                                // THEY MUST MOVE THE OTHER PAWN
+                            }
+                            else
+                            {
+                                boardController.highlightValidTiles(validTiles);
+
+                                // Record the fact that the first tile has been collected for the "move" phase. Will begin waiting for the second tile
+                                CollectedFirstTile();
+                            }
+                        }
+                        else
+                        {
+                            // Should we notify the player that they are not clicking a valid tile (containing a pawn)?
+                        }
                     }
                 }
-            }
-            else //WaitingForSecondTile()
-            {
-                if (Input.GetMouseButtonDown(0))
+                else //WaitingForSecondTile()
                 {
-                    // If the mouse was clicked, store that new coordinate
-                    newLoc = boardController.getSelectedTile();
-
-                    // Collect the second tile
-                    MoveType moveStatus = board_gc.MovePawn(CurrentPlayer, curLoc, newLoc);
-
-                    // If the pawn was successfully moved in the game core board...
-                    if (moveStatus == MoveType.VALID || moveStatus == MoveType.WINNING)
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        //Section for debugging
-                        Debug.Log("GameController: collected second tile and moved pawn");
-                        Coordinates[] Pawns = Player.GetBothPlayersPawns();
+                        // If the mouse was clicked, store that new coordinate
+                        newLoc = playerController.GetCoordinate(CurrentPlayer);
 
-                        // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
-                        boardController.unhighlightTiles(validTiles);
-                        boardController.clearBoard();
-                        boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                        // Collect the second tile
+                        MoveType moveStatus = board_gc.MovePawn(CurrentPlayer, curLoc, newLoc);
 
-                        // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
-                        CollectedSecondTile();
-                        validTiles.Clear();
-                        SwapMovePhase();
+                        // If the pawn was successfully moved in the game core board...
+                        if (moveStatus == MoveType.VALID || moveStatus == MoveType.WINNING)
+                        {
+                            //Section for debugging
+                            Debug.Log("GameController: collected second tile and moved pawn");
+                            Coordinates[] Pawns = Player.GetBothPlayersPawns();
 
-                        //For testing purposes, return to place pawn phase
-                        //SwapPlacePawnPhase();
-                        SwapBuildPhase();
-                    }
-                    if (moveStatus == MoveType.WINNING)
-                    {
-                        //NOTIFY PLAYER!!!!!!!!!!!!
-                    }
-                    else if (moveStatus == MoveType.INVALID)
-                    {
-                        // Should we notify the player that they are not clicking a valid tile?
+                            // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
+                            boardController.unhighlightTiles(validTiles);
+                            boardController.clearBoard();
+                            boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+
+                            // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
+                            CollectedSecondTile();
+                            validTiles.Clear();
+                            SwapMovePhase();
+
+                            //For testing purposes, return to place pawn phase
+                            //SwapPlacePawnPhase();
+                            SwapBuildPhase();
+                        }
+                        if (moveStatus == MoveType.WINNING)
+                        {
+                            // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
+                            Debug.Log("Current player wins: reached the third tier of a tower!");
+
+
+
+                        }
+                        else if (moveStatus == MoveType.INVALID)
+                        {
+                            // Should we notify the player that they are not clicking a valid tile?
+                        }
                     }
                 }
             }
@@ -210,30 +240,29 @@ public class GameController : MonoBehaviour
         {
             //If not currently waiting for any tiles, change this to wait for tiles
             if (!WaitingForFirstTile() && !WaitingForSecondTile())
-                ReadyForTwoTiles();
-            else if (WaitingForFirstTile())
             {
-                if (Input.GetMouseButtonDown(0))
+                Debug.Log("Testing");
+                ReadyForTwoTiles();
+
+                // Since the build must occur from the moved pawn, curLoc becomes newLoc
+                curLoc = newLoc;
+
+                // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
+                validTiles = board_gc.AvailableBuilds(curLoc);
+
+                if (validTiles.Count == 0)
                 {
-                    // If the mouse was clicked, store that new coordinate
-                    curLoc = boardController.getSelectedTile();
+                    // GAME OVER: THE MOVED PAWN HAS NO AVAILABLE BUILDS AND THEREFORE THE CURRENT PLAYER LOSES
+                    Debug.Log("Current player loses: no available builds");
 
-                    // Collect the first tile
-                    if (curLoc != null && Player.IsAPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
-                    {
-                        Debug.Log("GameController: collect first tile for build");
 
-                        // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
-                        validTiles = board_gc.AvailableBuilds(curLoc);
-                        boardController.highlightValidTiles(validTiles);
+                }
+                else
+                {
+                    boardController.highlightValidTiles(validTiles);
 
-                        // Record the fact that the first tile has been collected for the "build" phase. Will begin waiting for the second tile
-                        CollectedFirstTile();
-                    }
-                    else
-                    {
-                        // Should we notify the player that they are not clicking a valid tile?
-                    }
+                    // Record the fact that the first tile has been collected for the "build" phase. Will begin waiting for the second tile
+                    CollectedFirstTile();
                 }
             }
             else //WaitingForSecondTile()
@@ -241,7 +270,7 @@ public class GameController : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     // If the mouse was clicked, store that new coordinate
-                    newLoc = boardController.getSelectedTile();
+                    newLoc = playerController.GetCoordinate(CurrentPlayer);
 
                     // If the pawn was successfully moved in the game core board...
                     if (board_gc.BuildPiece(curLoc, newLoc))
@@ -254,15 +283,15 @@ public class GameController : MonoBehaviour
                         boardController.clearBoard();
                         boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
-                        // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
+                        // Record the fact that the second tile has been collected for the "build" phase. Then turn off the "build" phase
                         CollectedSecondTile();
                         validTiles.Clear();
                         SwapBuildPhase();
 
                         //For testing purposes, return to place pawn phase
-                        SwapPlacePawnPhase();
-
-                        //For testing purposes, go ahead and swap player turns
+                        //SwapPlacePawnPhase();
+                        SwapMovePhase();
+                        
                         SwapPlayerTurn();
                     }
                     else
@@ -272,38 +301,5 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-
-                
-                
-            
-
-
-
-
-        //LOOP WHILE NO ERROR
-        //MOVE PLAYERS ------
-        //GC: IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
-        //GC: TELL GUI IF ONE OF THE PAWNS HAS NO MOVES
-        //Coordinates[] pawnLocs = P1.GetPlayerCoordinates();
-        //if (board.AvailableMoves(pawnLocs[0]).Count == 0)
-        //GUI: TELL GC WHICH PAWN WAS CLICKED
-        //GC: TELL GUI WHAT MOVES ARE VALID FOR THAT PAWN
-        //int[,] validMoves = ConvertToBinaryBoard(board_gc.AvailableMoves(new Coordinates(x, y)));
-        //GUI: HIGHLIGHT THE VALID MOVES
-        //boardController.highlightValidTiles(validMoves);
-        //GUI: SEND GC WHAT TILE WAS CLICKED
-        //GC: UPDATE BOARD, RETURN BOARD TO GUI, ALERT IF YOU WIN (break loop)
-        //GUI: UPDATE BOARD
-
-        //BUILD------
-        //GC: GIVES ME ALL THE VALID BUILD SPACES FOR THE PAWN
-        //GUI: SEND GC THE SELECTED TILE TO BUILD ON
-        //GC: UPDATE BOARD, RETURN BOARD TO GUI
-        //GUI UPDATE BOARD
-        //GC: SWAP PLAYERS
-
-        //DETERMINE IF WON OR LOST & REACT TO THAT
-
-        
     }
 }
