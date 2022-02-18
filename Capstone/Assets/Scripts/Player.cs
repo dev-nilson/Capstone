@@ -52,6 +52,11 @@ public class Player
         return (Pawns[0][0] == loc) || (Pawns[0][1] == loc) || (Pawns[1][0] == loc) || (Pawns[1][1] == loc);
     }
 
+    public bool HasThisPawn(Coordinates loc)
+    {
+        return (Pawns[(int)this.player][0] == loc || Pawns[(int)this.player][1] == loc);
+    }
+
     // SHOULD NOT BE WIDELY USED -- FOR USE IN GameBoard.cs
     public bool addNewPawn(Coordinates loc)
     {

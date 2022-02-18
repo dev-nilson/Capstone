@@ -163,7 +163,7 @@ public class GameController : MonoBehaviour
                         curLoc = playerController.GetCoordinate(CurrentPlayer);
 
                         // Collect the first tile
-                        if (curLoc != null && Player.IsAPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
+                        if (curLoc != null && Player.IsAPawn(curLoc) && CurrentPlayer.HasThisPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
                         {
                             Debug.Log("GameController: collect first tile");
 

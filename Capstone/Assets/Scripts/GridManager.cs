@@ -98,16 +98,18 @@ public class GridManager : MonoBehaviour
                 else if (temp[i, j] == 3)
                 {
                     child = Instantiate(level3, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
                     child.transform.parent = Grid[i, j].transform;
-                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
+                    child.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 2f, Grid[i, j].transform.position.z);
+                    child.transform.localScale = new Vector3(.08f, .3f, .08f);
                 }
                 else if (temp[i, j] == 4)
                 {
                     child = Instantiate(level4, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    child.transform.rotation = Quaternion.Euler(180, 0, 0);
                     child.transform.parent = Grid[i, j].transform;
-                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 4f, Grid[i, j].transform.position.z);
+                    child.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 2.25f, Grid[i, j].transform.position.z);
+                    child.transform.localScale = new Vector3(.11f, .25f, .11f);
                 }
             }
         }
