@@ -145,7 +145,7 @@ public class GridManager : MonoBehaviour
         }
 
         //Debug.Log(Grid[0, 2].tag);
-        Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        //Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
         //Debug.Log(Grid[0, 0].name);
         //Debug.Log(Grid[0, 0].transform.position);
     }
@@ -153,6 +153,11 @@ public class GridManager : MonoBehaviour
     public void clearBoard()
     {
         Debug.Log(GameObject.FindGameObjectsWithTag("Alien").Length);
+        GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
+        foreach(GameObject go in aliens)
+        {
+            Destroy(go);
+        }
         Destroy(GameObject.FindWithTag("Alien"));
     }
 
