@@ -219,6 +219,14 @@ public class GridManager : MonoBehaviour
     {
         return selectedTile;
     }
+    public static Coordinates getSelectedPlayer()
+    {
+        return selectedTile;
+    }
+    public static Coordinates getSelectedPyramid()
+    {
+        return selectedTile;
+    }
 
     public void highlightValidTiles(List<Coordinates> locs)
     {
@@ -305,8 +313,9 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        
+        Debug.Log(transform.position);
     }
 }
+
 
 

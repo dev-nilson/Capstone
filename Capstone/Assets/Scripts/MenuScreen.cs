@@ -10,6 +10,8 @@ public class MenuScreen : MonoBehaviour
 	public Button multiplayer;
 	public Button tutorial;
 	public Button storyMode;
+	public Button exitApp;
+
 
 	void Start()
 	{
@@ -24,6 +26,9 @@ public class MenuScreen : MonoBehaviour
 
 		Button storyModeBtn = storyMode.GetComponent<Button>();
 		storyModeBtn.onClick.AddListener(storyModeClicked);
+
+		Button exitAppBtn = exitApp.GetComponent<Button>();
+		exitAppBtn.onClick.AddListener(exitAppClicked);
 	}
 
 	void quickGameClicked()
@@ -52,5 +57,12 @@ public class MenuScreen : MonoBehaviour
 		Debug.Log("story mode game");
 
 		SceneManager.LoadScene("StoryMode");
+	}
+
+	void exitAppClicked()
+	{
+		Debug.Log("story mode game");
+
+		Application.Quit();
 	}
 }

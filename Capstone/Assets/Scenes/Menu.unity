@@ -260,6 +260,7 @@ MonoBehaviour:
   multiplayer: {fileID: 87616221}
   tutorial: {fileID: 1106222060}
   storyMode: {fileID: 1621470740}
+  exitApp: {fileID: 145003501}
 --- !u!1 &145003499
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +273,7 @@ GameObject:
   - component: {fileID: 145003503}
   - component: {fileID: 145003502}
   - component: {fileID: 145003501}
+  - component: {fileID: 145003504}
   m_Layer: 5
   m_Name: Exit App Button
   m_TagString: Untagged
@@ -380,6 +382,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145003499}
   m_CullTransparentMesh: 0
+--- !u!114 &145003504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145003499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485f76bb1f9f4704aaf90a2b5b93f2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quickGame: {fileID: 2124057699}
+  multiplayer: {fileID: 87616221}
+  tutorial: {fileID: 1106222060}
+  storyMode: {fileID: 1621470740}
+  exitApp: {fileID: 145003501}
 --- !u!1 &199476533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,6 +1453,7 @@ MonoBehaviour:
   multiplayer: {fileID: 87616221}
   tutorial: {fileID: 1106222060}
   storyMode: {fileID: 1621470740}
+  exitApp: {fileID: 145003501}
 --- !u!1 &1172933075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,6 +1910,7 @@ MonoBehaviour:
   multiplayer: {fileID: 87616221}
   tutorial: {fileID: 1106222060}
   storyMode: {fileID: 1621470740}
+  exitApp: {fileID: 145003501}
 --- !u!1 &1636425971
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,6 +2127,7 @@ MonoBehaviour:
   multiplayer: {fileID: 87616221}
   tutorial: {fileID: 1106222060}
   storyMode: {fileID: 1621470740}
+  exitApp: {fileID: 145003501}
 --- !u!1 &2131589102
 GameObject:
   m_ObjectHideFlags: 0
