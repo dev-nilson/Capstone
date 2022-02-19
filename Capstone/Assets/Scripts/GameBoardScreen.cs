@@ -14,7 +14,7 @@ public class GameBoardScreen : MonoBehaviour
 
     void backClicked()
     {
-        Debug.Log("qback clicked");
+        Debug.Log("back clicked");
 
         SceneManager.LoadScene("Menu");
     }
