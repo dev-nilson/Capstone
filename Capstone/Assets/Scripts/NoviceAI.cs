@@ -14,13 +14,13 @@ namespace AmazingGame
          *  -   20  points if worker is at level 2.
          *  The combined value of the current player's workers minus the value of the opponent's workers is returned.
          */
-        public static int HeightDifference(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
+        public static int HeightDifference(Coordinates[] allPawns, GameBoard gameBoard)
         {
             int heightDifference = 0;
 
             //  TODO: Figure out heights[,] rows and columns. What goes first? What goes second?
-            int playerHeight    = (gameBoard.heights[allPawns[0].X, allPawns[0].Y] + gameBoard.heights[allPawns[1].X, allPawns[1].Y]) * 10;
-            int opponentHeight  = (gameBoard.heights[allPawns[2].X, allPawns[2].Y] + gameBoard.heights[allPawns[3].X, allPawns[3].Y]) * 10;
+            int playerHeight    = (gameBoard.GetHeights()[allPawns[0].X, allPawns[0].Y] + gameBoard.GetHeights()[allPawns[1].X, allPawns[1].Y]) * 10;
+            int opponentHeight  = (gameBoard.GetHeights()[allPawns[2].X, allPawns[2].Y] + gameBoard.GetHeights()[allPawns[3].X, allPawns[3].Y]) * 10;
 
             heightDifference = opponentHeight - playerHeight;
 
@@ -35,7 +35,7 @@ namespace AmazingGame
          *  -   10  points if worker is in the middle space.
          *  The combined value of the current player’s workers is returned.
          */
-        public static int Centricity(GameBoard.Coordinates[] playerPawns)
+        public static int Centricity(Coordinates[] playerPawns)
         {
             int centricity = 0;
 
@@ -157,21 +157,21 @@ namespace AmazingGame
          *  -   100 points for each of the worker's adjacent level 3 tiles.
          *  The combined value of the current player’s workers is returned.
          */
-        public static int WinningThreat(GameBoard.Coordinates[] playerPawns, GameBoard gameBoard)
+        public static int WinningThreat(Coordinates[] playerPawns, GameBoard gameBoard)
         {
             int winningThreat = 0;
 
             for (int i = 0; i < playerPawns.Length; ++i)
             {
-                List<GameBoard.Coordinates> availableMoves;
+                List<Coordinates> availableMoves;
 
-                if (gameBoard.heights[playerPawns[i].X, playerPawns[i].Y] == 2)
+                if (gameBoard.GetHeights()[playerPawns[i].X, playerPawns[i].Y] == 2)
                 {
                     availableMoves = gameBoard.AvailableMoves(playerPawns[i]);
 
                     for (int j = 0; j < availableMoves.Count; ++j)
                     {
-                        if (gameBoard.heights[availableMoves[j].X, availableMoves[j].Y] == 3)
+                        if (gameBoard.GetHeights()[availableMoves[j].X, availableMoves[j].Y] == 3)
                         {
                             winningThreat += 100;
                         }
@@ -189,7 +189,7 @@ namespace AmazingGame
          *  -   5   points for each of the worker's available moves.
          *  The combined value of the current player's workers minus the value of the opponent's workers is returned.
          */
-        public static int Mobility(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
+        public static int Mobility(Coordinates[] allPawns, GameBoard gameBoard)
         {
             int mobility = 0;
 
@@ -198,13 +198,13 @@ namespace AmazingGame
                 //  available moves for player
                 if (i < 2)
                 {
-                    List<GameBoard.Coordinates> playerAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
+                    List<Coordinates> playerAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
                     mobility -= playerAvailableMoves.Count;
                 }
                 //  available moves for opponent
                 else
                 {
-                    List<GameBoard.Coordinates> opponentAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
+                    List<Coordinates> opponentAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
                     mobility += opponentAvailableMoves.Count;
                 }
             }
@@ -221,7 +221,7 @@ namespace AmazingGame
          *  -   1   points for each of the worker's adjacent higher or equal level spaces.
          *  The combined percentage of the current player's workers minus the percentage of the opponent's workers is returned.
          */
-        public static int Verticality(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
+        public static int Verticality(Coordinates[] allPawns, GameBoard gameBoard)
         {
             int verticality = 0;
             int playerVerticality = 0;
@@ -234,13 +234,13 @@ namespace AmazingGame
                 {
                     double playerVerticalMovesCount = 0;
 
-                    List<GameBoard.Coordinates> playerAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
+                    List<Coordinates> playerAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
                     
                     foreach (var move in playerAvailableMoves)
                     {
-                        if (((gameBoard.heights[move.X, move.Y]) - 1) == gameBoard.heights[allPawns[i].X, allPawns[i].Y])
+                        if (((gameBoard.GetHeights()[move.X, move.Y]) - 1) == gameBoard.GetHeights()[allPawns[i].X, allPawns[i].Y])
                             ++playerVerticalMovesCount;
-                        else if (gameBoard.heights[move.X, move.Y] == gameBoard.heights[allPawns[i].X, allPawns[i].Y])
+                        else if (gameBoard.GetHeights()[move.X, move.Y] == gameBoard.GetHeights()[allPawns[i].X, allPawns[i].Y])
                             playerVerticalMovesCount += 0.5;
 
                     }
@@ -252,13 +252,13 @@ namespace AmazingGame
                 {
                     double opponentVerticalMovesCount = 0;
 
-                    List<GameBoard.Coordinates> opponentAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
+                    List<Coordinates> opponentAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
 
                     foreach (var move in opponentAvailableMoves)
                     {
-                        if (((gameBoard.heights[move.X, move.Y]) - 1) == gameBoard.heights[allPawns[i].X, allPawns[i].Y])
+                        if (((gameBoard.GetHeights()[move.X, move.Y]) - 1) == gameBoard.GetHeights()[allPawns[i].X, allPawns[i].Y])
                             ++opponentVerticalMovesCount;
-                        else if (gameBoard.heights[move.X, move.Y] == gameBoard.heights[allPawns[i].X, allPawns[i].Y])
+                        else if (gameBoard.GetHeights()[move.X, move.Y] == gameBoard.GetHeights()[allPawns[i].X, allPawns[i].Y])
                             opponentVerticalMovesCount += 0.5;
                     }
 

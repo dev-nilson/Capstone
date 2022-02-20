@@ -36,8 +36,6 @@ public class GameController : MonoBehaviour
     //get GameObject’s material and color
     MeshRenderer Renderer;
 
-    int Col = 5, Row = 5;
-
     //public bool player1TurnActive = false;
 
     void Awake()

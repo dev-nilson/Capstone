@@ -6,9 +6,9 @@ namespace AmazingGame
 {
     class RandomAI
     {
-        public static GameBoard.Coordinates MoveRandomly(GameBoard.Coordinates[] playerPawns, GameBoard gameBoard)
+        public static Coordinates MoveRandomly(Coordinates[] playerPawns, GameBoard gameBoard)
         {
-            GameBoard.Coordinates coordinates;
+            Coordinates coordinates;
             Random random = new Random();
             int pawnIndex = -1;
 
@@ -22,19 +22,19 @@ namespace AmazingGame
             else if (gameBoard.AvailableMoves(playerPawns[1]).Count > 0)
                 pawnIndex = 1;
 
-            List<GameBoard.Coordinates> availableMoves = gameBoard.AvailableMoves(playerPawns[pawnIndex]);
+            List<Coordinates> availableMoves = gameBoard.AvailableMoves(playerPawns[pawnIndex]);
             int coordinatesIndex = random.Next(0, availableMoves.Count);
             coordinates = availableMoves[coordinatesIndex];
 
             return coordinates;
         }
 
-        public static GameBoard.Coordinates BuildRandomly(GameBoard.Coordinates playerPawn, GameBoard gameBoard)
+        public static Coordinates BuildRandomly(Coordinates playerPawn, GameBoard gameBoard)
         {
-            GameBoard.Coordinates coordinates;
+            Coordinates coordinates;
 
             Random random = new Random();
-            List<GameBoard.Coordinates> availableBuilds = gameBoard.AvailableBuilds(playerPawn);
+            List<Coordinates> availableBuilds = gameBoard.AvailableBuilds(playerPawn);
             int coordinatesIndex = random.Next(0, availableBuilds.Count);
             coordinates = availableBuilds[coordinatesIndex];
 

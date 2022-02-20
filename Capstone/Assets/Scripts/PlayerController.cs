@@ -29,8 +29,6 @@ public class PlayerController : MonoBehaviour
 
     public GameObject board;
 
-    int Col = 5, Row = 5;
-
 
     // Start is called before the first frame update
     void Start()
