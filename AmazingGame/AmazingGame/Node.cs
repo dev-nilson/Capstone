@@ -16,13 +16,13 @@ namespace AmazingGame
 
         public Node(Player player, GameBoard gameBoard, GameBoard.Coordinates moveFrom, GameBoard.Coordinates moveTo, GameBoard.Coordinates buildTo)
         {
+            this.score = 0;
             this.player = player;
             this.gameBoard = gameBoard;
             this.moveFrom = moveFrom;
             this.moveTo = moveTo;
             this.buildTo = buildTo;
 
-            this.gameBoard.MovePawn(player, moveFrom, moveTo);
             this.gameBoard.BuildPiece(moveTo, buildTo);
         }
 
