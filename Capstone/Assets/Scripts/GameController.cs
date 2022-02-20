@@ -225,8 +225,6 @@ public class GameController : MonoBehaviour
                             // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
                             Debug.Log("Current player wins: reached the third tier of a tower!");
 
-
-
                         }
                         else if (moveStatus == MoveType.INVALID)
                         {
@@ -254,8 +252,6 @@ public class GameController : MonoBehaviour
                 {
                     // GAME OVER: THE MOVED PAWN HAS NO AVAILABLE BUILDS AND THEREFORE THE CURRENT PLAYER LOSES
                     Debug.Log("Current player loses: no available builds");
-
-
                 }
                 else
                 {

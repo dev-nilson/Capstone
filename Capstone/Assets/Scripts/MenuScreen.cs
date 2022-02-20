@@ -11,8 +11,8 @@ public class MenuScreen : MonoBehaviour
 	public Button tutorial;
 	public Button storyMode;
 	public Button exitApp;
-	public Button settings;
 	public Button exitSettings;
+	public Button settings;
 	public GameObject settingsPopUp;
 
 
