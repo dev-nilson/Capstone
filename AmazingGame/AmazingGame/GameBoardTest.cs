@@ -39,6 +39,7 @@ namespace AmazingGame
             GameBoard.Coordinates loc = new GameBoard.Coordinates();
             //starting player and secondary player place pawns
 
+
             //P1 place starting pawns
             do
             {
@@ -92,6 +93,7 @@ namespace AmazingGame
                 if (!success) Console.WriteLine("Error placing P1's pawn");
             } while (!success);
             DisplayPawns(P1,P2);
+
 
             /////////////////////////////
             int newx, newy;
