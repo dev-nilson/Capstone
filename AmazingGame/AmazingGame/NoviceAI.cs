@@ -22,7 +22,7 @@ namespace AmazingGame
             int playerHeight    = (gameBoard.heights[allPawns[0].X, allPawns[0].Y] + gameBoard.heights[allPawns[1].X, allPawns[1].Y]) * 10;
             int opponentHeight  = (gameBoard.heights[allPawns[2].X, allPawns[2].Y] + gameBoard.heights[allPawns[3].X, allPawns[3].Y]) * 10;
 
-            heightDifference = playerHeight - opponentHeight;
+            heightDifference = opponentHeight - playerHeight;
 
             return heightDifference;
         }
@@ -199,13 +199,13 @@ namespace AmazingGame
                 if (i < 2)
                 {
                     List<GameBoard.Coordinates> playerAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
-                    mobility += playerAvailableMoves.Count;
+                    mobility -= playerAvailableMoves.Count;
                 }
                 //  available moves for opponent
                 else
                 {
                     List<GameBoard.Coordinates> opponentAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
-                    mobility -= opponentAvailableMoves.Count;
+                    mobility += opponentAvailableMoves.Count;
                 }
             }
 
@@ -224,44 +224,49 @@ namespace AmazingGame
         public static int Verticality(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
         {
             int verticality = 0;
-
-            int playerVerticalMovesCount = 0;
-            int opponentVerticalMovesCount = 0;
+            int playerVerticality = 0;
+            int opponentVerticality = 0;
 
             for (int i = 0; i < allPawns.Length; ++i)
             {
                 //  available moves for player
                 if (i < 2)
                 {
+                    double playerVerticalMovesCount = 0;
+
                     List<GameBoard.Coordinates> playerAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
                     
                     foreach (var move in playerAvailableMoves)
                     {
-                        if (gameBoard.heights[move.X, move.Y] > gameBoard.heights[allPawns[i].X, allPawns[i].Y])
-                        {
+                        if (((gameBoard.heights[move.X, move.Y]) - 1) == gameBoard.heights[allPawns[i].X, allPawns[i].Y])
                             ++playerVerticalMovesCount;
-                        }
+                        else if (gameBoard.heights[move.X, move.Y] == gameBoard.heights[allPawns[i].X, allPawns[i].Y])
+                            playerVerticalMovesCount += 0.5;
+
                     }
 
-                    verticality += (int)Math.Round((double)playerVerticalMovesCount / playerAvailableMoves.Count);
+                    playerVerticality += (int)Math.Round(playerVerticalMovesCount * 100.0 / playerAvailableMoves.Count);
                 }
                 //  available moves for opponent
                 else
                 {
+                    double opponentVerticalMovesCount = 0;
+
                     List<GameBoard.Coordinates> opponentAvailableMoves = gameBoard.AvailableMoves(allPawns[i]);
 
                     foreach (var move in opponentAvailableMoves)
                     {
-                        if (gameBoard.heights[move.X, move.Y] > gameBoard.heights[allPawns[i].X, allPawns[i].Y])
-                        {
+                        if (((gameBoard.heights[move.X, move.Y]) - 1) == gameBoard.heights[allPawns[i].X, allPawns[i].Y])
                             ++opponentVerticalMovesCount;
-                        }
+                        else if (gameBoard.heights[move.X, move.Y] == gameBoard.heights[allPawns[i].X, allPawns[i].Y])
+                            opponentVerticalMovesCount += 0.5;
                     }
 
-                    verticality -= (int)Math.Round((double)opponentVerticalMovesCount / opponentAvailableMoves.Count);
+                    opponentVerticality += (int)Math.Round(opponentVerticalMovesCount * 100.0 / opponentAvailableMoves.Count);
                 }
             }
 
+            verticality = opponentVerticality - playerVerticality;
             return verticality;
         }
     }
