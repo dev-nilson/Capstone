@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 public class RoomButton : MonoBehaviour
 {
-    public Text name;
+    public Text nameText;
     public string roomName;
 
     public void SetRoom()
     {
-        name.text = roomName;
+        nameText.text = roomName;
     }
 
     public void JoinRoomOnClick()

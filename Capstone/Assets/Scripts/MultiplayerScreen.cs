@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class MultiplayerScreen : MonoBehaviour
 {
-    public Button back;
+    //public Button back;
 
-    void Start()
-    {
-        Button backBtn = back.GetComponent<Button>();
-        backBtn.onClick.AddListener(backClicked);
-    }
+    //void Start()
+    //{
+    //    Button backBtn = back.GetComponent<Button>();
+    //    backBtn.onClick.AddListener(backClicked);
+    //}
 
-    void backClicked()
-    {
-        Debug.Log("back clicked");
+    //void backClicked()
+    //{
+    //    Debug.Log("back clicked");
 
-        SceneManager.LoadScene("Menu");
-    }
+    //    SceneManager.LoadScene("Menu");
+    //}
 }

@@ -4,14 +4,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement; //temporary using statement
+
 public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
     public static RoomController room;
 
+    //Buttons
+    public GameObject HostGameButton; //button used for joining a Lobby as the host.
+    [SerializeField]
+    private GameObject HostGameBackButton;
+    [SerializeField]
+    private GameObject JoinGameButton; //button used for joining a Lobby as the client.
+    [SerializeField]
+    private GameObject JoinGameBackButton;
+    [SerializeField]
+    private GameObject FaceOffBackButton; //Button used for going back to multi menu
+    [SerializeField]
+    private GameObject StartGameButton; //starts game
+    [SerializeField]
+    private GameObject ReadyUpButton; //once both players are ready leads into faceoff screen
+    [SerializeField]
+    private GameObject MultiplayerBackButton; //back button to main menu
+
+
+    //Panels
+    [SerializeField]
+    private GameObject MultiplayerMenuPanel; //panel for displaying the main menu
+    [SerializeField]
+    private GameObject HostGamePanel; //panel for displaying host lobby.
+    [SerializeField]
+    private GameObject JoinGamePanel; //panel for displaying join lobby.
+    [SerializeField]
+    private GameObject CharacterSelectionLobbyPanel; //panel for displaying host lobby.
+    [SerializeField]
+    private GameObject DisconnectedPanel; //panel for displaying host lobby.
+    [SerializeField]
+    private GameObject LoadingPanel; //panel for displaying host lobby.
+
+
+    [SerializeField]
+    private GameObject roomListingPrefab; //prefab for displayer each room in the lobby
+    [SerializeField]
+    private Transform roomsContainer; //container for holding all the room listings
+    [SerializeField]
+    private InputField playerNameInput; //Input field so player can change their NickName
+
+    public string roomName;
+
     public bool intentionalDC = false;
 
+    private List<RoomInfo> RoomList;
     private Dictionary<string, RoomInfo> cachedRoomList;
     private Dictionary<string, GameObject> roomListEntries;
+
+
+    #region TempVariables
+    [SerializeField]
+    private Text NameOfHost; //text object for displaying the host of a room, replaced by GameInfo.username
+
+    public int whoMovesFirst;
+    #endregion
 
     #region AwakeStartUpdate
 
@@ -37,22 +90,27 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     }
 
-    //private void Update()
-    //{
-    //    if (PhotonNetwork.NetworkClientState == ClientState.Disconnected && intentionalDisconnect == false)
-    //    {
-    //        if (LoadingCanvas.gameObject.activeSelf)
-    //            LoadingCanvas.gameObject.SetActive(false);
-    //        if (CreateOrJoinCanvas.gameObject.activeSelf)
-    //            CreateOrJoinCanvas.gameObject.SetActive(false);
-    //        if (RoomLobbyCanvas.gameObject.activeSelf)
-    //            RoomLobbyCanvas.gameObject.SetActive(false);
-    //        if (WaitingLoadingCanvas.gameObject.activeSelf)
-    //            WaitingLoadingCanvas.gameObject.SetActive(false);
+    /********************************************************************
+    * If the player cannot connect to the Photon Netowkr or intentionally
+    * disconnects from it, everything currently showing will be hidden
+    * and the disconnectCanvas will be shown
+    ********************************************************************/
+    private void Update()
+    {
+        if (PhotonNetwork.NetworkClientState == ClientState.Disconnected && intentionalDC == false)
+        {
+            if (MultiplayerMenuPanel.gameObject.activeSelf)
+                MultiplayerMenuPanel.gameObject.SetActive(false);
+            if (JoinGamePanel.gameObject.activeSelf)
+                JoinGamePanel.gameObject.SetActive(false);
+            if (HostGamePanel.gameObject.activeSelf)
+                HostGamePanel.gameObject.SetActive(false);
+            if (CharacterSelectionLobbyPanel.gameObject.activeSelf)
+                CharacterSelectionLobbyPanel.gameObject.SetActive(false);
 
-    //        DisconnectCanvas.gameObject.SetActive(true);
-    //    }
-    //}
+            DisconnectedPanel.gameObject.SetActive(true);
+        }
+    }
 
     IEnumerator DisconnectReconnect()
     {
@@ -67,11 +125,11 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     #region Puncallbacks
     public override void OnConnectedToMaster()
     {
-        intentionalDisconnect = false;
+        intentionalDC = false;
         Debug.Log("OnConnectedToMaster succesfully entered");
 
-        if (!CreateOrJoinCanvas.gameObject.activeSelf)
-            CreateOrJoinCanvas.gameObject.SetActive(true);
+        if (!MultiplayerMenuPanel.gameObject.activeSelf)
+            MultiplayerMenuPanel.gameObject.SetActive(true);
 
         PhotonNetwork.JoinLobby();  // -> OnJoinedLobby
     }
@@ -95,7 +153,7 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             MaxPlayers = 2
         };
 
-        roomName = GameInfo.username + Random.Range(0, 100);
+        roomName = PlayerPrefs.GetString("NickName") + Random.Range(0, 100) + "'s Room";
         PhotonNetwork.CreateRoom(roomName, roomOps);
     }
 
@@ -103,12 +161,12 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         base.OnJoinRoomFailed(returnCode, message);
 
-        if (RoomLobbyCanvas.gameObject.activeSelf)
-            RoomLobbyCanvas.gameObject.SetActive(false);
-        if (WaitingLoadingCanvas.gameObject.activeSelf)
-            WaitingLoadingCanvas.gameObject.SetActive(false);
+        if (JoinGamePanel.gameObject.activeSelf)
+            JoinGamePanel.gameObject.SetActive(false);
+        if (HostGamePanel.gameObject.activeSelf)
+            HostGamePanel.gameObject.SetActive(false);
 
-        intentionalDisconnect = true;
+        intentionalDC = true;
         PhotonNetwork.Disconnect();
     }
 
@@ -127,22 +185,17 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 ********************************************************************/
     public override void OnJoinedRoom()
     {
-        CreateOrJoinCanvas.gameObject.SetActive(false);
-        RoomLobbyCanvas.gameObject.SetActive(false);
+        JoinGamePanel.gameObject.SetActive(false);
 
-        WaitingLoadingCanvas.gameObject.SetActive(true);
-        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            StatusText.text = "Connected to room, waiting for host to start game...";
-        }
+        HostGamePanel.gameObject.SetActive(true);
 
-        WaitingLoadingBackButton.gameObject.SetActive(true);
-        StartButton.gameObject.SetActive(false);
+        HostGameBackButton.gameObject.SetActive(true);
+        ReadyUpButton.gameObject.SetActive(false);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        if (intentionalDisconnect == true)
+        if (intentionalDC == true)
             PhotonNetwork.ConnectUsingSettings();
         else
             Debug.Log("Loss of connection here");
@@ -191,7 +244,7 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    public void OnPlayerEnteredRoom(Player newPlayer)
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
@@ -199,24 +252,23 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             PhotonNetwork.CurrentRoom.IsVisible = false;
             if (PhotonNetwork.LocalPlayer.IsMasterClient)
             {
-                StatusText.text = "Player joined, ready to Start Game...";
-                StartButton.SetActive(true);
+                ReadyUpButton.SetActive(true);
             }
         }
     }
 
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    public void OnPlayerLeftRoom(Player otherPlayer)
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            if (GameInfo.selectPieceAtStart == 2)
+            if (whoMovesFirst == 2)
             {
-                StatusText.text = "Host has left, press Back to leave...";
+                Debug.Log("Host has left, press Back to leave...");
             }
             else
             {
-                StatusText.text = "Player left, waiting for new player to join...";
-                StartButton.SetActive(false);
+                Debug.Log("Player left, waiting for new player to join...");
+                ReadyUpButton.SetActive(false);
                 PhotonNetwork.CurrentRoom.IsOpen = true;
                 PhotonNetwork.CurrentRoom.IsVisible = true;
             }
@@ -227,13 +279,13 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         Debug.Log("Successfully left room.");
 
-        WaitingLoadingCanvas.gameObject.SetActive(false);
-        CreateOrJoinCanvas.gameObject.SetActive(true);
+        HostGamePanel.gameObject.SetActive(false);
+        MultiplayerMenuPanel.gameObject.SetActive(true);
 
-        CreateGameButton.SetActive(false);
+        HostGameButton.SetActive(false);
         JoinGameButton.SetActive(false);
-        CreateOrJoinBackButton.SetActive(false);
-        LoadingCanvas.gameObject.SetActive(true);
+        MultiplayerBackButton.SetActive(false);
+        LoadingPanel.gameObject.SetActive(true);
 
         //Debug.Log("PhotonNetwork.Disconnect() called");
         PhotonNetwork.LeaveLobby();
@@ -241,24 +293,25 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     #endregion
 
     #region ILobbyCallbacks
-    public void OnJoinedLobby()
+    public override void OnJoinedLobby()
     {
-        throw new System.NotImplementedException();
+        HostGameButton.SetActive(true);
+        JoinGameButton.SetActive(true);
+        MultiplayerBackButton.SetActive(false);
+        LoadingPanel.gameObject.SetActive(true);
     }
 
-    public void OnLeftLobby()
+    public override void OnLeftLobby()
     {
-        throw new System.NotImplementedException();
+        PhotonNetwork.Disconnect();
     }
 
-    public void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        throw new System.NotImplementedException();
+        ClearRoomListView();
+        UpdateCachedRoomList(roomList);
+        UpdateRoomListView();
+        print("Inside OnRoomListUpdate");
     }
     #endregion
 
@@ -274,15 +327,15 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             MaxPlayers = 2
         };
 
-        roomName = GameInfo.username;
+        roomName = PlayerPrefs.GetString("NickName") + "'s Room";
         PhotonNetwork.CreateRoom(roomName, roomOps);    // -> OnCreatedRoom / OnCreateRoomFailed
     }
 
     public void RemoveRoomListings()
     {
-        while (roomsPanel.childCount != 0)
+        while (roomsContainer.childCount != 0)
         {
-            Destroy(roomsPanel.GetChild(0).gameObject);
+            Destroy(roomsContainer.GetChild(0).gameObject);
         }
     }
 
@@ -291,7 +344,7 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         if (room.IsOpen && room.IsVisible)
         {
-            GameObject tempListing = Instantiate(roomListingPrefab, roomsPanel);
+            GameObject tempListing = Instantiate(roomListingPrefab, roomsContainer);
             RoomButton tempButton = tempListing.GetComponent<RoomButton>();
             tempButton.roomName = room.Name;
             tempButton.SetRoom();
@@ -306,15 +359,33 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     #region Buttons
 
     /********************************************************************
-     * Calls the create room function, when Create Game Button is clicked
+     * Calls the create room function, when Host Game Button is clicked
      * GameInfo.slectPieceAtStart, ensures that the Host moves first
      * when the game starts
      ********************************************************************/
-    public void OnCreateGameButtonClicked()
+    public void OnHostGameButtonClicked()
     {
-        CreateRoom();
+        MultiplayerMenuPanel.SetActive(false);
 
-        GameInfo.selectPieceAtStart = 1;
+        if (PlayerPrefs.HasKey("NickName"))
+        {
+            if (PlayerPrefs.GetString("NickName") == "")
+            {
+                PhotonNetwork.NickName = "User" + Random.Range(0, 1000);
+            }
+            else
+            {
+                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
+            }
+        }
+        else
+        {
+            PhotonNetwork.NickName = "User" + Random.Range(0, 1000);
+        }
+
+        HostGamePanel.SetActive(true);
+        CreateRoom();
+        whoMovesFirst = 1;
     }
 
     /********************************************************************
@@ -323,48 +394,56 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     ********************************************************************/
     public void OnJoinGameButtonClicked()
     {
-        CreateOrJoinCanvas.gameObject.SetActive(false);
-        RoomLobbyCanvas.gameObject.SetActive(true);
+        MultiplayerMenuPanel.gameObject.SetActive(false);
+        JoinGamePanel.gameObject.SetActive(true);
 
-        roomListingPanel.gameObject.SetActive(true);
+        //roomListingPanel.gameObject.SetActive(true);
 
-        GameInfo.selectPieceAtStart = 2;
+        whoMovesFirst = 2;
     }
 
-    public void OnCreateOrJoinBackButtonClicked()
+    public void MultiplayerMenuBackButtonClicked()
     {
-        intentionalDisconnect = true;
+        intentionalDC = true;
         PhotonNetwork.Disconnect();
-        GameInfo.gameType = 'N';
-        Initiate.Fade("UserPreferences", Color.black, 4.0f);
+        SceneManager.LoadScene("Menu");
+        //GameInfo.gameType = 'N';
+        //Initiate.Fade("UserPreferences", Color.black, 4.0f);
     }
 
-    public void OnRoomLobbyBackButtonClicked()
+    public void OnJoinGameBackButtonClicked()
     {
-        RoomLobbyCanvas.gameObject.SetActive(false);
-        CreateOrJoinCanvas.gameObject.SetActive(true);
+        JoinGamePanel.gameObject.SetActive(false);
+        MultiplayerMenuPanel.gameObject.SetActive(true);
 
-        CreateGameButton.SetActive(true);
+        HostGameButton.SetActive(true);
         JoinGameButton.SetActive(true);
-        CreateOrJoinBackButton.SetActive(true);
+        MultiplayerBackButton.SetActive(true);
 
         // don't need to dc here
     }
 
-    public void OnWaitingLoadingBackButtonClicked()
+    public void HostGameBackButtonClicked()
     {
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.CurrentRoom.IsOpen = false;
 
-            PhotonNetwork.LeaveRoom();  // -> OnLeftRoom 
+            PhotonNetwork.LeaveRoom();  // -> OnLeftRoom
+            HostGamePanel.gameObject.SetActive(false);
+            MultiplayerMenuPanel.gameObject.SetActive(false);
+            LoadingPanel.gameObject.SetActive(true);
+
+            //HostGameButton.SetActive(true);
+            //JoinGameButton.SetActive(true);
+            //MultiplayerBackButton.SetActive(true);
         }
         else
             PhotonNetwork.LeaveRoom();  // -> OnLeftRoom  
 
-        StatusText.text = "Waiting for opponent...";
-        intentionalDisconnect = true;
+        //StatusText.text = "Waiting for opponent...";
+        intentionalDC = true;
         PhotonNetwork.Disconnect();
 
 
@@ -372,16 +451,31 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         //Initiate.Fade("UserPreferences", Color.black, 4.0f);
     }
 
-    public void OnDisconnectedBackButtonClicked()
-    {
-        GameInfo.gameType = 'N';
-        Initiate.Fade("UserPreferences", Color.black, 4.0f);
-    }
+    //public void OnDisconnectedBackButtonClicked()
+    //{
+    //    GameInfo.gameType = 'N';
+    //    Initiate.Fade("UserPreferences", Color.black, 4.0f);
+    //}
 
     public void OnStartButtonClicked()
     {
         PhotonNetwork.LoadLevel("GameScene");
     }
 
+    #endregion
+
+    #region TempLogic
+    public void PlayerNameUpdateInputChanged(string nameInput)
+    {
+        PhotonNetwork.NickName = nameInput;
+        Debug.Log(nameInput);
+        PlayerPrefs.SetString("NickName", nameInput);
+
+        /********************************************************************
+        * Had a weird bug with this in Unity. For some reason it would not 
+        * show my input, even in DebugLog()
+        * Deleting the inputfield and re-adding it fixed the problem
+         ********************************************************************/
+    }
     #endregion
 }
