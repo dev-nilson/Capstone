@@ -8,7 +8,7 @@ namespace AmazingGame
     {
         public static Node chosenTurn = new Node();
 
-        public int Minimax(Node node, int depth, bool isMaximizingPlayer)
+        public static int Minimax(Node node, int depth, bool isMaximizingPlayer)
         {
             if (node.children == null)
                 return node.score;
@@ -41,38 +41,38 @@ namespace AmazingGame
             }
         }
 
-        public void SimulateTurn()
+        public static void SimulateTurn(Player opponent, GameBoard gameBoard)
         {
             int counter = 0;
             List<Node> possibleTurns = new List<Node>();
 
-            Coordinates pawns = Player.GetBothPlayersPawns();
+            Coordinates[] pawns = Player.GetBothPlayersPawns();
             foreach (var pawn in pawns)
             {
-                List<Node> moves = GameBoard.AvailableMoves(pawn);
+                //  gameBoard instance
+                List<Coordinates> moves = gameBoard.AvailableMoves(pawn);
+
                 foreach (var move in moves)
                 {
                     if (counter >= 2)
                     {
                         if (opponent.updatePawn(pawn, move))
                         {
-                            List<Node> builds = GameBoard.AvailableBuilds(move);
+                            List<Coordinates> builds = gameBoard.AvailableBuilds(move);
                             foreach (var build in builds)
                             {
-                                Node node = new Node(opponent, GameBoard, pawn, move, build);
-
-                                DisplayPawns(local, opponent);
-                                DisplayHeights(GameBoard);
+                                Node node = new Node(opponent, gameBoard, pawn, move, build);
 
                                 //  Heuristic functions
-                                node.score += NoviceAI.HeightDifference(Player.GetBothPlayersPawns(), GameBoard);
+                                node.score += NoviceAI.HeightDifference(Player.GetBothPlayersPawns(), gameBoard);
                                 node.score += NoviceAI.Centricity(opponent.GetPlayerCoordinates());
-                                node.score += NoviceAI.WinningThreat(opponent.GetPlayerCoordinates(), GameBoard);
-                                node.score += NoviceAI.Mobility(Player.GetBothPlayersPawns(), GameBoard);
-                                node.score += NoviceAI.Verticality(Player.GetBothPlayersPawns(), GameBoard);
+                                node.score += NoviceAI.WinningThreat(opponent.GetPlayerCoordinates(), gameBoard);
+                                node.score += NoviceAI.Mobility(Player.GetBothPlayersPawns(), gameBoard);
+                                node.score += NoviceAI.Verticality(Player.GetBothPlayersPawns(), gameBoard);
 
                                 //  Undo built piece
-                                GameBoard.heights[build.X, build.Y] -= 1;
+                                //  gameBoard instance
+                                gameBoard.GetHeights()[build.X, build.Y] -= 1;
 
                                 possibleTurns.Add(node);
                             }
@@ -90,7 +90,7 @@ namespace AmazingGame
             Node root = new Node();
             root.children = possibleTurns;
 
-            Ai.Minimax(root, 1, true);
+            Minimax(root, 1, true);
 
             foreach (var child in root.children)
             {

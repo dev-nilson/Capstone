@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static GameUtilities;
+using AmazingGame;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,68 +30,17 @@ public class PlayerController : MonoBehaviour
 
     public GameObject board;
 
+    AIController ai;
 
     // Start is called before the first frame update
     void Start()
     {
+        //ai = new AIController();
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
     }
 
-
-    /*
-    public void PassUpdatedBoard()
-    {
-        if (player.Type() == Player.Tag.LOCAL)
-        {
-
-        }
-        else if (GameUtilities.getGameType() == GameType.NETWORK)
-        {
-
-        }
-        else if (GameUtilities.getGameType() == GameType.EASY)
-        {
-
-        }
-        else // GameUtilities.getGameType() == GameType.DIFFICULT
-        {
-
-        }
-    }
-    */
-
-    public Coordinates GetMove(Player player)
-    {
-        if (player.Type() == Player.Tag.LOCAL)
-        {
-
-            return new Coordinates();
-        }
-        else if (GameUtilities.getGameType() == GameType.NETWORK)
-        {
-
-            return new Coordinates();
-        }
-        else if (GameUtilities.getGameType() == GameType.EASY)
-        {
-
-            return new Coordinates();
-        }
-        else // GameUtilities.getGameType() == GameType.DIFFICULT
-        {
-
-            return new Coordinates();
-        }
-    }
-
-    public Coordinates GetBuild()
-    {
-
-        return new Coordinates();
-    }
-
-    public Coordinates GetCoordinate(Player player)
+    public Coordinates GetPlacement(GameBoard board, Player player)
     {
         if (player.Type() == Player.Tag.LOCAL)
         {
@@ -126,86 +76,88 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //public Coordinates GetPlayerClick()
-    //{
-    //    if (Input.GetButtonDown("Fire1"))
-    //    {
-    //        for (var i = 0; i < Row; i++)
-    //        {
-    //            for (var j = 0; j < Col; j++)
-    //            {
-    //                if (player1.transform.position == transform.position)
-    //                {
-    //                    /*int x = Int32.Parse(Grid[i, j].name.Split(' ')[0]);
-    //                    int y = Int32.Parse(Grid[i, j].name.Split(' ')[1]);
+    public Coordinates GetPawn(GameBoard board, Player player)
+    {
+        if (player.Type() == Player.Tag.LOCAL)
+        {
+            // If the mouse was clicked, return that coordinate
+            if (Input.GetMouseButtonDown(0))
+                return GridManager.getSelectedTile();
+            else
+                return new Coordinates();
+        }
+        else if (GameUtilities.getGameType() == GameType.NETWORK)
+        {
+            // If the mouse was clicked, return that coordinate
+            if (Input.GetMouseButtonDown(0))
+                return GridManager.getSelectedTile();
+            else
+                return new Coordinates();
+        }
+        else if (GameUtilities.getGameType() == GameType.EASY)
+        {
+            AIController.SimulateTurn(player, board);
+            return AIController.chosenTurn.GetMoveFrom();
+        }
+        else // GameUtilities.getGameType() == GameType.DIFFICULT
+        {
+            // If the mouse was clicked, return that coordinate
+            if (Input.GetMouseButtonDown(0))
+                return GridManager.getSelectedTile();
+            else
+                return new Coordinates();
+        }
+    }
 
-    //                    selectedTile = new Coordinates(x, y);
-    //                    Debug.Log(x + " " + y);
-    //                    return selectedTile;*/
-    //                    Debug.Log(player1.transform.position);
-    //                }
-    //            }
-    //        }
-    //    }
-    //    return null;
-    //}
+    public Coordinates GetMove(GameBoard board, Player player)
+    {
+        if (player.Type() == Player.Tag.LOCAL)
+        {
+            // If the mouse was clicked, return that coordinate
+            if (Input.GetMouseButtonDown(0))
+                return GridManager.getSelectedTile();
+            else
+                return new Coordinates();
+        }
+        else if (GameUtilities.getGameType() == GameType.NETWORK)
+        {
 
-    ///*public void movePlayer(int startRow, int startCol, int endRow, int endCol)
-    //{
-    //    GameObject playerToBeDestroyed;
-    //    playerToBeDestroyed = 
+            return new Coordinates();
+        }
+        else if (GameUtilities.getGameType() == GameType.EASY)
+        {
+            return AIController.chosenTurn.GetMoveTo();
+        }
+        else // GameUtilities.getGameType() == GameType.DIFFICULT
+        {
 
-    //    Destroy(playerToBeDestroyed);
+            return new Coordinates();
+        }
+    }
 
-    //    player = Instantiate(player1, Grid_M.Grid[endRow, endCol].transform.position, transform.rotation);
-    //    player.transform.position = new Vector3(Grid_M.Grid[endRow, endCol].transform.position.x, 1f, Grid_M.Grid[endRow, endCol].transform.position.z);
-    //    player.name = ("X: " + endRow + " Y: " + endCol);
-    //    player.transform.parent = playerParent.transform;
+    public Coordinates GetBuild(GameBoard board, Player player)
+    {
+        if (player.Type() == Player.Tag.LOCAL)
+        {
+            // If the mouse was clicked, return that coordinate
+            if (Input.GetMouseButtonDown(0))
+                return GridManager.getSelectedTile();
+            else
+                return new Coordinates();
+        }
+        else if (GameUtilities.getGameType() == GameType.NETWORK)
+        {
 
-    //    PlayerPosition[endRow, endCol] = player;
-    //    Debug.Log(PlayerPosition[1, 1]);
-    //}*/
+            return new Coordinates();
+        }
+        else if (GameUtilities.getGameType() == GameType.EASY)
+        {
+            return AIController.chosenTurn.BuildTo();
+        }
+        else // GameUtilities.getGameType() == GameType.DIFFICULT
+        {
 
-    //private void OnMouseOver()
-    //{
-    //    //if (Input.GetMouseButtonDown(0))
-    //    //{
-    //    //    //CODE TO PLACE A PLAYER
-    //    //    if (GameUtilities.CanPlacePawn())
-    //    //    {
-    //    //        PlayerPosition = new GameObject[Row, Col];
-    //    //        //playerParent = Board.getBoardTile(row, col);
-
-    //    //        //player = Instantiate(player1, transform.position, transform.rotation);
-    //    //        //player.transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
-    //    //        //player.transform.rotation = Quaternion.Euler(0, 0, 0);
-    //    //        ////player.name = ("X: " + row + " Y: " + col);
-    //    //        //player.transform.parent = playerParent.transform;
-
-    //    //        //PlayerPosition[row, col] = player;
-
-    //    //    }
-
-
-    //    //    //CODE TO GET A PAWN MOVE
-    //    //    if (GameUtilities.CanMove())
-    //    //    {
-    //    //        if (GameUtilities.WaitingForFirstTile())
-    //    //        {
-    //    //            //Get the pawn they want to move
-    //    //            curLoc = boardController.getSelectedTile();
-
-    //    //            Debug.Log("PlayerController: get first loc");
-    //    //        }
-    //    //        else
-    //    //        {
-    //    //            Debug.Log("PlayerController: get second loc");
-
-    //    //            //Get the location they want to move to
-    //    //            newLoc = boardController.getSelectedTile();
-    //    //        }
-    //    //    }
-    //    //}
-
-    //}
+            return new Coordinates();
+        }
+    }
 }
