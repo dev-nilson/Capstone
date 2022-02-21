@@ -274,7 +274,7 @@ public class GameController : MonoBehaviour
                     if (board_gc.BuildPiece(curLoc, newLoc))
                     {
                         //Section for debugging
-                        Debug.Log("GameController: collected second tile and built piece");
+                        Debug.Log("GameController: collected second tile and built piece on " + newLoc.X + "," + newLoc.Y);
 
                         // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                         boardController.unhighlightTiles(validTiles);
