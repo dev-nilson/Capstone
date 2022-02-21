@@ -6,6 +6,8 @@ namespace AmazingGame
 {
     class AIController
     {
+        public static Node chosenTurn = new Node();
+
         public int Minimax(Node node, int depth, bool isMaximizingPlayer)
         {
             if (node.children == null)
@@ -36,6 +38,67 @@ namespace AmazingGame
                 }
 
                 return node.score;
+            }
+        }
+
+        public void SimulateTurn()
+        {
+            int counter = 0;
+            List<Node> possibleTurns = new List<Node>();
+
+            Coordinates pawns = Player.GetBothPlayersPawns();
+            foreach (var pawn in pawns)
+            {
+                List<Node> moves = GameBoard.AvailableMoves(pawn);
+                foreach (var move in moves)
+                {
+                    if (counter >= 2)
+                    {
+                        if (opponent.updatePawn(pawn, move))
+                        {
+                            List<Node> builds = GameBoard.AvailableBuilds(move);
+                            foreach (var build in builds)
+                            {
+                                Node node = new Node(opponent, GameBoard, pawn, move, build);
+
+                                DisplayPawns(local, opponent);
+                                DisplayHeights(GameBoard);
+
+                                //  Heuristic functions
+                                node.score += NoviceAI.HeightDifference(Player.GetBothPlayersPawns(), GameBoard);
+                                node.score += NoviceAI.Centricity(opponent.GetPlayerCoordinates());
+                                node.score += NoviceAI.WinningThreat(opponent.GetPlayerCoordinates(), GameBoard);
+                                node.score += NoviceAI.Mobility(Player.GetBothPlayersPawns(), GameBoard);
+                                node.score += NoviceAI.Verticality(Player.GetBothPlayersPawns(), GameBoard);
+
+                                //  Undo built piece
+                                GameBoard.heights[build.X, build.Y] -= 1;
+
+                                possibleTurns.Add(node);
+                            }
+
+                            //  Undo moved pawn
+                            opponent.updatePawn(move, pawn);
+                        }
+                    }
+
+                }
+
+                ++counter;
+            }
+
+            Node root = new Node();
+            root.children = possibleTurns;
+
+            Ai.Minimax(root, 1, true);
+
+            foreach (var child in root.children)
+            {
+                if (root.score == child.score)
+                {
+                    chosenTurn = child;
+                    break;
+                }
             }
         }
 

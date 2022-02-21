@@ -9,12 +9,12 @@ namespace AmazingGame
         public int score;
         public Player player;
         public GameBoard gameBoard;
-        public Coordinates moveFrom;
-        public Coordinates moveTo;
-        public Coordinates buildTo;
-        public List<Node> children;
+        private Coordinates moveFrom;
+        private Coordinates moveTo;
+        private Coordinates buildTo;
+        public List<Node> children = new List<Node>();
 
-        public Node(Player player, GameBoard gameBoard, Coordinates moveFrom, Coordinates moveTo, Coordinates buildTo)
+        public Node(Player player = null, GameBoard gameBoard = null, Coordinates moveFrom = null, Coordinates moveTo = null, Coordinates buildTo = null)
         {
             this.player = player;
             this.gameBoard = gameBoard;
@@ -22,10 +22,25 @@ namespace AmazingGame
             this.moveTo = moveTo;
             this.buildTo = buildTo;
 
-            this.gameBoard.MovePawn(player, moveFrom, moveTo);
-            this.gameBoard.BuildPiece(moveTo, buildTo);
+            if (player != null)
+            {
+                this.gameBoard.BuildPiece(moveTo, buildTo);
+            }
         }
 
+        public Coordinates GetMoveFrom()
+        {
+            return moveFrom;
+        }
 
+        public Coordinates GetMoveTo()
+        {
+            return moveTo;
+        }
+
+        public Coordinates BuildTo()
+        {
+            return buildTo;
+        }
     }
 }
