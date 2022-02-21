@@ -2176,7 +2176,7 @@ GameObject:
   - component: {fileID: 811309274}
   - component: {fileID: 811309273}
   m_Layer: 5
-  m_Name: Pharoah Image
+  m_Name: Worker Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2198,8 +2198,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 3}
-  m_SizeDelta: {x: 35, y: 45}
+  m_AnchoredPosition: {x: 0, y: -1}
+  m_SizeDelta: {x: 45, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &811309273
 MonoBehaviour:
@@ -2221,7 +2221,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d3da918878e004a4093829df9e39c46d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2694,10 +2694,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 81a56e3d9dc0cb74a9b2e837be9e061c, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: e963095ab95f95a4f8de499a5bcdc29b, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 21300000, guid: 3e86db4348d0c834e8c235a91e72c4e7, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 3e86db4348d0c834e8c235a91e72c4e7, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 19edb8b8d36cbca4ab49172ef7e2626b, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 19edb8b8d36cbca4ab49172ef7e2626b, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -3805,7 +3805,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1271034272}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -3915,7 +3915,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 81a56e3d9dc0cb74a9b2e837be9e061c, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 3d3f82deffda5a94a93233bb6518c05b, type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 21300000, guid: 3e86db4348d0c834e8c235a91e72c4e7, type: 3}
     m_DisabledSprite: {fileID: 21300000, guid: 3e86db4348d0c834e8c235a91e72c4e7, type: 3}
@@ -4310,7 +4310,7 @@ GameObject:
   - component: {fileID: 1488300542}
   - component: {fileID: 1488300541}
   m_Layer: 5
-  m_Name: Pharoah Image
+  m_Name: Peasant Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4332,8 +4332,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 3}
-  m_SizeDelta: {x: 35, y: 45}
+  m_AnchoredPosition: {x: 0, y: 1.6}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1488300541
 MonoBehaviour:
@@ -4355,7 +4355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: c042ede41f6e305438fef4f28722d336, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

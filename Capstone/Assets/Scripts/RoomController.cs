@@ -248,11 +248,13 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
+            Debug.Log("Player Entered Room!");
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
             if (PhotonNetwork.LocalPlayer.IsMasterClient)
             {
                 ReadyUpButton.SetActive(true);
+                Debug.Log("Time to ready up!");
             }
         }
     }
@@ -459,7 +461,7 @@ public class RoomController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public void OnStartButtonClicked()
     {
-        PhotonNetwork.LoadLevel("GameScene");
+        PhotonNetwork.LoadLevel("GameBoard");
     }
 
     #endregion
