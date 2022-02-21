@@ -10,9 +10,17 @@ public class MenuScreen : MonoBehaviour
 	public Button multiplayer;
 	public Button tutorial;
 	public Button storyMode;
+	public Button exitApp;
+	public Button exitSettings;
+	public Button settings;
+	//public GameObject settingsPopUp;
+
+
 
 	void Start()
 	{
+		//settingsPopUp.SetActive(false); // false to hide, true to show
+
 		Button quickGameBtn = quickGame.GetComponent<Button>();
 		quickGameBtn.onClick.AddListener(quickGameClicked);
 
@@ -24,6 +32,15 @@ public class MenuScreen : MonoBehaviour
 
 		Button storyModeBtn = storyMode.GetComponent<Button>();
 		storyModeBtn.onClick.AddListener(storyModeClicked);
+
+		Button exitAppBtn = exitApp.GetComponent<Button>();
+		exitAppBtn.onClick.AddListener(exitAppClicked);
+
+		Button settingsBtn = settings.GetComponent<Button>();
+		settingsBtn.onClick.AddListener(settingsClicked);
+
+		Button exitSettingsBtn = exitSettings.GetComponent<Button>();
+		exitSettingsBtn.onClick.AddListener(exitSettingsClicked);
 	}
 
 	void quickGameClicked()
@@ -52,5 +69,24 @@ public class MenuScreen : MonoBehaviour
 		Debug.Log("story mode game");
 
 		SceneManager.LoadScene("StoryMode");
+	}
+
+	void exitAppClicked()
+	{
+		Debug.Log("story mode game");
+
+		Application.Quit();
+	}
+
+	void settingsClicked()
+	{
+		Debug.Log("settings game");
+		//settingsPopUp.SetActive(true); // false to hide, true to show
+	}
+
+	void exitSettingsClicked()
+	{
+		Debug.Log("exit");
+		//settingsPopUp.SetActive(false); // false to hide, true to show
 	}
 }

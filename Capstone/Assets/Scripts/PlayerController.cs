@@ -127,7 +127,12 @@ public class PlayerController : MonoBehaviour
                 return new Coordinates();
         }
     }
-
+    public void OnMouseDown()
+    {
+        Debug.Log("I'm a scribe and I was clicked!");
+        var gridManager = GetComponentInParent<GridManager>();
+        gridManager.OnMouseDown();
+    }
     //public Coordinates GetPlayerClick()
     //{
     //    if (Input.GetButtonDown("Fire1"))

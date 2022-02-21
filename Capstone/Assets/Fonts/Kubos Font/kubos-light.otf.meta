@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: d167f9bc7b441374d931a53284aac2c9
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Kubos
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 407dac0bb797e684687aa19c743dd4ce, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
