@@ -13,13 +13,13 @@ public class MenuScreen : MonoBehaviour
 	public Button exitApp;
 	public Button exitSettings;
 	public Button settings;
-	public GameObject settingsPopUp;
+	//public GameObject settingsPopUp;
 
 
 
 	void Start()
 	{
-		settingsPopUp.SetActive(false); // false to hide, true to show
+		//settingsPopUp.SetActive(false); // false to hide, true to show
 
 		Button quickGameBtn = quickGame.GetComponent<Button>();
 		quickGameBtn.onClick.AddListener(quickGameClicked);
@@ -81,12 +81,12 @@ public class MenuScreen : MonoBehaviour
 	void settingsClicked()
 	{
 		Debug.Log("settings game");
-		settingsPopUp.SetActive(true); // false to hide, true to show
+		//settingsPopUp.SetActive(true); // false to hide, true to show
 	}
 
 	void exitSettingsClicked()
 	{
 		Debug.Log("exit");
-		settingsPopUp.SetActive(false); // false to hide, true to show
+		//settingsPopUp.SetActive(false); // false to hide, true to show
 	}
 }
