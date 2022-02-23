@@ -183,7 +183,7 @@ public class GameBoard //public  ??
         if (IsInBounds(curLoc) && IsOccupied(curLoc) && IsInBounds(newLoc) && !IsOccupied(newLoc))
         {
             //check if move is within one space of pawn's location
-            if (Math.Abs(newLoc.X - curLoc.X) == 1 || Math.Abs(newLoc.Y - curLoc.Y) == 1)
+            if (Math.Abs(newLoc.X - curLoc.X) <= 1 && Math.Abs(newLoc.Y - curLoc.Y) <= 1)
             {
                 //if new height - current height <= 1
                 if (heights[newLoc.X, newLoc.Y] - heights[curLoc.X, curLoc.Y] <= 1) // CREATE FUNCTION TO RETURN HEIGHT AT A SPECIFIC COORDINATE ?????????
@@ -210,7 +210,7 @@ public class GameBoard //public  ??
         if (IsInBounds(curLoc) && IsOccupied(curLoc) && IsInBounds(newLoc) && !IsOccupied(newLoc))
         {
             //check if move is within one space of pawn's location
-            if (Math.Abs(newLoc.X - curLoc.X) == 1 || Math.Abs(newLoc.Y - curLoc.Y) == 1)
+            if (Math.Abs(newLoc.X - curLoc.X) <= 1 && Math.Abs(newLoc.Y - curLoc.Y) <= 1)
             {
                 //if new height < 4
                 if (heights[newLoc.X, newLoc.Y] < 4)
