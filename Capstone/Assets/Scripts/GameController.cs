@@ -109,7 +109,7 @@ public class GameController : MonoBehaviour
             if (GetPlayerTurn() == PlayerTurn.ONE) Debug.Log("P1's turn!");
             else Debug.Log("P2's turn!");
 
-            // If the mouse was clicked, store that coordinate
+            // Store the current player's selected coordinate
             Coordinates loc = playerController.GetPlacement(board_gc, CurrentPlayer); //boardController.getSelectedTile();
 
             // If the pawn was successfully placed in the game core board...

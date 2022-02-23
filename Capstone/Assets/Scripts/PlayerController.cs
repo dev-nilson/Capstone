@@ -82,9 +82,13 @@ public class PlayerController : MonoBehaviour
         {
             // If the mouse was clicked, return that coordinate
             if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
-            else
-                return new Coordinates();
+            {
+                Coordinates loc = GridManager.getSelectedTile();
+                
+                if (player.HasThisPawn(loc))
+                    return loc;
+            }
+            return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {

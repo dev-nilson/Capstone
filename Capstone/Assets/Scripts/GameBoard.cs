@@ -193,6 +193,10 @@ public class GameBoard //public  ??
                     {
                         return MoveType.WINNING;
                     }
+                    else if (heights[newLoc.X, newLoc.Y] >= 4)
+                    {
+                        return MoveType.INVALID;
+                    }
                     else
                     {
                         return MoveType.VALID;
