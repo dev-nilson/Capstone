@@ -10,8 +10,8 @@ namespace AmazingGame
          *  Height Difference Heuristic
          *  This heuristic looks at all of the workers' positions, assigning a value of:
          *  -   0   points if worker is at level 0.
-         *  -   10  points if worker is at level 1.
-         *  -   20  points if worker is at level 2.
+         *  -   100  points if worker is at level 1.
+         *  -   200  points if worker is at level 2.
          *  The combined value of the current player's workers minus the value of the opponent's workers is returned.
          */
         public static int HeightDifference(Coordinates[] allPawns, GameBoard gameBoard)
@@ -19,8 +19,8 @@ namespace AmazingGame
             int heightDifference = 0;
 
             //  TODO: Figure out heights[,] rows and columns. What goes first? What goes second?
-            int playerHeight    = (gameBoard.GetHeights()[allPawns[0].X, allPawns[0].Y] + gameBoard.GetHeights()[allPawns[1].X, allPawns[1].Y]) * 10;
-            int opponentHeight  = (gameBoard.GetHeights()[allPawns[2].X, allPawns[2].Y] + gameBoard.GetHeights()[allPawns[3].X, allPawns[3].Y]) * 10;
+            int playerHeight    = (gameBoard.GetHeights()[allPawns[0].X, allPawns[0].Y] + gameBoard.GetHeights()[allPawns[1].X, allPawns[1].Y]) * 100;
+            int opponentHeight  = (gameBoard.GetHeights()[allPawns[2].X, allPawns[2].Y] + gameBoard.GetHeights()[allPawns[3].X, allPawns[3].Y]) * 100;
 
             heightDifference = opponentHeight - playerHeight;
 
@@ -155,28 +155,52 @@ namespace AmazingGame
          *  This heuristic looks at all of the player's workers' positions at level 2, assigning a value of:
          *  -   0   points if worker has no adjacent level 3 tiles.
          *  -   100 points for each of the worker's adjacent level 3 tiles.
+         *  -   500 points if worker is at level 3.
          *  The combined value of the current player’s workers is returned.
          */
-        public static int WinningThreat(Coordinates[] playerPawns, GameBoard gameBoard)
+        public static int WinningThreat(Coordinates[] allPawns, GameBoard gameBoard)
         {
             int winningThreat = 0;
 
-            for (int i = 0; i < playerPawns.Length; ++i)
+            for (int i = 0; i < allPawns.Length; ++i)
             {
                 List<Coordinates> availableMoves;
 
-                if (gameBoard.GetHeights()[playerPawns[i].X, playerPawns[i].Y] == 2)
+                if (i < 2)
                 {
-                    availableMoves = gameBoard.AvailableMoves(playerPawns[i]);
-
-                    for (int j = 0; j < availableMoves.Count; ++j)
+                    if (gameBoard.GetHeights()[allPawns[i].X, allPawns[i].Y] == 2)
                     {
-                        if (gameBoard.GetHeights()[availableMoves[j].X, availableMoves[j].Y] == 3)
+                        availableMoves = gameBoard.AvailableMoves(allPawns[i]);
+
+                        for (int j = 0; j < availableMoves.Count; ++j)
                         {
-                            winningThreat += 100;
+                            if (gameBoard.GetHeights()[availableMoves[j].X, availableMoves[j].Y] == 3)
+                            {
+                                winningThreat -= 100;
+                            }
                         }
                     }
                 }
+                else
+                {
+                    if (gameBoard.GetHeights()[allPawns[i].X, allPawns[i].Y] == 2)
+                    {
+                        availableMoves = gameBoard.AvailableMoves(allPawns[i]);
+
+                        for (int j = 0; j < availableMoves.Count; ++j)
+                        {
+                            if (gameBoard.GetHeights()[availableMoves[j].X, availableMoves[j].Y] == 3)
+                            {
+                                winningThreat += 100;
+                            }
+                        }
+                    }
+                    else if (gameBoard.GetHeights()[allPawns[i].X, allPawns[i].Y] == 3)
+                    {
+                        winningThreat += 500;
+                    }
+                }
+
             }
 
             return winningThreat;
@@ -186,7 +210,7 @@ namespace AmazingGame
          *  Movility Heuristic
          *  This heuristic looks at all of the workers' positions, assigning a value of:
          *  -   0   points for each of the worker's blocked moves.
-         *  -   5   points for each of the worker's available moves.
+         *  -   50  points for each of the worker's available moves.
          *  The combined value of the current player's workers minus the value of the opponent's workers is returned.
          */
         public static int Mobility(Coordinates[] allPawns, GameBoard gameBoard)
@@ -209,7 +233,7 @@ namespace AmazingGame
                 }
             }
 
-            mobility *= 5;
+            mobility *= 50;
 
             return mobility;
         }
@@ -245,7 +269,10 @@ namespace AmazingGame
 
                     }
 
-                    playerVerticality += (int)Math.Round(playerVerticalMovesCount * 100.0 / playerAvailableMoves.Count);
+                    if (playerAvailableMoves.Count != 0)
+                    { 
+                        playerVerticality += (int)Math.Round(playerVerticalMovesCount * 100.0 / playerAvailableMoves.Count);
+                    }
                 }
                 //  available moves for opponent
                 else
@@ -262,7 +289,10 @@ namespace AmazingGame
                             opponentVerticalMovesCount += 0.5;
                     }
 
-                    opponentVerticality += (int)Math.Round(opponentVerticalMovesCount * 100.0 / opponentAvailableMoves.Count);
+                    if (opponentAvailableMoves.Count != 0)
+                    {
+                        opponentVerticality += (int)Math.Round(opponentVerticalMovesCount * 100.0 / opponentAvailableMoves.Count);
+                    }
                 }
             }
 
