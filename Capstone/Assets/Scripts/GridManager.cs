@@ -171,7 +171,7 @@ public class GridManager : MonoBehaviour
                     //player2.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
                     if (temp[i,j] == 1)
                     {
-                        player2.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+                        player2.transform.position = new Vector3(Grid[i, j].transform.position.x, Grid[i, j].transform.position.y, -2f);
                     }
                     if (temp[i, j] == 2)
                     {
@@ -182,7 +182,7 @@ public class GridManager : MonoBehaviour
                         player2.transform.position = new Vector3(Grid[i, j].transform.position.x, 2f, Grid[i, j].transform.position.z);
                     }
                     player2.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    player2.transform.localScale = new Vector3(.2f, .2f, .2f);
+                    player2.transform.localScale = new Vector3(.19f, 1f, .2f);
                     player2.transform.parent = Grid[i, j].transform;
                 }
             }
