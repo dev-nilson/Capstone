@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
 
-        delay = 4.0F;
+        //delay = 4.0F;
         //timer = new Timer(delay);
         
     }

@@ -190,42 +190,48 @@ public class GameController : MonoBehaviour
                     // If the mouse was clicked, store that new coordinate
                     newLoc = playerController.GetMove(board_gc, CurrentPlayer);
 
-                    // Collect the second tile
-                    MoveType moveStatus = board_gc.MovePawn(CurrentPlayer, curLoc, newLoc);
-
-                    // If the pawn was successfully moved in the game core board...
-                    if (moveStatus == MoveType.VALID || moveStatus == MoveType.WINNING)
+                    // WHAT IF THIS NEWLOC IS THE OTHER PAWN (PLAYER CHANGED THEIR MIND)??????????????
+                    if (CurrentPlayer.HasThisPawn(newLoc))
+                        //curLoc = newLoc;
+                    else
                     {
-                        //Section for debugging
-                        Debug.Log("GameController: collected second tile and moved pawn");
-                        Coordinates[] Pawns = Player.GetBothPlayersPawns();
+                        // Collect the second tile
+                        MoveType moveStatus = board_gc.MovePawn(CurrentPlayer, curLoc, newLoc);
 
-                        // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
-                        boardController.unhighlightTiles(validTiles);
-                        boardController.clearBoard();
-                        boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                        // If the pawn was successfully moved in the game core board...
+                        if (moveStatus == MoveType.VALID || moveStatus == MoveType.WINNING)
+                        {
+                            //Section for debugging
+                            Debug.Log("GameController: collected second tile and moved pawn");
+                            Coordinates[] Pawns = Player.GetBothPlayersPawns();
 
-                        // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
-                        CollectedSecondTile();
-                        validTiles.Clear();
-                        SwapMovePhase();
+                            // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
+                            boardController.unhighlightTiles(validTiles);
+                            boardController.clearBoard();
+                            boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
-                        //For testing purposes, return to place pawn phase
-                        //SwapPlacePawnPhase();
-                        SwapBuildPhase();
-                    }
-                    if (moveStatus == MoveType.WINNING)
-                    {
-                        // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
-                        if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player wins: reached the third tier of a tower!");
-                        else Debug.Log("Opposing player wins: reached the third tier of a tower!");
-                        DisablePhases();
+                            // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
+                            CollectedSecondTile();
+                            validTiles.Clear();
+                            SwapMovePhase();
+
+                            //For testing purposes, return to place pawn phase
+                            //SwapPlacePawnPhase();
+                            SwapBuildPhase();
+                        }
+                        if (moveStatus == MoveType.WINNING)
+                        {
+                            // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
+                            if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player wins: reached the third tier of a tower!");
+                            else Debug.Log("Opposing player wins: reached the third tier of a tower!");
+                            DisablePhases();
 
 
-                    }
-                    else if (moveStatus == MoveType.INVALID)
-                    {
-                        // Should we notify the player that they are not clicking a valid tile?
+                        }
+                        else if (moveStatus == MoveType.INVALID)
+                        {
+                            // Should we notify the player that they are not clicking a valid tile?
+                        }
                     }
                 }
             }
@@ -267,31 +273,39 @@ public class GameController : MonoBehaviour
                 // If the mouse was clicked, store that new coordinate
                 newLoc = playerController.GetBuild(board_gc, CurrentPlayer);
 
-                // If the pawn was successfully moved in the game core board...
-                if (board_gc.BuildPiece(curLoc, newLoc))
-                {
-                    //Section for debugging
-                    Debug.Log("GameController: collected second tile and built piece on " + newLoc.X + "," + newLoc.Y);
-
-                    // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
-                    boardController.unhighlightTiles(validTiles);
-                    boardController.clearBoard();
-                    boardController.displayBoard(board_gc.GetHeights(), P1, P2);
-
-                    // Record the fact that the second tile has been collected for the "build" phase. Then turn off the "build" phase
-                    CollectedSecondTile();
-                    validTiles.Clear();
-                    SwapBuildPhase();
-
-                    //For testing purposes, return to place pawn phase
-                    //SwapPlacePawnPhase();
-                    SwapMovePhase();
-
-                    SwapPlayerTurn();
-                }
+                // WHAT IF THIS NEWLOC IS THE OTHER PAWN (PLAYER CHANGED THEIR MIND)??????????????
+                if (CurrentPlayer.HasThisPawn(newLoc))
+                    //curLoc = newLoc;
                 else
                 {
-                    // Should we notify the player that they are not clicking a valid tile?
+
+
+                    // If the pawn was successfully moved in the game core board...
+                    if (board_gc.BuildPiece(curLoc, newLoc))
+                    {
+                        //Section for debugging
+                        Debug.Log("GameController: collected second tile and built piece on " + newLoc.X + "," + newLoc.Y);
+
+                        // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
+                        boardController.unhighlightTiles(validTiles);
+                        boardController.clearBoard();
+                        boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+
+                        // Record the fact that the second tile has been collected for the "build" phase. Then turn off the "build" phase
+                        CollectedSecondTile();
+                        validTiles.Clear();
+                        SwapBuildPhase();
+
+                        //For testing purposes, return to place pawn phase
+                        //SwapPlacePawnPhase();
+                        SwapMovePhase();
+
+                        SwapPlayerTurn();
+                    }
+                    else
+                    {
+                        // Should we notify the player that they are not clicking a valid tile?
+                    }
                 }
             }
         }
