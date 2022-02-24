@@ -1,6 +1,7 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
+using static GameUtilities;
 
 public class GameBoardScreen : MonoBehaviour
 {
@@ -34,16 +35,18 @@ public class GameBoardScreen : MonoBehaviour
     void settingsClicked()
     {
         Debug.Log("settings game");
-        settingsPopUp.SetActive(true); 
+        settingsPopUp.SetActive(true);
 
         //switch phases to turn off build and place player to create a fake modal pop up box
+        StorePhases();
+        DisablePhases();
     }
 
     void exitSettingsClicked()
     {
         Debug.Log("exit");
         settingsPopUp.SetActive(false);
-
         //switch phases to turn off build and place player to create a fake modal pop 
+        RestorePhases();
     }
 }

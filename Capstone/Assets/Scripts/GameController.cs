@@ -24,14 +24,10 @@ public class GameController : MonoBehaviour
     PlayerController playerController;
 
     public GameObject[,] Grid;
-    //public GameObject prefab;
+    public GameObject prefab;
     public GameObject parent;
     public GameObject board;
     public GameObject player;
-
-    public GameObject youWinPopup;
-    public GameObject youLosePopup;
-
 
     public GameObject player1;
 
@@ -113,7 +109,7 @@ public class GameController : MonoBehaviour
             if (GetPlayerTurn() == PlayerTurn.ONE) Debug.Log("P1's turn!");
             else Debug.Log("P2's turn!");
 
-            // If the mouse was clicked, store that coordinate
+            // Store the current player's selected coordinate
             Coordinates loc = playerController.GetPlacement(board_gc, CurrentPlayer); //boardController.getSelectedTile();
 
             // If the pawn was successfully placed in the game core board...
@@ -147,16 +143,11 @@ public class GameController : MonoBehaviour
             if (CurrentPlayer.HasNoMoves(board_gc))
             {
                 // GAME OVER: CURRENT PLAYER HAS NO AVAILABLE MOVES AND THEREFORE LOSES
-                if (CurrentPlayer.Type() == Player.Tag.LOCAL)
-                {
-                    Debug.Log("Local player loses: no available moves");
-                    youLosePopup.SetActive(true);
-                }
-                else
-                {
-                    Debug.Log("Opposing player loses: no available moves");
-                    youWinPopup.SetActive(true);
-                }
+                if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player loses: no available moves");
+                else Debug.Log("Opposing player loses: no available moves");
+                DisablePhases();
+
+
             }
             else
             {
@@ -183,7 +174,7 @@ public class GameController : MonoBehaviour
                         }
                         else
                         {
-                            boardController.highlightValidTiles(validTiles);
+                            if (CurrentPlayer.Type() == Player.Tag.LOCAL) boardController.highlightValidTiles(validTiles);
 
                             // Record the fact that the first tile has been collected for the "move" phase. Will begin waiting for the second tile
                             CollectedFirstTile();
@@ -226,18 +217,9 @@ public class GameController : MonoBehaviour
                     if (moveStatus == MoveType.WINNING)
                     {
                         // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
-                        if (CurrentPlayer.Type() == Player.Tag.LOCAL)
-                        {
-                            Debug.Log("Local player wins: reached the third tier of a tower!");
-                            youWinPopup.SetActive(true);
-
-                        }
-                        else
-                        {
-                            Debug.Log("Opposing player wins: reached the third tier of a tower!");
-                            youLosePopup.SetActive(true);
-                        }
-
+                        if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player wins: reached the third tier of a tower!");
+                        else Debug.Log("Opposing player wins: reached the third tier of a tower!");
+                        DisablePhases();
 
 
                     }
@@ -266,20 +248,15 @@ public class GameController : MonoBehaviour
                 {
                     // GAME OVER: THE MOVED PAWN HAS NO AVAILABLE BUILDS AND THEREFORE THE CURRENT PLAYER LOSES
                     Debug.Log("Current player loses: no available builds");
-                    if (CurrentPlayer.Type() == Player.Tag.LOCAL)
-                    {
-                        Debug.Log("Local player loses: no available builds");
-                        youLosePopup.SetActive(true);
-                    }
-                    else
-                    {
-                        Debug.Log("Opposing player loses: no available builds");
-                        youWinPopup.SetActive(true);
-                    }
+                    if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player loses: no available builds");
+                    else Debug.Log("Opposing player loses: no available builds");
+                    DisablePhases();
+
+
                 }
                 else
                 {
-                    boardController.highlightValidTiles(validTiles);
+                    if (CurrentPlayer.Type() == Player.Tag.LOCAL) boardController.highlightValidTiles(validTiles);
 
                     // Record the fact that the first tile has been collected for the "build" phase. Will begin waiting for the second tile
                     CollectedFirstTile();

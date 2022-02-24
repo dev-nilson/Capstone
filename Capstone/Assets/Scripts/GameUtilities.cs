@@ -22,8 +22,15 @@ public static class GameUtilities //public  ??
     private static bool PlacePawnPhase;
     private static bool MovePhase;
     private static bool BuildPhase;
+
+    private static bool PlacePawnPhase_temp;
+    private static bool MovePhase_temp;
+    private static bool BuildPhase_temp;
+
     private static bool GetFirstTile;
     private static bool GetSecondTile;
+
+    //ADD AI DELAY VARIABLE HERE ??????????????????
 
     //////////////////////////////////////
     // Data types
@@ -61,6 +68,14 @@ public static class GameUtilities //public  ??
         return gameType;
     }
 
+    public static bool AIgame()
+    {
+        if (gameType == GameType.EASY || gameType == GameType.DIFFICULT)
+            return true;
+        else
+            return false;
+    }
+
     //////////////////////////////////////
     // Game phase functionalities
     //////////////////////////////////////
@@ -71,7 +86,7 @@ public static class GameUtilities //public  ??
         BuildPhase = false;
         GetFirstTile = false;
         GetSecondTile = false;
-}
+    }
 
     public static bool CanPlacePawn()
     {
@@ -101,6 +116,20 @@ public static class GameUtilities //public  ??
     public static void SwapBuildPhase()
     {
         BuildPhase = !BuildPhase;
+    }
+
+    public static void StorePhases()
+    {
+        PlacePawnPhase_temp = PlacePawnPhase;
+        MovePhase_temp = MovePhase;
+        BuildPhase_temp = BuildPhase;
+    }
+
+    public static void RestorePhases()
+    {
+        PlacePawnPhase = PlacePawnPhase_temp;
+        MovePhase = MovePhase_temp;
+        BuildPhase = BuildPhase_temp;
     }
 
     public static bool WaitingForFirstTile()
