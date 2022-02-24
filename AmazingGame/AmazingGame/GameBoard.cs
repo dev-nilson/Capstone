@@ -106,14 +106,10 @@ namespace AmazingGame
             //if space is in bounds and unoccupied
             if (IsInBounds(loc) && !IsOccupied(loc))
             {
-                if (player.isMyTurn())
-                {
+
                     return player.addNewPawn(loc); // Returns true if succeeded. Else both pawns are already placed, no new pawn can be placed
-                }
-                else
-                { //not my turn
-                    return false;
-                }
+                
+                
             }
             else
             {
@@ -154,8 +150,7 @@ namespace AmazingGame
             }
             else // the move is valid
             {
-                if (player.isMyTurn())
-                {
+                
                     if (player.updatePawn(curLoc, newLoc)) //update pawn location
                     {
                         return move;
@@ -164,11 +159,9 @@ namespace AmazingGame
                     {
                         return (int)MoveType.INVALID;
                     }
-                }
-                else //not my turn
-                {
-                    return MoveType.INVALID;
-                }
+                
+               
+                
             }
         }
 

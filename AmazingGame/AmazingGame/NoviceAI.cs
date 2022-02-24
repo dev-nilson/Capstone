@@ -19,8 +19,8 @@ namespace AmazingGame
             int heightDifference = 0;
 
             //  TODO: Figure out heights[,] rows and columns. What goes first? What goes second?
-            int playerHeight    = (gameBoard.heights[allPawns[0].X, allPawns[0].Y] + gameBoard.heights[allPawns[1].X, allPawns[1].Y]) * 10;
-            int opponentHeight  = (gameBoard.heights[allPawns[2].X, allPawns[2].Y] + gameBoard.heights[allPawns[3].X, allPawns[3].Y]) * 10;
+            int playerHeight    = (gameBoard.heights[allPawns[0].X, allPawns[0].Y] + gameBoard.heights[allPawns[1].X, allPawns[1].Y]) * 100;
+            int opponentHeight  = (gameBoard.heights[allPawns[2].X, allPawns[2].Y] + gameBoard.heights[allPawns[3].X, allPawns[3].Y]) * 100;
 
             heightDifference = opponentHeight - playerHeight;
 
@@ -157,24 +157,46 @@ namespace AmazingGame
          *  -   100 points for each of the worker's adjacent level 3 tiles.
          *  The combined value of the current player’s workers is returned.
          */
-        public static int WinningThreat(GameBoard.Coordinates[] playerPawns, GameBoard gameBoard)
+        public static int WinningThreat(GameBoard.Coordinates[] allPawns, GameBoard gameBoard)
         {
             int winningThreat = 0;
 
-            for (int i = 0; i < playerPawns.Length; ++i)
+            for (int i = 0; i < allPawns.Length; ++i)
             {
                 List<GameBoard.Coordinates> availableMoves;
 
-                if (gameBoard.heights[playerPawns[i].X, playerPawns[i].Y] == 2)
+                if (i < 2)
                 {
-                    availableMoves = gameBoard.AvailableMoves(playerPawns[i]);
-
-                    for (int j = 0; j < availableMoves.Count; ++j)
+                    if (gameBoard.heights[allPawns[i].X, allPawns[i].Y] == 2)
                     {
-                        if (gameBoard.heights[availableMoves[j].X, availableMoves[j].Y] == 3)
+                        availableMoves = gameBoard.AvailableMoves(allPawns[i]);
+
+                        for (int j = 0; j < availableMoves.Count; ++j)
                         {
-                            winningThreat += 100;
+                            if (gameBoard.heights[availableMoves[j].X, availableMoves[j].Y] == 3)
+                            {
+                                winningThreat -= 100;
+                            }
                         }
+                    }
+                }
+                else
+                {
+                    if (gameBoard.heights[allPawns[i].X, allPawns[i].Y] == 2)
+                    {
+                        availableMoves = gameBoard.AvailableMoves(allPawns[i]);
+
+                        for (int j = 0; j < availableMoves.Count; ++j)
+                        {
+                            if (gameBoard.heights[availableMoves[j].X, availableMoves[j].Y] == 3)
+                            {
+                                winningThreat += 100;
+                            }
+                        }
+                    }
+                    if (gameBoard.heights[allPawns[i].X, allPawns[i].Y] == 3)
+                    {
+                        winningThreat += 1000;
                     }
                 }
             }
@@ -209,7 +231,7 @@ namespace AmazingGame
                 }
             }
 
-            mobility *= 5;
+            mobility *= 50;
 
             return mobility;
         }
