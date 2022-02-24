@@ -12,7 +12,7 @@ namespace AmazingGame
         private Coordinates moveFrom;
         private Coordinates moveTo;
         private Coordinates buildTo;
-        public List<Node> children = new List<Node>();
+        public List<Node> children = null;
 
         public Node(Player player = null, GameBoard gameBoard = null, Coordinates moveFrom = null, Coordinates moveTo = null, Coordinates buildTo = null)
         {
