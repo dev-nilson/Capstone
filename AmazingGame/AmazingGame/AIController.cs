@@ -6,7 +6,9 @@ namespace AmazingGame
 {
     class AIController
     {
-        public int Minimax(Node node, int depth, bool isMaximizingPlayer)
+        public static Node best = null;
+
+        public static int Minimax(Node node, int depth, bool isMaximizingPlayer)
         {
             if (node.children == null)
                 return node.score;
