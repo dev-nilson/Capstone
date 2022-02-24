@@ -43,7 +43,7 @@ public class GameBoardScreen : MonoBehaviour
     {
         Debug.Log("exit");
         settingsPopUp.SetActive(false);
-        //switch phases to turn off build and place player to create a fake modal pop 
 
+        //switch phases to turn off build and place player to create a fake modal pop 
     }
 }
