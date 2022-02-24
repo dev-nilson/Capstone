@@ -403,7 +403,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7876670291908525965}
   - component: {fileID: 7229402053295905243}
-  - component: {fileID: 416369153900177624}
   - component: {fileID: 7491091254720261888}
   - component: {fileID: 8118659934075053252}
   m_Layer: 0
@@ -450,21 +449,6 @@ MonoBehaviour:
   m_SolverEditorData:
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
---- !u!114 &416369153900177624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2413851275917778590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1273aed8630aa749bd6a14945f8816d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1: {fileID: 2413851275917778590}
-  playerParent: {fileID: 0}
-  board: {fileID: 5638226049318727965, guid: edcae60f68456c84dac84600f28a5a5e, type: 3}
 --- !u!50 &7491091254720261888
 Rigidbody2D:
   serializedVersion: 4

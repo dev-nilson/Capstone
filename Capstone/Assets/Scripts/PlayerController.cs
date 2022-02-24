@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     GridManager boardController;
     GridManager Board;
 
-    public GameObject player1;
     GameObject player;
 
     public GameObject playerParent;
@@ -23,14 +22,10 @@ public class PlayerController : MonoBehaviour
     public GameObject[,] PlayerPosition;
     GameObject[,] tempPlayer;
 
-    int[,] boardHeights;
-
-    private static Coordinates curLoc;
-    private static Coordinates newLoc;
-
     public GameObject board;
 
-    AIController ai;
+    private Timer timer;
+    private float delay;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +33,10 @@ public class PlayerController : MonoBehaviour
         //ai = new AIController();
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
+
+        delay = 4.0F;
+        //timer = new Timer(delay);
+        
     }
 
     public Coordinates GetPlacement(GameBoard board, Player player)
@@ -100,8 +99,16 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
-            AIController.SimulateTurn(player, board);
-            return AIController.chosenTurn.GetMoveFrom();
+            //if (timer == null) timer = new Timer(delay);
+            //else if (timer.Set() && timer.Over())
+            //{
+                AIController.SimulateTurn(player, board);
+                return AIController.chosenTurn.GetMoveFrom();
+            //}
+            //else if (!timer.Set())
+            //    //StartCoroutine(timer.Start());
+            
+            //return new Coordinates();
         }
         else // GameUtilities.getGameType() == GameType.DIFFICULT
         {

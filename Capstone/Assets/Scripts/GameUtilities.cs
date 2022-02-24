@@ -25,6 +25,8 @@ public static class GameUtilities //public  ??
     private static bool GetFirstTile;
     private static bool GetSecondTile;
 
+    //ADD AI DELAY VARIABLE HERE ??????????????????
+
     //////////////////////////////////////
     // Data types
     //////////////////////////////////////
@@ -59,6 +61,14 @@ public static class GameUtilities //public  ??
     public static GameType getGameType()
     {
         return gameType;
+    }
+
+    public static bool AIgame()
+    {
+        if (gameType == GameType.EASY || gameType == GameType.DIFFICULT)
+            return true;
+        else
+            return false;
     }
 
     //////////////////////////////////////
