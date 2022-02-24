@@ -25,6 +25,8 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     private GameObject JoinGamePanel; //panel for displaying join lobby.
     [SerializeField]
     private GameObject HostGamePanel; //panel for displaying host lobby.
+    [SerializeField]
+    private GameObject CharacterSelectionLobbyPanel;
 
     [SerializeField]
     private GameObject roomListingPrefab; //prefab for displayer each room in the lobby
@@ -122,7 +124,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         roomName = PlayerPrefs.GetString("NickName") + "'s Room";
 
         Debug.Log(roomName);
-        HostGamePanel.SetActive(true);
+        CharacterSelectionLobbyPanel.SetActive(true);
 
         //NameOfHost.text = roomName;
         CreateRoom();
@@ -131,7 +133,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public void HostGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
     {
         multiplayerMenuPanel.SetActive(true);
-        HostGamePanel.SetActive(false);
+        CharacterSelectionLobbyPanel.SetActive(false);
         PhotonNetwork.LeaveLobby();
     }
 
@@ -156,8 +158,9 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         {
             IsVisible = true,
             IsOpen = true,
-            MaxPlayers = 2
-        };
+            MaxPlayers = 2,
+            BroadcastPropsChangeToAll = true
+    };
 
         PhotonNetwork.CreateRoom(roomName, roomOps); //attempting to create a new room
     }
@@ -178,7 +181,8 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             PlayerTtl = 1,
             IsVisible = true,
             IsOpen = true,
-            MaxPlayers = 2
+            MaxPlayers = 2,
+            BroadcastPropsChangeToAll = true
         };
 
         roomName = PlayerPrefs.GetString("NickName") + Random.Range(0, 100);
