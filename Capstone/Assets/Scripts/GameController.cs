@@ -174,7 +174,7 @@ public class GameController : MonoBehaviour
                         }
                         else
                         {
-                            boardController.highlightValidTiles(validTiles);
+                            if (CurrentPlayer.Type() == Player.Tag.LOCAL) boardController.highlightValidTiles(validTiles);
 
                             // Record the fact that the first tile has been collected for the "move" phase. Will begin waiting for the second tile
                             CollectedFirstTile();
@@ -256,7 +256,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    boardController.highlightValidTiles(validTiles);
+                    if (CurrentPlayer.Type() == Player.Tag.LOCAL) boardController.highlightValidTiles(validTiles);
 
                     // Record the fact that the first tile has been collected for the "build" phase. Will begin waiting for the second tile
                     CollectedFirstTile();
