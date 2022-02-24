@@ -22,3 +22,17 @@ C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\bin\Debug\netco
 C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.pdb
 C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.pdb
 C:\Users\laura\Documents\GitHub\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.genruntimeconfig.cache
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.csproj.AssemblyReference.cache
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.AssemblyInfoInputs.cache
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.AssemblyInfo.cs
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.csproj.CoreCompileInputs.cache
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.dll
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.exe
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.deps.json
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.runtimeconfig.json
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.runtimeconfig.dev.json
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.dll
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\bin\Debug\netcoreapp3.1\AmazingGame.pdb
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.pdb
+C:\Users\denilson\Desktop\Project\Capstone\AmazingGame\AmazingGame\obj\Debug\netcoreapp3.1\AmazingGame.genruntimeconfig.cache

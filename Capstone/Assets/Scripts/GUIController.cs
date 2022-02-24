@@ -19,8 +19,6 @@ public class GUIController : MonoBehaviour
 
     GameObject child;
 
-    int Col = 5, Row = 5;
-
     void Awake()
     {
         boardController = board.GetComponent<GridManager>();

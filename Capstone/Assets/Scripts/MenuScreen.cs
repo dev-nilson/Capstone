@@ -47,7 +47,7 @@ public class MenuScreen : MonoBehaviour
 	{
 		Debug.Log("quick game");
 
-		SceneManager.LoadScene("GameBoard");
+		SceneManager.LoadScene("QuickGame");
 	}
 
 	void multiplayerClicked()
