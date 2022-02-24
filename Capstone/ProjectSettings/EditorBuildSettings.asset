@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StoryMode.unity
     guid: 969f801c407edd54b9e8ee71fc5b7b48
+  - enabled: 1
+    path: Assets/Prefabs/PhotonChat/ChatScene.unity
+    guid: f37293df56393694785aa1dd286385b1
   m_configObjects: {}
