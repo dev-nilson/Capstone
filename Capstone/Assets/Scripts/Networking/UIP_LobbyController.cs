@@ -1,76 +1,53 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using UnityEngine.SceneManagement; //temporary using statement
 
 public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
-    public static UIP_LobbyController room;
+    public static UIP_LobbyController lobby;
 
-    //Buttons
-    public GameObject HostGameButton; //button used for joining a Lobby as the host.
     [SerializeField]
-    private GameObject HostGameBackButton;
+    private GameObject hostRoomButton; //button used for joining a Lobby as the host.
     [SerializeField]
-    private GameObject JoinGameButton; //button used for joining a Lobby as the client.
+    private GameObject joinRoomButton; //button used for joining a Lobby as the client.
     [SerializeField]
-    private GameObject JoinGameBackButton;
+    private GameObject hostRoomBackButton; //button used for joining a Lobby as the host.
     [SerializeField]
-    private GameObject FaceOffBackButton; //Button used for going back to multi menu
-    [SerializeField]
-    private GameObject StartGameButton; //starts game
-    [SerializeField]
-    private GameObject ReadyUpButton; //once both players are ready leads into faceoff screen
-    [SerializeField]
-    private GameObject MultiplayerBackButton; //back button to main menu
+    private GameObject joinRoomBackButton; //button used for joining a Lobby as the client.
 
 
-    //Panels
     [SerializeField]
-    private GameObject MultiplayerMenuPanel; //panel for displaying the main menu
-    [SerializeField]
-    private GameObject HostGamePanel; //panel for displaying host lobby.
+    private GameObject multiplayerMenuPanel; //panel for displaying the main menu
     [SerializeField]
     private GameObject JoinGamePanel; //panel for displaying join lobby.
     [SerializeField]
-    private GameObject CharacterSelectionLobbyPanel; //panel for displaying host lobby.
-    [SerializeField]
-    private GameObject DisconnectedPanel; //panel for displaying host lobby.
-    [SerializeField]
-    private GameObject LoadingPanel; //panel for displaying host lobby.
-
+    private GameObject HostGamePanel; //panel for displaying host lobby.
 
     [SerializeField]
     private GameObject roomListingPrefab; //prefab for displayer each room in the lobby
     [SerializeField]
     private Transform roomsContainer; //container for holding all the room listings
+
     [SerializeField]
     private InputField playerNameInput; //Input field so player can change their NickName
+    //[SerializeField]
+    //private Text NameOfHost; //text object for displaying the host of a room, replaced by GameInfo.username
 
-    public string roomName;
 
-    public bool intentionalDC = false;
+    private string roomName; //string for saving room name, is usually the Players name or Players name + numbers
+    public bool intentionalDisconnect = false;
 
-    private List<RoomInfo> RoomList;
+
+    private List<RoomInfo> roomList; //list of current rooms
     private Dictionary<string, RoomInfo> cachedRoomList;
     private Dictionary<string, GameObject> roomListEntries;
 
-
-    #region TempVariables
-    [SerializeField]
-    private Text NameOfHost; //text object for displaying the host of a room, replaced by GameInfo.username
-
-    public int whoMovesFirst;
-    #endregion
-
-    #region AwakeStartUpdate
-
     private void Awake()
     {
-        room = this;
+        lobby = this;
 
         cachedRoomList = new Dictionary<string, RoomInfo>();
         roomListEntries = new Dictionary<string, GameObject>();
@@ -90,394 +67,178 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     }
 
-    /********************************************************************
-    * If the player cannot connect to the Photon Netowkr or intentionally
-    * disconnects from it, everything currently showing will be hidden
-    * and the disconnectCanvas will be shown
-    ********************************************************************/
-    private void Update()
-    {
-        if (PhotonNetwork.NetworkClientState == ClientState.Disconnected && intentionalDC == false)
-        {
-            if (MultiplayerMenuPanel.gameObject.activeSelf)
-                MultiplayerMenuPanel.gameObject.SetActive(false);
-            if (JoinGamePanel.gameObject.activeSelf)
-                JoinGamePanel.gameObject.SetActive(false);
-            if (HostGamePanel.gameObject.activeSelf)
-                HostGamePanel.gameObject.SetActive(false);
-            if (CharacterSelectionLobbyPanel.gameObject.activeSelf)
-                CharacterSelectionLobbyPanel.gameObject.SetActive(false);
-
-            DisconnectedPanel.gameObject.SetActive(true);
-        }
-    }
-
     IEnumerator DisconnectReconnect()
     {
-        intentionalDC = true;
+        intentionalDisconnect = true;
         PhotonNetwork.Disconnect();
 
         while (PhotonNetwork.IsConnected)
             yield return null;
     }
-    #endregion
 
-    #region Puncallbacks
-    public override void OnConnectedToMaster()
+    public override void OnConnectedToMaster() //Callback function for when the first connection is established successfully.
     {
-        intentionalDC = false;
-        Debug.Log("OnConnectedToMaster succesfully entered");
+        Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
+        hostRoomButton.SetActive(true); //activate button for connecting to lobby
+        joinRoomButton.SetActive(true); //activate button for connecting to lobby
+        roomList = new List<RoomInfo>(); //initializing roomListing
 
-        if (!MultiplayerMenuPanel.gameObject.activeSelf)
-            MultiplayerMenuPanel.gameObject.SetActive(true);
-
-        PhotonNetwork.JoinLobby();  // -> OnJoinedLobby
-    }
-
-    public override void OnCreatedRoom()
-    {
-        if (PhotonNetwork.AutomaticallySyncScene == false)
-            PhotonNetwork.AutomaticallySyncScene = true;    // -> OnJoinedRoom
-    }
-
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
-        base.OnCreateRoomFailed(returnCode, message);
-
-        RoomOptions roomOps = new RoomOptions()
-        {
-            EmptyRoomTtl = 1,
-            PlayerTtl = 1,
-            IsVisible = true,
-            IsOpen = true,
-            MaxPlayers = 2
-        };
-
-        roomName = PlayerPrefs.GetString("NickName") + Random.Range(0, 100) + "'s Room";
-        PhotonNetwork.CreateRoom(roomName, roomOps);
-    }
-
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        base.OnJoinRoomFailed(returnCode, message);
-
-        if (JoinGamePanel.gameObject.activeSelf)
-            JoinGamePanel.gameObject.SetActive(false);
-        if (HostGamePanel.gameObject.activeSelf)
-            HostGamePanel.gameObject.SetActive(false);
-
-        intentionalDC = true;
-        PhotonNetwork.Disconnect();
-    }
-
-    /********************************************************************
-* OnJoinedRoom is called when the local player joins the room.
-* The first two lines of code are there to deactivate the canvas/panels
-* that were there while the local player was trying/waiting to find 
-* a game.
-* The line after that then activates a loading screen for the player
-* and if they are not the MasterClient (the Host) sends them a 
-* message letting them know they are waiting on the host to start
-* the game
-* A back button is then also made active and the start button for that 
-* screen is deactivated because the player is not the host, thus
-* they don't need to be able to start the game
-********************************************************************/
-    public override void OnJoinedRoom()
-    {
-        JoinGamePanel.gameObject.SetActive(false);
-
-        HostGamePanel.gameObject.SetActive(true);
-
-        HostGameBackButton.gameObject.SetActive(true);
-        ReadyUpButton.gameObject.SetActive(false);
-    }
-
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        if (intentionalDC == true)
-            PhotonNetwork.ConnectUsingSettings();
-        else
-            Debug.Log("Loss of connection here");
-    }
-
-    private void ClearRoomListView()
-    {
-        foreach (GameObject entry in roomListEntries.Values)
-        {
-            Destroy(entry.gameObject);
-        }
-        roomListEntries.Clear();
-    }
-
-    private void UpdateRoomListView()
-    {
-        foreach (RoomInfo Item in cachedRoomList.Values)
-        {
-            ListRoom(Item);
-        }
-    }
-
-    private void UpdateCachedRoomList(List<RoomInfo> roomList)
-    {
-        foreach (RoomInfo info in roomList)
-        {
-            // Remove room from cached room list if it got closed, became invisible or was marked as removed
-            if (!info.IsOpen || !info.IsVisible || info.RemovedFromList)
-            {
-                if (cachedRoomList.ContainsKey(info.Name))
-                {
-                    cachedRoomList.Remove(info.Name);
-                }
-                continue;
-            }
-
-            // Update cached room info
-            if (cachedRoomList.ContainsKey(info.Name))
-            {
-                cachedRoomList[info.Name] = info;
-            }
-            else
-            {
-                cachedRoomList.Add(info.Name, info);
-            }
-        }
-    }
-
-    public void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-        {
-            Debug.Log("Player Entered Room!");
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.CurrentRoom.IsVisible = false;
-            if (PhotonNetwork.LocalPlayer.IsMasterClient)
-            {
-                ReadyUpButton.SetActive(true);
-                Debug.Log("Time to ready up!");
-            }
-        }
-    }
-
-    public void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-        {
-            if (whoMovesFirst == 2)
-            {
-                Debug.Log("Host has left, press Back to leave...");
-            }
-            else
-            {
-                Debug.Log("Player left, waiting for new player to join...");
-                ReadyUpButton.SetActive(false);
-                PhotonNetwork.CurrentRoom.IsOpen = true;
-                PhotonNetwork.CurrentRoom.IsVisible = true;
-            }
-        }
-    }
-
-    public override void OnLeftRoom()
-    {
-        Debug.Log("Successfully left room.");
-
-        HostGamePanel.gameObject.SetActive(false);
-        MultiplayerMenuPanel.gameObject.SetActive(true);
-
-        HostGameButton.SetActive(false);
-        JoinGameButton.SetActive(false);
-        MultiplayerBackButton.SetActive(false);
-        LoadingPanel.gameObject.SetActive(true);
-
-        //Debug.Log("PhotonNetwork.Disconnect() called");
-        PhotonNetwork.LeaveLobby();
-    }
-    #endregion
-
-    #region ILobbyCallbacks
-    public override void OnJoinedLobby()
-    {
-        HostGameButton.SetActive(true);
-        JoinGameButton.SetActive(true);
-        MultiplayerBackButton.SetActive(false);
-        LoadingPanel.gameObject.SetActive(true);
-    }
-
-    public override void OnLeftLobby()
-    {
-        PhotonNetwork.Disconnect();
-    }
-
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        ClearRoomListView();
-        UpdateCachedRoomList(roomList);
-        UpdateRoomListView();
-        print("Inside OnRoomListUpdate");
-    }
-    #endregion
-
-    #region Functions
-    public void CreateRoom()
-    {
-        RoomOptions roomOps = new RoomOptions()
-        {
-            EmptyRoomTtl = 1,
-            PlayerTtl = 1,
-            IsVisible = true,
-            IsOpen = true,
-            MaxPlayers = 2
-        };
-
-        roomName = PlayerPrefs.GetString("NickName") + "'s Room";
-        PhotonNetwork.CreateRoom(roomName, roomOps);    // -> OnCreatedRoom / OnCreateRoomFailed
-    }
-
-    public void RemoveRoomListings()
-    {
-        while (roomsContainer.childCount != 0)
-        {
-            Destroy(roomsContainer.GetChild(0).gameObject);
-        }
-    }
-
-    public void ListRoom(RoomInfo room)
-    {
-
-        if (room.IsOpen && room.IsVisible)
-        {
-            GameObject tempListing = Instantiate(roomListingPrefab, roomsContainer);
-            RoomButton tempButton = tempListing.GetComponent<RoomButton>();
-            tempButton.roomName = room.Name;
-            tempButton.SetRoom();
-
-            roomListEntries.Add(room.Name, tempListing);
-        }
-    }
-
-
-    #endregion
-
-    #region Buttons
-
-    /********************************************************************
-     * Calls the create room function, when Host Game Button is clicked
-     * GameInfo.slectPieceAtStart, ensures that the Host moves first
-     * when the game starts
-     ********************************************************************/
-    public void OnHostGameButtonClicked()
-    {
-        MultiplayerMenuPanel.SetActive(false);
-
+        //check for player name saved to player prefs
         if (PlayerPrefs.HasKey("NickName"))
         {
             if (PlayerPrefs.GetString("NickName") == "")
             {
-                PhotonNetwork.NickName = "User" + Random.Range(0, 1000);
+                PhotonNetwork.NickName = "Player" + Random.Range(0, 1000); //random player name when not set
             }
             else
             {
-                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
+                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName"); //get saved player name
             }
         }
         else
         {
-            PhotonNetwork.NickName = "User" + Random.Range(0, 1000);
+            PhotonNetwork.NickName = "Player" + Random.Range(0, 1000); //random player name when not set
         }
-
-        HostGamePanel.SetActive(true);
-        CreateRoom();
-        whoMovesFirst = 1;
+        playerNameInput.text = PhotonNetwork.NickName; //update input field with player name
+        Debug.Log(playerNameInput.text);
+        PlayerPrefs.SetString("NickName", PhotonNetwork.NickName);
     }
 
-    /********************************************************************
-    * GameInfo.selectPieceAtStart, ensures that the Client moves second
-    * when the game starts
-    ********************************************************************/
-    public void OnJoinGameButtonClicked()
-    {
-        MultiplayerMenuPanel.gameObject.SetActive(false);
-        JoinGamePanel.gameObject.SetActive(true);
-
-        //roomListingPanel.gameObject.SetActive(true);
-
-        whoMovesFirst = 2;
-    }
-
-    public void MultiplayerMenuBackButtonClicked()
-    {
-        intentionalDC = true;
-        PhotonNetwork.Disconnect();
-        SceneManager.LoadScene("Menu");
-        //GameInfo.gameType = 'N';
-        //Initiate.Fade("UserPreferences", Color.black, 4.0f);
-    }
-
-    public void OnJoinGameBackButtonClicked()
-    {
-        JoinGamePanel.gameObject.SetActive(false);
-        MultiplayerMenuPanel.gameObject.SetActive(true);
-
-        HostGameButton.SetActive(true);
-        JoinGameButton.SetActive(true);
-        MultiplayerBackButton.SetActive(true);
-
-        // don't need to dc here
-    }
-
-    public void HostGameBackButtonClicked()
-    {
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            PhotonNetwork.CurrentRoom.IsVisible = false;
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-
-            PhotonNetwork.LeaveRoom();  // -> OnLeftRoom
-            HostGamePanel.gameObject.SetActive(false);
-            MultiplayerMenuPanel.gameObject.SetActive(false);
-            LoadingPanel.gameObject.SetActive(true);
-
-            //HostGameButton.SetActive(true);
-            //JoinGameButton.SetActive(true);
-            //MultiplayerBackButton.SetActive(true);
-        }
-        else
-            PhotonNetwork.LeaveRoom();  // -> OnLeftRoom  
-
-        //StatusText.text = "Waiting for opponent...";
-        intentionalDC = true;
-        PhotonNetwork.Disconnect();
-
-
-        //GameInfo.gameType = 'N';
-        //Initiate.Fade("UserPreferences", Color.black, 4.0f);
-    }
-
-    //public void OnDisconnectedBackButtonClicked()
-    //{
-    //    GameInfo.gameType = 'N';
-    //    Initiate.Fade("UserPreferences", Color.black, 4.0f);
-    //}
-
-    public void OnStartButtonClicked()
-    {
-        PhotonNetwork.LoadLevel("GameBoard");
-    }
-
-    #endregion
-
-    #region TempLogic
-    public void PlayerNameUpdateInputChanged(string nameInput)
+    public void PlayerNameUpdateInputChanged(string nameInput) //input function for player name. paired to player name input field
     {
         PhotonNetwork.NickName = nameInput;
         Debug.Log(nameInput);
         PlayerPrefs.SetString("NickName", nameInput);
-
-        /********************************************************************
-        * Had a weird bug with this in Unity. For some reason it would not 
-        * show my input, even in DebugLog()
-        * Deleting the inputfield and re-adding it fixed the problem
-         ********************************************************************/
+        //Had a weird bug with this in Unity
+        //For some reason it would not show/keep track of my input, even in DebugLog()
+        //Deleting the inputfield and re-adding it fixed the problem
     }
-    #endregion
+
+    public void HostLobbyOnClick() //Paired to the Host button
+    {
+        multiplayerMenuPanel.SetActive(false);
+
+        Debug.Log(PhotonNetwork.NickName);
+        roomName = PlayerPrefs.GetString("NickName") + "'s Room";
+
+        Debug.Log(roomName);
+        HostGamePanel.SetActive(true);
+
+        //NameOfHost.text = roomName;
+        CreateRoom();
+    }
+
+    public void HostGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
+    {
+        multiplayerMenuPanel.SetActive(true);
+        HostGamePanel.SetActive(false);
+        PhotonNetwork.LeaveLobby();
+    }
+
+    public void JoinLobbyOnClick() //Paired to the Join button
+    {
+        multiplayerMenuPanel.SetActive(false);
+        JoinGamePanel.SetActive(true);
+        PhotonNetwork.JoinLobby(); //First tries to join a lobby
+    }
+
+    public void JoinGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
+    {
+        multiplayerMenuPanel.SetActive(true);
+        JoinGamePanel.SetActive(false);
+        PhotonNetwork.LeaveLobby();
+    }
+
+    public void CreateRoom() //function paired to the host room button
+    {
+        Debug.Log("Creating room now");
+        RoomOptions roomOps = new RoomOptions()
+        {
+            IsVisible = true,
+            IsOpen = true,
+            MaxPlayers = 2
+        };
+
+        PhotonNetwork.CreateRoom(roomName, roomOps); //attempting to create a new room
+    }
+
+    /*
+     * create room will fail if room already exists
+     * this most often happens when there is already a room by that name
+     * This function will take the username that was the same, and try
+     * to create a new room under that same username + a random addition of numbers
+     */
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        //base.OnCreateRoomFailed(returnCode, message);
+
+        RoomOptions roomOps = new RoomOptions()
+        {
+            EmptyRoomTtl = 1,
+            PlayerTtl = 1,
+            IsVisible = true,
+            IsOpen = true,
+            MaxPlayers = 2
+        };
+
+        roomName = PlayerPrefs.GetString("NickName") + Random.Range(0, 100);
+        PhotonNetwork.CreateRoom(roomName, roomOps);
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList) //Once in lobby this function is called every time there is an update to the room list
+    {
+        Debug.Log("OnRoomListUpdate was called");
+        int tempIndex;
+        foreach (RoomInfo room in roomList) //loop through each room in room list
+        {
+            Debug.Log("Looping through room list...");
+            if (this.roomList != null) //try to find existing room listing
+            {
+                tempIndex = this.roomList.FindIndex(ByName(room.Name));
+            }
+            else
+            {
+                tempIndex = -1;
+            }
+            if (tempIndex != -1) //remove listing because it has been closed
+            {
+                this.roomList.RemoveAt(tempIndex);
+                Destroy(roomsContainer.GetChild(tempIndex).gameObject);
+                Debug.Log("Room removed from Listing");
+            }
+            if (room.PlayerCount > 0) //add room listing because it is new
+            {
+                this.roomList.Add(room);
+                ListRoom(room);
+                Debug.Log("Room added to Listing");
+                Debug.Log("The name of the room added was: " + room.Name);
+            }
+        }
+    }
+
+    public override void OnJoinedRoom()//called when the local player joins the room
+    {
+        for (int i = roomsContainer.childCount - 1; i == 0; i--)
+        {
+            Destroy(roomsContainer.GetChild(i).gameObject);
+        }
+    }
+
+    static System.Predicate<RoomInfo> ByName(string name) //predicate function for seach through room list
+    {
+        return delegate (RoomInfo room)
+        {
+            return room.Name == name;
+        };
+    }
+
+    void ListRoom(RoomInfo room) //displays new room listing for the current room
+    {
+        if (room.IsOpen && room.IsVisible)
+        {
+            GameObject tempListing = Instantiate(roomListingPrefab, roomsContainer);
+            UIP_RoomButton tempButton = tempListing.GetComponent<UIP_RoomButton>();
+            tempButton.SetRoom(room.Name);
+        }
+    }
 }

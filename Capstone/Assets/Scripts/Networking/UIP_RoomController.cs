@@ -1,0 +1,106 @@
+﻿using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+
+public class UIP_RoomController : MonoBehaviourPunCallbacks
+{
+    [SerializeField]
+    private int multiPlayerSceneIndex; //scene index for loading multiplayer scene
+
+    [SerializeField]
+    private GameObject JoinGamePanel; //display for when in lobby
+    [SerializeField]
+    private GameObject HostGamePanel; //display for when in room
+
+    [SerializeField]
+    private GameObject StartGameButton; //only for the master client. used to start the game and load the multiplayer scene
+
+    [SerializeField]
+    private Transform playersContainer; //used to display all the players in the current room
+    [SerializeField]
+    private GameObject playerListingPrefab; //Instantiate to display each player in the room
+
+    [SerializeField]
+    private Text WaitingForOpponents; //Updates as people leave/join the room to reflect room "state" (if you're waiting for someone to join or not)
+
+    void ClearPlayerListings()
+    {
+        for (int i = playersContainer.childCount - 1; i >= 0; i--) //loop through all child object of the playersContainer, removing each child
+        {
+            Destroy(playersContainer.GetChild(i).gameObject);
+        }
+    }
+
+    void ListPlayers()
+    {
+        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        {
+            GameObject tempListing = Instantiate(playerListingPrefab, playersContainer);
+            Text tempText = tempListing.transform.GetChild(0).GetComponent<Text>();
+            tempText.text = player.NickName;
+        }
+
+    }
+
+    public override void OnJoinedRoom()
+    {
+        HostGamePanel.SetActive(true); //activate the display for being in a room
+        JoinGamePanel.SetActive(false); //hide the display for being in a lobby
+        if (PhotonNetwork.IsMasterClient) //if master client then activate the start button
+        {
+            StartGameButton.SetActive(true);
+        }
+        else
+        {
+            WaitingForOpponents.text = "Waiting for Host to start";
+            StartGameButton.SetActive(false);
+        }
+        
+        ClearPlayerListings(); //remove all old player listings
+        ListPlayers(); //relist all current player listings
+    }
+
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        WaitingForOpponents.text = "Waiting for Host to start";
+        ClearPlayerListings(); //remove all old player listings
+        ListPlayers(); //relist all current player listings
+    }
+
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        ClearPlayerListings();//remove all old player listings
+        ListPlayers();//relist all current player listings
+        if (PhotonNetwork.IsMasterClient)//if the local player is now the new master client then we activate the start button
+        {
+            StartGameButton.SetActive(true);
+        }
+        WaitingForOpponents.text = "Waiting for Opponents";
+    }
+
+    public void StartGameOnClick() //paired to the start button. will load all players into the multiplayer scene through the master client and AutomaticallySyncScene
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
+            PhotonNetwork.LoadLevel(multiPlayerSceneIndex);
+        }
+    }
+
+    IEnumerator rejoinLobby()
+    {
+        yield return new WaitForSeconds(1);
+        PhotonNetwork.JoinLobby();
+    }
+
+    public void BackOnClick() // paired to the back button in the room panel. will return the player to the lobby panel.
+    {
+        JoinGamePanel.SetActive(true);
+        HostGamePanel.SetActive(false);
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LeaveLobby();
+        StartCoroutine(rejoinLobby());
+    }
+}
