@@ -145,7 +145,7 @@ public class GameController : MonoBehaviour
                 // GAME OVER: CURRENT PLAYER HAS NO AVAILABLE MOVES AND THEREFORE LOSES
                 if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player loses: no available moves");
                 else Debug.Log("Opposing player loses: no available moves");
-
+                DisablePhases();
 
 
             }
@@ -219,7 +219,7 @@ public class GameController : MonoBehaviour
                         // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
                         if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player wins: reached the third tier of a tower!");
                         else Debug.Log("Opposing player wins: reached the third tier of a tower!");
-
+                        DisablePhases();
 
 
                     }
@@ -250,7 +250,7 @@ public class GameController : MonoBehaviour
                     Debug.Log("Current player loses: no available builds");
                     if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player loses: no available builds");
                     else Debug.Log("Opposing player loses: no available builds");
-
+                    DisablePhases();
 
 
                 }
