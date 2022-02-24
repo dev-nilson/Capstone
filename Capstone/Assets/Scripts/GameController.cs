@@ -29,6 +29,11 @@ public class GameController : MonoBehaviour
     public GameObject board;
     public GameObject player;
 
+    public GameObject winPopup;
+    public GameObject losePopup;
+    
+
+
     public GameObject player1;
 
     GameObject child;
@@ -143,10 +148,19 @@ public class GameController : MonoBehaviour
             if (CurrentPlayer.HasNoMoves(board_gc))
             {
                 // GAME OVER: CURRENT PLAYER HAS NO AVAILABLE MOVES AND THEREFORE LOSES
-                if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player loses: no available moves");
-                else Debug.Log("Opposing player loses: no available moves");
+                if (CurrentPlayer.Type() == Player.Tag.LOCAL)
+                {
+                    losePopup.SetActive(true);
+                    Debug.Log("Local player loses: no available moves");
+                }
+                else
+                {
+                    Debug.Log("Opposing player loses: no available moves");
+                    winPopup.SetActive(true);
+                }
                 DisablePhases();
-
+                board.SetActive(false);
+                
 
             }
             else
@@ -217,9 +231,19 @@ public class GameController : MonoBehaviour
                     if (moveStatus == MoveType.WINNING)
                     {
                         // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
-                        if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player wins: reached the third tier of a tower!");
-                        else Debug.Log("Opposing player wins: reached the third tier of a tower!");
+                        if (CurrentPlayer.Type() == Player.Tag.LOCAL)
+                        {
+                            winPopup.SetActive(true);
+                            Debug.Log("Local player wins: reached the third tier of a tower!");
+                        }
+                        else
+                        {
+                            losePopup.SetActive(true);
+                            Debug.Log("Opposing player wins: reached the third tier of a tower!");
+                        }
                         DisablePhases();
+                        board.SetActive(false);
+                        
 
 
                     }
@@ -248,10 +272,19 @@ public class GameController : MonoBehaviour
                 {
                     // GAME OVER: THE MOVED PAWN HAS NO AVAILABLE BUILDS AND THEREFORE THE CURRENT PLAYER LOSES
                     Debug.Log("Current player loses: no available builds");
-                    if (CurrentPlayer.Type() == Player.Tag.LOCAL) Debug.Log("Local player loses: no available builds");
-                    else Debug.Log("Opposing player loses: no available builds");
+                    if (CurrentPlayer.Type() == Player.Tag.LOCAL)
+                    {
+                        losePopup.SetActive(true);
+                        Debug.Log("Local player loses: no available builds");
+                    }
+                    else
+                    {
+                        winPopup.SetActive(true);
+                        Debug.Log("Opposing player loses: no available builds");
+                    }
                     DisablePhases();
-
+                    board.SetActive(false);
+   
 
                 }
                 else
