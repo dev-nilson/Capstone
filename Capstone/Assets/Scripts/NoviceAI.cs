@@ -187,9 +187,9 @@ namespace AmazingGame
                     {
                         availableMoves = gameBoard.AvailableMoves(allPawns[i]);
 
-                        for (int j = 0; j < availableMoves.Count; ++j)
+                        foreach (var move in availableMoves)
                         {
-                            if (gameBoard.GetHeights()[availableMoves[j].X, availableMoves[j].Y] == 3)
+                            if (gameBoard.GetHeights()[move.X, move.Y] == 3 && NoOpponentsAround(gameBoard.AvailableMoves(allPawns[0]), move, gameBoard) && NoOpponentsAround(gameBoard.AvailableMoves(allPawns[1]), move, gameBoard))
                             {
                                 winningThreat += 500;
                             }
@@ -204,6 +204,17 @@ namespace AmazingGame
             }
 
             return winningThreat;
+        }
+
+        public static bool NoOpponentsAround(List<Coordinates> availableMoves, Coordinates winningCoordinates, GameBoard gameBoard)
+        {
+            foreach (var move in availableMoves)
+            {
+                if (gameBoard.GetHeights()[move.X, move.Y] == 2 && move == winningCoordinates)
+                    return false;
+            }
+
+            return true;
         }
 
         /*
@@ -266,7 +277,6 @@ namespace AmazingGame
                             ++playerVerticalMovesCount;
                         else if (gameBoard.GetHeights()[move.X, move.Y] == gameBoard.GetHeights()[allPawns[i].X, allPawns[i].Y])
                             playerVerticalMovesCount += 0.5;
-
                     }
 
                     if (playerAvailableMoves.Count != 0)
