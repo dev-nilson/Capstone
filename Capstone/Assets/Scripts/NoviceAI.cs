@@ -176,7 +176,7 @@ namespace AmazingGame
                         {
                             if (gameBoard.GetHeights()[availableMoves[j].X, availableMoves[j].Y] == 3)
                             {
-                                winningThreat -= 100;
+                                winningThreat -= 500;
                             }
                         }
                     }
@@ -191,13 +191,13 @@ namespace AmazingGame
                         {
                             if (gameBoard.GetHeights()[availableMoves[j].X, availableMoves[j].Y] == 3)
                             {
-                                winningThreat += 100;
+                                winningThreat += 500;
                             }
                         }
                     }
                     else if (gameBoard.GetHeights()[allPawns[i].X, allPawns[i].Y] == 3)
                     {
-                        winningThreat += 500;
+                        winningThreat += 10000;
                     }
                 }
 
@@ -233,7 +233,7 @@ namespace AmazingGame
                 }
             }
 
-            mobility *= 50;
+            mobility *= 25;
 
             return mobility;
         }

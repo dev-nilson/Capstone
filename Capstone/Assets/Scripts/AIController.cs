@@ -6,7 +6,7 @@ namespace AmazingGame
 {
     class AIController
     {
-        public static Node chosenTurn = new Node();
+        public static Node chosenTurn = null;
 
         public static int Minimax(Node node, int depth, bool isMaximizingPlayer)
         {
@@ -61,17 +61,18 @@ namespace AmazingGame
                             List<Coordinates> builds = gameBoard.AvailableBuilds(move);
                             foreach (var build in builds)
                             {
-                                Node node = new Node(opponent, gameBoard, pawn, move, build);
+                                Node node = new Node(gameBoard, pawn, move, build);
+
+                                gameBoard.GetHeights()[build.X, build.Y] += 1;
 
                                 //  Heuristic functions
                                 node.score += NoviceAI.HeightDifference(Player.GetBothPlayersPawns(), gameBoard);
                                 node.score += NoviceAI.Centricity(opponent.GetPlayerCoordinates());
-                                node.score += NoviceAI.WinningThreat(opponent.GetPlayerCoordinates(), gameBoard);
+                                node.score += NoviceAI.WinningThreat(Player.GetBothPlayersPawns(), gameBoard);
                                 node.score += NoviceAI.Mobility(Player.GetBothPlayersPawns(), gameBoard);
                                 node.score += NoviceAI.Verticality(Player.GetBothPlayersPawns(), gameBoard);
 
                                 //  Undo built piece
-                                //  gameBoard instance
                                 gameBoard.GetHeights()[build.X, build.Y] -= 1;
 
                                 possibleTurns.Add(node);
