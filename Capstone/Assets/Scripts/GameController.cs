@@ -117,6 +117,21 @@ public class GameController : MonoBehaviour
             // Store the current player's selected coordinate
             Coordinates loc = playerController.GetPlacement(board_gc, CurrentPlayer); //boardController.getSelectedTile();
 
+            if (GetPlayerTurn() == PlayerTurn.TWO)
+            {
+                int x = 2;
+                int y = 2;
+
+                if (board_gc.IsOccupied(new Coordinates(x, y)))
+                {
+                    System.Random random = new System.Random();
+                    x = random.Next(1, 4);
+                    y = random.Next(1, 4);
+                }
+
+                loc = new Coordinates(x, y);
+            }
+
             // If the pawn was successfully placed in the game core board...
             if (board_gc.PlacePawn(CurrentPlayer, loc))
             {

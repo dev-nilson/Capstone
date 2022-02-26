@@ -248,7 +248,7 @@ public class GameBoard //public  ??
     }
 
     // Returns whether a pawn exists on the board coordinate
-    bool IsOccupied(Coordinates loc)
+    public bool IsOccupied(Coordinates loc)
     {
         // Get a list of pawns (four total between both players)
         Coordinates[] allPawns = Player.GetBothPlayersPawns();
