@@ -31,7 +31,6 @@ public class GameController : MonoBehaviour
 
     public GameObject winPopup;
     public GameObject losePopup;
-    
 
 
     public GameObject player1;
@@ -159,7 +158,7 @@ public class GameController : MonoBehaviour
                     winPopup.SetActive(true);
                 }
                 DisablePhases();
-                board.SetActive(false);
+                //board.SetActive(false);
                 
 
             }
@@ -242,7 +241,7 @@ public class GameController : MonoBehaviour
                             Debug.Log("Opposing player wins: reached the third tier of a tower!");
                         }
                         DisablePhases();
-                        board.SetActive(false);
+                        //board.SetActive(false);
                         
 
 
@@ -283,7 +282,7 @@ public class GameController : MonoBehaviour
                         Debug.Log("Opposing player loses: no available builds");
                     }
                     DisablePhases();
-                    board.SetActive(false);
+                    //board.SetActive(false);
    
 
                 }
