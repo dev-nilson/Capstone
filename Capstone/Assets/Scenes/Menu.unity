@@ -2795,7 +2795,6 @@ GameObject:
   - component: {fileID: 1621470742}
   - component: {fileID: 1621470741}
   - component: {fileID: 1621470740}
-  - component: {fileID: 1621470743}
   m_Layer: 5
   m_Name: Story Mode Button
   m_TagString: Untagged
@@ -2904,25 +2903,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621470738}
   m_CullTransparentMesh: 0
---- !u!114 &1621470743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621470738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 485f76bb1f9f4704aaf90a2b5b93f2e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  quickGame: {fileID: 2124057699}
-  multiplayer: {fileID: 87616221}
-  tutorial: {fileID: 1106222060}
-  storyMode: {fileID: 1621470740}
-  exitApp: {fileID: 0}
-  exitSettings: {fileID: 0}
-  settings: {fileID: 0}
 --- !u!1 &1636425971
 GameObject:
   m_ObjectHideFlags: 0
