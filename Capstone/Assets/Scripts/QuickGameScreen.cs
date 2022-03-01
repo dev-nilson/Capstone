@@ -11,7 +11,6 @@ public class QuickGameScreen : MonoBehaviour
     public GameObject pharoah_H;
     public GameObject pharoah_figure;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -34,4 +33,6 @@ public class QuickGameScreen : MonoBehaviour
         pharoah_figure.SetActive(true);
 
     }
+
+
 }
