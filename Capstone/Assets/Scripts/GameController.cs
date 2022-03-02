@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour
         /// THIS PORTION WILL (MOSTLY) EVENTUALLY BE MOVED TO MENUS
         
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
-        setGameType(GameType.EASY);
+        setGameType(GameType.NETWORK);
         
         //  STARTING PLAYER?
         SetPlayerTurn(PlayerTurn.ONE);
