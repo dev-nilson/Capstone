@@ -134,7 +134,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             NetPlayerItem newPlayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newPlayerItem.SetPlayerInfo(player.Value);
 
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
                 if (player.Value == PhotonNetwork.LocalPlayer && (PhotonNetwork.IsMasterClient))
                 {
