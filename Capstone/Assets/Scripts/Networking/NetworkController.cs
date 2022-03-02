@@ -52,40 +52,40 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public void SendMove()
     {
         Debug.Log("NetworkController, Send Move Called");
-        Debug.Log("Move coordinates were: " + moveLocation);
+        Debug.Log("Move coordinates were: " + moveLocation.X + " " + moveLocation.Y);
         NetworkPlayer.netPlayer.SendMove(moveLocation);
     }
 
     public void SendBuild()
     {
         Debug.Log("NetworkController, Send Build Called");
-        Debug.Log("Build coordinates were: " + buildLocation);
+        Debug.Log("Build coordinates were: " + buildLocation.X + " " + buildLocation.Y);
         NetworkPlayer.netPlayer.SendBuild(buildLocation);
     }
 
     public void SetMoveCoordinates(Coordinates newCoordinates)
     {
         Debug.Log("SetMoveCoordinates called");
-        Debug.Log("Setting move coodrinates " + newCoordinates);
+        Debug.Log("Setting move coodrinates " + newCoordinates.X + " " + newCoordinates.Y);
         moveLocation = newCoordinates;
     }
     public Coordinates GetMoveCoordinates()
     {
         Debug.Log("GetMoveCoordinates called");
-        Debug.Log("Returning move coordinates: " + moveLocation);
+        Debug.Log("Returning move coordinates: " + moveLocation.X + " " + moveLocation.Y);
         return moveLocation;
     }
 
     public void SetBuildCoordinates(Coordinates newCoordinates)
     {
         Debug.Log("SetBuildCoordinates called");
-        Debug.Log("Setting build coodrinates " + newCoordinates);
+        Debug.Log("Setting build coodrinates " + newCoordinates.X + " " + newCoordinates.Y);
         buildLocation = newCoordinates;
     }
     public Coordinates GetBuildCoordinates()
     {
         Debug.Log("GetBuildCoordinates called");
-        Debug.Log("Returning build coordinates: " + buildLocation);
+        Debug.Log("Returning build coordinates: " + buildLocation.X + " " + buildLocation.Y);
         return buildLocation;
     }
 }
