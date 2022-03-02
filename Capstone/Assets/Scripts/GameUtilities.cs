@@ -197,7 +197,7 @@ public static class GameUtilities //public  ??
     // 0 is valid, -1 is invalid
     public static int[,] ConvertToBinaryBoard(List<Coordinates> locs)
     {
-        int size = GameBoard.BOARD_DIMENSION;
+        int size = BOARD_DIMENSION;
 
         int[,] board = new int[size, size];
 
