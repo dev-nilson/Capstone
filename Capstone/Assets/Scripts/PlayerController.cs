@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
 
-        networkController = new NetworkController();
+        //networkController = new NetworkController();
 
         delay = 4.0F;
         //timer = new Timer(delay);
@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
                 Coordinates loc = GridManager.getSelectedTile();
                 if (getGameType() == GameType.NETWORK)
                 {
+                    networkController = new NetworkController();
                     networkController.SetMoveCoordinates(loc);
                     networkController.SendMove();
                 }
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
+            networkController = new NetworkController();
             Coordinates loc = networkController.GetMoveCoordinates();
             if (GameBoard.IsValidCoord(loc))
                 return loc;
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (getGameType() == GameType.NETWORK)
                     {
+                        networkController = new NetworkController();
                         networkController.SetMoveCoordinates(loc);
                         networkController.SendMove();
                     }
@@ -109,6 +112,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
+            networkController = new NetworkController();
             Coordinates loc = networkController.GetMoveCoordinates();
             if (GameBoard.IsValidCoord(loc))
                 return loc;
@@ -148,6 +152,7 @@ public class PlayerController : MonoBehaviour
                 Coordinates loc = GridManager.getSelectedTile();
                 if (getGameType() == GameType.NETWORK)
                 {
+                    networkController = new NetworkController();
                     networkController.SetMoveCoordinates(loc);
                     networkController.SendMove();
                 }
@@ -158,6 +163,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
+            networkController = new NetworkController();
             Coordinates loc = networkController.GetMoveCoordinates();
             if (GameBoard.IsValidCoord(loc))
                 return loc;
@@ -185,6 +191,7 @@ public class PlayerController : MonoBehaviour
                 Coordinates loc = GridManager.getSelectedTile();
                 if (getGameType() == GameType.NETWORK)
                 {
+                    networkController = new NetworkController();
                     networkController.SetMoveCoordinates(loc);
                     networkController.SendMove();
                 }
@@ -195,6 +202,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
+            networkController = new NetworkController();
             Coordinates loc = networkController.GetMoveCoordinates();
             if (GameBoard.IsValidCoord(loc))
                 return loc;
