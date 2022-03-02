@@ -95,7 +95,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
-            PhotonNetwork.LoadLevel(2);
+            PhotonNetwork.LoadLevel(1);
         }
     }
 
@@ -134,7 +134,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             NetPlayerItem newPlayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newPlayerItem.SetPlayerInfo(player.Value);
 
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
                 if (player.Value == PhotonNetwork.LocalPlayer && (PhotonNetwork.IsMasterClient))
                 {
