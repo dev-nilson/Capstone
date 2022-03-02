@@ -54,19 +54,22 @@ public class GameController : MonoBehaviour
         Renderer = GetComponent<MeshRenderer>();
 
 
+        ////////////////////////////////////////////////////////////////
+        /// THIS PORTION WILL (MOSTLY) EVENTUALLY BE MOVED TO MENUS
+        
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
         setGameType(GameType.EASY);
-        //  OPPONENT'S USERNAME
+        
         //  STARTING PLAYER?
         SetPlayerTurn(PlayerTurn.ONE);
 
         // GUI: GET A USERNAME FROM USER
-        string username = "Player one";
-        P1 = new Player(true, username);
+        P1username = "Player one";
+        P1 = new Player(true, P1username);
 
         // GET USERNAME FROM OPPONENT
-        username = "Player two";
-        P2 = new Player(false, username);
+        P2username = "Player two";
+        P2 = new Player(false, P2username);
 
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();

@@ -15,9 +15,14 @@ public static class GameUtilities //public  ??
     //////////////////////////////////////
     // Variables
     //////////////////////////////////////
+    public const int BOARD_DIMENSION = 5;
+
     private static GameType gameType;
 
     private static PlayerTurn playerTurn;
+
+    public static string P1username;
+    public static string P2username;
 
     private static bool PlacePawnPhase;
     private static bool MovePhase;
