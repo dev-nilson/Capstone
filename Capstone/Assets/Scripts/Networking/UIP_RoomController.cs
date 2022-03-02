@@ -95,7 +95,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
-            PhotonNetwork.LoadLevel(multiPlayerSceneIndex);
+            PhotonNetwork.LoadLevel(2);
         }
     }
 
