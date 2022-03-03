@@ -154,15 +154,15 @@ public class GridManager : MonoBehaviour
 
                     if (temp[i, j] == 1)
                     {
-                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
                     }
                     if (temp[i, j] == 2)
                     {
-                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
+                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 2.5f, Grid[i, j].transform.position.z);
                     }
                     if (temp[i, j] == 3)
                     {
-                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 2f, Grid[i, j].transform.position.z);
+                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
                     }
                     player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
                     player1Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
@@ -172,21 +172,22 @@ public class GridManager : MonoBehaviour
                 else if (P2pawns.Contains(loc))
                 {
                     var player2Instance = Instantiate(player2prefab, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    //player2.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+                    player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+
                     if (temp[i,j] == 1)
-                    {
-                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
-                    }
-                    if (temp[i, j] == 2)
                     {
                         player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
                     }
+                    if (temp[i, j] == 2)
+                    {
+                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 2.5f, Grid[i, j].transform.position.z);
+                    }
                     if (temp[i, j] == 3)
                     {
-                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 2f, Grid[i, j].transform.position.z);
+                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
                     }
                     player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    player2Instance.transform.localScale = new Vector3(.2f, .2f, .2f);
+                    player2Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
                     player2Instance.transform.parent = Grid[i, j].transform;
                 }
             }
