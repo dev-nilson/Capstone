@@ -150,6 +150,8 @@ public class GridManager : MonoBehaviour
                 if (P1pawns.Contains(loc))
                 {
                     var player1Instance = Instantiate(player1prefab, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+
                     if (temp[i, j] == 1)
                     {
                         player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
@@ -163,7 +165,7 @@ public class GridManager : MonoBehaviour
                         player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 2f, Grid[i, j].transform.position.z);
                     }
                     player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    player1Instance.transform.localScale = new Vector3(.2f, .2f, .2f);
+                    player1Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
                     player1Instance.transform.parent = Grid[i, j].transform;
 
                 }
