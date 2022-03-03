@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject board;
 
-    private NetworkController networkController;
+    private static NetworkController networkController = new NetworkController();
 
     private Timer timer;
     private float delay;
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
-            networkController = new NetworkController();
+            //networkController = new NetworkController();
             Coordinates loc = networkController.GetMoveCoordinates();
             if (GameBoard.IsValidCoord(loc))
                 return loc;
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
                 Coordinates loc = GridManager.getSelectedTile();
                 if (getGameType() == GameType.NETWORK)
                 {
-                    networkController = new NetworkController();
+                    //networkController = new NetworkController();
                     networkController.SetMoveCoordinates(loc);
                     networkController.SendMove();
                 }
