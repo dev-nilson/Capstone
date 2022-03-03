@@ -50,16 +50,17 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void SendMove()
     {
-        Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
-        if (NetworkPlayer.netPlayer = null)
-        {
-            Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
-        }
+        //Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
+        //if (NetworkPlayer.netPlayer = null)
+        //{
+        //    Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
+        //}
         Debug.Log("NetworkController, Send Move Called");
         Debug.Log("Move coordinates were: " + moveLocation.X + " " + moveLocation.Y);
-        if (NetworkPlayer.netPlayer != null)
+        if (NetworkPlayer.netPlayer = null)
         {
             NetworkPlayer.netPlayer.SendMove(moveLocation);
+            Debug.Log("net is not null");
         }
         else
             Debug.Log("Somethin aint right, fix it");

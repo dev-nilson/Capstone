@@ -58,16 +58,14 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 
 	//These will call the RPC functions above and send the result of those RPC calls to all players in room
 	public void SendMove(Coordinates moveLocation)
-
 	{
-		Debug.Log("send move function called");
+		Debug.Log("send move function in NETWORK PLAYER called");
 		Debug.LogWarning("coordinates are " + moveLocation.X + " " + moveLocation.Y);
 		photonView.RPC("RPC_SendMove", RpcTarget.All, moveLocation);
 	}
 
 
 	public void SendBuild(Coordinates buildLocation)
-
 	{
 		Debug.Log("send move function called");
 		photonView.RPC("RPC_SendBuild", RpcTarget.All, buildLocation);
