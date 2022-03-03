@@ -16,7 +16,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 	private PlayerController playerController;
 	private static char networkMessage;
 	private static bool networkMessageRecieved = false;
-	private static bool playerLeftRoomFunctionCalled = false;
 
     private void Awake()
     {
@@ -51,6 +50,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void SendMove()
     {
+        if (NetworkPlayer.netPlayer)
+        {
+            Debug.Log(NetworkPlayer.netPlayer);
+        }
         Debug.Log("NetworkController, Send Move Called");
         Debug.Log("Move coordinates were: " + moveLocation.X + " " + moveLocation.Y);
         NetworkPlayer.netPlayer.SendMove(moveLocation);
