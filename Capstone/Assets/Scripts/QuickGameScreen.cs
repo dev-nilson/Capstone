@@ -11,6 +11,17 @@ public class QuickGameScreen : MonoBehaviour
     public GameObject pharoah_H;
     public GameObject pharoah_figure;
 
+    public Button scribe;
+    public GameObject scribe_H;
+    public GameObject scribe_figure;
+
+    public Button peasant;
+    public GameObject peasant_H;
+    public GameObject peasant_figure;
+
+    public Button worker;
+    public GameObject worker_H;
+    public GameObject worker_figure;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +31,15 @@ public class QuickGameScreen : MonoBehaviour
 
         Button pharoahBtn = pharoah.GetComponent<Button>();
         pharoahBtn.onClick.AddListener(pharoahClicked);
+
+        Button scribeBtn = scribe.GetComponent<Button>();
+        scribeBtn.onClick.AddListener(scribeClicked);
+
+        Button peasantBtn = peasant.GetComponent<Button>();
+        peasantBtn.onClick.AddListener(peasantClicked);
+
+        Button workerBtn = worker.GetComponent<Button>();
+        workerBtn.onClick.AddListener(workerClicked);
     }
 
     void startGameClicked()
@@ -28,10 +48,47 @@ public class QuickGameScreen : MonoBehaviour
         SceneManager.LoadScene("GameBoard");
     }
 
+    void resetAll()
+    {
+        pharoah_H.SetActive(false);
+        pharoah_figure.SetActive(false);
+
+        scribe_H.SetActive(false);
+        scribe_figure.SetActive(false);
+
+        peasant_H.SetActive(false);
+        peasant_figure.SetActive(false);
+
+        worker_H.SetActive(false);
+        worker_figure.SetActive(false);
+    }
+
     void pharoahClicked()
     {
+        resetAll();
         pharoah_H.SetActive(true);
         pharoah_figure.SetActive(true);
-
     }
+
+    void scribeClicked()
+    {
+        resetAll();
+        scribe_H.SetActive(true);
+        scribe_figure.SetActive(true);
+    }
+
+    void peasantClicked()
+    {
+        resetAll();
+        peasant_H.SetActive(true);
+        peasant_figure.SetActive(true);
+    }
+
+    void workerClicked()
+    {
+        resetAll();
+        worker_H.SetActive(true);
+        worker_figure.SetActive(true);
+    }
+
 }
