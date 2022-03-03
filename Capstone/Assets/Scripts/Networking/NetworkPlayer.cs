@@ -38,6 +38,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 		Debug.LogWarning("coordinates are " + moveLocation.X + " " + moveLocation.Y);
 		Debug.Log("send move rpc called");
 		if (!photonView.IsMine)
+			Debug.Log("that photon view aint yours fool");
 			return;
 
 		Debug.Log("Receiving move...");
