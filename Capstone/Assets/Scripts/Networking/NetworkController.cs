@@ -75,7 +75,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public Coordinates GetMoveCoordinates()
     {
         Debug.Log("GetMoveCoordinates called");
-        Debug.Log("Returning move coordinates: " + moveLocation.X + " " + moveLocation.Y);
+        if (moveLocation == null)
+            Debug.Log("No coordinate set");
+        else
+            Debug.Log("Returning move coordinates: " + moveLocation.X + " " + moveLocation.Y);
         return moveLocation;
     }
 
@@ -88,7 +91,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public Coordinates GetBuildCoordinates()
     {
         Debug.Log("GetBuildCoordinates called");
-        Debug.Log("Returning build coordinates: " + buildLocation.X + " " + buildLocation.Y);
+        if (buildLocation == null)
+            Debug.Log("No coordinate set");
+        else
+            Debug.Log("Returning build coordinates: " + buildLocation.X + " " + buildLocation.Y);
         return buildLocation;
     }
 }
