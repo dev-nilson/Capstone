@@ -35,6 +35,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	[PunRPC]
 	public void RPC_SendMove(Coordinates moveLocation)
 	{
+		Debug.LogWarning("coordinates are " + moveLocation.X + " " + moveLocation.Y);
 		Debug.Log("send move rpc called");
 		if (!photonView.IsMine)
 			return;
@@ -60,6 +61,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 
 	{
 		Debug.Log("send move function called");
+		Debug.LogWarning("coordinates are " + moveLocation.X + " " + moveLocation.Y);
 		photonView.RPC("RPC_SendMove", RpcTarget.All, moveLocation);
 	}
 
