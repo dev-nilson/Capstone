@@ -38,25 +38,31 @@ public class NetworkController : MonoBehaviourPunCallbacks
         playerController = controller;
     }
 
-    public IEnumerator WaitForTurn()
-    {
-        Debug.Log("Waiting for turn");
+    //public IEnumerator WaitForTurn()
+    //{
+    //    Debug.Log("Waiting for turn");
 
-        while (networkMessageRecieved == false)
-            yield return null;
-        networkMessageRecieved = false;
-        //gameController.NetworkMessageRecieved();
-    }
+    //    while (networkMessageRecieved == false)
+    //        yield return null;
+    //    networkMessageRecieved = false;
+    //    //gameController.NetworkMessageRecieved();
+    //}
 
     public void SendMove()
     {
-        if (NetworkPlayer.netPlayer)
+        Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
+        if (NetworkPlayer.netPlayer = null)
         {
-            Debug.Log(NetworkPlayer.netPlayer);
+            Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
         }
         Debug.Log("NetworkController, Send Move Called");
         Debug.Log("Move coordinates were: " + moveLocation.X + " " + moveLocation.Y);
-        NetworkPlayer.netPlayer.SendMove(moveLocation);
+        if (NetworkPlayer.netPlayer = null)
+        {
+            NetworkPlayer.netPlayer.SendMove(moveLocation);
+        }
+        else
+            Debug.Log("Somethin aint right, fix it");
     }
 
     public void SendBuild()
