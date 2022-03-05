@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject board;
 
-    private static NetworkController networkController = new NetworkController();
+    private NetworkController networkController;
 
     private Timer timer;
     private float delay;
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
 
-        //networkController = new NetworkController();
+        networkController = new NetworkController();
 
         delay = 4.0F;
         //timer = new Timer(delay);
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
-            //networkController = new NetworkController();
+            networkController = new NetworkController();
             Coordinates loc = networkController.GetMoveCoordinates();
             if (GameBoard.IsValidCoord(loc))
                 return loc;
