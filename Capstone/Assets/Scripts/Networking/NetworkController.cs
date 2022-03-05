@@ -57,11 +57,12 @@ public class NetworkController : MonoBehaviourPunCallbacks
         //}
         Debug.Log("NetworkController, Send Move Called");
         Debug.Log("Move coordinates were: " + moveLocation.X + " " + moveLocation.Y);
-        //if (NetworkPlayer.netPlayer != null)
-        //{
+
+        if (NetworkPlayer.netPlayer != null)
+        {
             NetworkPlayer.netPlayer.SendMove(moveLocation);
             Debug.Log("net is not null");
-        //}
+        }
         //else
         //    Debug.Log("Somethin aint right, fix it");
     }
