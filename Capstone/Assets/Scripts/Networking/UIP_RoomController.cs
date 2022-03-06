@@ -111,14 +111,14 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     public void BackOnClick() // paired to the back button in the room panel. will return the player to the lobby panel.
     {
-        //    if (!PhotonNetwork.IsMasterClient)
-        //    {
-        //        JoinGamePanel.SetActive(true);
-        //    }
-        //    else
-        //    {
-        //        multiplayerMenuPanel.SetActive(true);
-        //    }
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            JoinGamePanel.SetActive(true);
+        }
+        else
+        {
+            multiplayerMenuPanel.SetActive(true);
+        }
         CharacterSelectionLobbyPanel.SetActive(false);
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LeaveLobby();
