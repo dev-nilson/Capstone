@@ -15,7 +15,7 @@ public class MenuScreen : MonoBehaviour
 	public Button settings;
 	//public GameObject settingsPopUp;
 
-
+	LevelChanger levelChanger;
 
 	void Start()
 	{
@@ -46,6 +46,8 @@ public class MenuScreen : MonoBehaviour
 	void quickGameClicked()
 	{
 		Debug.Log("quick game");
+
+		//levelChanger.FadeToLevel("QuickGame");
 
 		SceneManager.LoadScene("QuickGame");
 	}
