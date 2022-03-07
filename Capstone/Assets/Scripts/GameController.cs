@@ -110,8 +110,9 @@ public class GameController : MonoBehaviour
 
         if (CanPlacePawn())
         {
-            if (GetPlayerTurn() == PlayerTurn.ONE) Debug.Log("P1's turn!");
-            else Debug.Log("P2's turn!");
+            //SORRRRYYYYY THIS IS MAGGIE AND I COMMENTED THIS OUT FOR NOW
+            //if (GetPlayerTurn() == PlayerTurn.ONE) Debug.Log("P1's turn!");
+            //else Debug.Log("P2's turn!");
 
             // Store the current player's selected coordinate
             Coordinates loc = playerController.GetPlacement(board_gc, CurrentPlayer); //boardController.getSelectedTile();
@@ -139,7 +140,8 @@ public class GameController : MonoBehaviour
             {
                 // Should we notify the player that they are not clicking a valid tile?
 
-                Debug.Log("Failed to place player's pawn :(");
+                //SORRRRYYYYY THIS IS MAGGIE AND I COMMENTED THIS OUT FOR NOW
+                //Debug.Log("Failed to place player's pawn :(");
             }
         }
         if (CanMove())

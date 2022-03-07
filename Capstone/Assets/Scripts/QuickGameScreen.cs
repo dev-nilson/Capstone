@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class QuickGameScreen : MonoBehaviour
 {
     public Button startGame;
+    public Button back;
+
     public Button pharoah;
     public GameObject pharoah_H;
     public GameObject pharoah_figure;
@@ -23,17 +25,14 @@ public class QuickGameScreen : MonoBehaviour
     public GameObject worker_H;
     public GameObject worker_figure;
 
-    ToggleGroup difficulty;
-    ToggleGroup turn;
-
-    GameObject difficultyToggle;
-    GameObject turnToggle;
-
     // Start is called before the first frame update
     void Start()
     {
         Button startGameBtn = startGame.GetComponent<Button>();
         startGameBtn.onClick.AddListener(startGameClicked);
+
+        Button backBtn = back.GetComponent<Button>();
+        backBtn.onClick.AddListener(backClicked);
 
         Button pharoahBtn = pharoah.GetComponent<Button>();
         pharoahBtn.onClick.AddListener(pharoahClicked);
@@ -50,8 +49,11 @@ public class QuickGameScreen : MonoBehaviour
 
     void startGameClicked()
     {
-        Debug.Log("here");
         SceneManager.LoadScene("GameBoard");
+    }
+    void backClicked()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     void resetAll()

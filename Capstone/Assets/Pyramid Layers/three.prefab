@@ -21,10 +21,23 @@ MonoBehaviour:
   level2: {fileID: 5424361190378693783, guid: 54542fb6fc681ee438175def720b0f27, type: 3}
   level3: {fileID: 4966038803555105557}
   level4: {fileID: 8851965301860739284, guid: c3d9badc59c20174e9e6101049b41ce7, type: 3}
-  player1: {fileID: 2413851275917778590, guid: 929dc814c6ebd1e4da601e78f43c180b, type: 3}
-  player2: {fileID: 678481456461886712, guid: 6e38aeaf4861da9429029eaa16f1e460, type: 3}
+  player1prefab: {fileID: 0}
+  player2prefab: {fileID: 0}
   parent: {fileID: 0}
   levelParent: {fileID: 0}
+--- !u!65 &3283678262700636236
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966038803555105557}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9845486, y: 1.4953645, z: 4.9845486}
+  m_Center: {x: 0, y: 0.7476824, z: 2.6563015e-15}
 --- !u!1001 &4965610540072150189
 PrefabInstance:
   m_ObjectHideFlags: 0
