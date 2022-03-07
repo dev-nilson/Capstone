@@ -158,6 +158,14 @@ public class GameBoard //public  ??
         }
     }
 
+    public bool IsGameOver(Coordinates loc)
+    {
+        if (heights[loc.X, loc.Y] == 3)
+            return true;
+
+        return false;
+    }
+
     void ClearBoard()
     {
         Coordinates[] PlayerOnePawns = new Coordinates[2];
@@ -266,7 +274,7 @@ public class GameBoard //public  ??
     }
 
     // Returns whether a pawn exists on the board coordinate
-    bool IsOccupied(Coordinates loc)
+    public bool IsOccupied(Coordinates loc)
     {
         // Get a list of pawns (four total between both players)
         Coordinates[] allPawns = Player.GetBothPlayersPawns();
