@@ -16,9 +16,13 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     private GameObject HostGamePanel; //display for when in room
     [SerializeField]
     private GameObject CharacterSelectionLobbyPanel;
+    [SerializeField]
+    private GameObject multiplayerMenuPanel;
 
     [SerializeField]
     private GameObject StartGameButton; //only for the master client. used to start the game and load the multiplayer scene
+    [SerializeField]
+    private GameObject FaceoffBackButton;
 
     //[SerializeField]
     //private Transform playersContainer; //used to display all the players in the current room
@@ -95,7 +99,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
-            PhotonNetwork.LoadLevel(multiPlayerSceneIndex);
+            PhotonNetwork.LoadLevel(1);
         }
     }
 
@@ -107,7 +111,14 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     public void BackOnClick() // paired to the back button in the room panel. will return the player to the lobby panel.
     {
-        JoinGamePanel.SetActive(true);
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            JoinGamePanel.SetActive(true);
+        }
+        else
+        {
+            multiplayerMenuPanel.SetActive(true);
+        }
         CharacterSelectionLobbyPanel.SetActive(false);
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LeaveLobby();

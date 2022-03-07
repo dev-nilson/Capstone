@@ -29,8 +29,6 @@ using static GameUtilities;
 
 public class GameBoard //public  ??
 {
-    public const int BOARD_DIMENSION = 5;
-        
     private static int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
         
 
@@ -165,6 +163,26 @@ public class GameBoard //public  ??
         Coordinates[] PlayerOnePawns = new Coordinates[2];
         Coordinates[] PlayerTwoPawns = new Coordinates[2];
         InitializeBoard(false);
+    }
+
+    public static bool IsValidCoord(Coordinates loc)
+    {
+        if (loc == null)
+        {
+            return false;
+        }
+        if (loc.X < 0 || loc.X >= BOARD_DIMENSION)
+        {
+            return false;
+        }
+        if (loc.Y < 0 || loc.Y >= BOARD_DIMENSION)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
 

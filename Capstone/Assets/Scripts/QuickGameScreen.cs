@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static GameUtilities;
 
 public class QuickGameScreen : MonoBehaviour
 {
@@ -45,6 +46,21 @@ public class QuickGameScreen : MonoBehaviour
     void startGameClicked()
     {
         Debug.Log("here");
+
+        ////INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
+        //setGameType(GameType.EASY);
+        //// OR setGameType(GameType.DIFFICULT);
+
+        ////  STARTING PLAYER?
+        //SetPlayerTurn(PlayerTurn.ONE);
+
+        //// GUI: GET A USERNAME FROM USER
+        //P1username = "Player one";
+
+        //// GET USERNAME FROM OPPONENT
+        //P2username = "CPU";
+
+
         SceneManager.LoadScene("GameBoard");
     }
 
