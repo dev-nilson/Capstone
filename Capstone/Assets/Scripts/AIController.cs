@@ -1,54 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 
 namespace AmazingGame
 {
     class AIController
     {
-        public static Node bestNode = null;
-
-        public static int Minimax(Node node, GameBoard gameBoard, int depth, bool isMaximizingPlayer)
-        {
-            if (node.GetMoveTo().X != -1 && node.GetMoveTo().Y != -1)
-            {
-                if (depth != 2 && gameBoard.IsGameOver(new Coordinates(node.GetMoveTo().X, node.GetMoveTo().Y)))
-                {
-                    bestNode = node;
-                    return node.score;
-                }
-            }
-
-            if (node.children == null)
-                return node.score;
-
-            if (isMaximizingPlayer)
-            {
-                node.score = Int16.MinValue;
-
-                for (int i = 0; i < node.children.Count; i++)
-                {
-                    Node n = node.children[i];
-                    int value = Minimax(n, gameBoard, depth + 1, false);
-                    node.score = Math.Max(node.score, value);
-                }
-
-                return node.score;
-            }
-            else
-            {
-                node.score = Int16.MaxValue;
-
-                for (int i = 0; i < node.children.Count; i++)
-                {
-                    Node n = node.children[i];
-                    int value = Minimax(n, gameBoard, depth + 1, true);
-                    node.score = Math.Min(node.score, value);
-                }
-
-                return node.score;
-            }
-        }
+        public static Node bestNode = null;       
 
         public static Coordinates PlacePawns(GameBoard gameBoard)
         {
@@ -63,6 +21,31 @@ namespace AmazingGame
             }
 
             return new Coordinates(x, y);
+        }
+
+        public static void SimulateTurn(Player opponent, Player local, GameBoard gameBoard)
+        {
+            Coordinates[] pawns = Player.GetBothPlayersPawns();
+            Coordinates[] localPawns = { pawns[0], pawns[1] };
+            Coordinates[] opponentPawns = { pawns[2], pawns[3] };
+
+            Node root = new Node(new Coordinates(-1, -1), new Coordinates(-1, -1), new Coordinates(-1, -1));
+            root.children = GetPossiblePlays(opponent, local, opponentPawns, localPawns, gameBoard, 0);
+
+            bestNode = null;
+            Minimax(root, gameBoard, 0, true);
+
+            if (bestNode == null)
+            {
+                foreach (var child in root.children)
+                {
+                    if (root.score == child.score)
+                    {
+                        bestNode = child;
+                        break;
+                    }
+                }
+            }
         }
 
         public static List<Node> GetPossiblePlays(Player playingPlayer, Player waitingPlayer, Coordinates[] playingPawns, Coordinates[] waitingPawns, GameBoard gameBoard, int turns)
@@ -105,28 +88,47 @@ namespace AmazingGame
             return possiblePlays;
         }
 
-        public static void SimulateTurn(Player opponent, Player local, GameBoard gameBoard)
+       
+
+        public static int Minimax(Node node, GameBoard gameBoard, int depth, bool isMaximizingPlayer)
         {
-            Coordinates[] pawns = Player.GetBothPlayersPawns();
-            Coordinates[] localPawns = { pawns[0], pawns[1] };
-            Coordinates[] opponentPawns = { pawns[2], pawns[3] };
-
-            Node root = new Node(new Coordinates(-1, -1), new Coordinates(-1, -1), new Coordinates(-1, -1));
-            root.children = GetPossiblePlays(opponent, local, opponentPawns, localPawns, gameBoard, 0);
-
-            AIController.bestNode = null;
-            Minimax(root, gameBoard, 0, true);
-
-            if (AIController.bestNode == null)
+            if (node.GetMoveTo().X != -1 && node.GetMoveTo().Y != -1)
             {
-                foreach (var child in root.children)
+                if (depth != 2 && gameBoard.IsGameOver(new Coordinates(node.GetMoveTo().X, node.GetMoveTo().Y)))
                 {
-                    if (root.score == child.score)
-                    {
-                        bestNode = child;
-                        break;
-                    }
+                    bestNode = node;
+                    return node.score;
                 }
+            }
+
+            if (node.children == null)
+                return node.score;
+
+            if (isMaximizingPlayer)
+            {
+                node.score = Int16.MinValue;
+
+                for (int i = 0; i < node.children.Count; i++)
+                {
+                    Node n = node.children[i];
+                    int value = Minimax(n, gameBoard, depth + 1, false);
+                    node.score = Math.Max(node.score, value);
+                }
+
+                return node.score;
+            }
+            else
+            {
+                node.score = Int16.MaxValue;
+
+                for (int i = 0; i < node.children.Count; i++)
+                {
+                    Node n = node.children[i];
+                    int value = Minimax(n, gameBoard, depth + 1, true);
+                    node.score = Math.Min(node.score, value);
+                }
+
+                return node.score;
             }
         }
 

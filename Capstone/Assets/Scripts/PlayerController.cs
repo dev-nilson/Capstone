@@ -89,15 +89,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Coordinates GetPawn(GameBoard board, Player player)
+    public Coordinates GetPawn(GameBoard board, Player currentPlayer, Player waitingPlayer)
     {
-        if (player.Type() == Player.Tag.LOCAL)
+        if (currentPlayer.Type() == Player.Tag.LOCAL)
         {
             // If the mouse was clicked, return that coordinate
             if (Input.GetMouseButtonDown(0))
             {
                 Coordinates loc = GridManager.getSelectedTile();
-                if (player.HasThisPawn(loc))
+                if (currentPlayer.HasThisPawn(loc))
                 {
                     if (getGameType() == GameType.NETWORK)
                     {
@@ -124,8 +124,8 @@ public class PlayerController : MonoBehaviour
             //if (timer == null) timer = new Timer(delay);
             //else if (timer.Set() && timer.Over())
             //{
-                AIController.SimulateTurn(player, board);
-                return AIController.chosenTurn.GetMoveFrom();
+            AIController.SimulateTurn(currentPlayer, waitingPlayer, board);
+                return AIController.bestNode.GetMoveFrom();
             //}
             //else if (!timer.Set())
             //    //StartCoroutine(timer.Start());
@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
-            return AIController.chosenTurn.GetMoveTo();
+            return AIController.bestNode.GetMoveTo();
         }
         else // GameUtilities.getGameType() == GameType.DIFFICULT
         {
@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
-            return AIController.chosenTurn.BuildTo();
+            return AIController.bestNode.BuildTo();
         }
         else // GameUtilities.getGameType() == GameType.DIFFICULT
         {

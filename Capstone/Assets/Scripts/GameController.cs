@@ -58,10 +58,10 @@ public class GameController : MonoBehaviour
         Renderer = GetComponent<MeshRenderer>();
 
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
-        setGameType(GameType.NETWORK);
+        setGameType(GameType.EASY);
         
         //  STARTING PLAYER?
-        SetPlayerTurn(PlayerTurn.TWO);
+        SetPlayerTurn(PlayerTurn.ONE);
 
         // GUI: GET A USERNAME FROM USER
         P1username = "Player one";
