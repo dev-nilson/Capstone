@@ -23,6 +23,12 @@ public class QuickGameScreen : MonoBehaviour
     public GameObject worker_H;
     public GameObject worker_figure;
 
+    ToggleGroup difficulty;
+    ToggleGroup turn;
+
+    GameObject difficultyToggle;
+    GameObject turnToggle;
+
     // Start is called before the first frame update
     void Start()
     {
