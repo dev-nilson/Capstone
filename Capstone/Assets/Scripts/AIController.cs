@@ -6,10 +6,19 @@ namespace AmazingGame
 {
     class AIController
     {
-        public static Node chosenTurn = null;
+        public static Node bestNode = null;
 
-        public static int Minimax(Node node, int depth, bool isMaximizingPlayer)
+        public static int Minimax(Node node, GameBoard gameBoard, int depth, bool isMaximizingPlayer)
         {
+            if (node.GetMoveTo().X != -1 && node.GetMoveTo().Y != -1)
+            {
+                if (depth != 2 && gameBoard.IsGameOver(new Coordinates(node.GetMoveTo().X, node.GetMoveTo().Y)))
+                {
+                    bestNode = node;
+                    return node.score;
+                }
+            }
+
             if (node.children == null)
                 return node.score;
 
@@ -20,7 +29,7 @@ namespace AmazingGame
                 for (int i = 0; i < node.children.Count; i++)
                 {
                     Node n = node.children[i];
-                    int value = Minimax(n, depth + 1, false);
+                    int value = Minimax(n, gameBoard, depth + 1, false);
                     node.score = Math.Max(node.score, value);
                 }
 
@@ -33,7 +42,7 @@ namespace AmazingGame
                 for (int i = 0; i < node.children.Count; i++)
                 {
                     Node n = node.children[i];
-                    int value = Minimax(n, depth + 1, true);
+                    int value = Minimax(n, gameBoard, depth + 1, true);
                     node.score = Math.Min(node.score, value);
                 }
 
@@ -41,64 +50,82 @@ namespace AmazingGame
             }
         }
 
-        public static void SimulateTurn(Player opponent, GameBoard gameBoard)
+        public static Coordinates PlacePawns(GameBoard gameBoard)
         {
-            int counter = 0;
-            List<Node> possibleTurns = new List<Node>();
+            int x = 2;
+            int y = 2;
 
-            Coordinates[] pawns = Player.GetBothPlayersPawns();
-            foreach (var pawn in pawns)
+            if (gameBoard.IsOccupied(new Coordinates(x, y)))
             {
-                //  gameBoard instance
-                List<Coordinates> moves = gameBoard.AvailableMoves(pawn);
-
-                foreach (var move in moves)
-                {
-                    if (counter >= 2)
-                    {
-                        if (opponent.updatePawn(pawn, move))
-                        {
-                            List<Coordinates> builds = gameBoard.AvailableBuilds(move);
-                            foreach (var build in builds)
-                            {
-                                Node node = new Node(gameBoard, pawn, move, build);
-
-                                gameBoard.GetHeights()[build.X, build.Y] += 1;
-
-                                //  Heuristic functions
-                                node.score += NoviceAI.HeightDifference(Player.GetBothPlayersPawns(), gameBoard);
-                                node.score += NoviceAI.Centricity(opponent.GetPlayerCoordinates());
-                                node.score += NoviceAI.WinningThreat(Player.GetBothPlayersPawns(), gameBoard);
-                                node.score += NoviceAI.Mobility(Player.GetBothPlayersPawns(), gameBoard);
-                                node.score += NoviceAI.Verticality(Player.GetBothPlayersPawns(), gameBoard);
-
-                                //  Undo built piece
-                                gameBoard.GetHeights()[build.X, build.Y] -= 1;
-
-                                possibleTurns.Add(node);
-                            }
-
-                            //  Undo moved pawn
-                            opponent.updatePawn(move, pawn);
-                        }
-                    }
-
-                }
-
-                ++counter;
+                System.Random random = new System.Random();
+                x = random.Next(1, 4);
+                y = random.Next(1, 4);
             }
 
-            Node root = new Node();
-            root.children = possibleTurns;
+            return new Coordinates(x, y);
+        }
 
-            Minimax(root, 1, true);
+        public static List<Node> GetPossiblePlays(Player playingPlayer, Player waitingPlayer, Coordinates[] playingPawns, Coordinates[] waitingPawns, GameBoard gameBoard, int turns)
+        {
+            if (turns == 2)
+                return null;
 
-            foreach (var child in root.children)
+            List<Node> possiblePlays = new List<Node>();
+            foreach (var pawn in playingPawns)
             {
-                if (root.score == child.score)
+                List<Coordinates> moves = gameBoard.AvailableMoves(pawn);
+                foreach (var move in moves)
                 {
-                    chosenTurn = child;
-                    break;
+                    if (playingPlayer.updatePawn(pawn, move))
+                    {
+                        List<Coordinates> builds = gameBoard.AvailableBuilds(move);
+                        foreach (var build in builds)
+                        {
+                            if (gameBoard.BuildPiece(move, build))
+                            {
+                                Node possiblePlay = new Node(pawn, move, build);
+
+                                int score = NoviceAI.HeightDifference(Player.GetBothPlayersPawns(), gameBoard) + NoviceAI.Centricity(playingPlayer.GetPlayerCoordinates()) +
+                                NoviceAI.WinningThreat(Player.GetBothPlayersPawns(), gameBoard) + NoviceAI.Mobility(Player.GetBothPlayersPawns(), gameBoard) + 
+                                NoviceAI.Verticality(Player.GetBothPlayersPawns(), gameBoard);
+
+                                possiblePlay.score = score;
+                                possiblePlays.Add(possiblePlay);
+                                
+                                possiblePlay.children = GetPossiblePlays(waitingPlayer, playingPlayer, waitingPawns, playingPawns, gameBoard, turns + 1);
+
+                                gameBoard.GetHeights()[build.X, build.Y]--;
+                            }
+                        }
+                        playingPlayer.updatePawn(move, pawn);
+                    }
+                }
+            }
+
+            return possiblePlays;
+        }
+
+        public static void SimulateTurn(Player opponent, Player local, GameBoard gameBoard)
+        {
+            Coordinates[] pawns = Player.GetBothPlayersPawns();
+            Coordinates[] localPawns = { pawns[0], pawns[1] };
+            Coordinates[] opponentPawns = { pawns[2], pawns[3] };
+
+            Node root = new Node(new Coordinates(-1, -1), new Coordinates(-1, -1), new Coordinates(-1, -1));
+            root.children = GetPossiblePlays(opponent, local, opponentPawns, localPawns, gameBoard, 0);
+
+            AIController.bestNode = null;
+            Minimax(root, gameBoard, 0, true);
+
+            if (AIController.bestNode == null)
+            {
+                foreach (var child in root.children)
+                {
+                    if (root.score == child.score)
+                    {
+                        bestNode = child;
+                        break;
+                    }
                 }
             }
         }

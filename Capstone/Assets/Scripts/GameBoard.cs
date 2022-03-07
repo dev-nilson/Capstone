@@ -160,6 +160,14 @@ public class GameBoard //public  ??
         }
     }
 
+    public bool IsGameOver(Coordinates loc)
+    {
+        if (heights[loc.X, loc.Y] == 3)
+            return true;
+
+        return false;
+    }
+
     void ClearBoard()
     {
         Coordinates[] PlayerOnePawns = new Coordinates[2];
