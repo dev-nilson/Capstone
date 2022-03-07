@@ -12,10 +12,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
 	[SerializeField]
 	private PhotonView photonView;
-	[SerializeField]
-	private PlayerController playerController;
-	private static char networkMessage;
-	private static bool networkMessageRecieved = false;
 
     private void Awake()
     {
@@ -31,11 +27,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private void Update()
     {
         //add watcher that will continually see if player has disconnected yet or not
-    }
-
-    public void setPlayerControllerReference(PlayerController controller)
-    {
-        playerController = controller;
     }
 
     //public IEnumerator WaitForTurn()

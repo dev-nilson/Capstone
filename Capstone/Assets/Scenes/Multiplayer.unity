@@ -156,7 +156,7 @@ RectTransform:
   - {fileID: 1540117163}
   - {fileID: 1518125231}
   m_Father: {fileID: 105492335}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -517,7 +517,7 @@ RectTransform:
   m_Children:
   - {fileID: 1812902484}
   m_Father: {fileID: 105492335}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -659,14 +659,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1484689999}
+  - {fileID: 1953389165}
   - {fileID: 1092665096}
   - {fileID: 4664652}
   - {fileID: 969291660}
   - {fileID: 1374939414}
-  - {fileID: 494156763}
-  - {fileID: 1953389165}
   - {fileID: 83210059}
   - {fileID: 566037756}
+  - {fileID: 494156763}
   m_Father: {fileID: 851989962}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1572,7 +1572,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 105492335}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1674,7 +1674,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
@@ -1684,8 +1684,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 72e01b9cdaca7b447aadcc4d4965656a, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: f231b64236fac314a8962784209eca32, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -1695,7 +1695,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1675590359}
+  m_TargetGraphic: {fileID: 555111473}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1781,7 +1781,7 @@ RectTransform:
   m_Children:
   - {fileID: 1803881467}
   m_Father: {fileID: 105492335}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1938,7 +1938,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
@@ -1948,7 +1948,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 72e01b9cdaca7b447aadcc4d4965656a, type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -1959,7 +1959,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1584808410}
+  m_TargetGraphic: {fileID: 612960141}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2881,7 +2881,7 @@ RectTransform:
   - {fileID: 811309272}
   - {fileID: 847244899}
   m_Father: {fileID: 105492335}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3192,7 +3192,7 @@ RectTransform:
   - {fileID: 2054646840}
   - {fileID: 1758783074}
   m_Father: {fileID: 105492335}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3707,7 +3707,7 @@ RectTransform:
   - {fileID: 1488300540}
   - {fileID: 1704265260}
   m_Father: {fileID: 105492335}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3744,8 +3744,8 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 3d3f82deffda5a94a93233bb6518c05b, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 21300000, guid: 3e86db4348d0c834e8c235a91e72c4e7, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 3e86db4348d0c834e8c235a91e72c4e7, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 57a37cbe0d60be140a6abb0f3d215d78, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 57a37cbe0d60be140a6abb0f3d215d78, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -4970,7 +4970,7 @@ MonoBehaviour:
   CharacterSelectionLobbyPanel: {fileID: 105492334}
   multiplayerMenuPanel: {fileID: 2299199394656597057}
   StartGameButton: {fileID: 566037755}
-  FaceoffBackButton: {fileID: 0}
+  FaceoffBackButton: {fileID: 83210058}
   WaitingForOpponents: {fileID: 1086163527}
   playerItemsList: []
   playerItemPrefab: {fileID: 2421737314145836434, guid: 062783c9caac67145b6c85dafcff4fb2, type: 3}
@@ -5509,7 +5509,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 105492335}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
