@@ -91,10 +91,10 @@ public class AudioManager : MonoBehaviour
         string songThree = "Ivory Towers";
 
         System.Random r = new System.Random();
-        int randInt = r.Next(1, 3);
-        Debug.Log("The random generator chose song:" + randInt);
+        int randInt = r.Next(0, 10);
+        Debug.Log("The random generator chose the number: " + randInt);
 
-            if (randInt == 1)
+            if (randInt == 0)
             {
                     if (songOneRecentPlay == 0)
                     {
@@ -123,7 +123,7 @@ public class AudioManager : MonoBehaviour
                         return songThree;
                     }
             }
-            if (randInt == 2)
+            if (randInt > 0 && randInt < 5)
             {
                     if (songTwoRecentPlay == 0)
                     {
@@ -153,7 +153,7 @@ public class AudioManager : MonoBehaviour
 
                     }
             }
-            if (randInt == 3)
+            if (randInt >= 5 && randInt <= 10)
             {
                     if (songThreeRecentPlay == 0)
                     {
