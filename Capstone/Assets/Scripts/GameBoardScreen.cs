@@ -37,13 +37,13 @@ public class GameBoardScreen : MonoBehaviour
     void backClicked()
     {
         confirmExitPopUp.SetActive(true);
+        //switch phases to turn off build and place player to create a fake modal pop up box
+        StorePhases();
+        DisablePhases();
     }
 
     void okClicked()
     {
-        //switch phases to turn off build and place player to create a fake modal pop up box
-        StorePhases();
-        DisablePhases();
         SceneManager.LoadScene("Menu");
     }
 
