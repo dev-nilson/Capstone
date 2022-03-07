@@ -15,7 +15,7 @@ public class MenuScreen : MonoBehaviour
 	public Button settings;
 	//public GameObject settingsPopUp;
 
-
+	LevelChanger levelChanger;
 
 	void Start()
 	{
@@ -33,19 +33,21 @@ public class MenuScreen : MonoBehaviour
 		Button storyModeBtn = storyMode.GetComponent<Button>();
 		storyModeBtn.onClick.AddListener(storyModeClicked);
 
-		Button exitAppBtn = exitApp.GetComponent<Button>();
-		exitAppBtn.onClick.AddListener(exitAppClicked);
+		//Button exitAppBtn = exitApp.GetComponent<Button>();
+		//exitAppBtn.onClick.AddListener(exitAppClicked);
 
-		Button settingsBtn = settings.GetComponent<Button>();
-		settingsBtn.onClick.AddListener(settingsClicked);
+		//Button settingsBtn = settings.GetComponent<Button>();
+		//settingsBtn.onClick.AddListener(settingsClicked);
 
-		Button exitSettingsBtn = exitSettings.GetComponent<Button>();
-		exitSettingsBtn.onClick.AddListener(exitSettingsClicked);
+		//Button exitSettingsBtn = exitSettings.GetComponent<Button>();
+		//exitSettingsBtn.onClick.AddListener(exitSettingsClicked);
 	}
 
 	void quickGameClicked()
 	{
 		Debug.Log("quick game");
+
+		//levelChanger.FadeToLevel("QuickGame");
 
 		SceneManager.LoadScene("QuickGame");
 	}

@@ -31,7 +31,6 @@ public class GameController : MonoBehaviour
 
     public GameObject winPopup;
     public GameObject losePopup;
-    
 
 
     public GameObject player1;
@@ -59,18 +58,18 @@ public class GameController : MonoBehaviour
         Renderer = GetComponent<MeshRenderer>();
 
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
-        setGameType(GameType.EASY);
-        //  OPPONENT'S USERNAME
+        setGameType(GameType.NETWORK);
+        
         //  STARTING PLAYER?
         SetPlayerTurn(PlayerTurn.TWO);
 
         // GUI: GET A USERNAME FROM USER
-        string username = "Player one";
-        P1 = new Player(true, username);
+        P1username = "Player one";
+        P1 = new Player(true, P1username);
 
         // GET USERNAME FROM OPPONENT
-        username = "Player two";
-        P2 = new Player(false, username);
+        P2username = "Player two";
+        P2 = new Player(false, P2username);
 
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
@@ -173,7 +172,7 @@ public class GameController : MonoBehaviour
                     winPopup.SetActive(true);
                 }
                 DisablePhases();
-                board.SetActive(false);
+                //board.SetActive(false);
                 
 
             }
@@ -257,7 +256,7 @@ public class GameController : MonoBehaviour
                             Debug.Log("Opposing player wins: reached the third tier of a tower!");
                         }
                         DisablePhases();
-                        board.SetActive(false);
+                        //board.SetActive(false);
                         
 
 
@@ -298,7 +297,7 @@ public class GameController : MonoBehaviour
                         Debug.Log("Opposing player loses: no available builds");
                     }
                     DisablePhases();
-                    board.SetActive(false);
+                    //board.SetActive(false);
    
 
                 }
@@ -324,6 +323,7 @@ public class GameController : MonoBehaviour
                     // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                     boardController.unhighlightTiles(validTiles);
                     boardController.clearBoard();
+                    boardController.buildAnimation(newLoc);
                     boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
                     // Record the fact that the second tile has been collected for the "build" phase. Then turn off the "build" phase

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D.Animation;
 
 public class GridManager : MonoBehaviour
 {
@@ -24,8 +25,8 @@ public class GridManager : MonoBehaviour
     public GameObject level3;
     public GameObject level4;
 
-    public GameObject player1;
-    public GameObject player2;
+    public GameObject player1prefab;
+    public GameObject player2prefab;
 
     public GameObject parent;
     public GameObject levelParent;
@@ -52,6 +53,7 @@ public class GridManager : MonoBehaviour
 
     public void createBoard(int[,] temp)
     {
+        Debug.Log("I created a board");
         Grid = new GameObject[Col, Row];
         System.Random rnd = new System.Random();
 
@@ -147,43 +149,46 @@ public class GridManager : MonoBehaviour
                 Coordinates loc = new Coordinates(i, j);
                 if (P1pawns.Contains(loc))
                 {
-                    player1 = Instantiate(player1, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    var player1Instance = Instantiate(player1prefab, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+
                     if (temp[i, j] == 1)
                     {
-                        player1.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
                     }
                     if (temp[i, j] == 2)
                     {
-                        player1.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
+                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 2.5f, Grid[i, j].transform.position.z);
                     }
                     if (temp[i, j] == 3)
                     {
-                        player1.transform.position = new Vector3(Grid[i, j].transform.position.x, 2f, Grid[i, j].transform.position.z);
+                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
                     }
-                    player1.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    player1.transform.localScale = new Vector3(.2f, .2f, .2f);
-                    player1.transform.parent = Grid[i, j].transform;
+                    player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    player1Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
+                    player1Instance.transform.parent = Grid[i, j].transform;
 
                 }
                 else if (P2pawns.Contains(loc))
                 {
-                    player2 = Instantiate(player2, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    //player2.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+                    var player2Instance = Instantiate(player2prefab, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
+                    player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+
                     if (temp[i,j] == 1)
                     {
-                        player2.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
+                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
                     }
                     if (temp[i, j] == 2)
                     {
-                        player2.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
+                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 2.5f, Grid[i, j].transform.position.z);
                     }
                     if (temp[i, j] == 3)
                     {
-                        player2.transform.position = new Vector3(Grid[i, j].transform.position.x, 2f, Grid[i, j].transform.position.z);
+                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
                     }
-                    player2.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    player2.transform.localScale = new Vector3(.2f, .2f, .2f);
-                    player2.transform.parent = Grid[i, j].transform;
+                    player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    player2Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
+                    player2Instance.transform.parent = Grid[i, j].transform;
                 }
             }
         }
@@ -209,14 +214,6 @@ public class GridManager : MonoBehaviour
     }
 
     public static Coordinates getSelectedTile()
-    {
-        return selectedTile;
-    }
-    public static Coordinates getSelectedPlayer()
-    {
-        return selectedTile;
-    }
-    public static Coordinates getSelectedPyramid()
     {
         return selectedTile;
     }
@@ -260,6 +257,11 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void buildAnimation(Coordinates newLoc)
+    {
+
     }
 
     public void OnMouseDown()
