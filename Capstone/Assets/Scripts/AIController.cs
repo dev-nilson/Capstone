@@ -33,7 +33,7 @@ namespace AmazingGame
             root.children = GetPossiblePlays(opponent, local, opponentPawns, localPawns, gameBoard, 0);
 
             bestNode = null;
-            Minimax(root, gameBoard, 0, true);
+            Minimax(root, gameBoard, 0, true, Double.MinValue, Double.MaxValue);
 
             if (bestNode == null)
             {
@@ -50,7 +50,7 @@ namespace AmazingGame
 
         public static List<Node> GetPossiblePlays(Player playingPlayer, Player waitingPlayer, Coordinates[] playingPawns, Coordinates[] waitingPawns, GameBoard gameBoard, int turns)
         {
-            if (turns == 2)
+            if (turns == 3)
                 return null;
 
             List<Node> possiblePlays = new List<Node>();
@@ -87,8 +87,6 @@ namespace AmazingGame
 
             return possiblePlays;
         }
-
-       
 
         public static int Minimax(Node node, GameBoard gameBoard, int depth, bool isMaximizingPlayer)
         {
@@ -132,9 +130,19 @@ namespace AmazingGame
             }
         }
 
-        public int Minimax(Node node, int depth, bool isMaximizingPlayer, double alpha, double beta)
+        public static int Minimax(Node node, GameBoard gameBoard, int depth, bool isMaximizingPlayer, double alpha, double beta)
         {
-            if (node.children == null) return node.score;
+            if (node.GetMoveTo().X != -1 && node.GetMoveTo().Y != -1)
+            {
+                if (depth != 2 && gameBoard.IsGameOver(new Coordinates(node.GetMoveTo().X, node.GetMoveTo().Y)))
+                {
+                    bestNode = node;
+                    return node.score;
+                }
+            }
+
+            if (node.children == null)
+                return node.score;
 
             if (isMaximizingPlayer)
             {
@@ -143,7 +151,7 @@ namespace AmazingGame
                 for (int i = 0; i < node.children.Count; i++)
                 {
                     Node n = node.children[i];
-                    int value = Minimax(n, depth + 1, false, alpha, beta);
+                    int value = Minimax(n, gameBoard, depth + 1, false, alpha, beta);
                     node.score = Math.Max(node.score, value);
                     alpha = Math.Max(alpha, node.score);
 
@@ -159,7 +167,7 @@ namespace AmazingGame
                 for (int i = 0; i < node.children.Count; i++)
                 {
                     Node n = node.children[i];
-                    int value = Minimax(n, depth + 1, true, alpha, beta);
+                    int value = Minimax(n, gameBoard, depth + 1, true, alpha, beta);
                     node.score = Math.Min(node.score, value);
                     beta = Math.Min(beta, node.score);
 
