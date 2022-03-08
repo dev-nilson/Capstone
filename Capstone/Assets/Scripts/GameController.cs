@@ -57,20 +57,19 @@ public class GameController : MonoBehaviour
         //get mesh renderer component
         Renderer = GetComponent<MeshRenderer>();
 
-
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
         setGameType(GameType.EASY);
-        //  OPPONENT'S USERNAME
+        
         //  STARTING PLAYER?
         SetPlayerTurn(PlayerTurn.ONE);
 
         // GUI: GET A USERNAME FROM USER
-        string username = "Player one";
-        P1 = new Player(true, username);
+        P1username = "Player one";
+        P1 = new Player(true, P1username);
 
         // GET USERNAME FROM OPPONENT
-        username = "Player two";
-        P2 = new Player(false, username);
+        P2username = "Player two";
+        P2 = new Player(false, P2username);
 
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
@@ -105,17 +104,31 @@ public class GameController : MonoBehaviour
     void Update()
     {
         Player CurrentPlayer;
-        if (GetPlayerTurn() == PlayerTurn.ONE) CurrentPlayer = P1;
-        else CurrentPlayer = P2;
+        Player WaitingPlayer;
+
+        if (GetPlayerTurn() == PlayerTurn.ONE)
+        {
+            CurrentPlayer = P1;
+            WaitingPlayer = P2;
+        }
+        else
+        {
+            CurrentPlayer = P2;
+            WaitingPlayer = P1;
+        }
 
         if (CanPlacePawn())
         {
-            //SORRRRYYYYY THIS IS MAGGIE AND I COMMENTED THIS OUT FOR NOW
             //if (GetPlayerTurn() == PlayerTurn.ONE) Debug.Log("P1's turn!");
             //else Debug.Log("P2's turn!");
 
             // Store the current player's selected coordinate
             Coordinates loc = playerController.GetPlacement(board_gc, CurrentPlayer); //boardController.getSelectedTile();
+
+            if (GetPlayerTurn() == PlayerTurn.TWO)
+            {
+                loc = AmazingGame.AIController.PlacePawns(board_gc);
+            }
 
             // If the pawn was successfully placed in the game core board...
             if (board_gc.PlacePawn(CurrentPlayer, loc))
@@ -140,8 +153,7 @@ public class GameController : MonoBehaviour
             {
                 // Should we notify the player that they are not clicking a valid tile?
 
-                //SORRRRYYYYY THIS IS MAGGIE AND I COMMENTED THIS OUT FOR NOW
-                //Debug.Log("Failed to place player's pawn :(");
+                // Debug.Log("Failed to place player's pawn :(");
             }
         }
         if (CanMove())
@@ -172,7 +184,8 @@ public class GameController : MonoBehaviour
                 else if (WaitingForFirstTile())
                 {
                     // If the mouse was clicked, store that new coordinate
-                    curLoc = playerController.GetPawn(board_gc, CurrentPlayer);
+
+                    curLoc = playerController.GetPawn(board_gc, CurrentPlayer, WaitingPlayer);
 
                     // Collect the first tile
                     if (curLoc != null && Player.IsAPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
@@ -323,6 +336,8 @@ public class GameController : MonoBehaviour
                     SwapMovePhase();
 
                     SwapPlayerTurn();
+
+                    Debug.Log("SCORE: " + AmazingGame.AIController.bestNode.score);
                 }
                 else
                 {

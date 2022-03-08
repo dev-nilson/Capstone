@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject board;
 
+    private NetworkController networkController;
+
     private Timer timer;
     private float delay;
 
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
         //ai = new AIController();
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
+
+        networkController = new NetworkController();
 
         delay = 4.0F;
         //timer = new Timer(delay);
@@ -45,15 +49,25 @@ public class PlayerController : MonoBehaviour
         {
             // If the mouse was clicked, return that coordinate
             if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
+            {
+                Coordinates loc = GridManager.getSelectedTile();
+                if (getGameType() == GameType.NETWORK)
+                {
+                    networkController = new NetworkController();
+                    networkController.SetMoveCoordinates(loc);
+                    networkController.SendMove();
+                }
+                return loc;
+            }
             else
                 return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
-            // If the mouse was clicked, return that coordinate
-            if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
+            networkController = new NetworkController();
+            Coordinates loc = networkController.GetMoveCoordinates();
+            if (GameBoard.IsValidCoord(loc))
+                return loc;
             else
                 return new Coordinates();
         }
@@ -75,25 +89,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Coordinates GetPawn(GameBoard board, Player player)
+    public Coordinates GetPawn(GameBoard board, Player currentPlayer, Player waitingPlayer)
     {
-        if (player.Type() == Player.Tag.LOCAL)
+        if (currentPlayer.Type() == Player.Tag.LOCAL)
         {
             // If the mouse was clicked, return that coordinate
             if (Input.GetMouseButtonDown(0))
             {
                 Coordinates loc = GridManager.getSelectedTile();
-                
-                if (player.HasThisPawn(loc))
+                if (currentPlayer.HasThisPawn(loc))
+                {
+                    if (getGameType() == GameType.NETWORK)
+                    {
+                        networkController = new NetworkController();
+                        networkController.SetMoveCoordinates(loc);
+                        networkController.SendMove();
+                    }
                     return loc;
+                }
             }
             return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
-            // If the mouse was clicked, return that coordinate
-            if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
+            networkController = new NetworkController();
+            Coordinates loc = networkController.GetMoveCoordinates();
+            if (GameBoard.IsValidCoord(loc))
+                return loc;
             else
                 return new Coordinates();
         }
@@ -102,8 +124,8 @@ public class PlayerController : MonoBehaviour
             //if (timer == null) timer = new Timer(delay);
             //else if (timer.Set() && timer.Over())
             //{
-                AIController.SimulateTurn(player, board);
-                return AIController.chosenTurn.GetMoveFrom();
+            AIController.SimulateTurn(currentPlayer, waitingPlayer, board);
+                return AIController.bestNode.GetMoveFrom();
             //}
             //else if (!timer.Set())
             //    //StartCoroutine(timer.Start());
@@ -126,18 +148,31 @@ public class PlayerController : MonoBehaviour
         {
             // If the mouse was clicked, return that coordinate
             if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
+            {
+                Coordinates loc = GridManager.getSelectedTile();
+                if (getGameType() == GameType.NETWORK)
+                {
+                    //networkController = new NetworkController();
+                    networkController.SetMoveCoordinates(loc);
+                    networkController.SendMove();
+                }
+                return loc;
+            }
             else
                 return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
-
-            return new Coordinates();
+            networkController = new NetworkController();
+            Coordinates loc = networkController.GetMoveCoordinates();
+            if (GameBoard.IsValidCoord(loc))
+                return loc;
+            else
+                return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
-            return AIController.chosenTurn.GetMoveTo();
+            return AIController.bestNode.GetMoveTo();
         }
         else // GameUtilities.getGameType() == GameType.DIFFICULT
         {
@@ -152,18 +187,31 @@ public class PlayerController : MonoBehaviour
         {
             // If the mouse was clicked, return that coordinate
             if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
+            {
+                Coordinates loc = GridManager.getSelectedTile();
+                if (getGameType() == GameType.NETWORK)
+                {
+                    networkController = new NetworkController();
+                    networkController.SetMoveCoordinates(loc);
+                    networkController.SendMove();
+                }
+                return loc;
+            }
             else
                 return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.NETWORK)
         {
-
-            return new Coordinates();
+            networkController = new NetworkController();
+            Coordinates loc = networkController.GetMoveCoordinates();
+            if (GameBoard.IsValidCoord(loc))
+                return loc;
+            else
+                return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
-            return AIController.chosenTurn.BuildTo();
+            return AIController.bestNode.BuildTo();
         }
         else // GameUtilities.getGameType() == GameType.DIFFICULT
         {
