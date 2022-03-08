@@ -24,6 +24,25 @@ public class QuickGameScreen : MonoBehaviour
     public GameObject worker_H;
     public GameObject worker_figure;
 
+    public InputField usernameInputField;
+
+    // Checks if there is anything entered into the input field.
+    void LockInput(InputField input)
+    {
+        if (input.text.Length > 0)
+        {
+            Debug.Log(input.text);
+            
+        }
+        else if (input.text.Length == 0)
+        {
+            input.text = "Player 1";
+            Debug.Log(input.text);
+        }
+
+        //SAVE USERNAME HERE!!!!!!!!!
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +60,10 @@ public class QuickGameScreen : MonoBehaviour
 
         Button workerBtn = worker.GetComponent<Button>();
         workerBtn.onClick.AddListener(workerClicked);
+
+        //Adds a listener that invokes the "LockInput" method when the player finishes editing the main input field.
+        //Passes the main input field into the method when "LockInput" is invoked
+        usernameInputField.onEndEdit.AddListener(delegate { LockInput(usernameInputField); });
     }
 
     void startGameClicked()
@@ -84,6 +107,8 @@ public class QuickGameScreen : MonoBehaviour
         resetAll();
         pharoah_H.SetActive(true);
         pharoah_figure.SetActive(true);
+
+        //save the alien name LAURA GRACE lol
     }
 
     void scribeClicked()
@@ -91,6 +116,8 @@ public class QuickGameScreen : MonoBehaviour
         resetAll();
         scribe_H.SetActive(true);
         scribe_figure.SetActive(true);
+
+        //save the alien name LAURA GRACE lol
     }
 
     void peasantClicked()
@@ -98,6 +125,8 @@ public class QuickGameScreen : MonoBehaviour
         resetAll();
         peasant_H.SetActive(true);
         peasant_figure.SetActive(true);
+
+        //save the alien name LAURA GRACE lol
     }
 
     void workerClicked()
@@ -105,6 +134,8 @@ public class QuickGameScreen : MonoBehaviour
         resetAll();
         worker_H.SetActive(true);
         worker_figure.SetActive(true);
+
+        //save the alien name LAURA GRACE lol
     }
 
 }
