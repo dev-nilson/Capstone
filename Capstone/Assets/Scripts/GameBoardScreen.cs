@@ -9,6 +9,9 @@ public class GameBoardScreen : MonoBehaviour
     public Button settings;
     public Button exitSettings;
     public GameObject settingsPopUp;
+    public GameObject confirmExitPopUp;
+    public Button ok;
+    public Button cancel;
 
 
     void Start()
@@ -23,13 +26,31 @@ public class GameBoardScreen : MonoBehaviour
 
         Button exitSettingsBtn = exitSettings.GetComponent<Button>();
         exitSettingsBtn.onClick.AddListener(exitSettingsClicked);
+
+        Button okBtn = ok.GetComponent<Button>();
+        okBtn.onClick.AddListener(okClicked);
+
+        Button cancelBtn = cancel.GetComponent<Button>();
+        cancelBtn.onClick.AddListener(cancelClicked);
     }
 
     void backClicked()
     {
-        Debug.Log("back clicked");
+        confirmExitPopUp.SetActive(true);
+        //switch phases to turn off build and place player to create a fake modal pop up box
+        StorePhases();
+        DisablePhases();
+    }
 
+    void okClicked()
+    {
         SceneManager.LoadScene("Menu");
+    }
+
+    void cancelClicked()
+    {
+        RestorePhases();
+        confirmExitPopUp.SetActive(false);
     }
 
     void settingsClicked()

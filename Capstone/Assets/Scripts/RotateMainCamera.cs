@@ -57,6 +57,12 @@ public class RotateMainCamera : MonoBehaviour
 		}
 
 		Debug.Log("You have clicked the right button!");
+
+		GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
+		foreach (GameObject go in aliens)
+		{
+			go.transform.rotation = Quaternion.Euler(0, 0, 0);
+		}
 	}
 
 	void rotateLeftClick()
@@ -92,5 +98,11 @@ public class RotateMainCamera : MonoBehaviour
 			Board.transform.rotation = Quaternion.Euler(90, 0, 0);
 		}
 		Debug.Log("You have clicked the left button!");
+
+		GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
+		foreach (GameObject go in aliens)
+		{
+			go.transform.rotation = Quaternion.Euler(0, 0, 0);
+		}
 	}
 }

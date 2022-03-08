@@ -192,9 +192,7 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-
-        //Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-        
+        //Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);  
     }
 
     public void clearBoard()
