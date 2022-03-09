@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameUtilities;
 
 public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
@@ -126,6 +127,10 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         Debug.Log(roomName);
         CharacterSelectionLobbyPanel.SetActive(true);
 
+        // Call to functions in "GameUtilities.cs"
+        setGameType(GameType.NETWORK);
+        SetPlayerTurn(PlayerTurn.ONE);
+
         //NameOfHost.text = roomName;
         CreateRoom();
     }
@@ -142,6 +147,10 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         multiplayerMenuPanel.SetActive(false);
         JoinGamePanel.SetActive(true);
         PhotonNetwork.JoinLobby(); //First tries to join a lobby
+
+        // Call to functions in "GameUtilities.cs"
+        setGameType(GameType.NETWORK);
+        SetPlayerTurn(PlayerTurn.TWO);
     }
 
     public void JoinGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
