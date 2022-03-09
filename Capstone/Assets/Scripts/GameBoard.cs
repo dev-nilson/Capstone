@@ -166,10 +166,8 @@ public class GameBoard //public  ??
         return false;
     }
 
-    void ClearBoard()
+    public void ClearBoard()
     {
-        Coordinates[] PlayerOnePawns = new Coordinates[2];
-        Coordinates[] PlayerTwoPawns = new Coordinates[2];
         InitializeBoard(false);
     }
 

@@ -21,14 +21,14 @@ class GameBoardTest
         PlayerTurn playerTurn = RandomStartingPlayer();
         bool local = true;
 
-        Player P1 = new Player(local, username);
+        Player P1 = new Player(local);
 
         //Initialize P2;
         Console.WriteLine("P2's username: ");
         username = Console.ReadLine();
         local = false;
 
-        Player P2 = new Player(local, username);
+        Player P2 = new Player(local);
 
         //initialize game board
         GameBoard board = new GameBoard();

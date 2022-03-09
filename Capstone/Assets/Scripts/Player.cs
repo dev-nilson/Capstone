@@ -15,23 +15,23 @@ public class Player
 
     Tag player;
 
-    string username;
+    //string username;
 
     //private bool myTurn;
 
     // Stores locations of the player's two pawns
     // Local player gets [0,] and opposing player gets [1,]
     private static Coordinates[][] Pawns = { new Coordinates[] { new Coordinates(), new Coordinates() },
-                                                       new Coordinates[] { new Coordinates(), new Coordinates() } };
+                                             new Coordinates[] { new Coordinates(), new Coordinates() } };
 
         
     //constructor w/ input for Local/Opponent, username, myTurn
-    public Player(bool local, string _name/*, bool _turn*/)
+    public Player(bool local/*, string _name/*, bool _turn*/)
     {
         if (local) player = Tag.LOCAL;
         else player = Tag.OPPONENT;
 
-        username = _name;
+        //username = _name;
         //myTurn = _turn;
     }
 
@@ -45,6 +45,14 @@ public class Player
     public Coordinates[] GetPlayerCoordinates() // ************************************** DOES THIS GET USED?
     {
         return Pawns[(int)this.player];
+    }
+
+    public static void ClearPawns()
+    {
+        Pawns[0][0] = new Coordinates();
+        Pawns[0][1] = new Coordinates();
+        Pawns[1][0] = new Coordinates();
+        Pawns[1][1] = new Coordinates();
     }
 
     public static bool IsAPawn(Coordinates loc)
