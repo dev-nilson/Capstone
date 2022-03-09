@@ -7,10 +7,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
 {
     public static NetworkController netController;
     public static Coordinates coordinates;
-    public string roomName;
+
 
 	[SerializeField]
-	private PhotonView photonView;
+	private new PhotonView photonView;
 
     private void Awake()
     {
@@ -19,7 +19,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void Start()
     {
-        //playerLeftRoomFunctionCalled = false;
         GameObject player = PhotonNetwork.Instantiate("NetworkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
     }
 
