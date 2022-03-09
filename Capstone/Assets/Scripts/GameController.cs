@@ -40,8 +40,6 @@ public class GameController : MonoBehaviour
     //get GameObject’s material and color
     MeshRenderer Renderer;
 
-    //public bool player1TurnActive = false;
-
     void Awake()
     {
         boardController = board.GetComponent<GridManager>();
@@ -53,16 +51,12 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         //get mesh renderer component
         Renderer = GetComponent<MeshRenderer>();
-
-        
 
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK? -- should be done via menus !!!!!!!!!!!!!
         // gameType is currently defaulting to easy. Why???
         // setGameType(GameType.EASY)
-
         
         //  STARTING PLAYER?
         //SetPlayerTurn(PlayerTurn.ONE);
@@ -78,26 +72,10 @@ public class GameController : MonoBehaviour
         boardHeights = board_gc.GetHeights();
         boardController.createBoard(boardHeights);
         boardController.displayBoard(boardHeights, P1, P2);
-        
-
-        //player1TurnActive = true;
-        //if (GetPlayerTurn() == PlayerTurn.ONE)
-        //    Debug.Log("P1's turn!");
-
-
-
-
-        //player.name = ("X: " + row + " Y: " + col);
-        //player.transform.parent = playerParent.transform;
-
-
-        
 
         // Game begins with no place pawn, move, or build phase
         DisablePhases();
         SwapPlacePawnPhase();
-        //SwapMovePhase();
-        //SwapBuildPhase();
     }
 
     // Update is called once per frame
