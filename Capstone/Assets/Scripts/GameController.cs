@@ -358,11 +358,4 @@ public class GameController : MonoBehaviour
             }
         }
     }
-
-    void ClearGame()
-    {
-        board_gc.ClearBoard();
-        Player.ClearPawns();
-        // CLEAR USERNAMES AS WELL???
-    }
 }

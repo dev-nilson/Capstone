@@ -191,6 +191,16 @@ public static class GameUtilities //public  ??
     }
 
     //////////////////////////////////////
+    // Generic game functionalities
+    //////////////////////////////////////
+    void ClearGame()
+    {
+        GameBoard.ClearBoard();
+        Player.ClearPawns();
+        // CLEAR USERNAMES AS WELL???
+    }
+
+    //////////////////////////////////////
     // Data type conversions
     //////////////////////////////////////
     // Convert list of GameBoard.Coordinates to binary 5x5 grid

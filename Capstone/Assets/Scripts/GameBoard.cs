@@ -44,9 +44,9 @@ public class GameBoard //public  ??
         // "heights" represents the board - each index holds the height value (0,1,2,3) of the corresponding board tile
         if (resize) heights = new int[BOARD_DIMENSION, BOARD_DIMENSION];
 
-        for (int x = 0; x < 5; ++x)
+        for (int x = 0; x < BOARD_DIMENSION; ++x)
         {
-            for (int y = 0; y < 5; ++y)
+            for (int y = 0; y < BOARD_DIMENSION; ++y)
             {
                 heights[x, y] = 0;
             }
@@ -166,9 +166,15 @@ public class GameBoard //public  ??
         return false;
     }
 
-    public void ClearBoard()
+    public static void ClearBoard()
     {
-        InitializeBoard(false);
+        for (int x = 0; x < BOARD_DIMENSION; ++x)
+        {
+            for (int y = 0; y < BOARD_DIMENSION; ++y)
+            {
+                heights[x, y] = 0;
+            }
+        }
     }
 
     public static bool IsValidCoord(Coordinates loc)
