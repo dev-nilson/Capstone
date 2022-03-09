@@ -2216,7 +2216,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGame: {fileID: 1660839380}
-  back: {fileID: 1618838214}
   pharoah: {fileID: 1896702318}
   pharoah_H: {fileID: 613523982}
   pharoah_figure: {fileID: 87155315}
@@ -2229,6 +2228,7 @@ MonoBehaviour:
   worker: {fileID: 491813059}
   worker_H: {fileID: 346439604}
   worker_figure: {fileID: 87155315}
+  usernameInputField: {fileID: 0}
 --- !u!1 &775092195
 GameObject:
   m_ObjectHideFlags: 0
