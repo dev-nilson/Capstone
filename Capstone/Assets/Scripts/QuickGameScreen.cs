@@ -32,12 +32,17 @@ public class QuickGameScreen : MonoBehaviour
         if (input.text.Length > 0)
         {
             Debug.Log(input.text);
-            
+
+            // THIS IS A PUBLIC VARIABLE -- be careful with it
+            P1username = input.text;
         }
         else if (input.text.Length == 0)
         {
             input.text = "Player 1";
             Debug.Log(input.text);
+
+            // THIS IS A PUBLIC VARIABLE -- be careful with it
+            P1username = input.text;
         }
 
         //SAVE USERNAME HERE!!!!!!!!!

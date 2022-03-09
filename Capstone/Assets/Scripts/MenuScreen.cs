@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static GameUtilities;
 
 public class MenuScreen : MonoBehaviour
 {
@@ -55,6 +56,7 @@ public class MenuScreen : MonoBehaviour
 	void multiplayerClicked()
 	{
 		Debug.Log("multiplayer game");
+		setGameType(GameType.NETWORK);
 
 		SceneManager.LoadScene("Multiplayer");
 	}

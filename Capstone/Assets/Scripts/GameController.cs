@@ -67,12 +67,8 @@ public class GameController : MonoBehaviour
         //  STARTING PLAYER?
         //SetPlayerTurn(PlayerTurn.ONE);
 
-        // GUI: GET A USERNAME FROM USER
-        P1username = "Player one";
         P1 = new Player(true, P1username);
 
-        // GET USERNAME FROM OPPONENT
-        P2username = "Player two";
         P2 = new Player(false, P2username);
 
         //GC:  INITIALIZE BOARD
@@ -187,7 +183,7 @@ public class GameController : MonoBehaviour
                     curLoc = playerController.GetPawn(board_gc, CurrentPlayer, WaitingPlayer);
 
                     // Collect the first tile
-                    if (curLoc != null && Player.IsAPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
+                    if (curLoc != null && CurrentPlayer.HasThisPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
                     {
                         Debug.Log("GameController: collect first tile");
 
@@ -218,7 +214,7 @@ public class GameController : MonoBehaviour
                     newLoc = playerController.GetMove(board_gc, CurrentPlayer);
 
                     // The new coordinate could be the current or other pawn, if so update curLoc to contain the most recently selected pawn
-                    if (newLoc != null && Player.IsAPawn(newLoc))
+                    if (newLoc != null && CurrentPlayer.HasThisPawn(newLoc))
                     {
                         curLoc = newLoc;
 
