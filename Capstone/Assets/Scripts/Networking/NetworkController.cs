@@ -50,10 +50,12 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (NetworkPlayer.netPlayer != null)
         {
             NetworkPlayer.netPlayer.SendCoordinates(coordinates);
-            Debug.Log("net is not null");
+            Debug.Log("netPlayer is not null");
         }
         else if (NetworkPlayer.netPlayer == null)
-            Debug.Log("Somethin aint right, fix it");
+        {
+            Debug.Log("netPlayer is null");
+        }
     }
 
     public static void SetCoordinates(Coordinates newCoordinates)
