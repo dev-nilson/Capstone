@@ -54,8 +54,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
             NetworkPlayer.netPlayer.SendMove(moveLocation);
             Debug.Log("net is not null");
         }
-        //else
-        //    Debug.Log("Somethin aint right, fix it");
+        else if (NetworkPlayer.netPlayer == null)
+            Debug.Log("Somethin aint right, fix it");
     }
 
     public void SendBuild()
