@@ -127,8 +127,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         Debug.Log(roomName);
         CharacterSelectionLobbyPanel.SetActive(true);
 
-        // Call to functions in "GameUtilities.cs"
-        setGameType(GameType.NETWORK);
+        // Call to function in "GameUtilities.cs"
         SetPlayerTurn(PlayerTurn.ONE);
 
         //NameOfHost.text = roomName;
@@ -148,8 +147,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         JoinGamePanel.SetActive(true);
         PhotonNetwork.JoinLobby(); //First tries to join a lobby
 
-        // Call to functions in "GameUtilities.cs"
-        setGameType(GameType.NETWORK);
+        // Call to function in "GameUtilities.cs"
         SetPlayerTurn(PlayerTurn.TWO);
     }
 
