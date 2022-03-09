@@ -65,7 +65,7 @@ public class GameController : MonoBehaviour
 
         
         //  STARTING PLAYER?
-        SetPlayerTurn(PlayerTurn.ONE);
+        //SetPlayerTurn(PlayerTurn.ONE);
 
         // GUI: GET A USERNAME FROM USER
         P1username = "Player one";

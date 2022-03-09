@@ -189,8 +189,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-
-            return new Coordinates();
+            // If the mouse was clicked, return that coordinate
+            if (Input.GetMouseButtonDown(0))
+                return GridManager.getSelectedTile();
+            else
+                return new Coordinates();
         }
         else
         {
@@ -233,8 +236,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-
-            return new Coordinates();
+            // If the mouse was clicked, return that coordinate
+            if (Input.GetMouseButtonDown(0))
+                return GridManager.getSelectedTile();
+            else
+                return new Coordinates();
         }
         else
         {
