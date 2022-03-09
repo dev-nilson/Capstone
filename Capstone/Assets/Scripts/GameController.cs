@@ -57,8 +57,12 @@ public class GameController : MonoBehaviour
         //get mesh renderer component
         Renderer = GetComponent<MeshRenderer>();
 
-        //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
-        setGameType(GameType.EASY);
+        
+
+        //INITIALIZE GAME: AI HARD, AI EASY, NETWORK? -- should be done via menus !!!!!!!!!!!!!
+        // gameType is currently defaulting to easy. Why???
+        // setGameType(GameType.EASY)
+
         
         //  STARTING PLAYER?
         SetPlayerTurn(PlayerTurn.ONE);
@@ -124,11 +128,6 @@ public class GameController : MonoBehaviour
 
             // Store the current player's selected coordinate
             Coordinates loc = playerController.GetPlacement(board_gc, CurrentPlayer); //boardController.getSelectedTile();
-
-            if (GetPlayerTurn() == PlayerTurn.TWO)
-            {
-                loc = AmazingGame.AIController.PlacePawns(board_gc);
-            }
 
             // If the pawn was successfully placed in the game core board...
             if (board_gc.PlacePawn(CurrentPlayer, loc))
@@ -355,8 +354,6 @@ public class GameController : MonoBehaviour
                     SwapMovePhase();
 
                     SwapPlayerTurn();
-
-                    Debug.Log("SCORE: " + AmazingGame.AIController.bestNode.score);
                 }
                 else
                 {

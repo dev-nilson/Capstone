@@ -73,19 +73,27 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
-            // If the mouse was clicked, return that coordinate
-            if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
+            Coordinates loc = AIController.PlacePawns(board);
+            if (GameBoard.IsValidCoord(loc))
+                return loc;
             else
+            {
+                Debug.Log("AI (easy) failed to return a valid coordinate");
                 return new Coordinates();
+            }
         }
-        else // GameUtilities.getGameType() == GameType.DIFFICULT
+        else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
             // If the mouse was clicked, return that coordinate
             if (Input.GetMouseButtonDown(0))
                 return GridManager.getSelectedTile();
             else
                 return new Coordinates();
+        }
+        else
+        {
+            Debug.Log("ERROR: NO GAME TYPE SET");
+            return new Coordinates();
         }
     }
 
@@ -125,20 +133,25 @@ public class PlayerController : MonoBehaviour
             //else if (timer.Set() && timer.Over())
             //{
             AIController.SimulateTurn(currentPlayer, waitingPlayer, board);
-                return AIController.bestNode.GetMoveFrom();
+            return AIController.bestNode.GetMoveFrom();
             //}
             //else if (!timer.Set())
             //    //StartCoroutine(timer.Start());
-            
+
             //return new Coordinates();
         }
-        else // GameUtilities.getGameType() == GameType.DIFFICULT
+        else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
             // If the mouse was clicked, return that coordinate
             if (Input.GetMouseButtonDown(0))
                 return GridManager.getSelectedTile();
             else
                 return new Coordinates();
+        }
+        else
+        {
+            Debug.Log("ERROR: NO GAME TYPE SET");
+            return new Coordinates();
         }
     }
 
@@ -174,9 +187,14 @@ public class PlayerController : MonoBehaviour
         {
             return AIController.bestNode.GetMoveTo();
         }
-        else // GameUtilities.getGameType() == GameType.DIFFICULT
+        else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
 
+            return new Coordinates();
+        }
+        else
+        {
+            Debug.Log("ERROR: NO GAME TYPE SET");
             return new Coordinates();
         }
     }
@@ -213,9 +231,14 @@ public class PlayerController : MonoBehaviour
         {
             return AIController.bestNode.BuildTo();
         }
-        else // GameUtilities.getGameType() == GameType.DIFFICULT
+        else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
 
+            return new Coordinates();
+        }
+        else
+        {
+            Debug.Log("ERROR: NO GAME TYPE SET");
             return new Coordinates();
         }
     }

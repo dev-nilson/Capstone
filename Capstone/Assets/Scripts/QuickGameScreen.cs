@@ -70,9 +70,10 @@ public class QuickGameScreen : MonoBehaviour
     {
         Debug.Log("here");
 
-        ////INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
-        //setGameType(GameType.EASY);
-        //// OR setGameType(GameType.DIFFICULT);
+        //INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
+        setGameType(GameType.EASY);
+
+        // OR setGameType(GameType.DIFFICULT);
 
         ////  STARTING PLAYER?
         //SetPlayerTurn(PlayerTurn.ONE);
