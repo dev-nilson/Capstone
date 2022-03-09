@@ -6,8 +6,7 @@ using UnityEngine;
 public class NetworkController : MonoBehaviourPunCallbacks
 {
     public static NetworkController netController;
-    public static Coordinates moveLocation;
-    public static Coordinates buildLocation;
+    public static Coordinates coordinates;
     public string roomName;
 
 	[SerializeField]
@@ -39,61 +38,44 @@ public class NetworkController : MonoBehaviourPunCallbacks
     //    //gameController.NetworkMessageRecieved();
     //}
 
-    public void SendMove()
+    public static void SendCoordinates()
     {
         //Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
         //if (NetworkPlayer.netPlayer = null)
         //{
         //    Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
         //}
-        Debug.Log("NetworkController, Send Move Called");
-        Debug.Log("Move coordinates were: " + moveLocation.X + " " + moveLocation.Y);
+        Debug.Log("NetworkController, Send Coordinates Called");
+        Debug.Log("The coordinates were: " + coordinates.X + " " + coordinates.Y);
 
         if (NetworkPlayer.netPlayer != null)
         {
-            NetworkPlayer.netPlayer.SendMove(moveLocation);
+            NetworkPlayer.netPlayer.SendCoordinates(coordinates);
             Debug.Log("net is not null");
         }
         else if (NetworkPlayer.netPlayer == null)
             Debug.Log("Somethin aint right, fix it");
     }
 
-    public void SendBuild()
+    public static void SetCoordinates(Coordinates newCoordinates)
     {
-        Debug.Log("NetworkController, Send Build Called");
-        Debug.Log("Build coordinates were: " + buildLocation.X + " " + buildLocation.Y);
-        NetworkPlayer.netPlayer.SendBuild(buildLocation);
+        Debug.Log("SetCoordinates called");
+        Debug.Log("Setting  coordinates " + newCoordinates.X + " " + newCoordinates.Y);
+        coordinates = newCoordinates;
     }
 
-    public void SetMoveCoordinates(Coordinates newCoordinates)
+    public static Coordinates GetCoordinates()
     {
-        Debug.Log("SetMoveCoordinates called");
-        Debug.Log("Setting move coodrinates " + newCoordinates.X + " " + newCoordinates.Y);
-        moveLocation = newCoordinates;
-    }
-    public Coordinates GetMoveCoordinates()
-    {
-        Debug.Log("GetMoveCoordinates called");
-        if (moveLocation == null)
+        Debug.Log("GetCoordinates called");
+        if (coordinates == null)
+        {
             Debug.Log("No coordinate set");
+            return new Coordinates();
+        }
         else
-            Debug.Log("Returning move coordinates: " + moveLocation.X + " " + moveLocation.Y);
-        return moveLocation;
-    }
-
-    public void SetBuildCoordinates(Coordinates newCoordinates)
-    {
-        Debug.Log("SetBuildCoordinates called");
-        Debug.Log("Setting build coodrinates " + newCoordinates.X + " " + newCoordinates.Y);
-        buildLocation = newCoordinates;
-    }
-    public Coordinates GetBuildCoordinates()
-    {
-        Debug.Log("GetBuildCoordinates called");
-        if (buildLocation == null)
-            Debug.Log("No coordinate set");
-        else
-            Debug.Log("Returning build coordinates: " + buildLocation.X + " " + buildLocation.Y);
-        return buildLocation;
+        {
+            Debug.Log("Returning coordinates: " + coordinates.X + " " + coordinates.Y);
+            return coordinates;
+        }
     }
 }

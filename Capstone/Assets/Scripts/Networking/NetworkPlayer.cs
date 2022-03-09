@@ -9,8 +9,8 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	[SerializeField] private PhotonView photonView;
 	
 	public static NetworkPlayer netPlayer;
-	public static Coordinates moveLocation;
-	public static Coordinates buildLocation;
+	public static Coordinates coordinates;
+	//public static Coordinates buildLocation;
 
 	//however we represent the move and build
 
@@ -33,43 +33,43 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 
 	//Checks if they have photon view and then does specific function calls in network controller based on what it currently needs to do
 	[PunRPC]
-	public void RPC_SendMove(Coordinates moveLocation)
+	public void RPC_SendCoordinates(Coordinates coordinates)
 	{
-		Debug.LogWarning("coordinates are " + moveLocation.X + " " + moveLocation.Y);
-		Debug.Log("send move rpc called");
+		Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
+		Debug.Log("send coordinates rpc called");
 		if (!photonView.IsMine)
 			Debug.Log("that photon view aint yours fool");
 			return;
 
 		Debug.Log("Receiving move...");
-		networkController.SetMoveCoordinates(moveLocation);
+		NetworkController.SetCoordinates(coordinates);
 	}
 
-	[PunRPC]
-	public void RPC_SendBuild(Coordinates buildLocation)
-	{
-		Debug.Log("send build rpc called");
-		if (!photonView.IsMine)
-			return;
+	//[PunRPC]
+	//public void RPC_SendBuild(Coordinates buildLocation)
+	//{
+	//	Debug.Log("send build rpc called");
+	//	if (!photonView.IsMine)
+	//		return;
 
-		Debug.Log("Receiving build...");
-		networkController.SetBuildCoordinates(buildLocation);
-	}
+	//	Debug.Log("Receiving build...");
+	//	networkController.SetBuildCoordinates(buildLocation);
+	//}
 
 
 	//These will call the RPC functions above and send the result of those RPC calls to all players in room
-	public void SendMove(Coordinates moveLocation)
+	public void SendCoordinates(Coordinates coordinates)
 	{
-		Debug.Log("send move function in NETWORK PLAYER called");
-		Debug.LogWarning("coordinates are " + moveLocation.X + " " + moveLocation.Y);
-		photonView.RPC("RPC_SendMove", RpcTarget.All, moveLocation);
+		Debug.Log("send coordinates function in NETWORK PLAYER called");
+		Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
+		photonView.RPC("RPC_SendCoordinates", RpcTarget.All, coordinates);
 	}
 
 
-	public void SendBuild(Coordinates buildLocation)
-	{
-		Debug.Log("send move function called");
-		photonView.RPC("RPC_SendBuild", RpcTarget.All, buildLocation);
-	}
+	//public void SendBuild(Coordinates buildLocation)
+	//{
+	//	Debug.Log("send move function called");
+	//	photonView.RPC("RPC_SendBuild", RpcTarget.All, buildLocation);
+	//}
 
 }
