@@ -75,8 +75,12 @@ public class NetworkController : MonoBehaviourPunCallbacks
         else
         {
             Debug.Log("Returning coordinates: " + coordinates.X + " " + coordinates.Y);
+
+            // Clear "coordinates" variable after it is received, so it is does not get reused.
             Coordinates temp = coordinates;
             coordinates = null;
+            SendCoordinates();
+
             return temp;
         }
     }
