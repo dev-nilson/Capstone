@@ -74,7 +74,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
         else
         {
             Debug.Log("Returning coordinates: " + coordinates.X + " " + coordinates.Y);
-            return coordinates;
+            Coordinates temp = coordinates;
+            coordinates = null;
+            return temp;
         }
     }
 }
