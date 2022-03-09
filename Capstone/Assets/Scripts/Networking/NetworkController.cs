@@ -47,14 +47,13 @@ public class NetworkController : MonoBehaviourPunCallbacks
         Debug.Log("NetworkController, Send Coordinates Called");
         Debug.Log("The coordinates were: " + coordinates.X + " " + coordinates.Y);
 
-        //if (NetworkPlayer.netPlayer != null)
-        //{
-        //    NetworkPlayer.netPlayer.SendCoordinates(coordinates);
-        //    Debug.Log("net is not null");
-        //}
-        //else if (NetworkPlayer.netPlayer == null)
-        //    Debug.Log("Somethin aint right, fix it");
-        NetworkPlayer.SendCoordinates(coordinates);
+        if (NetworkPlayer.netPlayer != null)
+        {
+            NetworkPlayer.netPlayer.SendCoordinates(coordinates);
+            Debug.Log("net is not null");
+        }
+        else if (NetworkPlayer.netPlayer == null)
+            Debug.Log("Somethin aint right, fix it");
     }
 
     public static void SetCoordinates(Coordinates newCoordinates)
