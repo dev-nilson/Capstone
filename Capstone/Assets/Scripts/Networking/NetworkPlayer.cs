@@ -8,7 +8,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	[SerializeField] private NetworkController networkController;
 	[SerializeField] private new PhotonView photonView;
 	
-	public static NetworkPlayer netPlayer;
+	//public static NetworkPlayer netPlayer;
 	public static Coordinates coordinates;
 	//public static Coordinates buildLocation;
 
@@ -17,7 +17,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	private void Start()
 	{
 		photonView = PhotonView.Get(this);
-		netPlayer = this;
+		//netPlayer = this;
 	}
 
 	[PunRPC]
@@ -62,7 +62,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 
 
 	//These will call the RPC functions above and send the result of those RPC calls to all players in room
-	public void SendCoordinates(Coordinates coordinates)
+	public static void SendCoordinates(Coordinates coordinates)
 	{
 		Debug.Log("send coordinates function in NETWORK PLAYER called");
 		Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
