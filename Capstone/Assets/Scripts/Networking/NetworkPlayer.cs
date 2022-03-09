@@ -6,7 +6,7 @@ using Photon.Pun;
 public class NetworkPlayer : MonoBehaviourPunCallbacks
 {
 	[SerializeField] private NetworkController networkController;
-	[SerializeField] private PhotonView photonView;
+	[SerializeField] private new PhotonView photonView;
 	
 	public static NetworkPlayer netPlayer;
 	public static Coordinates coordinates;
