@@ -108,10 +108,7 @@ public class GameController : MonoBehaviour
                 boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
                 // If both players have placed their pawns, turn off the "place pawn" phase, turn on the "move" phase, and swap player turns
-                if (Player.GetBothPlayersPawns()[0] != new Coordinates() &&
-                    Player.GetBothPlayersPawns()[1] != new Coordinates() && 
-                    Player.GetBothPlayersPawns()[2] != new Coordinates() && 
-                    Player.GetBothPlayersPawns()[3] != new Coordinates())
+                if (Player.GetBothPlayersPawns()[1] != new Coordinates() && Player.GetBothPlayersPawns()[3] != new Coordinates())
                 {
                     SwapPlacePawnPhase();
                     SwapMovePhase();
