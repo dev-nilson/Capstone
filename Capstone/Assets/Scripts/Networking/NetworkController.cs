@@ -66,7 +66,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public static Coordinates GetCoordinates()
     {
         Debug.Log("GetCoordinates called");
-        if (coordinates == null)
+        if (coordinates == null || coordinates == new Coordinates())
         {
             Debug.Log("No coordinate set");
             return new Coordinates();
@@ -77,7 +77,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
             // Clear "coordinates" variable after it is received, so it is does not get reused.
             Coordinates temp = coordinates;
-            coordinates = null;
+            coordinates = new Coordinates();
             SendCoordinates();
 
             return temp;
