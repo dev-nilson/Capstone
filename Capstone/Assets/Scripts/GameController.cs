@@ -119,8 +119,7 @@ public class GameController : MonoBehaviour
                 }
 
                 // Otherwise, if only the current player has placed his pawns simply swap player turns
-                else if (CurrentPlayer.GetPlayerCoordinates()[0] != new Coordinates() &&
-                         CurrentPlayer.GetPlayerCoordinates()[1] != new Coordinates())
+                else if (CurrentPlayer.GetPlayerCoordinates()[1] != new Coordinates())
                     SwapPlayerTurn();
             }
             else
