@@ -37,7 +37,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     //    //gameController.NetworkMessageRecieved();
     //}
 
-    public void SendCoordinates()
+    public static void SendCoordinates()
     {
         //Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
         //if (NetworkPlayer.netPlayer = null)
@@ -64,7 +64,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         coordinates = newCoordinates;
     }
 
-    public Coordinates GetCoordinates()
+    public static Coordinates GetCoordinates()
     {
         Debug.Log("GetCoordinates called");
         if (coordinates == null || coordinates == new Coordinates())
