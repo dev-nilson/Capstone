@@ -55,7 +55,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         cachedRoomList = new Dictionary<string, RoomInfo>();
         roomListEntries = new Dictionary<string, GameObject>();
-        PhotonPeer.RegisterType(typeof(Coordinates), 1, Serialize, Deserialize);
+        PhotonPeer.RegisterType(typeof(Coordinates), 1, Coordinates.Serialize, Coordinates.Deserialize);
 
         PhotonNetwork.AutomaticallySyncScene = true;
     }
