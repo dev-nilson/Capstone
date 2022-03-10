@@ -26,7 +26,9 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 		Debug.Log("network message rpc called");
 
 		if (!photonView.IsMine)
+		{
 			return;
+		}
 
 		Debug.Log("Message sent over network: " + message);
 	}
@@ -38,8 +40,10 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 		Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
 		Debug.Log("send coordinates rpc called");
 		if (!photonView.IsMine)
+		{
 			Debug.Log("that photon view aint yours fool");
 			return;
+		}
 
 		Debug.Log("Receiving move...");
 		NetworkController.SetCoordinates(coordinates);
