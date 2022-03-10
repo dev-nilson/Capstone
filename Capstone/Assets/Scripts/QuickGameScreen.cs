@@ -102,6 +102,9 @@ public class QuickGameScreen : MonoBehaviour
 
         //save the alien name LAURA GRACE lol
         setP1avatar(PlayerAvatar.PHAROAH);
+
+        // Set a random player avatar for player 2 (the AI) other than the pharoah
+        setP2avatar(RandomPlayerAvatar(PlayerAvatar.PHAROAH));
     }
 
     void scribeClicked()
@@ -112,6 +115,9 @@ public class QuickGameScreen : MonoBehaviour
 
         //save the alien name LAURA GRACE lol
         setP1avatar(PlayerAvatar.SCRIBE);
+
+        // Set a random player avatar for player 2 (the AI) other than the scribe
+        setP2avatar(RandomPlayerAvatar(PlayerAvatar.SCRIBE));
     }
 
     void peasantClicked()
@@ -122,6 +128,9 @@ public class QuickGameScreen : MonoBehaviour
 
         //save the alien name LAURA GRACE lol
         setP1avatar(PlayerAvatar.PEASANT);
+
+        // Set a random player avatar for player 2 (the AI) other than the peasant
+        setP2avatar(RandomPlayerAvatar(PlayerAvatar.PEASANT));
     }
 
     void workerClicked()
@@ -132,6 +141,8 @@ public class QuickGameScreen : MonoBehaviour
 
         //save the alien name LAURA GRACE lol
         setP1avatar(PlayerAvatar.WORKER);
-    }
 
+        // Set a random player avatar for player 2 (the AI) other than the worker
+        setP2avatar(RandomPlayerAvatar(PlayerAvatar.WORKER));
+    }
 }
