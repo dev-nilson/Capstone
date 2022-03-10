@@ -76,12 +76,6 @@ public class GameBoardScreen : MonoBehaviour
         DisablePhases();
     }
 
-    IEnumerator wait()
-    {
-        //Wait for 4 seconds
-        yield return new WaitForSeconds(4f);
-    }
-
     void delayDisplay()
     {
         StartCoroutine(exitSettingsClicked());
