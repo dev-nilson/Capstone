@@ -89,35 +89,47 @@ public class GameBoardScreen : MonoBehaviour
 
     IEnumerator exitSettingsClicked()
     {
-        //When you close the scroll you cycle through the scroll images
-        scroll1.SetActive(false);
+        //time that the scroll waits before it moves on to the next image
+        float delay = .001f;
 
-        scroll2.SetActive(true);
-        yield return new WaitForSeconds(.2f);
-        scroll2.SetActive(false);
-        Debug.Log("closed");
+        GameObject[] scrollArray = new GameObject[7];
 
-        scroll3.SetActive(true);
-        yield return new WaitForSeconds(.2f);
-        scroll3.SetActive(false);
-        Debug.Log("closed");
+        //Get the Rectransform of each height in order to get the height 
+        scrollArray[1] = scroll1;
+        scrollArray[2] = scroll2;
+        scrollArray[3] = scroll3;
+        scrollArray[4] = scroll4;
+        scrollArray[5] = scroll5;
+        scrollArray[6] = scroll6;
 
-        scroll4.SetActive(true);
-        yield return new WaitForSeconds(.2f);
-        scroll4.SetActive(false);
-        Debug.Log("closed");
+        //Create a copy of the scrolls in order to reset the heights back to the original
+        GameObject[] scrollReset = scrollArray;
 
-        scroll5.SetActive(true);
-        yield return new WaitForSeconds(.2f);
-        scroll5.SetActive(false);
-        Debug.Log("closed");
+        //BEAUTIFUL PIECE OF CODE --- Love Dad
+        for (int scrollNum = 1; scrollNum <= 5; scrollNum++)
+        {
+            scrollArray[scrollNum].SetActive(true);
+            float firstScrollRef = scrollArray[scrollNum].GetComponent<RectTransform>().rect.height;
+            float tempHeight = firstScrollRef;
+            float secondScrollRef = scrollArray[scrollNum + 1].GetComponent<RectTransform>().rect.height;
+            for (float i = firstScrollRef; i >= (firstScrollRef - ((firstScrollRef - secondScrollRef))); i-=8)
+            {
+                scrollArray[scrollNum].GetComponent<RectTransform>().sizeDelta = new Vector2(scrollArray[scrollNum].GetComponent<RectTransform>().rect.width, i);
+                yield return new WaitForSecondsRealtime(delay);       
+            }
+            scrollArray[scrollNum].SetActive(false);
 
-        scroll6.SetActive(true);
-        yield return new WaitForSeconds(.3f);
-        scroll6.SetActive(false);
-        Debug.Log("closed");
-
-        //switch phases to turn off build and place player to create a fake modal pop 
+            //add delay before is turns off
+            if (scrollNum == 5)
+            {
+                scrollArray[6].SetActive(true);
+                yield return new WaitForSeconds(.1f);
+                scrollArray[6].SetActive(false);
+            }         
+            //reset height value
+            scrollArray[scrollNum].GetComponent<RectTransform>().sizeDelta = new Vector2(scrollReset[scrollNum].GetComponent<RectTransform>().rect.width, tempHeight);
+        }
+        
         RestorePhases();
     }
 }
