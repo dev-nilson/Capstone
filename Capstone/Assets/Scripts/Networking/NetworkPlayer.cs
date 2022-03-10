@@ -7,9 +7,9 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 {
 	[SerializeField] private NetworkController networkController;
 	[SerializeField] private new PhotonView photonView;
-	
-	public static NetworkPlayer netPlayer;
-	public static Coordinates coordinates;
+
+    public static NetworkPlayer netPlayer;
+    public static Coordinates coordinates;
 	//public static Coordinates buildLocation;
 
 	//however we represent the move and build
@@ -17,8 +17,8 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	private void Start()
 	{
 		photonView = PhotonView.Get(this);
-		netPlayer = this;
-	}
+        netPlayer = this;
+    }
 
 	[PunRPC]
 	public void RPC_receiveNetworkMessage(string message)

@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,6 +55,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         cachedRoomList = new Dictionary<string, RoomInfo>();
         roomListEntries = new Dictionary<string, GameObject>();
+        PhotonPeer.RegisterType(typeof(Coordinates), 1, Serialize, Deserialize);
 
         PhotonNetwork.AutomaticallySyncScene = true;
     }
