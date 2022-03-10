@@ -48,14 +48,16 @@ public class Coordinates
     public static bool operator !=(Coordinates loc1, Coordinates loc2) => !(loc1 == loc2);
 
     // Serialization function for use with Photon
-    public static string Serialize(object coordinates)
+    public static byte[] Serialize(object coordinates)
     {
-        return JsonUtility.ToJson(coordinates);
+        var temp = JsonUtility.ToJson(coordinates);
+        return System.Text.Encoding.ASCII.GetBytes(temp);
     }
 
     // Deserialization function for use with Photon.
-    public static Coordinates Deserialize(string data)
+    public static Coordinates Deserialize(byte[] data)
     {
-        return JsonUtility.FromJson<Coordinates>(data);
+        var temp = System.Text.Encoding.ASCII.GetString(data);
+        return JsonUtility.FromJson<Coordinates>(temp);
     }
 }
