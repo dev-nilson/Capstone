@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class Coordinates
 {
@@ -45,4 +46,16 @@ public class Coordinates
     }
 
     public static bool operator !=(Coordinates loc1, Coordinates loc2) => !(loc1 == loc2);
+
+    // Serialization function for use with Photon
+    public static string Serialize(object coordinates)
+    {
+        return JsonUtility.ToJson(coordinates);
+    }
+
+    // Deserialization function for use with Photon.
+    public static Coordinates Deserialize(string data)
+    {
+        return JsonUtility.FromJson<Coordinates>(data);
+    }
 }
