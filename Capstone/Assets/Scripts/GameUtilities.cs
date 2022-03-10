@@ -21,8 +21,11 @@ public static class GameUtilities //public  ??
 
     private static PlayerTurn playerTurn;
 
-    public static string P1username;
-    public static string P2username;
+    private static string P1username;
+    private static string P2username;
+
+    private static PlayerAvatar P1avatar;
+    private static PlayerAvatar P2avatar;
 
     private static bool PlacePawnPhase;
     private static bool MovePhase;
@@ -58,6 +61,14 @@ public static class GameUtilities //public  ??
         INVALID,
         VALID,
         WINNING
+    }
+
+    public enum PlayerAvatar
+    {
+        PHAROAH,
+        SCRIBE,
+        PEASANT,
+        WORKER
     }
 
     //////////////////////////////////////
@@ -188,6 +199,56 @@ public static class GameUtilities //public  ??
     {
         if (playerTurn == PlayerTurn.ONE) playerTurn = PlayerTurn.TWO;
         else playerTurn = PlayerTurn.ONE;
+    }
+
+    //////////////////////////////////////
+    // Player username functionalities
+    //////////////////////////////////////
+    public static void setP1username(string username)
+    {
+        P1username = username;
+    }
+    public static string getP1username()
+    {
+        return P1username;
+    }
+    public static void setP2username(string username)
+    {
+        P2username = username;
+    }
+    public static string getP2username()
+    {
+        return P2username;
+    }
+    
+    //////////////////////////////////////
+    // Player avatar functionalities
+    //////////////////////////////////////
+    public static void setP1avatar(PlayerAvatar playerAvatar)
+    {
+        P1avatar = playerAvatar;
+    }
+    public static PlayerAvatar getP1avatar()
+    {
+        return P1avatar;
+    }
+    public static void setP2avatar(PlayerAvatar playerAvatar)
+    {
+        P2avatar = playerAvatar;
+    }
+    public static PlayerAvatar getP2avatar()
+    {
+        return P2avatar;
+    }
+
+    //////////////////////////////////////
+    // Generic game functionalities
+    //////////////////////////////////////
+    public static void ClearGame()
+    {
+        GameBoard.ClearBoard();
+        Player.ClearPawns();
+        // CLEAR USERNAMES AS WELL???
     }
 
     //////////////////////////////////////

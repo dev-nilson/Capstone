@@ -33,19 +33,18 @@ public class QuickGameScreen : MonoBehaviour
         {
             Debug.Log(input.text);
 
-            // THIS IS A PUBLIC VARIABLE -- be careful with it
-            P1username = input.text;
+            setP1username(input.text);
         }
         else if (input.text.Length == 0)
         {
             input.text = "Player 1";
             Debug.Log(input.text);
 
-            // THIS IS A PUBLIC VARIABLE -- be careful with it
-            P1username = input.text;
+            setP1username(input.text);
         }
 
-        //SAVE USERNAME HERE!!!!!!!!!
+        //SAVE USERNAME HERE!!!
+        setP2username("CPU");
     }
 
     // Start is called before the first frame update
@@ -75,18 +74,7 @@ public class QuickGameScreen : MonoBehaviour
     {
         Debug.Log("here");
 
-        //  INITIALIZE GAME: AI HARD, AI EASY, NETWORK?
-        //setGameType(GameType.EASY);
-
-        // STARTING PLAYER?
-        //SetPlayerTurn(PlayerTurn.ONE);
-
-        //// GUI: GET A USERNAME FROM USER
-        //P1username = "Player one";
-
-        //// GET USERNAME FROM OPPONENT
-        //P2username = "CPU";
-
+        // GameType and PlayerTurn are set in "ToggleGroup.cs"
 
         SceneManager.LoadScene("GameBoard");
     }
@@ -113,6 +101,7 @@ public class QuickGameScreen : MonoBehaviour
         pharoah_figure.SetActive(true);
 
         //save the alien name LAURA GRACE lol
+        setP1avatar(PlayerAvatar.PHAROAH);
     }
 
     void scribeClicked()
@@ -122,6 +111,7 @@ public class QuickGameScreen : MonoBehaviour
         scribe_figure.SetActive(true);
 
         //save the alien name LAURA GRACE lol
+        setP1avatar(PlayerAvatar.SCRIBE);
     }
 
     void peasantClicked()
@@ -131,6 +121,7 @@ public class QuickGameScreen : MonoBehaviour
         peasant_figure.SetActive(true);
 
         //save the alien name LAURA GRACE lol
+        setP1avatar(PlayerAvatar.PEASANT);
     }
 
     void workerClicked()
@@ -140,6 +131,7 @@ public class QuickGameScreen : MonoBehaviour
         worker_figure.SetActive(true);
 
         //save the alien name LAURA GRACE lol
+        setP1avatar(PlayerAvatar.WORKER);
     }
 
 }

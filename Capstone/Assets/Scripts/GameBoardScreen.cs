@@ -5,6 +5,7 @@ using static GameUtilities;
 using System.Collections;
 using UnityEngine.Events;
 using System;
+using static GameUtilities;
 
 public class GameBoardScreen : MonoBehaviour
 {
@@ -55,6 +56,7 @@ public class GameBoardScreen : MonoBehaviour
 
     void okClicked()
     {
+        ClearGame();
         SceneManager.LoadScene("Menu");
     }
 

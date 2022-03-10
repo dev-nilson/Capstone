@@ -57,19 +57,19 @@ public class GameController : MonoBehaviour
         //get mesh renderer component
         Renderer = GetComponent<MeshRenderer>();
 
-        
+
 
         //INITIALIZE GAME: AI HARD, AI EASY, NETWORK? -- should be done via menus !!!!!!!!!!!!!
         // gameType is currently defaulting to easy. Why???
         // setGameType(GameType.EASY)
 
-        
+
         //  STARTING PLAYER?
         //SetPlayerTurn(PlayerTurn.ONE);
 
-        P1 = new Player(true, P1username);
+        P1 = new Player(true);//, P1username);
 
-        P2 = new Player(false, P2username);
+        P2 = new Player(false);//, P2username);
 
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
@@ -168,8 +168,8 @@ public class GameController : MonoBehaviour
                 }
                 DisablePhases();
                 //board.SetActive(false);
-                
 
+                ClearGame();
             }
             else
             {
@@ -271,7 +271,7 @@ public class GameController : MonoBehaviour
                             DisablePhases();
                             //board.SetActive(false);
 
-
+                            ClearGame();
 
                         }
                         else if (moveStatus == MoveType.INVALID)
@@ -312,8 +312,8 @@ public class GameController : MonoBehaviour
                     }
                     DisablePhases();
                     //board.SetActive(false);
-   
 
+                    ClearGame();
                 }
                 else
                 {
