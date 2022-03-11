@@ -68,9 +68,14 @@ public class PlayerController : MonoBehaviour
         {
             //networkController = new NetworkController();
             Coordinates loc = NetworkController.GetCoordinates();
+            Debug.Log("This is the location we get: " + loc.X + " " + loc.Y);
             if (GameBoard.IsValidCoord(loc))
+            {
+                Debug.Log(loc + "was a valid coordinate");
                 return loc;
+            }
             else
+                Debug.Log("failed to return a valid coordinate");
                 return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.EASY)

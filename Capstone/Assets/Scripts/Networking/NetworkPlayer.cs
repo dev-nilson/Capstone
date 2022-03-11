@@ -6,9 +6,9 @@ using Photon.Pun;
 public class NetworkPlayer : MonoBehaviourPunCallbacks
 {
 	[SerializeField] private NetworkController networkController;
-	[SerializeField] private new PhotonView photonView;
+	[SerializeField] private PhotonView photonView;
 
-    public static NetworkPlayer netPlayer;
+    //public static NetworkPlayer netPlayer;
     public static Coordinates coordinates;
 	//public static Coordinates buildLocation;
 
@@ -17,7 +17,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	private void Start()
 	{
 		photonView = PhotonView.Get(this);
-        netPlayer = this;
+        //netPlayer = this;
     }
 
 	[PunRPC]
@@ -37,15 +37,16 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	[PunRPC]
 	public void RPC_SendCoordinates(Coordinates coordinates)
 	{
-		Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
-		Debug.Log("send coordinates rpc called");
+		//Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
+		Debug.Log("RPC_SendCoordinates called");
 		if (!photonView.IsMine)
 		{
-			Debug.Log("that photon view aint yours fool");
+			Debug.Log("Photon view does not currently belong to player");
 			return;
 		}
 
-		Debug.Log("Receiving move...");
+		Debug.Log("Receiving coordinates...");
+		Debug.Log("Received coordinates were: " + coordinates.X + " " + coordinates.Y);
 		NetworkController.SetCoordinates(coordinates);
 	}
 
