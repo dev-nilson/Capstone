@@ -5,7 +5,6 @@ using static GameUtilities;
 using System.Collections;
 using UnityEngine.Events;
 using System;
-using static GameUtilities;
 
 public class GameBoardScreen : MonoBehaviour
 {
@@ -23,7 +22,12 @@ public class GameBoardScreen : MonoBehaviour
     public GameObject scroll5;
     public GameObject scroll6;
 
-
+    public GameObject tutorialPopUp;
+    public GameObject rotateArrows;
+    public Button tutorial;
+    public Button exitTutorial;
+    //public Button previous;
+    //public Button next;
 
 
     void Start()
@@ -44,6 +48,12 @@ public class GameBoardScreen : MonoBehaviour
 
         Button cancelBtn = cancel.GetComponent<Button>();
         cancelBtn.onClick.AddListener(cancelClicked);
+
+        /*Button tutorialBtn = tutorial.GetComponent<Button>();
+        tutorialBtn.onClick.AddListener(tutorialClicked);
+
+        Button exitTutorialBtn = exitTutorial.GetComponent<Button>();
+        exitTutorialBtn.onClick.AddListener(exitTutorialClicked);*/
     }
 
     void backClicked()
@@ -65,6 +75,27 @@ public class GameBoardScreen : MonoBehaviour
         RestorePhases();
         confirmExitPopUp.SetActive(false);
     }
+
+    //ERROR WITH THIS CODE, NOT EXITING 
+    /*void tutorialClicked()
+    {
+        tutorialPopUp.SetActive(true);
+        rotateArrows.SetActive(false);
+
+        //switch phases to turn off build and place player to create a fake modal pop up box
+        StorePhases();
+        DisablePhases();
+    }
+
+    void exitTutorialClicked()
+    {
+        tutorialPopUp.SetActive(false);
+        rotateArrows.SetActive(true);
+
+        Debug.Log("here lol ");
+
+        RestorePhases();
+    }*/
 
     void settingsClicked()
     {
