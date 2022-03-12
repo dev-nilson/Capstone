@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
         //GUI: CREATE EMPTY BOARD
         boardHeights = board_gc.GetHeights();
         boardController.createBoard(boardHeights);
-        boardController.displayBoard(boardHeights, P1, P2);
+        //boardController.displayBoard(boardHeights, P1, P2);
         
         // Game begins with only place pawn phase
         DisablePhases();
@@ -105,8 +105,10 @@ public class GameController : MonoBehaviour
             if (board_gc.PlacePawn(CurrentPlayer, loc))
             {
                 // Clear the pawns from the board then re-display them
-                boardController.clearBoard();
-                boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                //boardController.clearBoard();
+                //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                boardController.placePlayer(board_gc.GetHeights(), loc, P1, P2);
+
 
                 // If both players have placed their pawns, turn off the "place pawn" phase, turn on the "move" phase, and swap player turns
                 if (Player.GetBothPlayersPawns()[1] != new Coordinates() && Player.GetBothPlayersPawns()[3] != new Coordinates())
@@ -219,8 +221,8 @@ public class GameController : MonoBehaviour
 
                             // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                             boardController.unhighlightTiles(validTiles);
-                            boardController.clearBoard();
-                            boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                            //boardController.clearBoard();
+                            //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
                             // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
                             CollectedSecondTile();
@@ -312,9 +314,8 @@ public class GameController : MonoBehaviour
 
                     // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                     boardController.unhighlightTiles(validTiles);
-                    boardController.clearBoard();
-                    boardController.buildAnimation(newLoc);
-                    boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                    //boardController.clearBoard();
+                    //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
                     // Record the fact that the second tile has been collected for the "build" phase. Then turn off the "build" phase
                     CollectedSecondTile();
