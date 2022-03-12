@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using UnityEngine;
+using static GameUtilities;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D.Animation;
 
@@ -31,8 +33,22 @@ public class GridManager : MonoBehaviour
     public GameObject parent;
     public GameObject levelParent;
 
-    private Vector3 StartPoint;
+    //stores the ending location of the game piece
+    Vector3 endLocation;
+    //stores the ending location of the game piece
+    Vector3 startLocation;
 
+    float startPlayerLoc = 7f;
+    float endPlayerLoc = .7f;
+
+    //tells you whether it still in the animation phase
+    bool isAnimationRunning = false;
+
+    //these are the objects that were instantiated
+    GameObject player1Instance;
+    GameObject player2Instance;
+
+    int playerNum;
 
     GameObject gridSpace;
     GameObject child;
@@ -63,7 +79,7 @@ public class GridManager : MonoBehaviour
             for (var j = 0; j < Col; j++)
             {
                 int tileNum = rnd.Next(1, 6);   // creates a number between 1 and 5
-                if(tileNum == 1)
+                if (tileNum == 1)
                 {
                     gridSpace = Instantiate(tile1, new Vector3(j, Row - i, 0), Quaternion.identity);
                 }
@@ -94,7 +110,7 @@ public class GridManager : MonoBehaviour
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
-    public void displayBoard(int[,] temp, Player P1, Player P2)
+    /*public void displayBoard(int[,] temp, Player P1, Player P2)
     {
         //place all levels
         for (var i = 0; i < Row; i++)
@@ -193,9 +209,84 @@ public class GridManager : MonoBehaviour
             }
         }
         //Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);  
+    }*/
+
+    //This is used once at the beginning of the game when the players are first placed
+    public void placePlayer(int[,] board, Coordinates location, Player P1, Player P2)
+    {
+        Coordinates[] P1pawns = P1.GetPlayerCoordinates();
+        Coordinates loc = new Coordinates(location.X, location.Y);
+        if (P1pawns.Contains(loc))
+        {
+            playerNum = 1;
+            player1Instance = Instantiate(player1prefab, startLocation, Grid[location.X, location.Y].transform.rotation);
+            placePlayerAnimation(location);
+
+            player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+            player1Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
+            player1Instance.transform.SetParent(Grid[location.X, location.Y].transform);
+
+            Debug.Log(player1Instance.transform.parent);
+        }
+        else //if (P2pawns.Contains(loc))
+        {
+            playerNum = 2;
+            player2Instance = Instantiate(player2prefab, Grid[location.X, location.Y].transform.position, Grid[location.X, location.Y].transform.rotation);
+            placePlayerAnimation(location);
+
+            player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+            player2Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
+            player2Instance.transform.parent = Grid[location.X, location.Y].transform;
+        }
     }
 
-    public void clearBoard()
+    public void movePlayer(Coordinates curLoc, Coordinates newLoc, Player P1, Player P2)
+    {
+        Coordinates[] P1pawns = P1.GetPlayerCoordinates();
+        Coordinates[] P2pawns = P2.GetPlayerCoordinates();
+
+        Coordinates originalLocation = new Coordinates(curLoc.X, curLoc.Y);
+        Coordinates newLocation = new Coordinates(newLoc.X, newLoc.Y);
+
+        GameObject originalPlayerLoc = Grid[originalLocation.X, originalLocation.Y];
+        GameObject newPlayerLoc = Grid[newLocation.X, newLocation.Y].gameObject;
+
+        foreach (Transform child in originalPlayerLoc.transform)
+        {
+            if (child.tag == "Alien")
+            {
+                child.transform.parent = newPlayerLoc.transform;
+            }
+        }
+
+        //Debug.Log("current location: " + player1.name);
+        Debug.Log("new location: " + newPlayerLoc.name);
+
+
+        //Figure out which player you are moving so that you can set the right prefab
+        if (P1pawns.Contains(newLocation))
+        {
+            //change the parent
+            //player1.transform.parent = newPlayerLoc.gameObject.transform;
+
+            /*var player1Instance = Instantiate(player1prefab, newPlayer.transform.position, newPlayer.transform.rotation);
+            player1Instance.transform.position = new Vector3(newPlayer.transform.position.x, .7f, newPlayer.transform.position.z);
+            player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+            player1Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);*/
+        }
+        else if (P2pawns.Contains(newLocation))
+        {
+            //change the parent
+            //playerPlaced.transform.parent = originalPlayer.transform.parent;
+
+            /*var player2Instance = Instantiate(player2prefab, newPlayer.transform.position, newPlayer.transform.rotation);
+            player2Instance.transform.position = new Vector3(newPlayer.transform.position.x, .7f, newPlayer.transform.position.z);
+            player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+            player2Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);*/
+        }
+    }
+
+    /*public void clearBoard()
     {
         Debug.Log(GameObject.FindGameObjectsWithTag("Alien").Length);
         GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
@@ -203,8 +294,8 @@ public class GridManager : MonoBehaviour
         {
             Destroy(go);
         }
-        Destroy(GameObject.FindWithTag("Alien"));
-    }
+        //Destroy(GameObject.FindWithTag("Alien"));
+    }*/
 
     public static GameObject getBoardTile(int row, int col)
     {
@@ -222,7 +313,7 @@ public class GridManager : MonoBehaviour
         {
             for (var j = 0; j < Col; ++j)
             {
-                if (locs.Contains(new Coordinates(i,j)))
+                if (locs.Contains(new Coordinates(i, j)))
                 {
                     Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
                 }
@@ -281,7 +372,32 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+    }
 
+    void placePlayerAnimation(Coordinates location)
+    {
+        StartCoroutine(placePlayerDelay(location));
+    }
+
+    IEnumerator placePlayerDelay(Coordinates location)
+    {
+        StorePhases();
+        DisablePhases();
+
+        startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 5f, Grid[location.X, location.Y].transform.position.z);
+        endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, .7f, Grid[location.X, location.Y].transform.position.z);
+
+        for (float i = startPlayerLoc; i >= endPlayerLoc; i -= .1f)
+        {
+            endLocation.y = i;
+            if (playerNum == 1)
+                player1Instance.transform.position = endLocation;
+            else
+                player2Instance.transform.position = endLocation;
+            yield return new WaitForSeconds(.01f);
+        }
+
+        RestorePhases();
     }
 }
 
