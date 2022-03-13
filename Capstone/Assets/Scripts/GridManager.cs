@@ -303,48 +303,49 @@ public class GridManager : MonoBehaviour
 
     public void buildLevel(int[,] levelsOnBoard, Coordinates newLoc)
     {
+        float levelHeight ;
         if (levelsOnBoard[newLoc.X, newLoc.Y] == 1)
         {
             child = Instantiate(level1, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
-
-            placeLevelAnimation(newLoc);
+            levelHeight = .7f;
+            placeLevelAnimation(newLoc, levelHeight);
 
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
-            child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, .70f, Grid[newLoc.X, newLoc.Y].transform.position.z);
+            //child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, .70f, Grid[newLoc.X, newLoc.Y].transform.position.z);
             child.transform.localScale = new Vector3(.15f, .5f, .15f);
         }
         else if (levelsOnBoard[newLoc.X, newLoc.Y] == 2)
         {
             child = Instantiate(level2, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
-
-            placeLevelAnimation(newLoc);
+            levelHeight = 1.5f;
+            placeLevelAnimation(newLoc, levelHeight);
 
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
-            child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 1.5f, Grid[newLoc.X, newLoc.Y].transform.position.z);
+            //child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 1.5f, Grid[newLoc.X, newLoc.Y].transform.position.z);
             child.transform.localScale = new Vector3(.27f, 1f, .27f);
         }
         else if (levelsOnBoard[newLoc.X, newLoc.Y] == 3)
         {
             child = Instantiate(level3, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
-
-            placeLevelAnimation(newLoc);
+            levelHeight = 2.25f;
+            placeLevelAnimation(newLoc, levelHeight);
 
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
-            child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.25f, Grid[newLoc.X, newLoc.Y].transform.position.z);
+            //child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.25f, Grid[newLoc.X, newLoc.Y].transform.position.z);
             child.transform.localScale = new Vector3(.072f, .35f, .072f);
         }
         else if (levelsOnBoard[newLoc.X, newLoc.Y] == 4)
         {
             child = Instantiate(level4, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
-
-            placeLevelAnimation(newLoc);
+            levelHeight = 2.75f;
+            placeLevelAnimation(newLoc, levelHeight);
 
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
-            child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.75f, Grid[newLoc.X, newLoc.Y].transform.position.z);
+            //child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.75f, Grid[newLoc.X, newLoc.Y].transform.position.z);
             child.transform.localScale = new Vector3(.08f, .23f, .08f);
         }
     }
@@ -472,26 +473,23 @@ public class GridManager : MonoBehaviour
         //Debug.Log(CanPlacePawn());
     }
 
-    void placeLevelAnimation(Coordinates location)
+    void placeLevelAnimation(Coordinates location, float levelHeight)
     {
-        StartCoroutine(placeLevelDelay(location));
+        StartCoroutine(placeLevelDelay(location, levelHeight));
     }
 
-    IEnumerator placeLevelDelay(Coordinates location)
+    IEnumerator placeLevelDelay(Coordinates location, float levelHeight)
     {
         StorePhases();
         DisablePhases();
 
-        startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 5f, Grid[location.X, location.Y].transform.position.z);
-        endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, .7f, Grid[location.X, location.Y].transform.position.z);
+        startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 7f, Grid[location.X, location.Y].transform.position.z);
+        endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, levelHeight, Grid[location.X, location.Y].transform.position.z);
 
-        for (float i = startPlayerLoc; i >= endPlayerLoc; i -= .3f)
+        for (float i = startLocation.y; i >= levelHeight; i -= .1f)
         {
             endLocation.y = i;
-            if (playerNum == 1)
-                player1Instance.transform.position = endLocation;
-            else
-                player2Instance.transform.position = endLocation;
+            child.transform.position = endLocation;
             yield return new WaitForSeconds(.01f);
         }
 
