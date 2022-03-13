@@ -104,12 +104,6 @@ public class GameController : MonoBehaviour
             // If the pawn was successfully placed in the game core board...
             if (board_gc.PlacePawn(CurrentPlayer, loc))
             {
-                // Clear the pawns from the board then re-display them
-                //boardController.clearBoard();
-                //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
-                boardController.placePlayer(board_gc.GetHeights(), loc, P1, P2);
-
-
                 // If both players have placed their pawns, turn off the "place pawn" phase, turn on the "move" phase, and swap player turns
                 if (Player.GetBothPlayersPawns()[1] != new Coordinates() && Player.GetBothPlayersPawns()[3] != new Coordinates())
                 {
@@ -121,8 +115,13 @@ public class GameController : MonoBehaviour
                 // Otherwise, if only the current player has placed his pawns simply swap player turns
                 else if (CurrentPlayer.GetPlayerCoordinates()[1] != new Coordinates())
                     SwapPlayerTurn();
+
+                // Clear the pawns from the board then re-display them
+                //boardController.clearBoard();
+                //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                boardController.placePlayer(board_gc.GetHeights(), loc, P1, P2);
             }
-            else
+            else //THIS CODE MAY NOT BE REACHED ???
             {
                 // Should we notify the player that they are not clicking a valid tile?
 
@@ -229,8 +228,7 @@ public class GameController : MonoBehaviour
                             validTiles.Clear();
                             SwapMovePhase();
 
-                            //For testing purposes, return to place pawn phase
-                            //SwapPlacePawnPhase();
+                            // Turn on the "build" phase
                             SwapBuildPhase();
                         }
                         if (moveStatus == MoveType.WINNING)

@@ -398,6 +398,7 @@ public class GridManager : MonoBehaviour
         }
 
         RestorePhases();
+        Debug.Log(CanPlacePawn());
     }
 }
 
