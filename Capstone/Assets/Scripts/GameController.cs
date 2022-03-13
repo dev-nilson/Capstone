@@ -226,10 +226,10 @@ public class GameController : MonoBehaviour
                             // Turn on the "build" phase
                             SwapBuildPhase();
 
-                            /* This function call occurs after phase changes to accommodate for animation coroutines. */
                             // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                             boardController.unhighlightTiles(validTiles);
                             validTiles.Clear();
+                            /* This function call occurs after phase changes to accommodate for animation coroutines. */
                             boardController.movePlayer(curLoc, newLoc, P1, P2);
 
                         }
@@ -316,16 +316,16 @@ public class GameController : MonoBehaviour
                     CollectedSecondTile();
                     SwapBuildPhase();
 
-                    //For testing purposes, return to place pawn phase
-                    //SwapPlacePawnPhase();
+                    // Turn on the "move" phase
                     SwapMovePhase();
 
                     SwapPlayerTurn();
 
-                    /* This function call occurs after phase changes to accommodate for animation coroutines. */
                     // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                     boardController.unhighlightTiles(validTiles);
                     validTiles.Clear();
+
+                    /* This function call occurs after phase changes to accommodate for animation coroutines. */
                     //BUILD
                     boardController.buildLevel(board_gc.GetHeights(),newLoc);
                 }
