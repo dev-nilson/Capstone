@@ -116,6 +116,7 @@ public class GameController : MonoBehaviour
                 else if (CurrentPlayer.GetPlayerCoordinates()[1] != new Coordinates())
                     SwapPlayerTurn();
 
+                /* This function call occurs after phase changes to accommodate for animation coroutines. */
                 // Clear the pawns from the board then re-display them
                 //boardController.clearBoard();
                 //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
@@ -218,11 +219,6 @@ public class GameController : MonoBehaviour
                             Debug.Log("GameController: collected second tile and moved pawn");
                             Coordinates[] Pawns = Player.GetBothPlayersPawns();
 
-                            // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
-                            boardController.unhighlightTiles(validTiles);
-                            //boardController.clearBoard();
-                            //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
-
                             // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
                             CollectedSecondTile();
                             validTiles.Clear();
@@ -230,6 +226,12 @@ public class GameController : MonoBehaviour
 
                             // Turn on the "build" phase
                             SwapBuildPhase();
+
+                            /* This function call occurs after phase changes to accommodate for animation coroutines. */
+                            // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
+                            boardController.unhighlightTiles(validTiles);
+                            //boardController.clearBoard();
+                            //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
                         }
                         if (moveStatus == MoveType.WINNING)
                         {
@@ -310,11 +312,6 @@ public class GameController : MonoBehaviour
                     //Section for debugging
                     Debug.Log("GameController: collected second tile and built piece on " + newLoc.X + "," + newLoc.Y);
 
-                    // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
-                    boardController.unhighlightTiles(validTiles);
-                    //boardController.clearBoard();
-                    //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
-
                     // Record the fact that the second tile has been collected for the "build" phase. Then turn off the "build" phase
                     CollectedSecondTile();
                     validTiles.Clear();
@@ -325,8 +322,14 @@ public class GameController : MonoBehaviour
                     SwapMovePhase();
 
                     SwapPlayerTurn();
+
+                    /* This function call occurs after phase changes to accommodate for animation coroutines. */
+                    // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
+                    boardController.unhighlightTiles(validTiles);
+                    //boardController.clearBoard();
+                    //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
                 }
-                else
+                else //THIS CODE MAY NOT BE REACHED ???
                 {
                     // Should we notify the player that they are not clicking a valid tile?
                 }
