@@ -230,8 +230,8 @@ public class GameController : MonoBehaviour
                             /* This function call occurs after phase changes to accommodate for animation coroutines. */
                             // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                             boardController.unhighlightTiles(validTiles);
-                            //boardController.clearBoard();
-                            //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                            boardController.movePlayer(curLoc, newLoc, P1, P2);
+
                         }
                         if (moveStatus == MoveType.WINNING)
                         {
