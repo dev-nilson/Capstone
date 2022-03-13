@@ -326,8 +326,8 @@ public class GameController : MonoBehaviour
                     // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                     boardController.unhighlightTiles(validTiles);
                     validTiles.Clear();
-                    //boardController.clearBoard();
-                    //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                    //BUILD
+                    boardController.buildLevel(board_gc.GetHeights(),newLoc);
                 }
                 else
                 {

@@ -301,6 +301,43 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public void buildLevel(int[,] levelsOnBoard, Coordinates newLoc)
+    {
+        if (levelsOnBoard[newLoc.X, newLoc.Y] == 1)
+        {
+            //Debug.Log(gridSpace);
+            child = Instantiate(level1, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
+            child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
+            child.transform.rotation = Quaternion.Euler(0, 0, 0);
+            child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, .70f, Grid[newLoc.X, newLoc.Y].transform.position.z);
+            child.transform.localScale = new Vector3(.15f, .5f, .15f);
+        }
+        else if (levelsOnBoard[newLoc.X, newLoc.Y] == 2)
+        {
+            child = Instantiate(level2, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
+            child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
+            child.transform.rotation = Quaternion.Euler(0, 0, 0);
+            child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 1.5f, Grid[newLoc.X, newLoc.Y].transform.position.z);
+            child.transform.localScale = new Vector3(.27f, 1f, .27f);
+        }
+        else if (levelsOnBoard[newLoc.X, newLoc.Y] == 3)
+        {
+            child = Instantiate(level3, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
+            child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
+            child.transform.rotation = Quaternion.Euler(0, 0, 0);
+            child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.25f, Grid[newLoc.X, newLoc.Y].transform.position.z);
+            child.transform.localScale = new Vector3(.072f, .35f, .072f);
+        }
+        else if (levelsOnBoard[newLoc.X, newLoc.Y] == 4)
+        {
+            child = Instantiate(level4, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
+            child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
+            child.transform.rotation = Quaternion.Euler(0, 0, 0);
+            child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.75f, Grid[newLoc.X, newLoc.Y].transform.position.z);
+            child.transform.localScale = new Vector3(.08f, .23f, .08f);
+        }
+    }
+
     /*public void clearBoard()
     {
         Debug.Log(GameObject.FindGameObjectsWithTag("Alien").Length);
@@ -361,11 +398,6 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void buildAnimation(Coordinates newLoc)
-    {
-
     }
 
     public void OnMouseDown()
