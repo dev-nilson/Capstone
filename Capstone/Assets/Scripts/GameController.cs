@@ -122,7 +122,7 @@ public class GameController : MonoBehaviour
                 //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
                 boardController.placePlayer(board_gc.GetHeights(), loc, P1, P2);
             }
-            else //THIS CODE MAY NOT BE REACHED ???
+            else
             {
                 // Should we notify the player that they are not clicking a valid tile?
 
@@ -329,7 +329,7 @@ public class GameController : MonoBehaviour
                     //boardController.clearBoard();
                     //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
                 }
-                else //THIS CODE MAY NOT BE REACHED ???
+                else
                 {
                     // Should we notify the player that they are not clicking a valid tile?
                 }
