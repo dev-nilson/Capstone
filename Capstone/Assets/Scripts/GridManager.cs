@@ -305,8 +305,10 @@ public class GridManager : MonoBehaviour
     {
         if (levelsOnBoard[newLoc.X, newLoc.Y] == 1)
         {
-            //Debug.Log(gridSpace);
             child = Instantiate(level1, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
+
+            placeLevelAnimation(newLoc);
+
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
             child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, .70f, Grid[newLoc.X, newLoc.Y].transform.position.z);
@@ -315,6 +317,9 @@ public class GridManager : MonoBehaviour
         else if (levelsOnBoard[newLoc.X, newLoc.Y] == 2)
         {
             child = Instantiate(level2, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
+
+            placeLevelAnimation(newLoc);
+
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
             child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 1.5f, Grid[newLoc.X, newLoc.Y].transform.position.z);
@@ -323,6 +328,9 @@ public class GridManager : MonoBehaviour
         else if (levelsOnBoard[newLoc.X, newLoc.Y] == 3)
         {
             child = Instantiate(level3, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
+
+            placeLevelAnimation(newLoc);
+
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
             child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.25f, Grid[newLoc.X, newLoc.Y].transform.position.z);
@@ -331,6 +339,9 @@ public class GridManager : MonoBehaviour
         else if (levelsOnBoard[newLoc.X, newLoc.Y] == 4)
         {
             child = Instantiate(level4, Grid[newLoc.X, newLoc.Y].transform.position, Grid[newLoc.X, newLoc.Y].transform.rotation);
+
+            placeLevelAnimation(newLoc);
+
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
             child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.75f, Grid[newLoc.X, newLoc.Y].transform.position.z);
@@ -460,6 +471,34 @@ public class GridManager : MonoBehaviour
         RestorePhases();
         //Debug.Log(CanPlacePawn());
     }
+
+    void placeLevelAnimation(Coordinates location)
+    {
+        StartCoroutine(placeLevelDelay(location));
+    }
+
+    IEnumerator placeLevelDelay(Coordinates location)
+    {
+        StorePhases();
+        DisablePhases();
+
+        startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 5f, Grid[location.X, location.Y].transform.position.z);
+        endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, .7f, Grid[location.X, location.Y].transform.position.z);
+
+        for (float i = startPlayerLoc; i >= endPlayerLoc; i -= .3f)
+        {
+            endLocation.y = i;
+            if (playerNum == 1)
+                player1Instance.transform.position = endLocation;
+            else
+                player2Instance.transform.position = endLocation;
+            yield return new WaitForSeconds(.01f);
+        }
+
+        RestorePhases();
+        //Debug.Log(CanPlacePawn());
+    }
+
 }
 
 
