@@ -221,7 +221,6 @@ public class GameController : MonoBehaviour
 
                             // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
                             CollectedSecondTile();
-                            validTiles.Clear();
                             SwapMovePhase();
 
                             // Turn on the "build" phase
@@ -230,6 +229,7 @@ public class GameController : MonoBehaviour
                             /* This function call occurs after phase changes to accommodate for animation coroutines. */
                             // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                             boardController.unhighlightTiles(validTiles);
+                            validTiles.Clear();
                             boardController.movePlayer(curLoc, newLoc, P1, P2);
 
                         }
@@ -314,7 +314,6 @@ public class GameController : MonoBehaviour
 
                     // Record the fact that the second tile has been collected for the "build" phase. Then turn off the "build" phase
                     CollectedSecondTile();
-                    validTiles.Clear();
                     SwapBuildPhase();
 
                     //For testing purposes, return to place pawn phase
@@ -326,6 +325,7 @@ public class GameController : MonoBehaviour
                     /* This function call occurs after phase changes to accommodate for animation coroutines. */
                     // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
                     boardController.unhighlightTiles(validTiles);
+                    validTiles.Clear();
                     //boardController.clearBoard();
                     //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
                 }
