@@ -13,6 +13,10 @@ public class GridManager : MonoBehaviour
     public static GameObject[,] Grid;
     public static Coordinates selectedTile;
 
+    //For drag drop on the players
+    public GameObject selectedObject;
+
+
     GameController gameController;
 
     int Col = 5, Row = 5;
@@ -35,14 +39,12 @@ public class GridManager : MonoBehaviour
 
     //stores the ending location of the game piece
     Vector3 endLocation;
-    //stores the ending location of the game piece
+    //stores the starting location of the game piece
     Vector3 startLocation;
 
     float startPlayerLoc = 7f;
     float endPlayerLoc = .7f;
 
-    //tells you whether it still in the animation phase
-    bool isAnimationRunning = false;
 
     //these are the objects that were instantiated
     GameObject player1Instance;
@@ -248,19 +250,32 @@ public class GridManager : MonoBehaviour
         Coordinates originalLocation = new Coordinates(curLoc.X, curLoc.Y);
         Coordinates newLocation = new Coordinates(newLoc.X, newLoc.Y);
 
-        GameObject originalPlayerLoc = Grid[originalLocation.X, originalLocation.Y];
-        GameObject newPlayerLoc = Grid[newLocation.X, newLocation.Y].gameObject;
+        startLocation = new Vector3(Grid[curLoc.X, curLoc.Y].transform.position.x, Grid[curLoc.X, curLoc.Y].transform.position.z, Grid[curLoc.X, curLoc.Y].transform.position.z);
+        endLocation = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, .7f, Grid[newLoc.X, newLoc.Y].transform.position.z);
 
-        foreach (Transform child in originalPlayerLoc.transform)
+        GameObject originalPlayer = Grid[originalLocation.X, originalLocation.Y];
+        GameObject newPlayer = Grid[newLocation.X, newLocation.Y].gameObject;
+
+        //loop through each child of the tile that was selected to find the alien (instead of the pyramid levels)
+        foreach (Transform child in originalPlayer.transform)
         {
+            //this gets the child with the "Alien" tag and sets it to the original player
             if (child.tag == "Alien")
             {
-                child.transform.parent = newPlayerLoc.transform;
+                child.transform.parent = newPlayer.transform;
+                Debug.Log("Child name: " + child.gameObject.name);
+                originalPlayer = child.gameObject;
+                Debug.Log("original player name: " + originalPlayer.name);
             }
         }
 
+        //this sets the alien that was selected to the end location
+        originalPlayer.transform.position = endLocation;
+
+        //Debug.Log("original player name: " + originalPlayer.name);
+
         //Debug.Log("current location: " + player1.name);
-        Debug.Log("new location: " + newPlayerLoc.name);
+        //Debug.Log("new location: " + newPlayer.name);
 
 
         //Figure out which player you are moving so that you can set the right prefab
@@ -371,6 +386,19 @@ public class GridManager : MonoBehaviour
                     }
                 }
             }
+
+            /*Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+            Debug.Log("mouse x: " + mousePos.x);
+            Debug.Log("mouse y: " + mousePos.y);
+
+            Collider2D targetObject = Physics2D.OverlapPoint(mousePos);
+            if (targetObject)
+            {
+                selectedObject = targetObject.transform.gameObject;
+                Debug.Log("Selected gameobject tag: " + selectedObject.gameObject.tag);
+            }*/
+
         }
     }
 
@@ -387,7 +415,7 @@ public class GridManager : MonoBehaviour
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 5f, Grid[location.X, location.Y].transform.position.z);
         endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, .7f, Grid[location.X, location.Y].transform.position.z);
 
-        for (float i = startPlayerLoc; i >= endPlayerLoc; i -= .1f)
+        for (float i = startPlayerLoc; i >= endPlayerLoc; i -= .3f)
         {
             endLocation.y = i;
             if (playerNum == 1)
@@ -398,7 +426,7 @@ public class GridManager : MonoBehaviour
         }
 
         RestorePhases();
-        Debug.Log(CanPlacePawn());
+        //Debug.Log(CanPlacePawn());
     }
 }
 
