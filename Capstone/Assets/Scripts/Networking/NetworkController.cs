@@ -63,9 +63,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
             // Clear "coordinates" variable after it is received, so it is does not get reused.
             Coordinates temp = coordinates;
-            coordinates = new Coordinates();
+            
             SendCoordinates();
-
+            coordinates = null;
             return temp;
         }
     }
