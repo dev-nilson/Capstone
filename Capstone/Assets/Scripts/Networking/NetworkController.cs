@@ -15,12 +15,13 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         netController = this;
-        netPlayer = GameObject.Find("networkPlayer");
+        //netPlayer = GameObject.Find("networkPlayer").GetComponent<NetworkPlayer>();
     }
 
     public void Start()
     {
         GameObject player = PhotonNetwork.Instantiate("networkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
+       netPlayer = player.GetComponent<NetworkPlayer>();
     }
 
     private void Update()
