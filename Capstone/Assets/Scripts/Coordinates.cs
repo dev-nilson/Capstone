@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+[Serializable]
 public class Coordinates
 {
-    public int X { get; } //{ get; init; }
-    public int Y { get; } //{ get; init; }
+    public int X; //{ get; init; }
+    public int Y; //{ get; init; }
 
     public Coordinates(int x, int y)
     {
@@ -51,6 +52,7 @@ public class Coordinates
     public static byte[] Serialize(object coordinates)
     {
         var temp = JsonUtility.ToJson(coordinates);
+        Debug.Log($"I'm going to send {temp}");
         return System.Text.Encoding.ASCII.GetBytes(temp);
     }
 
@@ -58,6 +60,7 @@ public class Coordinates
     public static Coordinates Deserialize(byte[] data)
     {
         var temp = System.Text.Encoding.ASCII.GetString(data);
+        Debug.Log($"I recieved {temp}.");
         return JsonUtility.FromJson<Coordinates>(temp);
     }
 }
