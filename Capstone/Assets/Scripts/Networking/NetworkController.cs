@@ -51,6 +51,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (coordinates == null || coordinates == new Coordinates())
         {
             Debug.Log("No coordinate set");
+            if(coordinates == null)
+            {
+                Debug.Log("This is the location we get is null");
+            }
             return new Coordinates();
         }
         else

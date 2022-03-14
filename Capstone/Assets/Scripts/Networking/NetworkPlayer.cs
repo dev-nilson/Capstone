@@ -39,11 +39,11 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	{
 		//Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
 		Debug.Log("RPC_SendCoordinates called");
-		if (!photonView.IsMine)
-		{
-			Debug.Log("Photon view does not currently belong to player");
-			return;
-		}
+		//if (!photonView.IsMine)
+		//{
+		//	Debug.Log("Photon view does not currently belong to player");
+		//	return;
+		//}
 
 		Debug.Log("Receiving coordinates...");
 		Debug.Log("Received coordinates were: " + coordinates.X + " " + coordinates.Y);
@@ -67,7 +67,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	{
 		Debug.Log("send coordinates function in NETWORK PLAYER called");
 		Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
-		photonView.RPC("RPC_SendCoordinates", RpcTarget.All, coordinates);
+		photonView.RPC("RPC_SendCoordinates", RpcTarget.Others, coordinates);
 	}
 
 
