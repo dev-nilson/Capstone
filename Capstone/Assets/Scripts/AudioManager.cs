@@ -48,7 +48,7 @@ public class AudioManager : MonoBehaviour
         //if this is very first time, always play Golden Sea
         //else send to randomizeMainMenuSong
 
-        Debug.Log(firstTime);
+        //Debug.Log(firstTime);
         if (firstTime == true)
         {
             firstTime = false;
@@ -78,7 +78,7 @@ public class AudioManager : MonoBehaviour
     private IEnumerator waitAudio(Sound s)
     {
         yield return new WaitForSeconds(s.clip.length);
-        Debug.Log("end of sound");
+        //Debug.Log("end of sound");
 
         Play(MainMenuSongs());
     }
@@ -92,7 +92,7 @@ public class AudioManager : MonoBehaviour
 
         System.Random r = new System.Random();
         int randInt = r.Next(0, 10);
-        Debug.Log("The random generator chose the number: " + randInt);
+        //Debug.Log("The random generator chose the number: " + randInt);
 
             if (randInt == 0)
             {
