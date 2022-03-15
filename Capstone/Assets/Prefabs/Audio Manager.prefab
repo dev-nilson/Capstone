@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b7b80c4e09a86a54fa2b36c971f21f0d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -143,19 +143,19 @@ MonoBehaviour:
   sounds:
   - name: Golden Sea
     clip: {fileID: 8300000, guid: b7b80c4e09a86a54fa2b36c971f21f0d, type: 3}
-    volume: 0.5
+    volume: 0
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Vagueness
     clip: {fileID: 8300000, guid: deaf33a34852aa7419d4b4797d568c5f, type: 3}
-    volume: 0.5
+    volume: 0
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Ivory Towers
     clip: {fileID: 8300000, guid: ea5c397dff615364191c043f09ad82d5, type: 3}
-    volume: 0.5
+    volume: 0
     pitch: 1
     loop: 0
     source: {fileID: 0}
