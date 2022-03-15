@@ -53,19 +53,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         //get mesh renderer component
         Renderer = GetComponent<MeshRenderer>();
-
-
-
-        //INITIALIZE GAME: AI HARD, AI EASY, NETWORK? -- should be done via menus !!!!!!!!!!!!!
-        // gameType is currently defaulting to easy. Why???
-        // setGameType(GameType.EASY)
-
-
-        //  STARTING PLAYER?
-        //SetPlayerTurn(PlayerTurn.ONE);
 
         P1 = new Player(true);//, P1username);
 
@@ -77,27 +66,14 @@ public class GameController : MonoBehaviour
         //GUI: CREATE EMPTY BOARD
         boardHeights = board_gc.GetHeights();
         boardController.createBoard(boardHeights);
-        boardController.displayBoard(boardHeights, P1, P2);
+        //boardController.displayBoard(boardHeights, P1, P2);
         
-
-        //player1TurnActive = true;
-        //if (GetPlayerTurn() == PlayerTurn.ONE)
-        //    Debug.Log("P1's turn!");
-
-
-
-
-        //player.name = ("X: " + row + " Y: " + col);
-        //player.transform.parent = playerParent.transform;
-
-
-        
-
-        // Game begins with no place pawn, move, or build phase
+        // Game begins with only place pawn phase
         DisablePhases();
         SwapPlacePawnPhase();
-        //SwapMovePhase();
-        //SwapBuildPhase();
+
+        Debug.Log("P1's avatar is " + (int)getP1avatar());
+        Debug.Log("P2's avatar is " + (int)getP2avatar());
     }
 
     // Update is called once per frame
@@ -128,10 +104,6 @@ public class GameController : MonoBehaviour
             // If the pawn was successfully placed in the game core board...
             if (board_gc.PlacePawn(CurrentPlayer, loc))
             {
-                // Clear the pawns from the board then re-display them
-                boardController.clearBoard();
-                boardController.displayBoard(board_gc.GetHeights(), P1, P2);
-
                 // If both players have placed their pawns, turn off the "place pawn" phase, turn on the "move" phase, and swap player turns
                 if (Player.GetBothPlayersPawns()[1] != new Coordinates() && Player.GetBothPlayersPawns()[3] != new Coordinates())
                 {
@@ -143,6 +115,12 @@ public class GameController : MonoBehaviour
                 // Otherwise, if only the current player has placed his pawns simply swap player turns
                 else if (CurrentPlayer.GetPlayerCoordinates()[1] != new Coordinates())
                     SwapPlayerTurn();
+
+                /* This function call occurs after phase changes to accommodate for animation coroutines. */
+                // Clear the pawns from the board then re-display them
+                //boardController.clearBoard();
+                //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
+                boardController.placePlayer(board_gc.GetHeights(), loc, P1, P2);
             }
             else
             {
@@ -241,19 +219,19 @@ public class GameController : MonoBehaviour
                             Debug.Log("GameController: collected second tile and moved pawn");
                             Coordinates[] Pawns = Player.GetBothPlayersPawns();
 
-                            // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
-                            boardController.unhighlightTiles(validTiles);
-                            boardController.clearBoard();
-                            boardController.displayBoard(board_gc.GetHeights(), P1, P2);
-
                             // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
                             CollectedSecondTile();
-                            validTiles.Clear();
                             SwapMovePhase();
 
-                            //For testing purposes, return to place pawn phase
-                            //SwapPlacePawnPhase();
+                            // Turn on the "build" phase
                             SwapBuildPhase();
+
+                            // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
+                            boardController.unhighlightTiles(validTiles);
+                            validTiles.Clear();
+                            /* This function call occurs after phase changes to accommodate for animation coroutines. */
+                            boardController.movePlayer(curLoc, newLoc, P1, P2);
+
                         }
                         if (moveStatus == MoveType.WINNING)
                         {
@@ -334,22 +312,22 @@ public class GameController : MonoBehaviour
                     //Section for debugging
                     Debug.Log("GameController: collected second tile and built piece on " + newLoc.X + "," + newLoc.Y);
 
-                    // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
-                    boardController.unhighlightTiles(validTiles);
-                    boardController.clearBoard();
-                    boardController.buildAnimation(newLoc);
-                    boardController.displayBoard(board_gc.GetHeights(), P1, P2);
-
                     // Record the fact that the second tile has been collected for the "build" phase. Then turn off the "build" phase
                     CollectedSecondTile();
-                    validTiles.Clear();
                     SwapBuildPhase();
 
-                    //For testing purposes, return to place pawn phase
-                    //SwapPlacePawnPhase();
+                    // Turn on the "move" phase
                     SwapMovePhase();
 
                     SwapPlayerTurn();
+
+                    // Unhighlight the highlighted tiles, clear the pawns from the board then re-display them
+                    boardController.unhighlightTiles(validTiles);
+                    validTiles.Clear();
+
+                    /* This function call occurs after phase changes to accommodate for animation coroutines. */
+                    //BUILD
+                    boardController.buildLevel(board_gc.GetHeights(),newLoc);
                 }
                 else
                 {

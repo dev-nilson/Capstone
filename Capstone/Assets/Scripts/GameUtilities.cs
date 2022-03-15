@@ -241,6 +241,18 @@ public static class GameUtilities //public  ??
         return P2avatar;
     }
 
+    // Returns a random avatar other than the one passed as a parameter
+    public static PlayerAvatar RandomPlayerAvatar(PlayerAvatar avatar_A)
+    {
+        PlayerAvatar avatar_B;
+        do
+        {
+            int num = new Random().Next(0, 4); // Generates a number [0,4)  or 0 <= num < 4
+            avatar_B = (PlayerAvatar)num; //Return the number 0, 1, 2, or 3 but casted as a PlayerAvatar
+        } while (avatar_B == avatar_A);
+        return avatar_B;
+    }
+
     //////////////////////////////////////
     // Generic game functionalities
     //////////////////////////////////////
