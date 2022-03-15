@@ -486,17 +486,11 @@ public class GridManager : MonoBehaviour
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 7f, Grid[location.X, location.Y].transform.position.z);
         endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, levelHeight, Grid[location.X, location.Y].transform.position.z);
 
-        float levelDropBy = 1f;
-        if(levelHeight == .7f)
-        {
-            levelDropBy = .35f;
-        }
-
-        for (float i = startLocation.y; i >= levelHeight; i -= levelDropBy)
+        for (float i = startLocation.y; i >= levelHeight; i -= .2f)
         {
             endLocation.y = i;
             child.transform.position = endLocation;
-            yield return new WaitForSeconds(.01f);
+            yield return new WaitForSeconds(.001f);
         }
 
         RestorePhases();
