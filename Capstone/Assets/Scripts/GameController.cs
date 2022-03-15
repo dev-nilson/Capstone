@@ -40,6 +40,8 @@ public class GameController : MonoBehaviour
     //get GameObject’s material and color
     MeshRenderer Renderer;
 
+    //public bool player1TurnActive = false;
+
     void Awake()
     {
         boardController = board.GetComponent<GridManager>();
@@ -54,22 +56,9 @@ public class GameController : MonoBehaviour
         //get mesh renderer component
         Renderer = GetComponent<MeshRenderer>();
 
-<<<<<<< HEAD
         P1 = new Player(true);//, P1username);
 
         P2 = new Player(false);//, P2username);
-=======
-        //INITIALIZE GAME: AI HARD, AI EASY, NETWORK? -- should be done via menus !!!!!!!!!!!!!
-        // gameType is currently defaulting to easy. Why???
-        // setGameType(GameType.EASY)
-        
-        //  STARTING PLAYER?
-        //SetPlayerTurn(PlayerTurn.ONE);
-
-        // P1 is always local player. P2 is opponent.
-        P1 = new Player(true, P1username);
-        P2 = new Player(false, P2username);
->>>>>>> newNetBranch
 
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
@@ -78,7 +67,6 @@ public class GameController : MonoBehaviour
         boardHeights = board_gc.GetHeights();
         boardController.createBoard(boardHeights);
         boardController.displayBoard(boardHeights, P1, P2);
-<<<<<<< HEAD
         
         // Game begins with only place pawn phase
         DisablePhases();
@@ -86,12 +74,6 @@ public class GameController : MonoBehaviour
 
         Debug.Log("P1's avatar is " + (int)getP1avatar());
         Debug.Log("P2's avatar is " + (int)getP2avatar());
-=======
-
-        // Game begins with no place pawn, move, or build phase
-        DisablePhases();
-        SwapPlacePawnPhase();
->>>>>>> newNetBranch
     }
 
     // Update is called once per frame
@@ -113,6 +95,9 @@ public class GameController : MonoBehaviour
 
         if (CanPlacePawn())
         {
+            //if (GetPlayerTurn() == PlayerTurn.ONE) Debug.Log("P1's turn!");
+            //else Debug.Log("P2's turn!");
+
             // Store the current player's selected coordinate
             Coordinates loc = playerController.GetPlacement(board_gc, CurrentPlayer); //boardController.getSelectedTile();
 
@@ -159,11 +144,8 @@ public class GameController : MonoBehaviour
                 }
                 DisablePhases();
                 //board.SetActive(false);
-<<<<<<< HEAD
 
                 ClearGame();
-=======
->>>>>>> newNetBranch
             }
             else
             {
@@ -172,6 +154,8 @@ public class GameController : MonoBehaviour
                     ReadyForTwoTiles();
                 else if (WaitingForFirstTile())
                 {
+                    // If the mouse was clicked, store that new coordinate
+
                     curLoc = playerController.GetPawn(board_gc, CurrentPlayer, WaitingPlayer);
 
                     // Collect the first tile
@@ -189,8 +173,7 @@ public class GameController : MonoBehaviour
                         }
                         else
                         {
-                            if (CurrentPlayer.Type() == Player.Tag.LOCAL)
-                                boardController.highlightValidTiles(validTiles);
+                            if (CurrentPlayer.Type() == Player.Tag.LOCAL) boardController.highlightValidTiles(validTiles);
 
                             // Record the fact that the first tile has been collected for the "move" phase. Will begin waiting for the second tile
                             CollectedFirstTile();
@@ -216,7 +199,6 @@ public class GameController : MonoBehaviour
                             // Unhlighlight valid tiles for previous pawn then clear "validTiles" of those coordinates
                             boardController.unhighlightTiles(validTiles);
                             validTiles.Clear();
-
                             // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
                             validTiles = board_gc.AvailableMoves(curLoc);
                             boardController.highlightValidTiles(validTiles);
@@ -240,12 +222,13 @@ public class GameController : MonoBehaviour
                             boardController.clearBoard();
                             boardController.displayBoard(board_gc.GetHeights(), P1, P2);
 
-                            // Record the fact that the second tile has been collected for the "move" phase. Then turn of the "move" phase.
+                            // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
                             CollectedSecondTile();
                             validTiles.Clear();
                             SwapMovePhase();
 
-                            // Turn on the "build" phase
+                            //For testing purposes, return to place pawn phase
+                            //SwapPlacePawnPhase();
                             SwapBuildPhase();
                         }
                         if (moveStatus == MoveType.WINNING)
@@ -263,12 +246,9 @@ public class GameController : MonoBehaviour
                             }
                             DisablePhases();
                             //board.SetActive(false);
-<<<<<<< HEAD
 
                             ClearGame();
 
-=======
->>>>>>> newNetBranch
                         }
                         else if (moveStatus == MoveType.INVALID)
                         {
@@ -308,16 +288,12 @@ public class GameController : MonoBehaviour
                     }
                     DisablePhases();
                     //board.SetActive(false);
-<<<<<<< HEAD
 
                     ClearGame();
-=======
->>>>>>> newNetBranch
                 }
                 else
                 {
-                    if (CurrentPlayer.Type() == Player.Tag.LOCAL)
-                        boardController.highlightValidTiles(validTiles);
+                    if (CurrentPlayer.Type() == Player.Tag.LOCAL) boardController.highlightValidTiles(validTiles);
 
                     // Record the fact that the first tile has been collected for the "build" phase. Will begin waiting for the second tile
                     CollectedFirstTile();
@@ -345,7 +321,8 @@ public class GameController : MonoBehaviour
                     validTiles.Clear();
                     SwapBuildPhase();
 
-                    // Turn on "move" phase
+                    //For testing purposes, return to place pawn phase
+                    //SwapPlacePawnPhase();
                     SwapMovePhase();
 
                     SwapPlayerTurn();
