@@ -486,7 +486,13 @@ public class GridManager : MonoBehaviour
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 7f, Grid[location.X, location.Y].transform.position.z);
         endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, levelHeight, Grid[location.X, location.Y].transform.position.z);
 
-        for (float i = startLocation.y; i >= levelHeight; i -= .1f)
+        float levelDropBy = 1f;
+        if(levelHeight == .7f)
+        {
+            levelDropBy = .35f;
+        }
+
+        for (float i = startLocation.y; i >= levelHeight; i -= levelDropBy)
         {
             endLocation.y = i;
             child.transform.position = endLocation;
