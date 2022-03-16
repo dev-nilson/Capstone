@@ -1,9 +1,11 @@
-﻿using Photon.Pun;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameUtilities;
 
 public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
@@ -53,6 +55,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         cachedRoomList = new Dictionary<string, RoomInfo>();
         roomListEntries = new Dictionary<string, GameObject>();
+        PhotonPeer.RegisterType(typeof(Coordinates), 1, Coordinates.Serialize, Coordinates.Deserialize);
 
         PhotonNetwork.AutomaticallySyncScene = true;
     }
@@ -126,6 +129,9 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         Debug.Log(roomName);
         CharacterSelectionLobbyPanel.SetActive(true);
 
+        // Call to function in "GameUtilities.cs"
+        SetPlayerTurn(PlayerTurn.ONE);
+
         //NameOfHost.text = roomName;
         CreateRoom();
     }
@@ -142,6 +148,9 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         multiplayerMenuPanel.SetActive(false);
         JoinGamePanel.SetActive(true);
         PhotonNetwork.JoinLobby(); //First tries to join a lobby
+
+        // Call to function in "GameUtilities.cs"
+        SetPlayerTurn(PlayerTurn.TWO);
     }
 
     public void JoinGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
@@ -160,7 +169,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             IsOpen = true,
             MaxPlayers = 2,
             BroadcastPropsChangeToAll = true
-    };
+        };
 
         PhotonNetwork.CreateRoom(roomName, roomOps); //attempting to create a new room
     }
@@ -246,3 +255,5 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         }
     }
 }
+
+

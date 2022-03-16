@@ -6,22 +6,22 @@ using UnityEngine;
 public class NetworkController : MonoBehaviourPunCallbacks
 {
     public static NetworkController netController;
-    public static Coordinates moveLocation;
-    public static Coordinates buildLocation;
-    public string roomName;
+    public static Coordinates coordinates;
+    public static NetworkPlayer netPlayer;
 
-	[SerializeField]
-	private PhotonView photonView;
+    [SerializeField]
+    private PhotonView photonView;
 
     private void Awake()
     {
         netController = this;
+        //netPlayer = GameObject.Find("networkPlayer").GetComponent<NetworkPlayer>();
     }
 
     public void Start()
     {
-        //playerLeftRoomFunctionCalled = false;
-        GameObject player = PhotonNetwork.Instantiate("NetworkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
+        GameObject player = PhotonNetwork.Instantiate("networkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
+        netPlayer = player.GetComponent<NetworkPlayer>();
     }
 
     private void Update()
@@ -29,71 +29,46 @@ public class NetworkController : MonoBehaviourPunCallbacks
         //add watcher that will continually see if player has disconnected yet or not
     }
 
-    //public IEnumerator WaitForTurn()
-    //{
-    //    Debug.Log("Waiting for turn");
-
-    //    while (networkMessageRecieved == false)
-    //        yield return null;
-    //    networkMessageRecieved = false;
-    //    //gameController.NetworkMessageRecieved();
-    //}
-
-    public void SendMove()
+    public static void SendCoordinates()
     {
-        //Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
-        //if (NetworkPlayer.netPlayer = null)
-        //{
-        //    Debug.Log("This is what we get for netPlayer" + NetworkPlayer.netPlayer);
-        //}
-        Debug.Log("NetworkController, Send Move Called");
-        Debug.Log("Move coordinates were: " + moveLocation.X + " " + moveLocation.Y);
+        Debug.Log("SendCoordinates function in NETWORK CONTROLLER called");
+        Debug.Log("Sending the coordinates: " + coordinates.X + " " + coordinates.Y);
+        netPlayer.SendCoordinates(coordinates);
+    }
 
-        if (NetworkPlayer.netPlayer != null)
+    public static void SetCoordinates(Coordinates newCoordinates)
+    {
+        Debug.Log("SetCoordinates function in NETWORK CONTROLLER called");
+        Debug.Log("coordinates being set are " + newCoordinates.X + " " + newCoordinates.Y);
+        coordinates = newCoordinates;
+
+        Debug.Log("These coordinates should be the same as the coordinates being set: " + coordinates.X + " " + coordinates.Y);
+    }
+
+    public static Coordinates GetCoordinates()
+    {
+        Debug.Log("GetCoordinates function in NETWORK CONTROLLER called");
+        if (coordinates == null || coordinates == new Coordinates())
         {
-            NetworkPlayer.netPlayer.SendMove(moveLocation);
-            Debug.Log("net is not null");
+            Debug.Log("No coordinate set");
+            if (coordinates == null)
+            {
+                Debug.Log("This is the location we get is null");
+            }
+            return new Coordinates();
         }
-        //else
-        //    Debug.Log("Somethin aint right, fix it");
-    }
-
-    public void SendBuild()
-    {
-        Debug.Log("NetworkController, Send Build Called");
-        Debug.Log("Build coordinates were: " + buildLocation.X + " " + buildLocation.Y);
-        NetworkPlayer.netPlayer.SendBuild(buildLocation);
-    }
-
-    public void SetMoveCoordinates(Coordinates newCoordinates)
-    {
-        Debug.Log("SetMoveCoordinates called");
-        Debug.Log("Setting move coodrinates " + newCoordinates.X + " " + newCoordinates.Y);
-        moveLocation = newCoordinates;
-    }
-    public Coordinates GetMoveCoordinates()
-    {
-        Debug.Log("GetMoveCoordinates called");
-        if (moveLocation == null)
-            Debug.Log("No coordinate set");
         else
-            Debug.Log("Returning move coordinates: " + moveLocation.X + " " + moveLocation.Y);
-        return moveLocation;
-    }
+        {
+            Debug.Log("Returning coordinates: " + coordinates.X + " " + coordinates.Y);
 
-    public void SetBuildCoordinates(Coordinates newCoordinates)
-    {
-        Debug.Log("SetBuildCoordinates called");
-        Debug.Log("Setting build coodrinates " + newCoordinates.X + " " + newCoordinates.Y);
-        buildLocation = newCoordinates;
-    }
-    public Coordinates GetBuildCoordinates()
-    {
-        Debug.Log("GetBuildCoordinates called");
-        if (buildLocation == null)
-            Debug.Log("No coordinate set");
-        else
-            Debug.Log("Returning build coordinates: " + buildLocation.X + " " + buildLocation.Y);
-        return buildLocation;
+            // Clear "coordinates" variable after it is received, so it is does not get reused.
+            Coordinates temp = coordinates;
+
+            SendCoordinates();
+            coordinates = null;
+            return temp;
+        }
     }
 }
+
+
