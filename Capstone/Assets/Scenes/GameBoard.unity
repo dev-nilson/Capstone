@@ -2498,8 +2498,8 @@ MonoBehaviour:
   level2: {fileID: 5424361190378693783, guid: 54542fb6fc681ee438175def720b0f27, type: 3}
   level3: {fileID: 4966038803555105557, guid: 95715f79ac92c8e4ebfb328b66d196db, type: 3}
   level4: {fileID: 8851965301860739284, guid: c3d9badc59c20174e9e6101049b41ce7, type: 3}
-  player1prefab: {fileID: 6694067083302284265, guid: bd69fff231887e643aeb166daa3103bb, type: 3}
-  player2prefab: {fileID: 6694067083302284265, guid: 4aba8ccb3f5bf504e89f289d4da1507d, type: 3}
+  player1prefab: {fileID: 6694067083302284265, guid: 2abac042f70c5a74ba436684c50cc853, type: 3}
+  player2prefab: {fileID: 6694067083302284265, guid: ffd8ccd32e05d814a83c28afb2ad8823, type: 3}
   parent: {fileID: 960253812}
   levelParent: {fileID: 960253812}
 --- !u!224 &960253814
