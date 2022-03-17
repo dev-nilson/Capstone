@@ -98,10 +98,10 @@ public class RotateMainCamera : MonoBehaviour
         }
         Debug.Log("You have clicked the left button!");
 
-        GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
+        /*GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
         foreach (GameObject go in aliens)
         {
             go.transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        }*/
     }
 }
