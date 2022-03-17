@@ -7,14 +7,19 @@ using static GameUtilities;
 
 public class MenuScreen : MonoBehaviour
 {
+	//Menu Items
 	public Button quickGame;
 	public Button multiplayer;
 	public Button tutorial;
 	public Button storyMode;
+	public Button artBook;
+
+	//Upper lefthand buttons
 	public Button exitApp;
 	public Button exitSettings;
 	public Button settings;
 
+	//These are for the setting scroll (to make it fold)
 	public GameObject scroll1;
 	public GameObject scroll2;
 	public GameObject scroll3;
@@ -40,6 +45,9 @@ public class MenuScreen : MonoBehaviour
 		Button storyModeBtn = storyMode.GetComponent<Button>();
 		storyModeBtn.onClick.AddListener(storyModeClicked);
 
+		Button artBookBtn = artBook.GetComponent<Button>();
+		artBookBtn.onClick.AddListener(artBookClicked);
+
 		Button exitAppBtn = exitApp.GetComponent<Button>();
 		exitAppBtn.onClick.AddListener(exitAppClicked);
 
@@ -52,8 +60,6 @@ public class MenuScreen : MonoBehaviour
 
 	void quickGameClicked()
 	{
-		Debug.Log("quick game");
-
 		//levelChanger.FadeToLevel("QuickGame");
 
 		SceneManager.LoadScene("QuickGame");
@@ -61,7 +67,6 @@ public class MenuScreen : MonoBehaviour
 
 	void multiplayerClicked()
 	{
-		Debug.Log("multiplayer game");
 		setGameType(GameType.NETWORK);
 
 		SceneManager.LoadScene("Multiplayer");
@@ -69,22 +74,21 @@ public class MenuScreen : MonoBehaviour
 
 	void tutorialClicked()
 	{
-		Debug.Log("tutorial");
-
 		SceneManager.LoadScene("Tutorial");
 	}
 
 	void storyModeClicked()
 	{
-		Debug.Log("story mode game");
-
 		SceneManager.LoadScene("StoryMode");
+	}
+
+	void artBookClicked()
+	{
+		SceneManager.LoadScene("ArtBook");
 	}
 
 	void exitAppClicked()
 	{
-		Debug.Log("story mode game");
-
 		Application.Quit();
 	}
 
