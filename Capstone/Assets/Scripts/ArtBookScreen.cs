@@ -14,8 +14,9 @@ public class ArtBookScreen : MonoBehaviour
         Button backBtn = back.GetComponent<Button>();
         backBtn.onClick.AddListener(backClicked);
     }
-    void backClicked()
+    public void backClicked()
     {
-        SceneManager.LoadScene(0);
+        Debug.Log("I got clicked!!1!");
+        SceneManager.LoadScene("Menu");
     }
 }
