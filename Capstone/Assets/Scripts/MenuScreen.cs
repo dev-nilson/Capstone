@@ -56,6 +56,8 @@ public class MenuScreen : MonoBehaviour
 
 		//levelChanger.FadeToLevel("QuickGame");
 
+		FindObjectOfType<AudioManager>().Play("button_press(1)");
+
 		SceneManager.LoadScene("QuickGame");
 	}
 
