@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using UnityEngine;
+using static GameUtilities;
 
 public class NetworkController : MonoBehaviourPunCallbacks
 {
@@ -36,10 +37,24 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.NetworkClientState == ClientState.Disconnected)
         {
             //code for however we decide to tell player they've disconnected
+
+            //disable game phases
+            DisablePhases();
+
+            // MAGGIE: some pop up that says you are disconnected with button to return to main menu
+
         }
         else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2)
         {
             //code to tell person still left in the room that their opponent has disconnected
+
+            //disable game phases
+            DisablePhases();
+
+            // MAGGIE: tell player that their opponent disconnected -- button to return to main menu
+
+            // disconnect our end of network stuff
+
         }
     }
     #endregion
