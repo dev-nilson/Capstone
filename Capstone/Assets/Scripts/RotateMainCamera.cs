@@ -11,7 +11,7 @@ public class RotateMainCamera : MonoBehaviour
 	public Button rotateRight;
 	public Button rotateLeft;
 
-	int x = 0, z = 0;
+    int x = 0, z = 0;
 
 	void Start()
 	{
@@ -23,9 +23,32 @@ public class RotateMainCamera : MonoBehaviour
 
 		boardController = GameObject.Find("GridManager");
 		Board = boardController.GetComponent<GridManager>();
-	}
+
+        float totalX = 0f;
+        float totalY = 0f;
+
+        GameObject[] tilesInGame = GameObject.FindGameObjectsWithTag("Board");
+        foreach (GameObject tile in tilesInGame)
+        {
+            totalX += tile.transform.position.x;
+            totalY += tile.transform.position.y;
+        }
+        float centerX = totalX / tilesInGame.Length;
+        float centerY = totalY / tilesInGame.Length;
+
+        Debug.Log("center is : " + centerX + " " + centerY);
+
+        Vector3 center = boardController.GetComponent<Renderer>().bounds.center;
+
+        Debug.Log("center of gridmanager is : " + center);
+
+        boardController.transform.RotateAround(center, Vector3.right , 1 * Time.deltaTime);
+
+    }
     void rotateLeftClick()
     {
+        float timeCount = 0.0f;
+
         if (x == 0)
         {
             x = -5;
@@ -57,11 +80,11 @@ public class RotateMainCamera : MonoBehaviour
 
         Debug.Log("You have clicked the right button!");
 
-        GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
+        /*GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
         foreach (GameObject go in aliens)
         {
             go.transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        }*/
     }
 
     void rotateRightClick()
