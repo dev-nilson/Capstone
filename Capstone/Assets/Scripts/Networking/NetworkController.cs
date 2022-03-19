@@ -43,6 +43,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
             Debug.Log("You have lost network connection");
 
             // MAGGIE: some pop up that says you are disconnected with button to return to main menu
+            //then clear the game when you hit "okay" or whatever!
+
 
         }
         else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2)
@@ -54,6 +56,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
             Debug.Log("Your opponent has lost network connection");
 
             // MAGGIE: tell player that their opponent disconnected -- button to return to main menu
+            //then clear the game when you hit "okay" or whatever!
+
 
             // disconnect our end of network stuff
 
