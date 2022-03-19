@@ -26,19 +26,12 @@ public class PlayerController : MonoBehaviour
 
     private NetworkController networkController;
 
-    private Timer timer;
-    private float delay;
-
     // Start is called before the first frame update
     void Start()
     {
         //ai = new AIController();
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
-
-        delay = 4.0F;
-        //timer = new Timer(delay);
-        
     }
 
     public Coordinates GetPlacement(GameBoard board, Player player)
@@ -123,16 +116,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
-            //if (timer == null) timer = new Timer(delay);
-            //else if (timer.Set() && timer.Over())
-            //{
             AIController.SimulateTurn(currentPlayer, waitingPlayer, board);
             return AIController.bestNode.GetMoveFrom();
-            //}
-            //else if (!timer.Set())
-            //    //StartCoroutine(timer.Start());
-
-            //return new Coordinates();
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
