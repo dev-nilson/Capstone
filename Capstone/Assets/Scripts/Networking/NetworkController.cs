@@ -40,6 +40,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
             //disable game phases
             DisablePhases();
+            Debug.Log("You have lost network connection");
 
             // MAGGIE: some pop up that says you are disconnected with button to return to main menu
 
@@ -50,6 +51,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
             //disable game phases
             DisablePhases();
+            Debug.Log("Your opponent has lost network connection");
 
             // MAGGIE: tell player that their opponent disconnected -- button to return to main menu
 
