@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
+using static GameUtilities;
 using UnityEngine.Events;
 using System;
 
