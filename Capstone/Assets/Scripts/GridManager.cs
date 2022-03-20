@@ -140,12 +140,13 @@ public class GridManager : MonoBehaviour
 
     public void movePlayer(Coordinates curLoc, Coordinates newLoc, Player P1, Player P2)
     {
-        Coordinates[] P1pawns = P1.GetPlayerCoordinates();
-        Coordinates[] P2pawns = P2.GetPlayerCoordinates();
+        //Coordinates[] P1pawns = P1.GetPlayerCoordinates();
+        //Coordinates[] P2pawns = P2.GetPlayerCoordinates();
 
         Coordinates originalLocation = new Coordinates(curLoc.X, curLoc.Y);
         Coordinates newLocation = new Coordinates(newLoc.X, newLoc.Y);
 
+        //Sets the starting and ending locations of the player that needs to move
         startLocation = new Vector3(Grid[curLoc.X, curLoc.Y].transform.position.x, Grid[curLoc.X, curLoc.Y].transform.position.z, Grid[curLoc.X, curLoc.Y].transform.position.z);
         endLocation = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, .7f, Grid[newLoc.X, newLoc.Y].transform.position.z);
 
@@ -156,12 +157,13 @@ public class GridManager : MonoBehaviour
         foreach (Transform child in originalPlayer.transform)
         {
             //this gets the child with the "Alien" tag and sets it to the original player
+            //this is how I am accessing the actual alien object instead of the tile that it is on
             if (child.tag == "Alien")
             {
                 child.transform.parent = newPlayer.transform;
-                Debug.Log("Child name: " + child.gameObject.name);
+                //Debug.Log("Child name: " + child.gameObject.name);
                 originalPlayer = child.gameObject;
-                Debug.Log("original player name: " + originalPlayer.name);
+                //Debug.Log("original player name: " + originalPlayer.name);
             }
         }
 
