@@ -82,6 +82,10 @@ public class MenuScreen : MonoBehaviour
 	void storyModeClicked()
 	{
 		PlayingStoryMode = true;
+		Debug.Log("story mode game");
+
+		FindObjectOfType<AudioManager>().Play("button_press(1)");
+
 		SceneManager.LoadScene("StoryMode");
 	}
 
