@@ -18,8 +18,14 @@ public static class GameUtilities //public  ??
     public const int BOARD_DIMENSION = 5;
 
     private static GameType gameType;
+    public static bool PlayingStoryMode;
 
     private static PlayerTurn playerTurn;
+
+    private static bool gameOver;
+    private static bool localDisconnect;
+    private static bool opponentDisconnect;
+    private static PlayerTurn winningPlayer;
 
     private static string P1username;
     private static string P2username;
@@ -199,6 +205,61 @@ public static class GameUtilities //public  ??
     {
         if (playerTurn == PlayerTurn.ONE) playerTurn = PlayerTurn.TWO;
         else playerTurn = PlayerTurn.ONE;
+    }
+
+    //////////////////////////////////////
+    // Game over functionalities
+    //////////////////////////////////////
+    private static void SetGameOver()
+    {
+        gameOver = true;
+    }
+
+    public static bool IsGameOver()
+    {
+        if (gameOver == null || gameOver == false)
+            return false;
+        else
+            return true;
+    }
+
+    public static void SetLocalDisconnect()
+    {
+        SetGameOver();
+        localDisconnect = true;
+    }
+
+    public static bool IsLocalDisconnect()
+    {
+        if (localDisconnect == null || localDisconnect == false)
+            return false;
+        else
+            return true;
+    }
+
+    public static void SetOpponentDisconnect()
+    {
+        SetGameOver();
+        opponentDisconnect = true;
+    }
+
+    public static bool IsOpponentDisconnect()
+    {
+        if (opponentDisconnect == null || opponentDisconnect == false)
+            return false;
+        else
+            return true;
+    }
+
+    public static void SetWinningPlayer(PlayerTurn p)
+    {
+        SetGameOver();
+        winningPlayer = p;
+    }
+
+    public static PlayerTurn GetWinningPlayer()
+    {
+        return winningPlayer;
     }
 
     //////////////////////////////////////

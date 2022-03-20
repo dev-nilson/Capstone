@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66fd1c535f2915d459c4f2ebe678aad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedObject: {fileID: 0}
   tile1: {fileID: 5638226049318727965}
   tile2: {fileID: 8191874363350356236, guid: 3cc821dca2c00fe4ead679de8678e2ef, type: 3}
   tile3: {fileID: 6359731640391664434, guid: 2c0293aedf4e8914796c9ae1e017fa05, type: 3}
@@ -166,8 +167,8 @@ MonoBehaviour:
   level2: {fileID: 5456894690179295032, guid: 3766d1907cf8ea1418c3efe66ed39851, type: 3}
   level3: {fileID: 5456894690179295032, guid: 4c933ad5c49dd074cb4ffa3547c1e87b, type: 3}
   level4: {fileID: 5456894690179295032, guid: 67055cc95b8302b408806b3b185163c7, type: 3}
-  player1: {fileID: 2413851275917778590, guid: 929dc814c6ebd1e4da601e78f43c180b, type: 3}
-  player2: {fileID: 678481456461886712, guid: 6e38aeaf4861da9429029eaa16f1e460, type: 3}
+  player1prefab: {fileID: 0}
+  player2prefab: {fileID: 0}
   parent: {fileID: 0}
   levelParent: {fileID: 0}
 --- !u!114 &7876926238896132641
@@ -211,6 +212,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1273aed8630aa749bd6a14945f8816d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 2413851275917778590, guid: 929dc814c6ebd1e4da601e78f43c180b, type: 3}
   playerParent: {fileID: 0}
   board: {fileID: 5638226049318727965}
