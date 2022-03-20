@@ -16,9 +16,6 @@ public class GridManager : MonoBehaviour
     //For drag drop on the players
     public GameObject selectedObject;
 
-
-    GameController gameController;
-
     int Col = 5, Row = 5;
     public GameObject tile1;
     public GameObject tile2;
@@ -170,34 +167,6 @@ public class GridManager : MonoBehaviour
 
         //this sets the alien that was selected to the end location
         originalPlayer.transform.position = endLocation;
-
-        //Debug.Log("original player name: " + originalPlayer.name);
-
-        //Debug.Log("current location: " + player1.name);
-        //Debug.Log("new location: " + newPlayer.name);
-
-
-        //Figure out which player you are moving so that you can set the right prefab
-        if (P1pawns.Contains(newLocation))
-        {
-            //change the parent
-            //player1.transform.parent = newPlayerLoc.gameObject.transform;
-
-            /*var player1Instance = Instantiate(player1prefab, newPlayer.transform.position, newPlayer.transform.rotation);
-            player1Instance.transform.position = new Vector3(newPlayer.transform.position.x, .7f, newPlayer.transform.position.z);
-            player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-            player1Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);*/
-        }
-        else if (P2pawns.Contains(newLocation))
-        {
-            //change the parent
-            //playerPlaced.transform.parent = originalPlayer.transform.parent;
-
-            /*var player2Instance = Instantiate(player2prefab, newPlayer.transform.position, newPlayer.transform.rotation);
-            player2Instance.transform.position = new Vector3(newPlayer.transform.position.x, .7f, newPlayer.transform.position.z);
-            player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-            player2Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);*/
-        }
     }
 
     public void buildLevel(int[,] levelsOnBoard, Coordinates newLoc)
@@ -249,17 +218,6 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    /*public void clearBoard()
-    {
-        Debug.Log(GameObject.FindGameObjectsWithTag("Alien").Length);
-        GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
-        foreach(GameObject go in aliens)
-        {
-            Destroy(go);
-        }
-        //Destroy(GameObject.FindWithTag("Alien"));
-    }*/
-
     public static GameObject getBoardTile(int row, int col)
     {
         return Grid[row, col];
@@ -285,19 +243,6 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-    /*public void highlightValidTiles(int[,] temp)
-    {
-        for (var i = 0; i < Row; i++)
-        {
-            for (var j = 0; j < Col; j++)
-            {
-                if (temp[i, j] == 0)
-                {
-                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
-                }
-            }
-        }
-    }*/
 
     public void unhighlightTiles(List<Coordinates> locs)
     {
