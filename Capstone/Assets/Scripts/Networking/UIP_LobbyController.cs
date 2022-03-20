@@ -1,4 +1,8 @@
-﻿using ExitGames.Client.Photon;
+﻿/*
+ *  Author: Brendon McDonald
+ *  Description: ...
+ */
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
@@ -37,8 +41,6 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     [SerializeField]
     private InputField playerNameInput; //Input field so player can change their NickName
-    //[SerializeField]
-    //private Text NameOfHost; //text object for displaying the host of a room, replaced by GameInfo.username
 
 
     private string roomName; //string for saving room name, is usually the Players name or Players name + numbers

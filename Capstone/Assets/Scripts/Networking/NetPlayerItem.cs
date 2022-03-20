@@ -4,6 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameUtilities;
+
+// setP1username(string username); -- always local
+// setP2username(string username); -- always opponent
+// setP1avatar(PlayerAvatar playerAvatar)
+// setP2avatar(PlayerAvatar playerAvatar)
+//      PlayerAvatar.PHAROAH,
+//      PlayerAvatar.SCRIBE,
+//      PlayerAvatar.PEASANT,
+//      PlayerAvatar.WORKER
+// RandomPlayerAvatar(PlayerAvatar avatar_A) -- one of the three avatars that is not "avatar_A"
 
 
 public class NetPlayerItem : MonoBehaviourPunCallbacks

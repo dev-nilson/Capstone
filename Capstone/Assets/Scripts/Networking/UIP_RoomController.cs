@@ -1,4 +1,8 @@
-﻿using Photon.Pun;
+﻿/*
+ *  Author: Brendon McDonald
+ *  Description: ...
+ */
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using System.Collections;
@@ -24,36 +28,12 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject FaceoffBackButton;
 
-    //[SerializeField]
-    //private Transform playersContainer; //used to display all the players in the current room
-    //[SerializeField]
-    //private GameObject playerListingPrefab; //Instantiate to display each player in the room
-
     [SerializeField]
     private Text WaitingForOpponents; //Updates as people leave/join the room to reflect room "state" (if you're waiting for someone to join or not)
 
     public List<NetPlayerItem> playerItemsList = new List<NetPlayerItem>();
     public NetPlayerItem playerItemPrefab;
     public Transform playerItemParent;
-
-    //void ClearPlayerListings()
-    //{
-    //    for (int i = playersContainer.childCount - 1; i >= 0; i--) //loop through all child object of the playersContainer, removing each child
-    //    {
-    //        Destroy(playersContainer.GetChild(i).gameObject);
-    //    }
-    //}
-
-    //void ListPlayers()
-    //{
-    //    foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
-    //    {
-    //        GameObject tempListing = Instantiate(playerListingPrefab, playersContainer);
-    //        Text tempText = tempListing.transform.GetChild(0).GetComponent<Text>();
-    //        tempText.text = player.NickName;
-    //    }
-
-    //}
 
     public override void OnJoinedRoom()
     {
@@ -68,9 +48,6 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             WaitingForOpponents.text = "Waiting for Host to start";
             StartGameButton.SetActive(false);
         }
-        
-       // ClearPlayerListings(); //remove all old player listings
-       // ListPlayers(); //relist all current player listings
         UpdatePlayerList();
     }
 
@@ -78,15 +55,11 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     {
         WaitingForOpponents.text = "Waiting for Host to start";
         UpdatePlayerList();
-       // ClearPlayerListings(); //remove all old player listings
-       // ListPlayers(); //relist all current player listings
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         UpdatePlayerList();
-       // ClearPlayerListings();//remove all old player listings
-        //ListPlayers();//relist all current player listings
         if (PhotonNetwork.IsMasterClient)//if the local player is now the new master client then we activate the start button
         {
             StartGameButton.SetActive(true);
