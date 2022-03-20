@@ -131,7 +131,7 @@ public class GameController : MonoBehaviour
             {
                 // GAME OVER: CURRENT PLAYER HAS NO AVAILABLE MOVES AND THEREFORE LOSES
                 if (GetPlayerTurn() == PlayerTurn.ONE) SetWinningPlayer(PlayerTurn.TWO);
-                else SetWinningPlayer(PlayerTurn.TWO);
+                else SetWinningPlayer(PlayerTurn.ONE);
 
                 DisablePhases();
                 //board.SetActive(false);
@@ -260,7 +260,7 @@ public class GameController : MonoBehaviour
                 {
                     // GAME OVER: THE MOVED PAWN HAS NO AVAILABLE BUILDS AND THEREFORE THE CURRENT PLAYER LOSES
                     if (GetPlayerTurn() == PlayerTurn.ONE) SetWinningPlayer(PlayerTurn.TWO);
-                    else SetWinningPlayer(PlayerTurn.TWO);
+                    else SetWinningPlayer(PlayerTurn.ONE);
 
                     DisablePhases();
                     //board.SetActive(false);
