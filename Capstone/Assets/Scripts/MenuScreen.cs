@@ -56,6 +56,8 @@ public class MenuScreen : MonoBehaviour
 
 		Button exitSettingsBtn = exitSettings.GetComponent<Button>();
 		exitSettingsBtn.onClick.AddListener(delayDisplay);
+
+		PlayingStoryMode = false;
 	}
 
 	void quickGameClicked()
@@ -79,6 +81,7 @@ public class MenuScreen : MonoBehaviour
 
 	void storyModeClicked()
 	{
+		PlayingStoryMode = true;
 		SceneManager.LoadScene("StoryMode");
 	}
 

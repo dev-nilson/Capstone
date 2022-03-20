@@ -134,7 +134,17 @@ public class GameController : MonoBehaviour
             if (CurrentPlayer.HasNoMoves(board_gc))
             {
                 // GAME OVER: CURRENT PLAYER HAS NO AVAILABLE MOVES AND THEREFORE LOSES
-                if (CurrentPlayer.Type() == Player.Tag.LOCAL)
+                if (PlayingStoryMode && CurrentPlayer.Type() == Player.Tag.LOCAL)
+                {
+                    // Local player wins in story mode!
+                    // Change screens ??
+                }
+                else if (PlayingStoryMode)
+                {
+                    // Local player loses in story mode :(
+                    // Change screens ??
+                }
+                else if (CurrentPlayer.Type() == Player.Tag.LOCAL)
                 {
                     losePopup.SetActive(true);
                     Debug.Log("Local player loses: no available moves");
@@ -146,6 +156,8 @@ public class GameController : MonoBehaviour
                 }
                 DisablePhases();
                 //board.SetActive(false);
+
+                SetWinningPlayer(GetPlayerTurn());
 
                 ClearGame();
             }
@@ -236,7 +248,17 @@ public class GameController : MonoBehaviour
                         if (moveStatus == MoveType.WINNING)
                         {
                             // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
-                            if (CurrentPlayer.Type() == Player.Tag.LOCAL)
+                            if (PlayingStoryMode && CurrentPlayer.Type() == Player.Tag.LOCAL)
+                            {
+                                // Local player wins in story mode!
+                                // Change screens ??
+                            }
+                            else if (PlayingStoryMode)
+                            {
+                                // Local player loses in story mode :(
+                                // Change screens ??
+                            }
+                            else if (CurrentPlayer.Type() == Player.Tag.LOCAL)
                             {
                                 winPopup.SetActive(true);
                                 Debug.Log("Local player wins: reached the third tier of a tower!");
@@ -248,6 +270,8 @@ public class GameController : MonoBehaviour
                             }
                             DisablePhases();
                             //board.SetActive(false);
+
+                            SetWinningPlayer(GetPlayerTurn());
 
                             ClearGame();
 
@@ -278,7 +302,17 @@ public class GameController : MonoBehaviour
                 {
                     // GAME OVER: THE MOVED PAWN HAS NO AVAILABLE BUILDS AND THEREFORE THE CURRENT PLAYER LOSES
                     Debug.Log("Current player loses: no available builds");
-                    if (CurrentPlayer.Type() == Player.Tag.LOCAL)
+                    if (PlayingStoryMode && CurrentPlayer.Type() == Player.Tag.LOCAL)
+                    {
+                        // Local player wins in story mode!
+                        // Change screens ??
+                    }
+                    else if (PlayingStoryMode)
+                    {
+                        // Local player loses in story mode :(
+                        // Change screens ??
+                    }
+                    else if (CurrentPlayer.Type() == Player.Tag.LOCAL)
                     {
                         losePopup.SetActive(true);
                         Debug.Log("Local player loses: no available builds");
@@ -290,6 +324,8 @@ public class GameController : MonoBehaviour
                     }
                     DisablePhases();
                     //board.SetActive(false);
+
+                    SetWinningPlayer(GetPlayerTurn());
 
                     ClearGame();
                 }

@@ -18,8 +18,10 @@ public static class GameUtilities //public  ??
     public const int BOARD_DIMENSION = 5;
 
     private static GameType gameType;
+    public static bool PlayingStoryMode;
 
     private static PlayerTurn playerTurn;
+    private static PlayerTurn winningPlayer;
 
     private static string P1username;
     private static string P2username;
@@ -199,6 +201,16 @@ public static class GameUtilities //public  ??
     {
         if (playerTurn == PlayerTurn.ONE) playerTurn = PlayerTurn.TWO;
         else playerTurn = PlayerTurn.ONE;
+    }
+
+    public static void SetWinningPlayer(PlayerTurn p)
+    {
+        winningPlayer = p;
+    }
+
+    public static PlayerTurn GetWinningPlayer()
+    {
+        return winningPlayer;
     }
 
     //////////////////////////////////////
