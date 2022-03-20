@@ -2,19 +2,53 @@
 
 public class DragDrop : MonoBehaviour
 {
-    public GameObject selectedObject;
+    bool isDraggable;
+    bool isDragging;
+    Collider2D objectCollider;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        objectCollider = GetComponent<Collider2D>();
+        isDraggable = false;
+        isDragging = false;
+    }
+
+    // Update is called once per frame
     void Update()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        DragAndDrop();
+    }
+
+    void DragAndDrop()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         if (Input.GetMouseButtonDown(0))
         {
-            Collider2D targetObject = Physics2D.OverlapPoint(mousePosition);
-            if (targetObject)
+            if (objectCollider == Physics2D.OverlapPoint(mousePosition))
             {
-                selectedObject = targetObject.transform.gameObject;
-                Debug.Log("Mouse postion x: " + selectedObject.transform.position.x);
-                Debug.Log("Mouse postion y: " + selectedObject.transform.position.y);
+                isDraggable = true;
             }
+            else
+            {
+                isDraggable = false;
+            }
+
+            if (isDraggable)
+            {
+                isDragging = true;
+            }
+        }
+        if (isDragging)
+        {
+            this.transform.position = mousePosition;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDraggable = false;
+            isDragging = false;
         }
     }
 }

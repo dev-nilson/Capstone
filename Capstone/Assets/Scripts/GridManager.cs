@@ -138,15 +138,14 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void movePlayer(Coordinates curLoc, Coordinates newLoc, Player P1, Player P2)
+    //MOVES the player with no animation
+    public void movePlayer(Coordinates curLoc, Coordinates newLoc, float levelHeight)
     {
-        //Coordinates[] P1pawns = P1.GetPlayerCoordinates();
-        //Coordinates[] P2pawns = P2.GetPlayerCoordinates();
-
         Coordinates originalLocation = new Coordinates(curLoc.X, curLoc.Y);
         Coordinates newLocation = new Coordinates(newLoc.X, newLoc.Y);
 
         //Sets the starting and ending locations of the player that needs to move
+        //NOTE that needs to be y instead of x in the startlocation
         startLocation = new Vector3(Grid[curLoc.X, curLoc.Y].transform.position.x, Grid[curLoc.X, curLoc.Y].transform.position.z, Grid[curLoc.X, curLoc.Y].transform.position.z);
         endLocation = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, .7f, Grid[newLoc.X, newLoc.Y].transform.position.z);
 
@@ -168,7 +167,8 @@ public class GridManager : MonoBehaviour
         }
 
         //this sets the alien that was selected to the end location
-        originalPlayer.transform.position = endLocation;
+        //originalPlayer.transform.position = endLocation;
+        movePlayerAnimation(originalLocation, newLocation, levelHeight, originalPlayer);
     }
 
     public void buildLevel(int[,] levelsOnBoard, Coordinates newLoc)
@@ -218,6 +218,34 @@ public class GridManager : MonoBehaviour
             //child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.75f, Grid[newLoc.X, newLoc.Y].transform.position.z);
             child.transform.localScale = new Vector3(.08f, .23f, .08f);
         }
+    }
+
+    public float getLevelHeight(int[,] levelsOnBoard, Coordinates newLoc)
+    {
+        float levelHeight = 0;
+        if (levelsOnBoard[newLoc.X, newLoc.Y] == 1)
+        {
+            //levelHeight = .7f;
+            levelHeight = 1.25f;
+
+        }
+        else if (levelsOnBoard[newLoc.X, newLoc.Y] == 2)
+        {
+            //levelHeight = 1.5f;
+            levelHeight = 2f;
+        }
+        else if (levelsOnBoard[newLoc.X, newLoc.Y] == 3)
+        {
+            //levelHeight = 2.25f;
+            levelHeight = 2.75f;
+        }
+        else if (levelsOnBoard[newLoc.X, newLoc.Y] == 4)
+        {
+            //levelHeight = 2.75f;
+            levelHeight = 3f;
+        }
+
+        return levelHeight;
     }
 
     public static GameObject getBoardTile(int row, int col)
@@ -278,19 +306,6 @@ public class GridManager : MonoBehaviour
                     }
                 }
             }
-
-            /*Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            Debug.Log("mouse x: " + mousePos.x);
-            Debug.Log("mouse y: " + mousePos.y);
-
-            Collider2D targetObject = Physics2D.OverlapPoint(mousePos);
-            if (targetObject)
-            {
-                selectedObject = targetObject.transform.gameObject;
-                Debug.Log("Selected gameobject tag: " + selectedObject.gameObject.tag);
-            }*/
-
         }
     }
 
@@ -306,6 +321,54 @@ public class GridManager : MonoBehaviour
 
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 5f, Grid[location.X, location.Y].transform.position.z);
         endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, .7f, Grid[location.X, location.Y].transform.position.z);
+
+        for (float i = startPlayerLoc; i >= endPlayerLoc; i -= .3f)
+        {
+            endLocation.y = i;
+            if (playerNum == 1)
+                player1Instance.transform.position = endLocation;
+            else
+                player2Instance.transform.position = endLocation;
+            yield return new WaitForSeconds(.01f);
+        }
+
+        RestorePhases();
+        //Debug.Log(CanPlacePawn());
+    }
+
+    IEnumerator LerpPosition(Coordinates startLoc, Coordinates endLoc, float levelHeight, GameObject player)
+    {
+        StorePhases();
+        DisablePhases();
+
+        startLocation = new Vector3(Grid[startLoc.X, startLoc.Y].transform.position.x, Grid[startLoc.X, startLoc.Y].transform.position.y, Grid[startLoc.X, startLoc.Y].transform.position.z);
+        endLocation = new Vector3(Grid[endLoc.X, endLoc.Y].transform.position.x, levelHeight, Grid[endLoc.X, endLoc.Y].transform.position.z);
+
+        float time = 0;
+        float duration = 3;
+
+        while (time < duration)
+        {
+            player.transform.position = Vector3.Lerp(startLocation, endLocation, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        RestorePhases();
+    }
+
+    void movePlayerAnimation(Coordinates startLoc, Coordinates endLoc, float levelHeight, GameObject player)
+    {
+        StartCoroutine(LerpPosition( startLoc, endLoc, levelHeight, player));
+    }
+
+    IEnumerator movePlayerDelay(Coordinates startLoc, Coordinates endLoc, float levelHeight)
+    {
+        StorePhases();
+        DisablePhases();
+
+        startLocation = new Vector3(Grid[startLoc.X, startLoc.Y].transform.position.x, 5f, Grid[startLoc.X, startLoc.Y].transform.position.z);
+        endLocation = new Vector3(Grid[endLoc.X, endLoc.Y].transform.position.x, .7f, Grid[endLoc.X, endLoc.Y].transform.position.z);
 
         for (float i = startPlayerLoc; i >= endPlayerLoc; i -= .3f)
         {

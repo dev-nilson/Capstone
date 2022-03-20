@@ -201,6 +201,7 @@ public class GameController : MonoBehaviour
                             // Unhlighlight valid tiles for previous pawn then clear "validTiles" of those coordinates
                             boardController.unhighlightTiles(validTiles);
                             validTiles.Clear();
+
                             // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
                             validTiles = board_gc.AvailableMoves(curLoc);
                             boardController.highlightValidTiles(validTiles);
@@ -230,7 +231,11 @@ public class GameController : MonoBehaviour
                             boardController.unhighlightTiles(validTiles);
                             validTiles.Clear();
                             /* This function call occurs after phase changes to accommodate for animation coroutines. */
-                            boardController.movePlayer(curLoc, newLoc, P1, P2);
+                            
+                            //This is needed to pass into the move player function so that it can place the player at the correct height in Unity
+                            float levelHeight = boardController.getLevelHeight(board_gc.GetHeights(), newLoc);
+
+                            boardController.movePlayer(curLoc, newLoc, levelHeight);
 
                         }
                         if (moveStatus == MoveType.WINNING)
