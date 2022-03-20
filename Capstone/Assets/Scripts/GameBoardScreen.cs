@@ -5,7 +5,6 @@ using static GameUtilities;
 using System.Collections;
 using UnityEngine.Events;
 using System;
-using static GameUtilities;
 
 public class GameBoardScreen : MonoBehaviour
 {
@@ -23,12 +22,12 @@ public class GameBoardScreen : MonoBehaviour
     public GameObject scroll5;
     public GameObject scroll6;
 
-
+    public Text p1Username;
 
 
     void Start()
     {
-        //settingsPopUp.SetActive(false); // false to hide, true to show
+        p1Username.text = getP1username();
 
         Button backBtn = back.GetComponent<Button>();
         backBtn.onClick.AddListener(backClicked);
