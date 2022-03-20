@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 117170428}
   - component: {fileID: 117170427}
   - component: {fileID: 117170431}
+  - component: {fileID: 117170432}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -441,6 +442,24 @@ MonoBehaviour:
   p2Username: {fileID: 152107883}
   p1Alien: 0
   p2Alien: 0
+--- !u!114 &117170432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117170426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9231b4cbdc27fdf40ba29b44d8103e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disconnectedPopup: {fileID: 790928780}
+  youDisconnected: {fileID: 1389621600}
+  opponectDisconnected: {fileID: 946220412}
+  backToMenu: {fileID: 2123767484}
+  winPopup: {fileID: 686782506}
+  losePopup: {fileID: 1223103011}
 --- !u!1 &152107881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2751,10 +2770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebc89bb39a5690408a733f3800719f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disconnectedPopup: {fileID: 1389621600}
-  youDisconnected: {fileID: 1389621600}
-  opponectDisconnected: {fileID: 946220412}
-  backToMenu: {fileID: 2123767484}
   photonView: {fileID: 0}
 --- !u!4 &853252468 stripped
 Transform:
@@ -3223,8 +3238,6 @@ MonoBehaviour:
   parent: {fileID: 960253812}
   board: {fileID: 960253812}
   player: {fileID: 7846403189435030061, guid: 19a1244204b05164ea52aa688e47c0a2, type: 3}
-  winPopup: {fileID: 686782506}
-  losePopup: {fileID: 1223103011}
   player1: {fileID: 6694067083302284265, guid: bd69fff231887e643aeb166daa3103bb, type: 3}
 --- !u!222 &960253820
 CanvasRenderer:
