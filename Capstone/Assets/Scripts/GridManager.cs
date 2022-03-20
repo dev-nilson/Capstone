@@ -124,7 +124,7 @@ public class GridManager : MonoBehaviour
             placePlayerAnimation(location);
 
             player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-            player1Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
+            player1Instance.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             player1Instance.transform.SetParent(Grid[location.X, location.Y].transform);
 
             Debug.Log(player1Instance.transform.parent);
@@ -136,7 +136,7 @@ public class GridManager : MonoBehaviour
             placePlayerAnimation(location);
 
             player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-            player2Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
+            player2Instance.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             player2Instance.transform.parent = Grid[location.X, location.Y].transform;
         }
     }

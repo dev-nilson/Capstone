@@ -11,7 +11,7 @@ public class RotateMainCamera : MonoBehaviour
 	public Button rotateRight;
 	public Button rotateLeft;
 
-	int x = 0, z = 0;
+    int x = 0, z = 0;
 
 	void Start()
 	{
@@ -23,7 +23,27 @@ public class RotateMainCamera : MonoBehaviour
 
 		boardController = GameObject.Find("GridManager");
 		Board = boardController.GetComponent<GridManager>();
-	}
+
+        //Code to find center of an object!!!
+        //How do I rotate around the center point now?
+        /*float totalX = 0f;
+        float totalY = 0f;
+        float totalZ = 0f;
+
+        GameObject[] tilesInGame = GameObject.FindGameObjectsWithTag("Board");
+        foreach (GameObject tile in tilesInGame)
+        {
+            totalX += tile.transform.position.x;
+            totalY += tile.transform.position.y;
+            totalZ += tile.transform.position.z;
+        }
+        float centerX = totalX / tilesInGame.Length;
+        float centerY = totalY / tilesInGame.Length;
+        float centerZ = totalY / tilesInGame.Length;
+
+        Debug.Log("center is : " + centerX + " " + centerY + " " + centerZ);*/
+
+    }
     void rotateLeftClick()
     {
         if (x == 0)
@@ -55,13 +75,14 @@ public class RotateMainCamera : MonoBehaviour
             Board.transform.rotation = Quaternion.Euler(90, 0, 0);
         }
 
-        Debug.Log("You have clicked the right button!");
+        Debug.Log("You have clicked the left button!");
 
-        GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
+        //This code always makes the players face you when you rotate
+        /*GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
         foreach (GameObject go in aliens)
         {
             go.transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        }*/
     }
 
     void rotateRightClick()
@@ -96,8 +117,9 @@ public class RotateMainCamera : MonoBehaviour
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 0, 0);
         }
-        Debug.Log("You have clicked the left button!");
+        Debug.Log("You have clicked the right button!");
 
+        //This code always makes the players face you when you rotate
         /*GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
         foreach (GameObject go in aliens)
         {
