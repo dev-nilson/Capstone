@@ -62,6 +62,8 @@ public class MenuScreen : MonoBehaviour
 	{
 		//levelChanger.FadeToLevel("QuickGame");
 
+		FindObjectOfType<AudioManager>().Play("button_press(1)");
+
 		SceneManager.LoadScene("QuickGame");
 	}
 
@@ -69,16 +71,26 @@ public class MenuScreen : MonoBehaviour
 	{
 		setGameType(GameType.NETWORK);
 
+		FindObjectOfType<AudioManager>().Play("button_press(1)");
+
 		SceneManager.LoadScene("Multiplayer");
 	}
 
 	void tutorialClicked()
 	{
+		Debug.Log("tutorial");
+
+		FindObjectOfType<AudioManager>().Play("button_press(1)");
+
 		SceneManager.LoadScene("Tutorial");
 	}
 
 	void storyModeClicked()
 	{
+		Debug.Log("story mode game");
+
+		FindObjectOfType<AudioManager>().Play("button_press(1)");
+
 		SceneManager.LoadScene("StoryMode");
 	}
 

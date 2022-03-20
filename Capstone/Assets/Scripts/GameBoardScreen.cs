@@ -1,7 +1,6 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
-using static GameUtilities;
 using System.Collections;
 using UnityEngine.Events;
 using System;

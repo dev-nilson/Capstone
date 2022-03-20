@@ -1,4 +1,8 @@
-﻿using UnityEngine.Audio;
+﻿/*
+ *  Author: Brendon McDonald
+ *  Description: ...
+ */
+using UnityEngine.Audio;
 using System;
 using UnityEngine;
 using System.Collections;
@@ -53,7 +57,7 @@ public class AudioManager : MonoBehaviour
         {
             firstTime = false;
             songOneRecentPlay = 2;
-            Play("Golden Sea");
+            Play("Golden Sea"); //this would be a call to nextMusic function, play will be called from nextMusic
         }
     }
 
@@ -66,6 +70,8 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
+
+        //code above will be in nextMusic, coroutine below will be in nextMusic function, after call to play
         s.source.Play();
         StartCoroutine(waitAudio(s));
     }
@@ -73,6 +79,8 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //update will set a temp value equal to the current int, this int will represent the current screen
+        //it will test to see if the temp is different than the int and if so will call nextMusic
     }
 
     private IEnumerator waitAudio(Sound s)
