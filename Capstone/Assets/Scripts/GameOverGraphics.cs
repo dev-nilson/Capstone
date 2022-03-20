@@ -69,15 +69,15 @@ public class GameOverGraphics : MonoBehaviour
         // Local player wins in other game type
         else if (GetWinningPlayer() == PlayerTurn.ONE)
         {
-            losePopup.SetActive(true);
+            winPopup.SetActive(true);
             Debug.Log("Local player loses: no available moves");
         }
 
         // Local player loses in other game type
         else
         {
-            Debug.Log("Opposing player loses: no available moves");
-            winPopup.SetActive(true);
+            Debug.Log("Opposing player loses: no available moves"); 
+            losePopup.SetActive(true);
         }
     }
     void backToMenuClicked()
