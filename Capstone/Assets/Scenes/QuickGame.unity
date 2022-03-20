@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &25176176 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 261952961908683415, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
-  m_PrefabInstance: {fileID: 698993090}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &87155315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,6 +1532,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScrollSettings
       objectReference: {fileID: 0}
+    - target: {fileID: 261952962802023281, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
 --- !u!1 &737918848
@@ -1563,7 +1556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &737918849
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1950,9 +1943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGame: {fileID: 1660839380}
-  settings: {fileID: 737918850}
-  exitSettings: {fileID: 25176176}
-  exitQuickGame: {fileID: 1640985268}
+  back: {fileID: 1618838214}
   pharoah: {fileID: 1896702318}
   pharoah_H: {fileID: 613523982}
   pharoah_figure: {fileID: 87155315}
@@ -1966,12 +1957,6 @@ MonoBehaviour:
   worker_H: {fileID: 346439604}
   worker_figure: {fileID: 87155315}
   usernameInputField: {fileID: 2083216213}
-  scroll1: {fileID: 1295204874}
-  scroll2: {fileID: 1703279920}
-  scroll3: {fileID: 1173536302}
-  scroll4: {fileID: 2052648642}
-  scroll5: {fileID: 1437716627}
-  scroll6: {fileID: 1906056200}
 --- !u!1 &830690147
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,11 +2666,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!1 &1173536302 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 261952962622467694, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
-  m_PrefabInstance: {fileID: 698993090}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1181022582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2906,11 +2886,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!1 &1295204874 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 261952962518643864, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
-  m_PrefabInstance: {fileID: 698993090}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1309302966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3207,11 +3182,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423753112}
   m_CullTransparentMesh: 0
---- !u!1 &1437716627 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 261952961806995802, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
-  m_PrefabInstance: {fileID: 698993090}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1452330112
 GameObject:
   m_ObjectHideFlags: 0
@@ -3572,7 +3542,6 @@ GameObject:
   - component: {fileID: 1618838216}
   - component: {fileID: 1618838215}
   - component: {fileID: 1618838214}
-  - component: {fileID: 1618838213}
   m_Layer: 5
   m_Name: MenuBackButton
   m_TagString: Untagged
@@ -3600,18 +3569,6 @@ RectTransform:
   m_AnchoredPosition: {x: -305, y: -130}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1618838213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618838211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a6a2bd817bbb84bb3374841d0c44af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1618838214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3654,19 +3611,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1618838215}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: RoomController, Assembly-CSharp
-        m_MethodName: MultiplayerMenuBackButtonClicked
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1618838215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3723,7 +3668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1640985267
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4072,11 +4017,6 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
---- !u!1 &1703279920 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 261952961025317323, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
-  m_PrefabInstance: {fileID: 698993090}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1739231631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4270,11 +4210,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1906056200 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 261952962725093025, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
-  m_PrefabInstance: {fileID: 698993090}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1910032010
 GameObject:
   m_ObjectHideFlags: 0
@@ -4370,7 +4305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1910477047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4714,11 +4649,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033633165}
   m_CullTransparentMesh: 0
---- !u!1 &2052648642 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 261952962455211684, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
-  m_PrefabInstance: {fileID: 698993090}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2059932703
 GameObject:
   m_ObjectHideFlags: 0

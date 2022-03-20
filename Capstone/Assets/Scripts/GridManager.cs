@@ -55,8 +55,8 @@ public class GridManager : MonoBehaviour
     GameObject gridSpace;
     GameObject child;
 
-    Color MouseOverColor = Color.cyan;
     Color Original;
+    Color Highlight = new Color(105f, 58f, 48f);
 
     //get GameObject’s material and color
     MeshRenderer Renderer;
@@ -112,107 +112,6 @@ public class GridManager : MonoBehaviour
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
-    /*public void displayBoard(int[,] temp, Player P1, Player P2)
-    {
-        //place all levels
-        for (var i = 0; i < Row; i++)
-        {
-            for (var j = 0; j < Col; j++)
-            {
-                if (temp[i, j] == 1)
-                {
-                    //Debug.Log(gridSpace);
-                    child = Instantiate(level1, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    child.transform.parent = Grid[i, j].transform;
-                    child.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, .70f, Grid[i, j].transform.position.z);
-                    child.transform.localScale = new Vector3(.15f, .5f, .15f);
-                }
-                else if (temp[i, j] == 2)
-                {
-                    child = Instantiate(level2, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    child.transform.parent = Grid[i, j].transform;
-                    child.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
-                    child.transform.localScale = new Vector3(.27f, 1f, .27f);
-                }
-                else if (temp[i, j] == 3)
-                {
-                    child = Instantiate(level3, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    child.transform.parent = Grid[i, j].transform;
-                    child.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 2.25f, Grid[i, j].transform.position.z);
-                    child.transform.localScale = new Vector3(.072f, .35f, .072f);
-                }
-                else if (temp[i, j] == 4)
-                {
-                    child = Instantiate(level4, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    child.transform.parent = Grid[i, j].transform;
-                    child.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    child.transform.position = new Vector3(Grid[i, j].transform.position.x, 2.75f, Grid[i, j].transform.position.z);
-                    child.transform.localScale = new Vector3(.08f, .23f, .08f);
-                }
-            }
-        }
-
-        Coordinates[] P1pawns = P1.GetPlayerCoordinates();
-        Coordinates[] P2pawns = P2.GetPlayerCoordinates();
-
-        Debug.Log("All pawns: " + P1pawns[0].X + "," + P1pawns[0].Y + "   " + P1pawns[1].X + "," + P1pawns[1].Y + "   " + P2pawns[0].X + "," + P2pawns[0].Y + "   " + P2pawns[1].X + "," + P2pawns[1].Y);
-        //place all players
-        for (var i = 0; i < Row; i++)
-        {
-            for (var j = 0; j < Col; j++)
-            {
-                Coordinates loc = new Coordinates(i, j);
-                if (P1pawns.Contains(loc))
-                {
-                    var player1Instance = Instantiate(player1prefab, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
-
-                    if (temp[i, j] == 1)
-                    {
-                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
-                    }
-                    if (temp[i, j] == 2)
-                    {
-                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 2.5f, Grid[i, j].transform.position.z);
-                    }
-                    if (temp[i, j] == 3)
-                    {
-                        player1Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
-                    }
-                    player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    player1Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
-                    player1Instance.transform.parent = Grid[i, j].transform;
-
-                }
-                else if (P2pawns.Contains(loc))
-                {
-                    var player2Instance = Instantiate(player2prefab, Grid[i, j].transform.position, Grid[i, j].transform.rotation);
-                    player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, .7f, Grid[i, j].transform.position.z);
-
-                    if (temp[i,j] == 1)
-                    {
-                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 1.5f, Grid[i, j].transform.position.z);
-                    }
-                    if (temp[i, j] == 2)
-                    {
-                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 2.5f, Grid[i, j].transform.position.z);
-                    }
-                    if (temp[i, j] == 3)
-                    {
-                        player2Instance.transform.position = new Vector3(Grid[i, j].transform.position.x, 3f, Grid[i, j].transform.position.z);
-                    }
-                    player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    player2Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
-                    player2Instance.transform.parent = Grid[i, j].transform;
-                }
-            }
-        }
-        //Grid[0, 0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);  
-    }*/
-
     //This is used once at the beginning of the game when the players are first placed
     public void placePlayer(int[,] board, Coordinates location, Player P1, Player P2)
     {
@@ -225,7 +124,7 @@ public class GridManager : MonoBehaviour
             placePlayerAnimation(location);
 
             player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-            player1Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
+            player1Instance.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             player1Instance.transform.SetParent(Grid[location.X, location.Y].transform);
 
             Debug.Log(player1Instance.transform.parent);
@@ -237,7 +136,7 @@ public class GridManager : MonoBehaviour
             placePlayerAnimation(location);
 
             player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-            player2Instance.transform.localScale = new Vector3(2.5f, 2f, 2.5f);
+            player2Instance.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             player2Instance.transform.parent = Grid[location.X, location.Y].transform;
         }
     }
@@ -379,12 +278,14 @@ public class GridManager : MonoBehaviour
             {
                 if (locs.Contains(new Coordinates(i, j)))
                 {
-                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
+                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+                    //Color32 newColor = new Color32(0, 200, 26, 200);
+                    //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
                 }
             }
         }
     }
-    public void highlightValidTiles(int[,] temp)
+    /*public void highlightValidTiles(int[,] temp)
     {
         for (var i = 0; i < Row; i++)
         {
@@ -396,7 +297,7 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     public void unhighlightTiles(List<Coordinates> locs)
     {
