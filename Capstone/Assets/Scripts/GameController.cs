@@ -130,8 +130,8 @@ public class GameController : MonoBehaviour
             if (CurrentPlayer.HasNoMoves(board_gc))
             {
                 // GAME OVER: CURRENT PLAYER HAS NO AVAILABLE MOVES AND THEREFORE LOSES
-
-                SetGameOver(); // This will allow "GameOverGraphics.cs" to show popups
+                if (GetPlayerTurn() == PlayerTurn.ONE) SetWinningPlayer(PlayerTurn.TWO);
+                else SetWinningPlayer(PlayerTurn.TWO);
 
                 DisablePhases();
                 //board.SetActive(false);
@@ -225,8 +225,8 @@ public class GameController : MonoBehaviour
                         if (moveStatus == MoveType.WINNING)
                         {
                             // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
-
-                            SetGameOver(); // This will allow "GameOverGraphics.cs" to show popups
+                            if (GetPlayerTurn() == PlayerTurn.ONE) SetWinningPlayer(PlayerTurn.ONE);
+                            else SetWinningPlayer(PlayerTurn.TWO);
 
                             DisablePhases();
                             //board.SetActive(false);
@@ -259,8 +259,8 @@ public class GameController : MonoBehaviour
                 if (validTiles.Count == 0)
                 {
                     // GAME OVER: THE MOVED PAWN HAS NO AVAILABLE BUILDS AND THEREFORE THE CURRENT PLAYER LOSES
-
-                    SetGameOver(); // This will allow "GameOverGraphics.cs" to show popups
+                    if (GetPlayerTurn() == PlayerTurn.ONE) SetWinningPlayer(PlayerTurn.TWO);
+                    else SetWinningPlayer(PlayerTurn.TWO);
 
                     DisablePhases();
                     //board.SetActive(false);

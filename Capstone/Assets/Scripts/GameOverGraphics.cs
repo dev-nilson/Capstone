@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static GameUtilities;
 
 public class GameOverGraphics : MonoBehaviour
 {
+    //Network
     public GameObject disconnectedPopup;
     public GameObject youDisconnected;
     public GameObject opponectDisconnected;
+    public GameObject backToMenu;
 
+    //Normal popups
     public GameObject winPopup;
     public GameObject losePopup;
 
-    //Maggie's Code
-    public GameObject backToMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +30,7 @@ public class GameOverGraphics : MonoBehaviour
     void Update()
     {
         if (IsGameOver())
-            GameOverPopup()
+            GameOverPopup();
     }
 
     public void GameOverPopup()
@@ -50,7 +53,7 @@ public class GameOverGraphics : MonoBehaviour
         }
 
         // Local player wins in story mode
-        else if (PlayingStoryMode && GetPlayerTurn() == PlayerTurn.ONE) //CurrentPlayer.Type() == Player.Tag.LOCAL)
+        else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE) //CurrentPlayer.Type() == Player.Tag.LOCAL)
         {
             // Local player wins in story mode!
             // Change screens ??
@@ -64,7 +67,7 @@ public class GameOverGraphics : MonoBehaviour
         }
 
         // Local player wins in other game type
-        else if (GetPlayerTurn() == PlayerTurn.ONE)
+        else if (GetWinningPlayer() == PlayerTurn.ONE)
         {
             losePopup.SetActive(true);
             Debug.Log("Local player loses: no available moves");
@@ -77,8 +80,6 @@ public class GameOverGraphics : MonoBehaviour
             winPopup.SetActive(true);
         }
     }
-
-    //Maggie's Code
     void backToMenuClicked()
     {
         SceneManager.LoadScene("Menu");

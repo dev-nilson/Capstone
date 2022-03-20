@@ -25,6 +25,7 @@ public static class GameUtilities //public  ??
     private static bool gameOver;
     private static bool localDisconnect;
     private static bool opponentDisconnect;
+    private static PlayerTurn winningPlayer;
 
     private static string P1username;
     private static string P2username;
@@ -209,7 +210,7 @@ public static class GameUtilities //public  ??
     //////////////////////////////////////
     // Game over functionalities
     //////////////////////////////////////
-    public static void SetGameOver()
+    private static void SetGameOver()
     {
         gameOver = true;
     }
@@ -224,6 +225,7 @@ public static class GameUtilities //public  ??
 
     public static void SetLocalDisconnect()
     {
+        SetGameOver();
         localDisconnect = true;
     }
 
@@ -237,6 +239,7 @@ public static class GameUtilities //public  ??
 
     public static void SetOpponentDisconnect()
     {
+        SetGameOver();
         opponentDisconnect = true;
     }
 
@@ -246,6 +249,17 @@ public static class GameUtilities //public  ??
             return false;
         else
             return true;
+    }
+
+    public static void SetWinningPlayer(PlayerTurn p)
+    {
+        SetGameOver();
+        winningPlayer = p;
+    }
+
+    public static PlayerTurn GetWinningPlayer()
+    {
+        return winningPlayer;
     }
 
     //////////////////////////////////////
