@@ -39,7 +39,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     {
         CharacterSelectionLobbyPanel.SetActive(true); //activate the display for being in a room
         JoinGamePanel.SetActive(false); //hide the display for being in a lobby
-        if (PhotonNetwork.IsMasterClient) //if master client then activate the start button
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2) //if master client then activate the start button
         {
             StartGameButton.SetActive(true);
         }
@@ -123,6 +123,10 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
                 if (player.Value == PhotonNetwork.LocalPlayer && (PhotonNetwork.IsMasterClient))
                 {
                     newPlayerItem.FlipIt(player.Value);
+                }
+                if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2)
+                {
+                    StartGameButton.SetActive(true);
                 }
             }
 

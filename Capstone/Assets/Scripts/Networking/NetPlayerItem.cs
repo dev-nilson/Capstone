@@ -32,7 +32,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
     public void SetPlayerInfo(Photon.Realtime.Player netPlayer)
     {
         //AlienPic.transform.RotateAround(transform.position, transform.up, 280f);
-        Debug.Log("Felpiing");
+        playerName.text = PlayerPrefs.GetString("NickName");
         player = netPlayer;
         UpdatePlayerItem(player);
     }

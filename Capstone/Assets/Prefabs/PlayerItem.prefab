@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d9d6c559499214bb3b6f78d3451123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: {fileID: 0}
+  playerName: {fileID: 2421737314966890509}
   leftArrowButton: {fileID: 2421737315098294808}
   rightArrowButton: {fileID: 2421737315652558110}
   playerAlien: {fileID: 2421737314197920913}

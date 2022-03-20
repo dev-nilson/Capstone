@@ -46,7 +46,10 @@ public class QuickGameScreen : MonoBehaviour
         }
 
         //SAVE USERNAME HERE!!!
-        setP2username("CPU");
+        if (getP2avatar() == PlayerAvatar.PEASANT) setP2username("Peasant");
+        else if (getP2avatar() == PlayerAvatar.PHAROAH) setP2username("Pharaoh");
+        else if (getP2avatar() == PlayerAvatar.SCRIBE) setP2username("Scribe");
+        else if (getP2avatar() == PlayerAvatar.WORKER) setP2username("Worker");
     }
 
     // Start is called before the first frame update
