@@ -29,10 +29,6 @@ public class GameController : MonoBehaviour
     public GameObject board;
     public GameObject player;
 
-    public GameObject winPopup;
-    public GameObject losePopup;
-
-
     public GameObject player1;
 
     GameObject child;
@@ -134,30 +130,11 @@ public class GameController : MonoBehaviour
             if (CurrentPlayer.HasNoMoves(board_gc))
             {
                 // GAME OVER: CURRENT PLAYER HAS NO AVAILABLE MOVES AND THEREFORE LOSES
-                if (PlayingStoryMode && CurrentPlayer.Type() == Player.Tag.LOCAL)
-                {
-                    // Local player wins in story mode!
-                    // Change screens ??
-                }
-                else if (PlayingStoryMode)
-                {
-                    // Local player loses in story mode :(
-                    // Change screens ??
-                }
-                else if (CurrentPlayer.Type() == Player.Tag.LOCAL)
-                {
-                    losePopup.SetActive(true);
-                    Debug.Log("Local player loses: no available moves");
-                }
-                else
-                {
-                    Debug.Log("Opposing player loses: no available moves");
-                    winPopup.SetActive(true);
-                }
+
+                SetGameOver(); // This will allow "GameOverGraphics.cs" to show popups
+
                 DisablePhases();
                 //board.SetActive(false);
-
-                SetWinningPlayer(GetPlayerTurn());
 
                 ClearGame();
             }
@@ -248,30 +225,11 @@ public class GameController : MonoBehaviour
                         if (moveStatus == MoveType.WINNING)
                         {
                             // GAME OVER: NOTIFY CURRENT PLAYER THAT THEY WIN
-                            if (PlayingStoryMode && CurrentPlayer.Type() == Player.Tag.LOCAL)
-                            {
-                                // Local player wins in story mode!
-                                // Change screens ??
-                            }
-                            else if (PlayingStoryMode)
-                            {
-                                // Local player loses in story mode :(
-                                // Change screens ??
-                            }
-                            else if (CurrentPlayer.Type() == Player.Tag.LOCAL)
-                            {
-                                winPopup.SetActive(true);
-                                Debug.Log("Local player wins: reached the third tier of a tower!");
-                            }
-                            else
-                            {
-                                losePopup.SetActive(true);
-                                Debug.Log("Opposing player wins: reached the third tier of a tower!");
-                            }
+
+                            SetGameOver(); // This will allow "GameOverGraphics.cs" to show popups
+
                             DisablePhases();
                             //board.SetActive(false);
-
-                            SetWinningPlayer(GetPlayerTurn());
 
                             ClearGame();
 
@@ -301,31 +259,11 @@ public class GameController : MonoBehaviour
                 if (validTiles.Count == 0)
                 {
                     // GAME OVER: THE MOVED PAWN HAS NO AVAILABLE BUILDS AND THEREFORE THE CURRENT PLAYER LOSES
-                    Debug.Log("Current player loses: no available builds");
-                    if (PlayingStoryMode && CurrentPlayer.Type() == Player.Tag.LOCAL)
-                    {
-                        // Local player wins in story mode!
-                        // Change screens ??
-                    }
-                    else if (PlayingStoryMode)
-                    {
-                        // Local player loses in story mode :(
-                        // Change screens ??
-                    }
-                    else if (CurrentPlayer.Type() == Player.Tag.LOCAL)
-                    {
-                        losePopup.SetActive(true);
-                        Debug.Log("Local player loses: no available builds");
-                    }
-                    else
-                    {
-                        winPopup.SetActive(true);
-                        Debug.Log("Opposing player loses: no available builds");
-                    }
+
+                    SetGameOver(); // This will allow "GameOverGraphics.cs" to show popups
+
                     DisablePhases();
                     //board.SetActive(false);
-
-                    SetWinningPlayer(GetPlayerTurn());
 
                     ClearGame();
                 }

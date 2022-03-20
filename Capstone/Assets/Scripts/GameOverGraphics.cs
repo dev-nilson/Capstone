@@ -1,0 +1,86 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using static GameUtilities;
+
+public class GameOverGraphics : MonoBehaviour
+{
+    public GameObject disconnectedPopup;
+    public GameObject youDisconnected;
+    public GameObject opponectDisconnected;
+
+    public GameObject winPopup;
+    public GameObject losePopup;
+
+    //Maggie's Code
+    public GameObject backToMenu;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //Maggie's code
+        Button backToMenuBtn = backToMenu.GetComponent<Button>();
+        backToMenuBtn.onClick.AddListener(backToMenuClicked);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (IsGameOver())
+            GameOverPopup()
+    }
+
+    public void GameOverPopup()
+    {
+        // Network disconnect
+        if (IsLocalDisconnect())
+        {
+            // MAGGIE: some pop up that says you are disconnected with button to return to main menu
+            //then clear the game when you hit "okay" or whatever!
+            disconnectedPopup.SetActive(true);
+            youDisconnected.SetActive(true);
+        }
+
+        else if (IsOpponentDisconnect())
+        {
+            // MAGGIE: tell player that their opponent disconnected -- button to return to main menu
+            //then clear the game when you hit "okay" or whatever!
+            disconnectedPopup.SetActive(true);
+            opponectDisconnected.SetActive(true);
+        }
+
+        // Local player wins in story mode
+        else if (PlayingStoryMode && GetPlayerTurn() == PlayerTurn.ONE) //CurrentPlayer.Type() == Player.Tag.LOCAL)
+        {
+            // Local player wins in story mode!
+            // Change screens ??
+        }
+
+        // Local player loses in story mode
+        else if (PlayingStoryMode)
+        {
+            // Local player loses in story mode :(
+            // Change screens ??
+        }
+
+        // Local player wins in other game type
+        else if (GetPlayerTurn() == PlayerTurn.ONE)
+        {
+            losePopup.SetActive(true);
+            Debug.Log("Local player loses: no available moves");
+        }
+
+        // Local player loses in other game type
+        else
+        {
+            Debug.Log("Opposing player loses: no available moves");
+            winPopup.SetActive(true);
+        }
+    }
+
+    //Maggie's Code
+    void backToMenuClicked()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+}

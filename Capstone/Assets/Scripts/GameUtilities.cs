@@ -21,7 +21,10 @@ public static class GameUtilities //public  ??
     public static bool PlayingStoryMode;
 
     private static PlayerTurn playerTurn;
-    private static PlayerTurn winningPlayer;
+
+    private static bool gameOver;
+    private static bool localDisconnect;
+    private static bool opponentDisconnect;
 
     private static string P1username;
     private static string P2username;
@@ -203,14 +206,46 @@ public static class GameUtilities //public  ??
         else playerTurn = PlayerTurn.ONE;
     }
 
-    public static void SetWinningPlayer(PlayerTurn p)
+    //////////////////////////////////////
+    // Game over functionalities
+    //////////////////////////////////////
+    public static void SetGameOver()
     {
-        winningPlayer = p;
+        gameOver = true;
     }
 
-    public static PlayerTurn GetWinningPlayer()
+    public static bool IsGameOver()
     {
-        return winningPlayer;
+        if (gameOver == null || gameOver == false)
+            return false;
+        else
+            return true;
+    }
+
+    public static void SetLocalDisconnect()
+    {
+        localDisconnect = true;
+    }
+
+    public static bool IsLocalDisconnect()
+    {
+        if (localDisconnect == null || localDisconnect == false)
+            return false;
+        else
+            return true;
+    }
+
+    public static void SetOpponentDisconnect()
+    {
+        opponentDisconnect = true;
+    }
+
+    public static bool IsOpponentDisconnect()
+    {
+        if (opponentDisconnect == null || opponentDisconnect == false)
+            return false;
+        else
+            return true;
     }
 
     //////////////////////////////////////

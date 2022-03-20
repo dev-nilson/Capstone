@@ -13,12 +13,6 @@ using static GameUtilities;
 public class NetworkController : MonoBehaviourPunCallbacks
 {
 
-    //Maggie's Code
-    public GameObject disconnectedPopup;
-    public GameObject youDisconnected;
-    public GameObject opponectDisconnected;
-    public GameObject backToMenu;
-
     #region Variables
     public static NetworkController netController;
     public static Coordinates coordinates;
@@ -36,10 +30,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void Start()
     {
-        //Maggie's code
-        Button backToMenuBtn = backToMenu.GetComponent<Button>();
-        backToMenuBtn.onClick.AddListener(backToMenuClicked);
-
         GameObject player = PhotonNetwork.Instantiate("networkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
         netPlayer = player.GetComponent<NetworkPlayer>();
     }
@@ -50,31 +40,26 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.NetworkClientState == ClientState.Disconnected)
         {
             //code for however we decide to tell player they've disconnected
+            // ** see "GameOverGraphics.cs"
 
             //disable game phases
             DisablePhases();
             Debug.Log("You have lost network connection");
 
-            // MAGGIE: some pop up that says you are disconnected with button to return to main menu
-            //then clear the game when you hit "okay" or whatever!
-            disconnectedPopup.SetActive(true);
-            youDisconnected.SetActive(true);
-
+            SetLocalDisconnect();
         }
         else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2)
         {
             //code to tell person still left in the room that their opponent has disconnected
+            // ** see "GameOverGraphics.cs"
 
             //disable game phases
             DisablePhases();
             Debug.Log("Your opponent has lost network connection");
 
-            // MAGGIE: tell player that their opponent disconnected -- button to return to main menu
-            //then clear the game when you hit "okay" or whatever!
-            disconnectedPopup.SetActive(true);
-            opponectDisconnected.SetActive(true);
-
-            // disconnect our end of network stuff
+            SetOpponentDisconnect();
+            
+            // Don't forget to disconnect our end of network stuff!!!!!!!!!
 
         }
     }
@@ -123,12 +108,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
 
     #endregion
-
-    //Maggie's Code
-    void backToMenuClicked()
-    {
-        SceneManager.LoadScene("Menu");
-    }
 }
 
 
