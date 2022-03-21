@@ -164,7 +164,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         multiplayerMenuPanel.SetActive(false);
 
         Debug.Log(PhotonNetwork.NickName);
-        roomName = PlayerPrefs.GetString("NickName");
+        roomName = "Join " + PlayerPrefs.GetString("NickName")+ "'s room";
 
         Debug.Log(roomName);
         CharacterSelectionLobbyPanel.SetActive(true);
@@ -320,7 +320,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         {
             GameObject tempListing = Instantiate(roomListingPrefab, roomsContainer);
             UIP_RoomButton tempButton = tempListing.GetComponent<UIP_RoomButton>();
-            tempButton.SetRoom("Join " + room.Name+ "'s room");
+            tempButton.SetRoom(room.Name);
         }
     }
 }
