@@ -178,6 +178,7 @@ MonoBehaviour:
   aliens:
   - {fileID: 21300000, guid: 1d68266314d77b846aa708b440a01c51, type: 3}
   - {fileID: 21300000, guid: fec99a81a07e82f408587ca4d78a1152, type: 3}
+  - {fileID: 21300000, guid: edebcc9ed27f4bf4897c3b9d4531210c, type: 3}
 --- !u!1 &2421737314197920943
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,13 +27,32 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
     public Image playerAlien;
     public Sprite[] aliens;
 
+    private PhotonView photonView;
+
     Photon.Realtime.Player player;
 
     public void SetPlayerInfo(Photon.Realtime.Player netPlayer)
     {
         //AlienPic.transform.RotateAround(transform.position, transform.up, 280f);
-        playerName.text = PlayerPrefs.GetString("NickName");
         player = netPlayer;
+        string myNickname = PlayerPrefs.GetString("NickName");
+        Debug.Log("This is my Nickname: " + myNickname);
+
+        if (player == PhotonNetwork.LocalPlayer)
+        {
+            playerName.text = PlayerPrefs.GetString("NickName");
+        }
+        else if (player != PhotonNetwork.LocalPlayer)
+        {
+            foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+            {
+                if (p.NickName != myNickname)
+                {
+                    playerName.text = p.NickName;
+                }
+            }
+        }
+
         UpdatePlayerItem(player);
     }
 
