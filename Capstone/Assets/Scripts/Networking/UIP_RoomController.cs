@@ -8,6 +8,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using static GameUtilities;
 
 public class UIP_RoomController : MonoBehaviourPunCallbacks
 {
@@ -29,11 +30,22 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     private GameObject FaceoffBackButton;
 
     [SerializeField]
+    private GameObject PharoahButton;
+    [SerializeField]
+    private GameObject ScribeButton;
+    [SerializeField]
+    private GameObject WorkerButton;
+    [SerializeField]
+    private GameObject PeasantButton;
+
+    [SerializeField]
     private Text WaitingForOpponents; //Updates as people leave/join the room to reflect room "state" (if you're waiting for someone to join or not)
 
     public List<NetPlayerItem> playerItemsList = new List<NetPlayerItem>();
     public NetPlayerItem playerItemPrefab;
     public Transform playerItemParent;
+
+    private NetPlayerItem tempPlayer;
 
     public override void OnJoinedRoom()
     {
@@ -133,10 +145,75 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             if(player.Value == PhotonNetwork.LocalPlayer)
             {
                 newPlayerItem.ApplyLocalChanges();
+                tempPlayer = newPlayerItem;
             }
 
             playerItemsList.Add(newPlayerItem);
             Debug.Log("Added Item");
         }
+    }
+
+    public void choosePharoah()
+    {
+        int chosen = 0;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            setP1avatar(PlayerAvatar.PHAROAH);
+        }
+        else if (!PhotonNetwork.IsMasterClient)
+        {
+            setP2avatar(PlayerAvatar.PHAROAH);
+        }
+
+        tempPlayer.changeAlien(chosen);
+    }
+
+    public void chooseScribe()
+    {
+        int chosen = 1;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            setP1avatar(PlayerAvatar.PHAROAH);
+        }
+        else if (!PhotonNetwork.IsMasterClient)
+        {
+            setP2avatar(PlayerAvatar.PHAROAH);
+        }
+
+        tempPlayer.changeAlien(chosen);
+    }
+
+    public void chooseWorker()
+    {
+        int chosen = 2;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            setP1avatar(PlayerAvatar.PHAROAH);
+        }
+        else if (!PhotonNetwork.IsMasterClient)
+        {
+            setP2avatar(PlayerAvatar.PHAROAH);
+        }
+
+        tempPlayer.changeAlien(chosen);
+    }
+
+    public void choosePeasant()
+    {
+        int chosen = 3;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            setP1avatar(PlayerAvatar.PHAROAH);
+        }
+        else if (!PhotonNetwork.IsMasterClient)
+        {
+            setP2avatar(PlayerAvatar.PHAROAH);
+        }
+
+        tempPlayer.changeAlien(chosen);
     }
 }
