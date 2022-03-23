@@ -41,6 +41,11 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         if (player == PhotonNetwork.LocalPlayer)
         {
             playerName.text = PlayerPrefs.GetString("NickName");
+
+            //if (!PhotonNetwork.IsMasterClient)
+            //{
+            //    FlipIt(netPlayer);
+            //}
         }
         else if (player != PhotonNetwork.LocalPlayer)
         {

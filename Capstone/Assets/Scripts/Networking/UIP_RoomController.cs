@@ -112,6 +112,8 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     void UpdatePlayerList()
     {
+        int flipCounter;
+
         foreach (NetPlayerItem item in playerItemsList)
         {
             Destroy(item.gameObject);
@@ -132,19 +134,20 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
             if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
-                if (player.Value == PhotonNetwork.LocalPlayer && (PhotonNetwork.IsMasterClient))
-                {
-                    newPlayerItem.FlipIt(player.Value);
-                }
+                //newPlayerItem.FlipIt(player.Value);
                 if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2)
                 {
                     StartGameButton.SetActive(true);
                 }
             }
 
-            if(player.Value == PhotonNetwork.LocalPlayer)
+            if (player.Value == PhotonNetwork.LocalPlayer)
             {
-                newPlayerItem.ApplyLocalChanges();
+                //newPlayerItem.ApplyLocalChanges();
+                //if (player.Value == PhotonNetwork.LocalPlayer && (!PhotonNetwork.IsMasterClient))
+                //{
+                //    newPlayerItem.FlipIt(player.Value);
+                //}
                 tempPlayer = newPlayerItem;
             }
 
