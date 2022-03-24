@@ -8,6 +8,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using static GameUtilities;
 
 public class UIP_RoomController : MonoBehaviourPunCallbacks
 {
@@ -29,11 +30,22 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     private GameObject FaceoffBackButton;
 
     [SerializeField]
+    private GameObject PharoahButton;
+    [SerializeField]
+    private GameObject ScribeButton;
+    [SerializeField]
+    private GameObject WorkerButton;
+    [SerializeField]
+    private GameObject PeasantButton;
+
+    [SerializeField]
     private Text WaitingForOpponents; //Updates as people leave/join the room to reflect room "state" (if you're waiting for someone to join or not)
 
     public List<NetPlayerItem> playerItemsList = new List<NetPlayerItem>();
     public NetPlayerItem playerItemPrefab;
     public Transform playerItemParent;
+
+    private NetPlayerItem tempPlayer;
 
     public override void OnJoinedRoom()
     {
@@ -100,6 +112,8 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     void UpdatePlayerList()
     {
+        int flipCounter;
+
         foreach (NetPlayerItem item in playerItemsList)
         {
             Destroy(item.gameObject);
@@ -120,23 +134,89 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
             if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
-                if (player.Value == PhotonNetwork.LocalPlayer && (PhotonNetwork.IsMasterClient))
-                {
-                    newPlayerItem.FlipIt(player.Value);
-                }
+                //newPlayerItem.FlipIt(player.Value);
                 if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2)
                 {
                     StartGameButton.SetActive(true);
                 }
             }
 
-            if(player.Value == PhotonNetwork.LocalPlayer)
+            if (player.Value == PhotonNetwork.LocalPlayer)
             {
-                newPlayerItem.ApplyLocalChanges();
+                //newPlayerItem.ApplyLocalChanges();
+                //if (player.Value == PhotonNetwork.LocalPlayer && (!PhotonNetwork.IsMasterClient))
+                //{
+                //    newPlayerItem.FlipIt(player.Value);
+                //}
+                tempPlayer = newPlayerItem;
             }
 
             playerItemsList.Add(newPlayerItem);
             Debug.Log("Added Item");
         }
+    }
+
+    public void choosePharoah()
+    {
+        int chosen = 0;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            setP1avatar(PlayerAvatar.PHAROAH);
+        }
+        else if (!PhotonNetwork.IsMasterClient)
+        {
+            setP2avatar(PlayerAvatar.PHAROAH);
+        }
+
+        tempPlayer.changeAlien(chosen);
+    }
+
+    public void chooseScribe()
+    {
+        int chosen = 1;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            setP1avatar(PlayerAvatar.PHAROAH);
+        }
+        else if (!PhotonNetwork.IsMasterClient)
+        {
+            setP2avatar(PlayerAvatar.PHAROAH);
+        }
+
+        tempPlayer.changeAlien(chosen);
+    }
+
+    public void chooseWorker()
+    {
+        int chosen = 2;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            setP1avatar(PlayerAvatar.PHAROAH);
+        }
+        else if (!PhotonNetwork.IsMasterClient)
+        {
+            setP2avatar(PlayerAvatar.PHAROAH);
+        }
+
+        tempPlayer.changeAlien(chosen);
+    }
+
+    public void choosePeasant()
+    {
+        int chosen = 3;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            setP1avatar(PlayerAvatar.PHAROAH);
+        }
+        else if (!PhotonNetwork.IsMasterClient)
+        {
+            setP2avatar(PlayerAvatar.PHAROAH);
+        }
+
+        tempPlayer.changeAlien(chosen);
     }
 }

@@ -41,6 +41,11 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         if (player == PhotonNetwork.LocalPlayer)
         {
             playerName.text = PlayerPrefs.GetString("NickName");
+
+            //if (!PhotonNetwork.IsMasterClient)
+            //{
+            //    FlipIt(netPlayer);
+            //}
         }
         else if (player != PhotonNetwork.LocalPlayer)
         {
@@ -58,8 +63,8 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
 
     public void ApplyLocalChanges()
     {
-        leftArrowButton.SetActive(true);
-        rightArrowButton.SetActive(true);
+        //leftArrowButton.SetActive(true);
+        //rightArrowButton.SetActive(true);
     }
 
     public void FlipIt(Photon.Realtime.Player netPlayer)
@@ -119,6 +124,31 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         else
         {
             playerProperties["playerAlien"] = 0;
+        }
+    }
+
+    public void changeAlien(int chosen)
+    {
+        if (player == PhotonNetwork.LocalPlayer)
+        {
+            if (chosen == 0)
+            {
+                playerProperties["playerAlien"] = 0;
+            }
+            else if (chosen == 1)
+            {
+                playerProperties["playerAlien"] = 1;
+            }
+            else if (chosen == 2)
+            {
+                playerProperties["playerAlien"] = 2;
+            }
+            else if (chosen == 3)
+            {
+                playerProperties["playerAlien"] = 3;
+            }
+
+            PhotonNetwork.SetPlayerCustomProperties(playerProperties);
         }
     }
 }

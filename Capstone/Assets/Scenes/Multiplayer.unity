@@ -204,7 +204,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4664654}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1809486473}
+        m_TargetAssemblyTypeName: UIP_RoomController, Assembly-CSharp
+        m_MethodName: chooseScribe
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4664654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1019,7 +1031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2299199394350474998, guid: bbc9104fe1380c347920ab58030f3005, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2299199394350474998, guid: bbc9104fe1380c347920ab58030f3005, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2862,7 +2874,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 969291662}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1809486473}
+        m_TargetAssemblyTypeName: UIP_RoomController, Assembly-CSharp
+        m_MethodName: chooseWorker
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &969291662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3172,7 +3196,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1092665098}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1809486473}
+        m_TargetAssemblyTypeName: UIP_RoomController, Assembly-CSharp
+        m_MethodName: choosePharoah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1092665098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3686,7 +3722,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1374939416}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1809486473}
+        m_TargetAssemblyTypeName: UIP_RoomController, Assembly-CSharp
+        m_MethodName: choosePeasant
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1374939416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4763,6 +4811,10 @@ MonoBehaviour:
   multiplayerMenuPanel: {fileID: 2299199394656597057}
   StartGameButton: {fileID: 566037755}
   FaceoffBackButton: {fileID: 83210058}
+  PharoahButton: {fileID: 1092665095}
+  ScribeButton: {fileID: 4664651}
+  WorkerButton: {fileID: 969291659}
+  PeasantButton: {fileID: 1374939413}
   WaitingForOpponents: {fileID: 1086163527}
   playerItemsList: []
   playerItemPrefab: {fileID: 2421737314145836434, guid: 062783c9caac67145b6c85dafcff4fb2, type: 3}
@@ -5325,7 +5377,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 2
   m_Spacing: 280
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
@@ -5562,7 +5614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2299199394350474998, guid: bbc9104fe1380c347920ab58030f3005, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2299199394350474998, guid: bbc9104fe1380c347920ab58030f3005, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
