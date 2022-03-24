@@ -26,7 +26,7 @@ public class RotateMainCamera : MonoBehaviour
 
         //Code to find center of an object!!!
         //How do I rotate around the center point now?
-        /*float totalX = 0f;
+        float totalX = 0f;
         float totalY = 0f;
         float totalZ = 0f;
 
@@ -41,33 +41,36 @@ public class RotateMainCamera : MonoBehaviour
         float centerY = totalY / tilesInGame.Length;
         float centerZ = totalY / tilesInGame.Length;
 
-        Debug.Log("center is : " + centerX + " " + centerY + " " + centerZ);*/
+        Debug.Log("center is : " + centerX + " " + centerY + " " + centerZ);
 
     }
+
+    //LAURA GRACE how do I safely disable and restore phases while the board is being rotated??????
+
     void rotateLeftClick()
     {
         if (x == 0)
         {
-            x = -5;
-            z = 25;
+            x = -8;
+            z = 28;
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 90, 0);
         }
-        else if (x == -5)
+        else if (x == -8)
         {
             x = 20;
-            z = 30;
+            z = 37;
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 0, 180);
         }
         else if (x == 20)
         {
-            x = 25;
-            z = 5;
+            x = 28;
+            z = 8;
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 0, -270);
         }
-        else if (x == 25)
+        else if (x == 28)
         {
             x = 0;
             z = 0;
@@ -96,8 +99,6 @@ public class RotateMainCamera : MonoBehaviour
         }
         else if (x == 25)
         {
-            Debug.Log("HERE");
-
             x = 20;
             z = 30;
             Board.transform.position = new Vector3(x, 0f, z);
