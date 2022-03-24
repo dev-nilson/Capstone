@@ -52,6 +52,8 @@ public class GameOverGraphics : MonoBehaviour
             opponectDisconnected.SetActive(true);
         }
 
+        //WHAT IF SOMEONE LEAVES THE GAME????????????
+
         // Local player wins in story mode
         else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE) //CurrentPlayer.Type() == Player.Tag.LOCAL)
         {

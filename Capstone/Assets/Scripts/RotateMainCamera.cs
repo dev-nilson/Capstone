@@ -11,7 +11,7 @@ public class RotateMainCamera : MonoBehaviour
 	public Button rotateRight;
 	public Button rotateLeft;
 
-    int x = 0, z = 0;
+    float x = 0, z = 0;
 
 	void Start()
 	{
@@ -51,26 +51,26 @@ public class RotateMainCamera : MonoBehaviour
     {
         if (x == 0)
         {
-            x = -8;
-            z = 28;
+            x = -8.75f;
+            z = 28.75f;
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 90, 0);
         }
-        else if (x == -8)
+        else if (x == -8.75)
         {
-            x = 20;
-            z = 37;
+            x = 20f;
+            z = 37.5f;
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 0, 180);
         }
         else if (x == 20)
         {
-            x = 28;
-            z = 8;
+            x = 28.75f;
+            z = 8.75f;
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 0, -270);
         }
-        else if (x == 28)
+        else if (x == 28.75)
         {
             x = 0;
             z = 0;
@@ -92,26 +92,26 @@ public class RotateMainCamera : MonoBehaviour
     {
         if (x == 0)
         {
-            x = 25;
-            z = 5;
+            x = 28.75f;
+            z = 8.75f;
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 0, 90);
         }
-        else if (x == 25)
+        else if (x == 28.75f)
         {
             x = 20;
-            z = 30;
+            z = 37.5f;
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 0, 180);
         }
         else if (x == 20)
         {
-            x = -5;
-            z = 25;
+            x = -8.75f;
+            z = 28.75f;
             Board.transform.position = new Vector3(x, 0f, z);
             Board.transform.rotation = Quaternion.Euler(90, 0, 270);
         }
-        else if (x == -5)
+        else if (x == -8.75f)
         {
             x = 0;
             z = 0;
