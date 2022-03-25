@@ -8,6 +8,16 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+//Add code for switching music in these places
+//QuickGameScreen.startGameClicked() (Quick to Game)
+//MenuScreen.artBookClicked() (Menu to Art)
+//MenuScreen.storyModeClicked() (Menu to Story)
+//UIP_LobbyController.HostLobbyOnClick() and UIP_RoomButton.JoomRoomOnClick() (Join/Host to FaceOff)
+//UIP_RoomController.StartGameOnClick() (FaceOff to Game)
+//Disconnected back to Menu (Game/FaceOff)
+//Game back to Menu (GameBoardScreen.okClicked() / GameOverGraphics.backToMenuClicked())
+
+
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
@@ -20,6 +30,11 @@ public class AudioManager : MonoBehaviour
     int songOneRecentPlay = 0;
     int songTwoRecentPlay = 0;
     int songThreeRecentPlay = 0;
+
+    int currentScreen;
+    int newScreen;
+
+    Sound currentSong;
 
     // Start is called before the first frame update
     void Awake()
@@ -61,6 +76,58 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        //update will set a temp value equal to the current int, this int will represent the current screen
+        //it will test to see if the temp is different than the int and if so will call nextMusic
+        if (currentScreen != newScreen)
+        {
+            currentSong.source.Stop();
+            Debug.Log("Stopping song: " + currentSong.name);
+        }
+
+        currentScreen = newScreen;
+    }
+
+    public void StopCurrentSong(int screen)
+    {
+        //will update newScreen in order to make the current song being played stop
+        newScreen = screen;
+        StartCoroutine(waitSong(screen));
+    }
+
+    public void nextSong(int screen)
+    {
+        switch (screen)
+        {
+            case 1: //MAIN
+                //Play();
+                Debug.Log("MAIN");
+                break;
+            case 2: //STORY
+                //Play();
+                Debug.Log("STORY");
+                break;
+            case 3: //QUICK
+                //Play();
+                Debug.Log("QUICK");
+                break;
+            case 4: //FACEOFF
+                //Play();
+                Debug.Log("FACEOFF");
+                break;
+            case 5: //ART
+                    Play("My Quiet Room");
+                    Debug.Log("ART");
+                break;
+            case 6: //GAME
+                Play("An Ordinary Day");
+                Debug.Log("GAME");
+                break;
+        }    
+    }
+
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -71,26 +138,19 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        //code above will be in nextMusic, coroutine below will be in nextMusic function, after call to play
         s.source.Play();
-       // StartCoroutine(waitAudio(s));
+        currentSong = s; //this has to go somewhere else, sounds will mess it up
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator waitSong(int screen)
     {
-        //update will set a temp value equal to the current int, this int will represent the current screen
-        //it will test to see if the temp is different than the int and if so will call nextMusic
+        yield return new WaitForSecondsRealtime(1);
+
+        Debug.Log("Calling nextSong");
+        nextSong(screen);
     }
 
-    private IEnumerator waitAudio(Sound s)
-    {
-        yield return new WaitForSeconds(s.clip.length);
-        Debug.Log("end of sound");
-
-        Play(MainMenuSongs());
-    }
-
+    #region Main Menu Randomize Stuff
     //Main Menu, Quick Game, Tutorial, And Multiplayer will all have same songs
     private string MainMenuSongs()
     {
@@ -208,4 +268,5 @@ public class AudioManager : MonoBehaviour
 
         return songCountdown;
     }
+    #endregion
 }
