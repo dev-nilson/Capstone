@@ -71,7 +71,6 @@ public class GridManager : MonoBehaviour
 
     public void createBoard(int[,] temp)
     {
-        Debug.Log("I created a board");
         Grid = new GameObject[Col, Row];
         System.Random rnd = new System.Random();
 
