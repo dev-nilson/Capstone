@@ -21,9 +21,13 @@ public class GameOverGraphics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Maggie's code
         Button backToMenuBtn = backToMenu.GetComponent<Button>();
         backToMenuBtn.onClick.AddListener(backToMenuClicked);
+    }
+
+    void Awake()
+    {
+        resetPopupBoxes();
     }
 
     // Update is called once per frame
@@ -82,6 +86,16 @@ public class GameOverGraphics : MonoBehaviour
             losePopup.SetActive(true);
         }
     }
+
+    void resetPopupBoxes()
+    {
+        losePopup.SetActive(false);
+        disconnectedPopup.SetActive(false);
+        opponectDisconnected.SetActive(false);
+        youDisconnected.SetActive(false);
+        winPopup.SetActive(false);
+    }
+
     void backToMenuClicked()
     {
         SceneManager.LoadScene("Menu");
