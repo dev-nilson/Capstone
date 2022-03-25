@@ -396,7 +396,8 @@ public class GridManager : MonoBehaviour
             yield return new WaitForSeconds(.001f);
         }
 
-        yield return new WaitForSeconds(.5f);
+        //This sets a delay after a player builds their level
+        yield return new WaitForSeconds(1f);
         RestorePhases();
         //Debug.Log(CanPlacePawn());
     }
