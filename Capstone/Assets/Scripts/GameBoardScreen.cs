@@ -89,7 +89,7 @@ public class GameBoardScreen : MonoBehaviour
 
     void Update()
     {
-        if (GetPlayerTurn() == PlayerTurn.ONE)
+        if (GetPlayerTurn() == PlayerTurn.ONE && (CanPlacePawn() || CanMove()))
         {
             //Turn of player 2 highlighted icon
             if (getP2avatar() == PlayerAvatar.PEASANT) p2PeasantIcon_H.SetActive(false);
@@ -103,7 +103,7 @@ public class GameBoardScreen : MonoBehaviour
             else if (getP1avatar() == PlayerAvatar.SCRIBE) p1ScribeIcon_H.SetActive(true);
             else if (getP1avatar() == PlayerAvatar.WORKER) p1WorkerIcon_H.SetActive(true);
         }
-        else if (GetPlayerTurn() == PlayerTurn.TWO)
+        else if (GetPlayerTurn() == PlayerTurn.TWO && (CanPlacePawn() || CanMove()))
         {
             //Turn off player 1 highlighted icon
             if (getP1avatar() == PlayerAvatar.PEASANT) p1PeasantIcon_H.SetActive(false);

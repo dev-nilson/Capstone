@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameUtilities;
 
 public class RotateMainCamera : MonoBehaviour
 {
@@ -126,5 +127,68 @@ public class RotateMainCamera : MonoBehaviour
         {
             go.transform.rotation = Quaternion.Euler(0, 0, 0);
         }*/
+    }
+
+
+
+    // WORK IN PROGRESS: rotate board slowly
+    void rotateRightClick2()
+    {
+        StartCoroutine(rotateBoardRight());
+    }
+
+
+    IEnumerator rotateBoardRight()
+    {
+        StorePhases();
+        DisablePhases();
+
+        // center is (x,z) = (10.0, 18.75)
+        //float radius = 21.25f;
+
+        float DEGREES = 5;
+
+        Debug.Log("Rotate board right begin");
+        for (int i = 0; i < 90; i+=5)
+        {
+            // convert angle to radians
+            float angle = DEGREES * Mathf.PI / 180.0f;
+
+            // get current point
+            float x = Board.transform.position.x;
+            float z = Board.transform.position.z;
+            Debug.Log("current x: " + x);
+            Debug.Log("current z: " + z);
+            
+            // calculate cos & sin
+            float cos = Mathf.Cos(angle);
+            float sin = Mathf.Sin(angle);
+            Debug.Log("current cos: " + cos);
+            Debug.Log("current sin: " + sin);
+
+            float newx = cos * (x - 10.0f) - sin * (z - 18.75f) + 10.0f;
+            float newz = - sin * (x - 10.0f) + cos * (z - 18.75f) + 18.75f;
+            Debug.Log("new x: " + newx);
+            Debug.Log("new z: " + newz);
+
+            Board.transform.position = new Vector3(x, 0f, z);
+
+            float f = Board.transform.rotation.z + DEGREES;
+            Board.transform.rotation = Quaternion.Euler(90, 0, f);
+
+            yield return new WaitForSeconds(.01f);
+        }
+        //startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 7f, Grid[location.X, location.Y].transform.position.z);
+        //endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, levelHeight, Grid[location.X, location.Y].transform.position.z);
+
+        //for (float i = startLocation.y; i >= levelHeight; i -= .2f)
+        //{
+        //    endLocation.y = i;
+        //    child.transform.position = endLocation;
+        //    yield return new WaitForSeconds(.001f);
+        //}
+
+        yield return new WaitForSeconds(1.0f);
+        RestorePhases();
     }
 }
