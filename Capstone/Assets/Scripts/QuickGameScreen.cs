@@ -35,8 +35,6 @@ public class QuickGameScreen : MonoBehaviour
     {
         if (input.text.Length > 0)
         {
-            Debug.Log(input.text);
-
             setP1username(input.text);
         }
     }

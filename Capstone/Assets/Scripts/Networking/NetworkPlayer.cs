@@ -33,7 +33,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	{
 		Debug.Log("send coordinates function in NETWORK PLAYER called");
 		Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
-		photonView.RPC("RPC_SendCoordinates", RpcTarget.Others, coordinates);
+		photonView.RPC("RPC_SendCoordinates", RpcTarget.OthersBuffered, coordinates);
 	}
 }
 

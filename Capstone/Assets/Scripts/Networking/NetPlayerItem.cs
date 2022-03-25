@@ -41,6 +41,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         if (player == PhotonNetwork.LocalPlayer)
         {
             playerName.text = PlayerPrefs.GetString("NickName");
+            setP1username(playerName.text);
 
             //if (!PhotonNetwork.IsMasterClient)
             //{
@@ -134,18 +135,22 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
             if (chosen == 0)
             {
                 playerProperties["playerAlien"] = 0;
+                setP1avatar(PlayerAvatar.PHAROAH);
             }
             else if (chosen == 1)
             {
                 playerProperties["playerAlien"] = 1;
+                setP1avatar(PlayerAvatar.SCRIBE);
             }
             else if (chosen == 2)
             {
                 playerProperties["playerAlien"] = 2;
+                setP1avatar(PlayerAvatar.WORKER);
             }
             else if (chosen == 3)
             {
                 playerProperties["playerAlien"] = 3;
+                setP1avatar(PlayerAvatar.PEASANT);
             }
 
             PhotonNetwork.SetPlayerCustomProperties(playerProperties);
