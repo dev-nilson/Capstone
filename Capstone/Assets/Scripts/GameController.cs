@@ -33,6 +33,8 @@ public class GameController : MonoBehaviour
 
     GameObject child;
 
+    //HelpTimer help_timer;
+
     //get GameObject’s material and color
     MeshRenderer Renderer;
 
@@ -44,6 +46,9 @@ public class GameController : MonoBehaviour
         Board = boardController.GetComponent<GridManager>();
         //clickPositionManager = player.GetComponent<ClickPositionManager>();
         playerController = player.GetComponent<PlayerController>();
+
+        // This is a timer that turns on/off help pop ups during game play
+        //help_timer = help_timer.GetComponent<HelpTimer>();
     }
 
     // Start is called before the first frame update
@@ -52,9 +57,9 @@ public class GameController : MonoBehaviour
         //get mesh renderer component
         Renderer = GetComponent<MeshRenderer>();
 
-        P1 = new Player(true);//, P1username);
+        P1 = new Player(true);
 
-        P2 = new Player(false);//, P2username);
+        P2 = new Player(false);
 
         //GC:  INITIALIZE BOARD
         board_gc = new GameBoard();
@@ -63,13 +68,12 @@ public class GameController : MonoBehaviour
         boardHeights = board_gc.GetHeights();
         boardController.createBoard(boardHeights);
         //boardController.displayBoard(boardHeights, P1, P2);
-        
+
+        HelpTimer.Set();
+
         // Game begins with only place pawn phase
         DisablePhases();
         SwapPlacePawnPhase();
-
-        Debug.Log("P1's avatar is " + (int)getP1avatar());
-        Debug.Log("P2's avatar is " + (int)getP2avatar());
     }
 
     // Update is called once per frame
@@ -110,13 +114,17 @@ public class GameController : MonoBehaviour
 
                 // Otherwise, if only the current player has placed his pawns simply swap player turns
                 else if (CurrentPlayer.GetPlayerCoordinates()[1] != new Coordinates())
+                {
                     SwapPlayerTurn();
+                }
 
                 /* This function call occurs after phase changes to accommodate for animation coroutines. */
                 // Clear the pawns from the board then re-display them
                 //boardController.clearBoard();
                 //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
                 boardController.placePlayer(board_gc.GetHeights(), loc, P1, P2);
+
+                HelpTimer.Set();
             }
             else
             {
@@ -135,6 +143,8 @@ public class GameController : MonoBehaviour
 
                 DisablePhases();
                 //board.SetActive(false);
+
+                HelpTimer.TurnOff();
 
                 ClearGame();
             }
@@ -221,6 +231,7 @@ public class GameController : MonoBehaviour
                             /* This function call occurs after phase changes to accommodate for animation coroutines. */
                             boardController.movePlayer(curLoc, newLoc, P1, P2);
 
+                            HelpTimer.Set();
                         }
                         if (moveStatus == MoveType.WINNING)
                         {
@@ -230,6 +241,8 @@ public class GameController : MonoBehaviour
 
                             DisablePhases();
                             //board.SetActive(false);
+
+                            HelpTimer.TurnOff();
 
                             ClearGame();
 
@@ -264,6 +277,8 @@ public class GameController : MonoBehaviour
 
                     DisablePhases();
                     //board.SetActive(false);
+
+                    HelpTimer.TurnOff();
 
                     ClearGame();
                 }
@@ -302,6 +317,8 @@ public class GameController : MonoBehaviour
                     /* This function call occurs after phase changes to accommodate for animation coroutines. */
                     //BUILD
                     boardController.buildLevel(board_gc.GetHeights(),newLoc);
+
+                    HelpTimer.Set();
                 }
                 else
                 {

@@ -22,9 +22,9 @@ public static class GameUtilities //public  ??
 
     private static PlayerTurn playerTurn;
 
-    private static bool gameOver;
-    private static bool localDisconnect;
-    private static bool opponentDisconnect;
+    private static bool gameOver = false;
+    private static bool localDisconnect = false;
+    private static bool opponentDisconnect = false;
     private static PlayerTurn winningPlayer;
 
     private static string P1username;
@@ -217,7 +217,7 @@ public static class GameUtilities //public  ??
 
     public static bool IsGameOver()
     {
-        if (gameOver == null || gameOver == false)
+        if (gameOver == false) // (gameOver == null ||
             return false;
         else
             return true;
@@ -231,7 +231,7 @@ public static class GameUtilities //public  ??
 
     public static bool IsLocalDisconnect()
     {
-        if (localDisconnect == null || localDisconnect == false)
+        if (localDisconnect == false) // (localDisconnect == null ||
             return false;
         else
             return true;
@@ -245,7 +245,7 @@ public static class GameUtilities //public  ??
 
     public static bool IsOpponentDisconnect()
     {
-        if (opponentDisconnect == null || opponentDisconnect == false)
+        if (opponentDisconnect == false) // (opponentDisconnect == null ||
             return false;
         else
             return true;
