@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134658150179563064}
   m_LocalRotation: {x: -0, y: 0.999962, z: -0, w: 0.008726558}
-  m_LocalPosition: {x: 0.01, y: 0, z: -1.12}
+  m_LocalPosition: {x: 0.01, y: -0.125, z: -1.12}
   m_LocalScale: {x: 0.050012164, y: 0.03, z: 0.9987828}
   m_Children: []
   m_Father: {fileID: 4414209048008096268}
@@ -191,7 +191,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453350109089284809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 0, z: -0.92}
+  m_LocalPosition: {x: -0.04, y: -0.125, z: -0.92}
   m_LocalScale: {x: 0.05, y: 0.03, z: 1}
   m_Children: []
   m_Father: {fileID: 1553406352346196485}
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 7240134313883738638}
   - component: {fileID: 2029077034889104315}
   m_Layer: 0
-  m_Name: ScribePiece
+  m_Name: WorkerPiece
   m_TagString: Alien
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -876,6 +876,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8dc2e83b1c12f16439b83a4f2fede08b, type: 2}
+    - target: {fileID: 7109939989437462916, guid: c367b0cc59943dd4a8405e8e42583f93, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -6629797300637803691, guid: a0dd560e9da68c747921a43baf013482, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c367b0cc59943dd4a8405e8e42583f93, type: 3}
 --- !u!4 &4359338018073919589 stripped
