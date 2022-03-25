@@ -122,7 +122,7 @@ public class AudioManager : MonoBehaviour
                     Debug.Log("ART");
                 break;
             case 6: //GAME
-                //Play();
+                Play("An Ordinary Day");
                 Debug.Log("GAME");
                 break;
         }    

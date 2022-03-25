@@ -80,11 +80,14 @@ public class QuickGameScreen : MonoBehaviour
         // GameType and PlayerTurn are set in "ToggleGroup.cs"
 
         SceneManager.LoadScene("GameBoard");
+        FindObjectOfType<AudioManager>().StopCurrentSong(6);
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
     }
 
     void backClicked()
     {
         SceneManager.LoadScene("Menu");
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
     }
 
     void resetAll()
