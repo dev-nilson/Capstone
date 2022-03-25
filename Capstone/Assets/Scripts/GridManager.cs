@@ -61,6 +61,8 @@ public class GridManager : MonoBehaviour
     //get GameObject’s material and color
     MeshRenderer Renderer;
 
+    private NetworkController networkController;
+
     void Start()
     {
         //get mesh renderer component
@@ -371,6 +373,14 @@ public class GridManager : MonoBehaviour
             yield return new WaitForSeconds(.01f);
         }
 
+        // if network game, send coordinate here
+        if (getGameType() == GameType.NETWORK)
+        {
+            NetworkController.SetCoordinates(location);
+            NetworkController.SendCoordinates();
+        }
+
+
         PlayGame();
         RotateMainCamera.EnableRotation();
     }
@@ -397,6 +407,15 @@ public class GridManager : MonoBehaviour
 
         //This sets a delay after a player builds their level
         yield return new WaitForSeconds(1f);
+
+        // if network game, send coordinate here
+        if (getGameType() == GameType.NETWORK)
+        {
+            NetworkController.SetCoordinates(location);
+            NetworkController.SendCoordinates();
+        }
+
+
         PlayGame();
         RotateMainCamera.EnableRotation();
         //Debug.Log(CanPlacePawn());

@@ -42,11 +42,11 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Coordinates loc = GridManager.getSelectedTile();
-                if (getGameType() == GameType.NETWORK)
-                {
-                    NetworkController.SetCoordinates(loc);
-                    NetworkController.SendCoordinates();
-                }
+                //if (getGameType() == GameType.NETWORK)
+                //{
+                //    NetworkController.SetCoordinates(loc);
+                //    NetworkController.SendCoordinates();
+                //}
                 return loc;
             }
             else
