@@ -43,8 +43,6 @@ public class HelpTimer : MonoBehaviour
 
     IEnumerator HelpPopup()
     {
-        Debug.Log("Timer started");
-
         yield return new WaitForSecondsRealtime(delay);
 
         if (GetPlayerTurn() == PlayerTurn.ONE)

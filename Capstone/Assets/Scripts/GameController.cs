@@ -203,8 +203,6 @@ public class GameController : MonoBehaviour
                             // If the pawn was successfully moved in the game core board...
                             if (moveStatus == MoveType.VALID || moveStatus == MoveType.WINNING)
                             {
-                                //Section for debugging
-                                Debug.Log("GameController: collected second tile and moved pawn");
                                 Coordinates[] Pawns = Player.GetBothPlayersPawns();
 
                                 // Record the fact that the second tile has been collected for the "move" phase. Then turn off the "move" phase
