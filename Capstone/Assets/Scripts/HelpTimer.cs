@@ -38,7 +38,7 @@ public class HelpTimer : MonoBehaviour
         // turn off current popups
         helptimer._turnOff();
 
-        StartCoroutine(HelpPopup());
+        StartCoroutine("HelpPopup");
     }
 
     IEnumerator HelpPopup()
@@ -71,6 +71,8 @@ public class HelpTimer : MonoBehaviour
     // Non static function called by TurnOff()
     void _turnOff()
     {
+        StopCoroutine("HelpPopup");
+
         // turn off popups
 
         // TO DO: ADD THING FOR PLACING PAWN!!!!!!!!!!!!!!!
