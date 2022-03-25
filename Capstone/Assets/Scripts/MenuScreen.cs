@@ -115,8 +115,7 @@ public class MenuScreen : MonoBehaviour
 		scroll1.SetActive(true);
 
 		//switch phases to turn off build and place player to create a fake modal pop up box
-		StorePhases();
-		DisablePhases();
+		PauseGame();
 	}
 
 	void delayDisplay()
@@ -167,6 +166,6 @@ public class MenuScreen : MonoBehaviour
 			scrollArray[scrollNum].GetComponent<RectTransform>().sizeDelta = new Vector2(scrollReset[scrollNum].GetComponent<RectTransform>().rect.width, tempHeight);
 		}
 
-		RestorePhases();
+		PlayGame();
 	}
 }

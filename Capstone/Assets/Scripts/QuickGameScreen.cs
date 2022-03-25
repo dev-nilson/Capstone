@@ -26,6 +26,8 @@ public class QuickGameScreen : MonoBehaviour
     public GameObject worker_H;
     public GameObject worker_figure;
 
+    public GameObject choosePlayer;
+
     public InputField usernameInputField;
 
     // Checks if there is anything entered into the input field.
@@ -37,19 +39,6 @@ public class QuickGameScreen : MonoBehaviour
 
             setP1username(input.text);
         }
-        else if (input.text.Length == 0)
-        {
-            input.text = "Player 1";
-            Debug.Log(input.text);
-
-            setP1username(input.text);
-        }
-
-        //SAVE USERNAME HERE!!!
-        if (getP2avatar() == PlayerAvatar.PEASANT) setP2username("Peasant");
-        else if (getP2avatar() == PlayerAvatar.PHAROAH) setP2username("Pharaoh");
-        else if (getP2avatar() == PlayerAvatar.SCRIBE) setP2username("Scribe");
-        else if (getP2avatar() == PlayerAvatar.WORKER) setP2username("Worker");
     }
 
     // Start is called before the first frame update
@@ -76,6 +65,14 @@ public class QuickGameScreen : MonoBehaviour
         //Adds a listener that invokes the "LockInput" method when the player finishes editing the main input field.
         //Passes the main input field into the method when "LockInput" is invoked
         usernameInputField.onEndEdit.AddListener(delegate { LockInput(usernameInputField); });
+        if (usernameInputField.text.Length == 0)
+            setP1username("You");
+
+        //SAVE USERNAME HERE!!!
+        if (getP2avatar() == PlayerAvatar.PEASANT) setP2username("Peasant");
+        else if (getP2avatar() == PlayerAvatar.PHAROAH) setP2username("Pharaoh");
+        else if (getP2avatar() == PlayerAvatar.SCRIBE) setP2username("Scribe");
+        else if (getP2avatar() == PlayerAvatar.WORKER) setP2username("Worker");
     }
 
     void startGameClicked()
@@ -103,6 +100,8 @@ public class QuickGameScreen : MonoBehaviour
 
         worker_H.SetActive(false);
         worker_figure.SetActive(false);
+
+        choosePlayer.SetActive(true);
     }
 
     void pharoahClicked()
@@ -111,7 +110,9 @@ public class QuickGameScreen : MonoBehaviour
         pharoah_H.SetActive(true);
         pharoah_figure.SetActive(true);
 
-        //save the alien name LAURA GRACE lol
+        //Turn of choose player text because a player was selected
+        choosePlayer.SetActive(false);
+
         setP1avatar(PlayerAvatar.PHAROAH);
 
         // Set a random player avatar for player 2 (the AI) other than the pharoah
@@ -124,7 +125,9 @@ public class QuickGameScreen : MonoBehaviour
         scribe_H.SetActive(true);
         scribe_figure.SetActive(true);
 
-        //save the alien name LAURA GRACE lol
+        //Turn of choose player text becasue a player was selected
+        choosePlayer.SetActive(false);
+
         setP1avatar(PlayerAvatar.SCRIBE);
 
         // Set a random player avatar for player 2 (the AI) other than the scribe
@@ -137,7 +140,9 @@ public class QuickGameScreen : MonoBehaviour
         peasant_H.SetActive(true);
         peasant_figure.SetActive(true);
 
-        //save the alien name LAURA GRACE lol
+        //Turn of choose player text becasue a player was selected
+        choosePlayer.SetActive(false);
+
         setP1avatar(PlayerAvatar.PEASANT);
 
         // Set a random player avatar for player 2 (the AI) other than the peasant
@@ -150,7 +155,9 @@ public class QuickGameScreen : MonoBehaviour
         worker_H.SetActive(true);
         worker_figure.SetActive(true);
 
-        //save the alien name LAURA GRACE lol
+        //Turn of choose player text becasue a player was selected
+        choosePlayer.SetActive(false);
+
         setP1avatar(PlayerAvatar.WORKER);
 
         // Set a random player avatar for player 2 (the AI) other than the worker

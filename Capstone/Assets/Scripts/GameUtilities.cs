@@ -6,12 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-/* GAME UTILITIES
- * 
- */
-
 public static class GameUtilities //public  ??
 {
+    #region Variables
     //////////////////////////////////////
     // Variables
     //////////////////////////////////////
@@ -22,9 +19,9 @@ public static class GameUtilities //public  ??
 
     private static PlayerTurn playerTurn;
 
-    private static bool gameOver;
-    private static bool localDisconnect;
-    private static bool opponentDisconnect;
+    private static bool gameOver = false;
+    private static bool localDisconnect = false;
+    private static bool opponentDisconnect = false;
     private static PlayerTurn winningPlayer;
 
     private static string P1username;
@@ -37,15 +34,17 @@ public static class GameUtilities //public  ??
     private static bool MovePhase;
     private static bool BuildPhase;
 
+    private static bool gamePaused;
+
     private static bool PlacePawnPhase_temp;
     private static bool MovePhase_temp;
     private static bool BuildPhase_temp;
 
     private static bool GetFirstTile;
     private static bool GetSecondTile;
+    #endregion
 
-    //ADD AI DELAY VARIABLE HERE ??????????????????
-
+    #region Date Types
     //////////////////////////////////////
     // Data types
     //////////////////////////////////////
@@ -76,7 +75,9 @@ public static class GameUtilities //public  ??
         PEASANT,
         WORKER
     }
+    #endregion
 
+    #region Game type functionalities
     //////////////////////////////////////
     // Game type functionalities
     //////////////////////////////////////
@@ -97,7 +98,9 @@ public static class GameUtilities //public  ??
         else
             return false;
     }
+    #endregion
 
+    #region Game phase functionalities
     //////////////////////////////////////
     // Game phase functionalities
     //////////////////////////////////////
@@ -140,18 +143,19 @@ public static class GameUtilities //public  ??
         BuildPhase = !BuildPhase;
     }
 
-    public static void StorePhases()
+    public static void PauseGame()
     {
-        PlacePawnPhase_temp = PlacePawnPhase;
-        MovePhase_temp = MovePhase;
-        BuildPhase_temp = BuildPhase;
+        gamePaused = true;
     }
 
-    public static void RestorePhases()
+    public static void PlayGame()
     {
-        PlacePawnPhase = PlacePawnPhase_temp;
-        MovePhase = MovePhase_temp;
-        BuildPhase = BuildPhase_temp;
+        gamePaused = false;
+    }
+
+    public static bool GamePaused()
+    {
+        return gamePaused;
     }
 
     public static bool WaitingForFirstTile()
@@ -180,7 +184,9 @@ public static class GameUtilities //public  ??
         GetSecondTile = false;
         GetFirstTile = false;
     }
+    #endregion
 
+    #region Player turn functionalities
     //////////////////////////////////////
     // Player turn functionalities
     //////////////////////////////////////
@@ -206,7 +212,9 @@ public static class GameUtilities //public  ??
         if (playerTurn == PlayerTurn.ONE) playerTurn = PlayerTurn.TWO;
         else playerTurn = PlayerTurn.ONE;
     }
+    #endregion
 
+    #region Game over functionalities
     //////////////////////////////////////
     // Game over functionalities
     //////////////////////////////////////
@@ -217,7 +225,7 @@ public static class GameUtilities //public  ??
 
     public static bool IsGameOver()
     {
-        if (gameOver == null || gameOver == false)
+        if (gameOver == false) // (gameOver == null ||
             return false;
         else
             return true;
@@ -231,7 +239,7 @@ public static class GameUtilities //public  ??
 
     public static bool IsLocalDisconnect()
     {
-        if (localDisconnect == null || localDisconnect == false)
+        if (localDisconnect == false) // (localDisconnect == null ||
             return false;
         else
             return true;
@@ -245,7 +253,7 @@ public static class GameUtilities //public  ??
 
     public static bool IsOpponentDisconnect()
     {
-        if (opponentDisconnect == null || opponentDisconnect == false)
+        if (opponentDisconnect == false) // (opponentDisconnect == null ||
             return false;
         else
             return true;
@@ -261,7 +269,9 @@ public static class GameUtilities //public  ??
     {
         return winningPlayer;
     }
+    #endregion
 
+    #region Player name functionalities
     //////////////////////////////////////
     // Player username functionalities
     //////////////////////////////////////
@@ -281,7 +291,9 @@ public static class GameUtilities //public  ??
     {
         return P2username;
     }
-    
+    #endregion
+
+    #region Player avatar functionalities
     //////////////////////////////////////
     // Player avatar functionalities
     //////////////////////////////////////
@@ -313,6 +325,7 @@ public static class GameUtilities //public  ??
         } while (avatar_B == avatar_A);
         return avatar_B;
     }
+    #endregion
 
     //////////////////////////////////////
     // Generic game functionalities
@@ -321,7 +334,7 @@ public static class GameUtilities //public  ??
     {
         GameBoard.ClearBoard();
         Player.ClearPawns();
-        // CLEAR USERNAMES AS WELL???
+        // TO DO: CLEAR USERNAMES AS WELL???
     }
 
     //////////////////////////////////////
