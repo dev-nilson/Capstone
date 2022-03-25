@@ -83,9 +83,9 @@ public class RotateMainCamera : MonoBehaviour
 
         //This code always makes the players face you when you rotate
         /*GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
-        foreach (GameObject go in aliens)
+        foreach (GameObject player in aliens)
         {
-            go.transform.rotation = Quaternion.Euler(0, 0, 0);
+            player.transform.rotation = Quaternion.Euler(0, 0, 0);
         }*/
     }
 
@@ -123,9 +123,9 @@ public class RotateMainCamera : MonoBehaviour
 
         //This code always makes the players face you when you rotate
         /*GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
-        foreach (GameObject go in aliens)
+        foreach (GameObject player in aliens)
         {
-            go.transform.rotation = Quaternion.Euler(0, 0, 0);
+            player.transform.rotation = Quaternion.Euler(0, 0, 0);
         }*/
     }
 

@@ -225,6 +225,7 @@ public class GameController : MonoBehaviour
                             float levelHeight = boardController.getLevelHeight(board_gc.GetHeights(), newLoc);
 
                             boardController.movePlayer(curLoc, newLoc, levelHeight);
+                            //boardController.AnimateAlongParabola(player, Vector2 internalPoint, Vector2 endPoint, float time = 1.0f)
 
                         }
                         if (moveStatus == MoveType.WINNING)

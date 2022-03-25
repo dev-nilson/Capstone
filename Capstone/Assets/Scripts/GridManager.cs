@@ -169,6 +169,7 @@ public class GridManager : MonoBehaviour
         //this sets the alien that was selected to the end location
         //originalPlayer.transform.position = endLocation;
         movePlayerAnimation(originalLocation, newLocation, levelHeight, originalPlayer);
+        //AnimateAlongParabola(originalPlayer, (Vector2)endLocation, (Vector2)endLocation, 1.0f);
     }
 
     public void buildLevel(int[,] levelsOnBoard, Coordinates newLoc)
@@ -338,13 +339,47 @@ public class GridManager : MonoBehaviour
         //Debug.Log(CanPlacePawn());
     }
 
+    public static IEnumerator AnimateAlongParabola(GameObject player, Vector2 internalPoint, Vector2 endPoint, float time = 1.0f)
+    {
+        Vector3 basePos =player.transform.position;
+        float x1 = 0;
+        float y1 = 0;
+        float x2 = internalPoint.x;
+        float y2 = internalPoint.y;
+        float x3 = endPoint.x;
+        float y3 = endPoint.y;
+
+        float denom = (x1 - x2) * (x1 - x3) * (x2 - x3);
+        float A = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom;
+        float B = (x3 * x3 * (y1 - y2) + x2 * x2 * (y3 - y1) + x1 * x1 * (y2 - y3)) / denom;
+        float C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
+
+        float distance = x3 - x1;
+
+        for (float passed = 0.0f; passed < time;)
+        {
+            passed += Time.deltaTime;
+            float f = passed / time;
+            if (f > 1) f = 1;
+
+            float x = distance * f;
+            float y = A * x * x + B * x + C;
+            basePos.x += x;
+            basePos.y += y;
+            player.transform.position = basePos;
+
+            yield return 0;
+        }
+    }
+
     IEnumerator LerpPosition(Coordinates startLoc, Coordinates endLoc, float levelHeight, GameObject player)
     {
         StorePhases();
         DisablePhases();
 
         startLocation = new Vector3(Grid[startLoc.X, startLoc.Y].transform.position.x, Grid[startLoc.X, startLoc.Y].transform.position.y, Grid[startLoc.X, startLoc.Y].transform.position.z);
-        endLocation = new Vector3(Grid[endLoc.X, endLoc.Y].transform.position.x, levelHeight, Grid[endLoc.X, endLoc.Y].transform.position.z);
+        //endLocation = new Vector3(Grid[endLoc.X, endLoc.Y].transform.position.x, levelHeight, Grid[endLoc.X, endLoc.Y].transform.position.z);
+        endLocation = new Vector3(Grid[startLoc.X, startLoc.Y].transform.position.x, 7f, Grid[startLoc.X, startLoc.Y].transform.position.z);
 
         float time = 0;
         float duration = 3;
