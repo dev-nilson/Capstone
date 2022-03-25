@@ -102,6 +102,7 @@ public class MenuScreen : MonoBehaviour
 	void artBookClicked()
 	{
 		SceneManager.LoadScene("ArtBook");
+		FindObjectOfType<AudioManager>().StopCurrentSong(5);
 	}
 
 	void exitAppClicked()
