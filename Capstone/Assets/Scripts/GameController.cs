@@ -33,8 +33,6 @@ public class GameController : MonoBehaviour
 
     GameObject child;
 
-    //HelpTimer help_timer;
-
     //get GameObject’s material and color
     MeshRenderer Renderer;
 
@@ -46,9 +44,6 @@ public class GameController : MonoBehaviour
         Board = boardController.GetComponent<GridManager>();
         //clickPositionManager = player.GetComponent<ClickPositionManager>();
         playerController = player.GetComponent<PlayerController>();
-
-        // This is a timer that turns on/off help pop ups during game play
-        //help_timer = help_timer.GetComponent<HelpTimer>();
     }
 
     // Start is called before the first frame update
@@ -97,9 +92,6 @@ public class GameController : MonoBehaviour
 
             if (CanPlacePawn())
             {
-                //if (GetPlayerTurn() == PlayerTurn.ONE) Debug.Log("P1's turn!");
-                //else Debug.Log("P2's turn!");
-
                 // Store the current player's selected coordinate
                 Coordinates loc = playerController.GetPlacement(board_gc, CurrentPlayer); //boardController.getSelectedTile();
 
@@ -121,10 +113,6 @@ public class GameController : MonoBehaviour
                     }
 
                     /* This function call occurs after phase changes to accommodate for animation coroutines. */
-                    // Clear the pawns from the board then re-display them
-                    //boardController.clearBoard();
-                    //boardController.displayBoard(board_gc.GetHeights(), P1, P2);
-                    Debug.Log(loc.X + loc.Y);
                     boardController.placePlayer(board_gc.GetHeights(), loc, P1, P2);
 
                     HelpTimer.Set();
@@ -165,8 +153,6 @@ public class GameController : MonoBehaviour
                         // Collect the first tile
                         if (curLoc != null && CurrentPlayer.HasThisPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
                         {
-                            Debug.Log("GameController: collect first tile");
-
                             // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
                             validTiles = board_gc.AvailableMoves(curLoc);
 
@@ -248,7 +234,6 @@ public class GameController : MonoBehaviour
                                 HelpTimer.TurnOff();
 
                                 ClearGame();
-
                             }
                             else if (moveStatus == MoveType.INVALID)
                             {
@@ -263,7 +248,6 @@ public class GameController : MonoBehaviour
                 //If not currently waiting for any tiles, change this to wait for tiles
                 if (!WaitingForFirstTile() && !WaitingForSecondTile())
                 {
-                    Debug.Log("Testing");
                     ReadyForTwoTiles();
 
                     // Since the build must occur from the moved pawn, curLoc becomes newLoc
@@ -301,9 +285,6 @@ public class GameController : MonoBehaviour
                     // If the pawn was successfully moved in the game core board...
                     if (board_gc.BuildPiece(curLoc, newLoc))
                     {
-                        //Section for debugging
-                        Debug.Log("GameController: collected second tile and built piece on " + newLoc.X + "," + newLoc.Y);
-
                         // Record the fact that the second tile has been collected for the "build" phase. Then turn off the "build" phase
                         CollectedSecondTile();
                         SwapBuildPhase();

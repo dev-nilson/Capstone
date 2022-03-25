@@ -26,29 +26,7 @@ public class RotateMainCamera : MonoBehaviour
 
 		boardController = GameObject.Find("GridManager");
 		Board = boardController.GetComponent<GridManager>();
-
-        //Code to find center of an object!!!
-        //How do I rotate around the center point now?
-        float totalX = 0f;
-        float totalY = 0f;
-        float totalZ = 0f;
-
-        GameObject[] tilesInGame = GameObject.FindGameObjectsWithTag("Board");
-        foreach (GameObject tile in tilesInGame)
-        {
-            totalX += tile.transform.position.x;
-            totalY += tile.transform.position.y;
-            totalZ += tile.transform.position.z;
-        }
-        float centerX = totalX / tilesInGame.Length;
-        float centerY = totalY / tilesInGame.Length;
-        float centerZ = totalY / tilesInGame.Length;
-
-        Debug.Log("center is : " + centerX + " " + centerY + " " + centerZ);
-
     }
-
-    //LAURA GRACE how do I safely disable and restore phases while the board is being rotated??????
 
     void rotateLeftClick()
     {

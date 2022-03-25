@@ -6,12 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-/* GAME UTILITIES
- * 
- */
-
 public static class GameUtilities //public  ??
 {
+    #region Variables
     //////////////////////////////////////
     // Variables
     //////////////////////////////////////
@@ -45,9 +42,9 @@ public static class GameUtilities //public  ??
 
     private static bool GetFirstTile;
     private static bool GetSecondTile;
+    #endregion
 
-    //ADD AI DELAY VARIABLE HERE ??????????????????
-
+    #region Date Types
     //////////////////////////////////////
     // Data types
     //////////////////////////////////////
@@ -78,7 +75,9 @@ public static class GameUtilities //public  ??
         PEASANT,
         WORKER
     }
+    #endregion
 
+    #region Game type functionalities
     //////////////////////////////////////
     // Game type functionalities
     //////////////////////////////////////
@@ -99,7 +98,9 @@ public static class GameUtilities //public  ??
         else
             return false;
     }
+    #endregion
 
+    #region Game phase functionalities
     //////////////////////////////////////
     // Game phase functionalities
     //////////////////////////////////////
@@ -183,7 +184,9 @@ public static class GameUtilities //public  ??
         GetSecondTile = false;
         GetFirstTile = false;
     }
+    #endregion
 
+    #region Player turn functionalities
     //////////////////////////////////////
     // Player turn functionalities
     //////////////////////////////////////
@@ -209,7 +212,9 @@ public static class GameUtilities //public  ??
         if (playerTurn == PlayerTurn.ONE) playerTurn = PlayerTurn.TWO;
         else playerTurn = PlayerTurn.ONE;
     }
+    #endregion
 
+    #region Game over functionalities
     //////////////////////////////////////
     // Game over functionalities
     //////////////////////////////////////
@@ -264,7 +269,9 @@ public static class GameUtilities //public  ??
     {
         return winningPlayer;
     }
+    #endregion
 
+    #region Player name functionalities
     //////////////////////////////////////
     // Player username functionalities
     //////////////////////////////////////
@@ -284,7 +291,9 @@ public static class GameUtilities //public  ??
     {
         return P2username;
     }
-    
+    #endregion
+
+    #region Player avatar functionalities
     //////////////////////////////////////
     // Player avatar functionalities
     //////////////////////////////////////
@@ -316,6 +325,7 @@ public static class GameUtilities //public  ??
         } while (avatar_B == avatar_A);
         return avatar_B;
     }
+    #endregion
 
     //////////////////////////////////////
     // Generic game functionalities
@@ -324,7 +334,7 @@ public static class GameUtilities //public  ??
     {
         GameBoard.ClearBoard();
         Player.ClearPawns();
-        // CLEAR USERNAMES AS WELL???
+        // TO DO: CLEAR USERNAMES AS WELL???
     }
 
     //////////////////////////////////////
