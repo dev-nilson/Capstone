@@ -46,7 +46,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
             //if (!PhotonNetwork.IsMasterClient)
             //{
             //    FlipIt(netPlayer);
-            //}
+            //} 
         }
         else if (player != PhotonNetwork.LocalPlayer)
         {
