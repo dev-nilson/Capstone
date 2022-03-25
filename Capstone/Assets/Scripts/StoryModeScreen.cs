@@ -1,6 +1,7 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
+using static GameUtilities;
 
 public class StoryModeScreen : MonoBehaviour
 {
@@ -16,7 +17,6 @@ public class StoryModeScreen : MonoBehaviour
     public GameObject set1;
     public GameObject set2;
     public GameObject set3;
-
 
     void Start()
     {
@@ -65,6 +65,12 @@ public class StoryModeScreen : MonoBehaviour
         //if it's on set2 then get ready to have the player vs. AI easy (Peasant vs. Scribe)
         if (set2.activeInHierarchy)
         {
+            setP1avatar(PlayerAvatar.PEASANT);
+            setP1username("Peasant");
+            setP2avatar(PlayerAvatar.SCRIBE);
+            setP2username("Scribe");
+            setGameType(GameType.EASY);
+
             Debug.Log("Peasant vs. Scribe on EASY");
             set2.SetActive(false);
             SceneManager.LoadScene("GameBoard");
@@ -72,6 +78,10 @@ public class StoryModeScreen : MonoBehaviour
         //if it's on set3 slide then get ready to have the player vs. AI hard (Peasant vs. Pharoah)
         if (set3.activeInHierarchy)
         {
+            setP2avatar(PlayerAvatar.PHAROAH);
+            setP2username("Pharaoh");
+            setGameType(GameType.DIFFICULT);
+
             Debug.Log("Peasant vs. Pharoah on HARD");
             set3.SetActive(false);
             SceneManager.LoadScene("GameBoard");
@@ -89,4 +99,5 @@ public class StoryModeScreen : MonoBehaviour
         Debug.Log("exit");
         settingsPopUp.SetActive(false); // false to hide, true to show
     }
+
 }

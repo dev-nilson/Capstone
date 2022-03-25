@@ -1,21 +1,31 @@
-﻿using Photon.Pun;
+﻿/*
+ *  Author: Brendon McDonald
+ *  Description: ...
+ */
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using static GameUtilities;
 
 public class NetworkController : MonoBehaviourPunCallbacks
 {
+
+    #region Variables
     public static NetworkController netController;
     public static Coordinates coordinates;
     public static NetworkPlayer netPlayer;
 
     [SerializeField]
     private PhotonView photonView;
+    #endregion
 
+    #region AwakeStartUpdate
     private void Awake()
     {
         netController = this;
-        //netPlayer = GameObject.Find("networkPlayer").GetComponent<NetworkPlayer>();
     }
 
     public void Start()
@@ -27,8 +37,35 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private void Update()
     {
         //add watcher that will continually see if player has disconnected yet or not
-    }
+        if (PhotonNetwork.NetworkClientState == ClientState.Disconnected)
+        {
+            //code for however we decide to tell player they've disconnected
+            // ** see "GameOverGraphics.cs"
 
+            //disable game phases
+            DisablePhases();
+            Debug.Log("You have lost network connection");
+
+            SetLocalDisconnect();
+        }
+        else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2)
+        {
+            //code to tell person still left in the room that their opponent has disconnected
+            // ** see "GameOverGraphics.cs"
+
+            //disable game phases
+            DisablePhases();
+            Debug.Log("Your opponent has lost network connection");
+
+            SetOpponentDisconnect();
+            
+            // Don't forget to disconnect our end of network stuff!!!!!!!!!
+
+        }
+    }
+    #endregion
+
+    #region Functions
     public static void SendCoordinates()
     {
         Debug.Log("SendCoordinates function in NETWORK CONTROLLER called");
@@ -69,6 +106,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
             return temp;
         }
     }
+
+    #endregion
 }
 
 

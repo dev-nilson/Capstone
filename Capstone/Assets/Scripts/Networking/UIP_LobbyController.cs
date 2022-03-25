@@ -1,10 +1,15 @@
-﻿using ExitGames.Client.Photon;
+﻿/*
+ *  Author: Brendon McDonald
+ *  Description: ...
+ */
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using static GameUtilities;
 
 public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
@@ -19,6 +24,10 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     private GameObject hostRoomBackButton; //button used for joining a Lobby as the host.
     [SerializeField]
     private GameObject joinRoomBackButton; //button used for joining a Lobby as the client.
+    [SerializeField]
+    private GameObject multiplayerMenuBackButton;
+    [SerializeField]
+    private GameObject disconnectedBackButton;
 
 
     [SerializeField]
@@ -29,6 +38,10 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     private GameObject HostGamePanel; //panel for displaying host lobby.
     [SerializeField]
     private GameObject CharacterSelectionLobbyPanel;
+    [SerializeField]
+    private GameObject DisconnectedPanel;
+    [SerializeField]
+    private GameObject LoadingPanel;
 
     [SerializeField]
     private GameObject roomListingPrefab; //prefab for displayer each room in the lobby
@@ -37,8 +50,6 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     [SerializeField]
     private InputField playerNameInput; //Input field so player can change their NickName
-    //[SerializeField]
-    //private Text NameOfHost; //text object for displaying the host of a room, replaced by GameInfo.username
 
 
     private string roomName; //string for saving room name, is usually the Players name or Players name + numbers
@@ -72,6 +83,36 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     }
 
+    private void Update()
+    {
+        if (PhotonNetwork.NetworkClientState == ClientState.Disconnected && intentionalDisconnect == false)
+        {
+            if (HostGamePanel.activeSelf)
+            {
+                HostGamePanel.SetActive(false);
+            }
+            if (JoinGamePanel.activeSelf)
+            {
+                JoinGamePanel.SetActive(false);
+            }
+            if (CharacterSelectionLobbyPanel.activeSelf)
+            {
+                CharacterSelectionLobbyPanel.SetActive(false);
+            }
+            if (LoadingPanel.activeSelf)
+            {
+                LoadingPanel.SetActive(false);
+            }
+            if (multiplayerMenuPanel.activeSelf)
+            {
+                multiplayerMenuPanel.SetActive(false);
+            }
+
+            DisconnectedPanel.SetActive(true);
+
+        }
+    }
+
     IEnumerator DisconnectReconnect()
     {
         intentionalDisconnect = true;
@@ -84,39 +125,38 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public override void OnConnectedToMaster() //Callback function for when the first connection is established successfully.
     {
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
-        hostRoomButton.SetActive(true); //activate button for connecting to lobby
-        joinRoomButton.SetActive(true); //activate button for connecting to lobby
+        intentionalDisconnect = false;
+        multiplayerMenuPanel.SetActive(true);
+        //hostRoomButton.SetActive(false);
+        //joinRoomButton.SetActive(false); 
         roomList = new List<RoomInfo>(); //initializing roomListing
 
-        //check for player name saved to player prefs
-        if (PlayerPrefs.HasKey("NickName"))
-        {
-            if (PlayerPrefs.GetString("NickName") == "")
-            {
-                PhotonNetwork.NickName = "Player" + Random.Range(0, 1000); //random player name when not set
-            }
-            else
-            {
-                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName"); //get saved player name
-            }
-        }
-        else
-        {
-            PhotonNetwork.NickName = "Player" + Random.Range(0, 1000); //random player name when not set
-        }
-        playerNameInput.text = PhotonNetwork.NickName; //update input field with player name
-        Debug.Log(playerNameInput.text);
-        PlayerPrefs.SetString("NickName", PhotonNetwork.NickName);
+        ////check for player name saved to player prefs
+        //if (PlayerPrefs.HasKey("NickName"))
+        //{
+        //    if (PlayerPrefs.GetString("NickName") == "")
+        //    {
+        //        PhotonNetwork.NickName = PlayerPrefs.GetString("NickName"); //get saved player name
+        //    }
+        //}
     }
 
-    public void PlayerNameUpdateInputChanged(string nameInput) //input function for player name. paired to player name input field
+    public void PlayerNameUpdateInputChanged() //input function for player name. paired to player name input field
     {
-        PhotonNetwork.NickName = nameInput;
-        Debug.Log(nameInput);
-        PlayerPrefs.SetString("NickName", nameInput);
-        //Had a weird bug with this in Unity
-        //For some reason it would not show/keep track of my input, even in DebugLog()
-        //Deleting the inputfield and re-adding it fixed the problem
+        string text = playerNameInput.text;
+        if(!string.IsNullOrWhiteSpace(text))
+        {
+            hostRoomButton.SetActive(true); //activate button for connecting to lobby
+            joinRoomButton.SetActive(true); 
+        }
+        else if (string.IsNullOrWhiteSpace(text) && PlayerPrefs.GetString("NickName") == "")
+        {
+            hostRoomButton.SetActive(false); //deactivate button for connecting to lobby
+            joinRoomButton.SetActive(false);
+        }
+        
+        PhotonNetwork.NickName = text;
+        PlayerPrefs.SetString("NickName", text);
     }
 
     public void HostLobbyOnClick() //Paired to the Host button
@@ -124,16 +164,34 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         multiplayerMenuPanel.SetActive(false);
 
         Debug.Log(PhotonNetwork.NickName);
-        roomName = PlayerPrefs.GetString("NickName") + "'s Room";
+        roomName = "Join " + PlayerPrefs.GetString("NickName")+ "'s room";
 
         Debug.Log(roomName);
         CharacterSelectionLobbyPanel.SetActive(true);
 
         // Call to function in "GameUtilities.cs"
         SetPlayerTurn(PlayerTurn.ONE);
+        setP1username(roomName);
 
         //NameOfHost.text = roomName;
         CreateRoom();
+    }
+
+    public void MultiplayerMenuBackButton()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            intentionalDisconnect = true;
+            PhotonNetwork.Disconnect(); ;
+        }
+
+        Debug.Log("Are we connected to PhotonNetwork? " + PhotonNetwork.NetworkClientState);
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void DisconnectedBackButton()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     public void HostGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
@@ -151,6 +209,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         // Call to function in "GameUtilities.cs"
         SetPlayerTurn(PlayerTurn.TWO);
+        setP2username(roomName);
     }
 
     public void JoinGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
@@ -196,6 +255,16 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         roomName = PlayerPrefs.GetString("NickName") + Random.Range(0, 100);
         PhotonNetwork.CreateRoom(roomName, roomOps);
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, message);
+
+        //hide current panel, show disconnected panel
+
+        intentionalDisconnect = true;
+        PhotonNetwork.Disconnect();
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList) //Once in lobby this function is called every time there is an update to the room list

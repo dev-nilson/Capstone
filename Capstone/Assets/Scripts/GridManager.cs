@@ -269,6 +269,8 @@ public class GridManager : MonoBehaviour
                     Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                     //Color32 newColor = new Color32(0, 200, 26, 200);
                     //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
+                    //Grid[i, j].GetComponent<Renderer>().ma
+
                 }
             }
         }
@@ -404,6 +406,8 @@ public class GridManager : MonoBehaviour
             yield return new WaitForSeconds(.001f);
         }
 
+        //This sets a delay after a player builds their level
+        yield return new WaitForSeconds(1f);
         RestorePhases();
         //Debug.Log(CanPlacePawn());
     }

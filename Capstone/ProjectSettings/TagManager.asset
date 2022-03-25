@@ -8,6 +8,8 @@ TagManager:
   - Alien
   - Levels
   - Easy
+  - p1Username
+  - p2Username
   layers:
   - Default
   - TransparentFX

@@ -56,11 +56,16 @@ public class MenuScreen : MonoBehaviour
 
 		Button exitSettingsBtn = exitSettings.GetComponent<Button>();
 		exitSettingsBtn.onClick.AddListener(delayDisplay);
+
+		PlayingStoryMode = false;
 	}
 
 	void quickGameClicked()
 	{
 		//levelChanger.FadeToLevel("QuickGame");
+
+		FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+
 
 		SceneManager.LoadScene("QuickGame");
 	}
@@ -69,16 +74,28 @@ public class MenuScreen : MonoBehaviour
 	{
 		setGameType(GameType.NETWORK);
 
+		FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+
 		SceneManager.LoadScene("Multiplayer");
 	}
 
 	void tutorialClicked()
 	{
+		Debug.Log("tutorial");
+
+		FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+
 		SceneManager.LoadScene("Tutorial");
 	}
 
 	void storyModeClicked()
 	{
+		PlayingStoryMode = true;
+
+		Debug.Log("story mode game");
+
+		FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+
 		SceneManager.LoadScene("StoryMode");
 	}
 

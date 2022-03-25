@@ -26,6 +26,8 @@ public class QuickGameScreen : MonoBehaviour
     public GameObject worker_H;
     public GameObject worker_figure;
 
+    public GameObject choosePlayer;
+
     public InputField usernameInputField;
 
     // Checks if there is anything entered into the input field.
@@ -46,7 +48,10 @@ public class QuickGameScreen : MonoBehaviour
         }
 
         //SAVE USERNAME HERE!!!
-        setP2username("CPU");
+        if (getP2avatar() == PlayerAvatar.PEASANT) setP2username("Peasant");
+        else if (getP2avatar() == PlayerAvatar.PHAROAH) setP2username("Pharaoh");
+        else if (getP2avatar() == PlayerAvatar.SCRIBE) setP2username("Scribe");
+        else if (getP2avatar() == PlayerAvatar.WORKER) setP2username("Worker");
     }
 
     // Start is called before the first frame update
@@ -100,6 +105,8 @@ public class QuickGameScreen : MonoBehaviour
 
         worker_H.SetActive(false);
         worker_figure.SetActive(false);
+
+        choosePlayer.SetActive(true);
     }
 
     void pharoahClicked()
@@ -107,6 +114,9 @@ public class QuickGameScreen : MonoBehaviour
         resetAll();
         pharoah_H.SetActive(true);
         pharoah_figure.SetActive(true);
+
+        //Turn of choose player text becasue a player was selected
+        choosePlayer.SetActive(false);
 
         //save the alien name LAURA GRACE lol
         setP1avatar(PlayerAvatar.PHAROAH);
@@ -121,6 +131,9 @@ public class QuickGameScreen : MonoBehaviour
         scribe_H.SetActive(true);
         scribe_figure.SetActive(true);
 
+        //Turn of choose player text becasue a player was selected
+        choosePlayer.SetActive(false);
+
         //save the alien name LAURA GRACE lol
         setP1avatar(PlayerAvatar.SCRIBE);
 
@@ -134,6 +147,9 @@ public class QuickGameScreen : MonoBehaviour
         peasant_H.SetActive(true);
         peasant_figure.SetActive(true);
 
+        //Turn of choose player text becasue a player was selected
+        choosePlayer.SetActive(false);
+
         //save the alien name LAURA GRACE lol
         setP1avatar(PlayerAvatar.PEASANT);
 
@@ -146,6 +162,9 @@ public class QuickGameScreen : MonoBehaviour
         resetAll();
         worker_H.SetActive(true);
         worker_figure.SetActive(true);
+
+        //Turn of choose player text becasue a player was selected
+        choosePlayer.SetActive(false);
 
         //save the alien name LAURA GRACE lol
         setP1avatar(PlayerAvatar.WORKER);
