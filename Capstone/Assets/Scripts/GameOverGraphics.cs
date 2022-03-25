@@ -42,24 +42,20 @@ public class GameOverGraphics : MonoBehaviour
         // Network disconnect
         if (IsLocalDisconnect())
         {
-            // MAGGIE: some pop up that says you are disconnected with button to return to main menu
-            //then clear the game when you hit "okay" or whatever!
             disconnectedPopup.SetActive(true);
             youDisconnected.SetActive(true);
         }
 
         else if (IsOpponentDisconnect())
         {
-            // MAGGIE: tell player that their opponent disconnected -- button to return to main menu
-            //then clear the game when you hit "okay" or whatever!
             disconnectedPopup.SetActive(true);
             opponectDisconnected.SetActive(true);
         }
 
-        //WHAT IF SOMEONE LEAVES THE GAME????????????
+        // TO DO: WHAT IF SOMEONE LEAVES THE GAME????????????
 
         // Local player wins in story mode
-        else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE) //CurrentPlayer.Type() == Player.Tag.LOCAL)
+        else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
             // Local player wins in story mode!
             // Change screens ??

@@ -6,6 +6,8 @@ using static GameUtilities;
 
 public class RotateMainCamera : MonoBehaviour
 {
+    static bool rotateOn = true;
+
 	GameObject boardController;
 	GridManager Board;
 
@@ -17,36 +19,14 @@ public class RotateMainCamera : MonoBehaviour
 	void Start()
 	{
 		Button right = rotateRight.GetComponent<Button>();
-		right.onClick.AddListener(rotateRightClick);
+		right.onClick.AddListener(rotateRightClick2);
 
 		Button left = rotateLeft.GetComponent<Button>();
-		left.onClick.AddListener(rotateLeftClick);
+		left.onClick.AddListener(rotateLeftClick2);
 
 		boardController = GameObject.Find("GridManager");
 		Board = boardController.GetComponent<GridManager>();
-
-        //Code to find center of an object!!!
-        //How do I rotate around the center point now?
-        float totalX = 0f;
-        float totalY = 0f;
-        float totalZ = 0f;
-
-        GameObject[] tilesInGame = GameObject.FindGameObjectsWithTag("Board");
-        foreach (GameObject tile in tilesInGame)
-        {
-            totalX += tile.transform.position.x;
-            totalY += tile.transform.position.y;
-            totalZ += tile.transform.position.z;
-        }
-        float centerX = totalX / tilesInGame.Length;
-        float centerY = totalY / tilesInGame.Length;
-        float centerZ = totalY / tilesInGame.Length;
-
-        Debug.Log("center is : " + centerX + " " + centerY + " " + centerZ);
-
     }
-
-    //LAURA GRACE how do I safely disable and restore phases while the board is being rotated??????
 
     void rotateLeftClick()
     {
@@ -95,8 +75,10 @@ public class RotateMainCamera : MonoBehaviour
         {
             x = 28.75f;
             z = 8.75f;
-            Board.transform.position = new Vector3(x, 0f, z);
-            Board.transform.rotation = Quaternion.Euler(90, 0, 90);
+            //Board.transform.position = new Vector3(x, 0f, z);
+            //Board.transform.rotation = Quaternion.Euler(90, 0, 90);
+            
+            Board.transform.RotateAround(new Vector3(10.0f, 0f, 18.75f), Vector3.up, 90);// * Time.deltaTime);
         }
         else if (x == 28.75f)
         {
@@ -129,66 +111,55 @@ public class RotateMainCamera : MonoBehaviour
         }*/
     }
 
-
-
-    // WORK IN PROGRESS: rotate board slowly
     void rotateRightClick2()
     {
-        StartCoroutine(rotateBoardRight());
+        if (rotateOn)
+            StartCoroutine(rotateBoardRight());
     }
-
 
     IEnumerator rotateBoardRight()
     {
-        StorePhases();
-        DisablePhases();
+        PauseGame();
 
-        // center is (x,z) = (10.0, 18.75)
-        //float radius = 21.25f;
-
-        float DEGREES = 5;
-
-        Debug.Log("Rotate board right begin");
-        for (int i = 0; i < 90; i+=5)
+        int degrees = 1;
+        for (int i = 0; i < 30; i += degrees)
         {
-            // convert angle to radians
-            float angle = DEGREES * Mathf.PI / 180.0f;
+            Board.transform.RotateAround(new Vector3(10.0f, 0f, 18.75f), Vector3.up, -degrees);
 
-            // get current point
-            float x = Board.transform.position.x;
-            float z = Board.transform.position.z;
-            Debug.Log("current x: " + x);
-            Debug.Log("current z: " + z);
-            
-            // calculate cos & sin
-            float cos = Mathf.Cos(angle);
-            float sin = Mathf.Sin(angle);
-            Debug.Log("current cos: " + cos);
-            Debug.Log("current sin: " + sin);
-
-            float newx = cos * (x - 10.0f) - sin * (z - 18.75f) + 10.0f;
-            float newz = - sin * (x - 10.0f) + cos * (z - 18.75f) + 18.75f;
-            Debug.Log("new x: " + newx);
-            Debug.Log("new z: " + newz);
-
-            Board.transform.position = new Vector3(x, 0f, z);
-
-            float f = Board.transform.rotation.z + DEGREES;
-            Board.transform.rotation = Quaternion.Euler(90, 0, f);
-
-            yield return new WaitForSeconds(.01f);
+            yield return new WaitForSeconds(.05f);
         }
-        //startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 7f, Grid[location.X, location.Y].transform.position.z);
-        //endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, levelHeight, Grid[location.X, location.Y].transform.position.z);
 
-        //for (float i = startLocation.y; i >= levelHeight; i -= .2f)
-        //{
-        //    endLocation.y = i;
-        //    child.transform.position = endLocation;
-        //    yield return new WaitForSeconds(.001f);
-        //}
+        PlayGame();
+    }
 
-        yield return new WaitForSeconds(1.0f);
-        RestorePhases();
+    void rotateLeftClick2()
+    {
+        if (rotateOn)
+            StartCoroutine(rotateBoardLeft());
+    }
+
+    IEnumerator rotateBoardLeft()
+    {
+        PauseGame();
+
+        int degrees = 1;
+        for (int i = 0; i < 30; i += degrees)
+        {
+            Board.transform.RotateAround(new Vector3(10.0f, 0f, 18.75f), Vector3.up, degrees);
+
+            yield return new WaitForSeconds(.05f);
+        }
+
+        PlayGame();
+    }
+
+    public static void DisableRotation()
+    {
+        rotateOn = false;
+    }
+
+    public static void EnableRotation()
+    {
+        rotateOn = true;
     }
 }
