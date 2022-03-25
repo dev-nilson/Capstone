@@ -18,7 +18,6 @@ public class StoryModeScreen : MonoBehaviour
     public GameObject set2;
     public GameObject set3;
 
-
     void Start()
     {
         settingsPopUp.SetActive(false);
@@ -100,4 +99,5 @@ public class StoryModeScreen : MonoBehaviour
         Debug.Log("exit");
         settingsPopUp.SetActive(false); // false to hide, true to show
     }
+
 }

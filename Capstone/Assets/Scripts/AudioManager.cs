@@ -73,7 +73,7 @@ public class AudioManager : MonoBehaviour
 
         //code above will be in nextMusic, coroutine below will be in nextMusic function, after call to play
         s.source.Play();
-        StartCoroutine(waitAudio(s));
+       // StartCoroutine(waitAudio(s));
     }
 
     // Update is called once per frame
