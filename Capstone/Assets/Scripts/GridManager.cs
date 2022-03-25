@@ -357,6 +357,7 @@ public class GridManager : MonoBehaviour
     IEnumerator placePlayerDelay(Coordinates location)
     {
         PauseGame();
+        RotateMainCamera.DisableRotation();
 
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 5f, Grid[location.X, location.Y].transform.position.z);
         endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, .7f, Grid[location.X, location.Y].transform.position.z);
@@ -372,6 +373,7 @@ public class GridManager : MonoBehaviour
         }
 
         PlayGame();
+        RotateMainCamera.EnableRotation();
     }
 
     void placeLevelAnimation(Coordinates location, float levelHeight)
@@ -382,6 +384,7 @@ public class GridManager : MonoBehaviour
     IEnumerator placeLevelDelay(Coordinates location, float levelHeight)
     {
         PauseGame();
+        RotateMainCamera.DisableRotation();
 
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 7f, Grid[location.X, location.Y].transform.position.z);
         endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, levelHeight, Grid[location.X, location.Y].transform.position.z);
@@ -396,6 +399,7 @@ public class GridManager : MonoBehaviour
         //This sets a delay after a player builds their level
         yield return new WaitForSeconds(1f);
         PlayGame();
+        RotateMainCamera.EnableRotation();
         //Debug.Log(CanPlacePawn());
     }
 

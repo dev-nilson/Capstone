@@ -6,6 +6,8 @@ using static GameUtilities;
 
 public class RotateMainCamera : MonoBehaviour
 {
+    static bool rotateOn = true;
+
 	GameObject boardController;
 	GridManager Board;
 
@@ -133,7 +135,8 @@ public class RotateMainCamera : MonoBehaviour
 
     void rotateRightClick2()
     {
-        StartCoroutine(rotateBoardRight());
+        if (rotateOn)
+            StartCoroutine(rotateBoardRight());
     }
 
     IEnumerator rotateBoardRight()
@@ -153,7 +156,8 @@ public class RotateMainCamera : MonoBehaviour
 
     void rotateLeftClick2()
     {
-        StartCoroutine(rotateBoardLeft());
+        if (rotateOn)
+            StartCoroutine(rotateBoardLeft());
     }
 
     IEnumerator rotateBoardLeft()
@@ -169,5 +173,15 @@ public class RotateMainCamera : MonoBehaviour
         }
 
         PlayGame();
+    }
+
+    public static void DisableRotation()
+    {
+        rotateOn = false;
+    }
+
+    public static void EnableRotation()
+    {
+        rotateOn = true;
     }
 }
