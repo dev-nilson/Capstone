@@ -37,6 +37,8 @@ public static class GameUtilities //public  ??
     private static bool MovePhase;
     private static bool BuildPhase;
 
+    private static bool gamePaused;
+
     private static bool PlacePawnPhase_temp;
     private static bool MovePhase_temp;
     private static bool BuildPhase_temp;
@@ -140,18 +142,19 @@ public static class GameUtilities //public  ??
         BuildPhase = !BuildPhase;
     }
 
-    public static void StorePhases()
+    public static void PauseGame()
     {
-        PlacePawnPhase_temp = PlacePawnPhase;
-        MovePhase_temp = MovePhase;
-        BuildPhase_temp = BuildPhase;
+        gamePaused = true;
     }
 
-    public static void RestorePhases()
+    public static void PlayGame()
     {
-        PlacePawnPhase = PlacePawnPhase_temp;
-        MovePhase = MovePhase_temp;
-        BuildPhase = BuildPhase_temp;
+        gamePaused = false;
+    }
+
+    public static bool GamePaused()
+    {
+        return gamePaused;
     }
 
     public static bool WaitingForFirstTile()

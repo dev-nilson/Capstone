@@ -138,20 +138,17 @@ public class RotateMainCamera : MonoBehaviour
 
     IEnumerator rotateBoardRight()
     {
-        StorePhases();
-        DisablePhases();
+        PauseGame();
 
         int degrees = 1;
         for (int i = 0; i < 30; i += degrees)
         {
-            Board.transform.RotateAround(new Vector3(10.0f, 0f, 18.75f), Vector3.up, -degrees);// * Time.deltaTime);
-
+            Board.transform.RotateAround(new Vector3(10.0f, 0f, 18.75f), Vector3.up, -degrees);
 
             yield return new WaitForSeconds(.05f);
         }
 
-        yield return new WaitForSeconds(1.0f);
-        RestorePhases();
+        PlayGame();
     }
 
     void rotateLeftClick2()
@@ -161,19 +158,16 @@ public class RotateMainCamera : MonoBehaviour
 
     IEnumerator rotateBoardLeft()
     {
-        StorePhases();
-        DisablePhases();
+        PauseGame();
 
         int degrees = 1;
         for (int i = 0; i < 30; i += degrees)
         {
-            Board.transform.RotateAround(new Vector3(10.0f, 0f, 18.75f), Vector3.up, degrees);// * Time.deltaTime);
-
+            Board.transform.RotateAround(new Vector3(10.0f, 0f, 18.75f), Vector3.up, degrees);
 
             yield return new WaitForSeconds(.05f);
         }
 
-        yield return new WaitForSeconds(1.0f);
-        RestorePhases();
+        PlayGame();
     }
 }
