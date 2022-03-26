@@ -69,6 +69,7 @@ public class GameController : MonoBehaviour
         // Game begins with only place pawn phase
         DisablePhases();
         SwapPlacePawnPhase();
+        PlayGame();
     }
 
     // Update is called once per frame
