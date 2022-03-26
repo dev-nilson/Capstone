@@ -51,6 +51,8 @@ public class GameBoardScreen : MonoBehaviour
     public PlayerAvatar p1Alien;
     public PlayerAvatar p2Alien;
 
+    private static bool disabled;
+
     void Start()
     {
         p1Username.text = getP1username();
@@ -121,9 +123,13 @@ public class GameBoardScreen : MonoBehaviour
 
     void backClicked()
     {
-        confirmExitPopUp.SetActive(true);
-        //switch phases to turn off build and place player to create a fake modal pop up box
-        PauseGame();
+        if (!disabled)
+        {
+            confirmExitPopUp.SetActive(true);
+            //switch phases to turn off build and place player to create a fake modal pop up box
+            RotateMainCamera.DisableRotation();
+            PauseGame();
+        }
     }
 
     void okClicked()
@@ -134,17 +140,22 @@ public class GameBoardScreen : MonoBehaviour
 
     void cancelClicked()
     {
+        RotateMainCamera.EnableRotation();
         PlayGame();
         confirmExitPopUp.SetActive(false);
     }
 
     void settingsClicked()
     {
-        Debug.Log("settings game");
-        scroll1.SetActive(true);
+        if (!disabled)
+        {
+            Debug.Log("settings game");
+            scroll1.SetActive(true);
 
-        //switch phases to turn off build and place player to create a fake modal pop up box
-        PauseGame();
+            //switch phases to turn off build and place player to create a fake modal pop up box
+            RotateMainCamera.DisableRotation();
+            PauseGame();
+        }
     }
 
     void delayDisplay()
@@ -195,6 +206,17 @@ public class GameBoardScreen : MonoBehaviour
             scrollArray[scrollNum].GetComponent<RectTransform>().sizeDelta = new Vector2(scrollReset[scrollNum].GetComponent<RectTransform>().rect.width, tempHeight);
         }
 
+        RotateMainCamera.EnableRotation();
         PlayGame();
+    }
+
+    public static void DisableButtons()
+    {
+        disabled = true;
+    }
+
+    public static void EnableButtons()
+    {
+        disabled = false;
     }
 }
