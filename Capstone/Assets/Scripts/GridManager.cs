@@ -269,6 +269,11 @@ public class GridManager : MonoBehaviour
         return selectedTile;
     }
 
+    public static void clearSelectedTile()
+    {
+        selectedTile = new Coordinates();
+    }
+
     public void highlightValidTiles(List<Coordinates> locs)
     {
         for (var i = 0; i < Row; ++i)

@@ -334,6 +334,7 @@ public static class GameUtilities //public  ??
     {
         GameBoard.ClearBoard();
         Player.ClearPawns();
+        GridManager.clearSelectedTile();
         // TO DO: CLEAR USERNAMES AS WELL???
     }
 
