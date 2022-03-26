@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static GameUtilities;
 
-public class MenuScreen : MonoBehaviour, IPointerEnterHandler
+public class MenuScreen : MonoBehaviour
 {
 	//Menu Items
 	public Button quickGame;
@@ -14,6 +14,13 @@ public class MenuScreen : MonoBehaviour, IPointerEnterHandler
 	public Button tutorial;
 	public Button storyMode;
 	public Button artBook;
+
+	//Help Menu Items
+	public Button quickGameHelp;
+	public Button multiplayerHelp;
+	public Button tutorialHelp;
+	public Button storyModeHelp;
+	public Button artBookHelp;
 
 	//Upper lefthand buttons
 	public Button exitApp;
@@ -59,15 +66,6 @@ public class MenuScreen : MonoBehaviour, IPointerEnterHandler
 		exitSettingsBtn.onClick.AddListener(delayDisplay);
 
 		PlayingStoryMode = false;
-}
-
-	//This is for the help popups
-	public void OnPointerEnter(PointerEventData eventData)
-	{
-		Debug.Log("The cursor entered the selectable UI element.");
-		Debug.Log("Name: " + eventData.pointerCurrentRaycast.gameObject.name);
-		Debug.Log("Tag: " + eventData.pointerCurrentRaycast.gameObject.tag);
-		Debug.Log("GameObject: " + eventData.pointerCurrentRaycast.gameObject);
 	}
 
 	void quickGameClicked()

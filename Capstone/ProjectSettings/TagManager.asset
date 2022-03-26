@@ -10,6 +10,7 @@ TagManager:
   - Easy
   - p1Username
   - p2Username
+  - fakeStoryMode
   layers:
   - Default
   - TransparentFX
