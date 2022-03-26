@@ -3254,8 +3254,10 @@ MonoBehaviour:
   level2: {fileID: 5424361190378693783, guid: 54542fb6fc681ee438175def720b0f27, type: 3}
   level3: {fileID: 4966038803555105557, guid: 95715f79ac92c8e4ebfb328b66d196db, type: 3}
   level4: {fileID: 8851965301860739284, guid: c3d9badc59c20174e9e6101049b41ce7, type: 3}
-  player1prefab: {fileID: 6694067083302284265, guid: 242d5b5954992eb43a87179516ef54c3, type: 3}
-  player2prefab: {fileID: 6694067083302284265, guid: 64065515f0ae2c84195d5aa137067669, type: 3}
+  scribePrefab: {fileID: 6694067083302284265, guid: d40c752b070faf343949eeb263325671, type: 3}
+  workerPrefab: {fileID: 6694067083302284265, guid: 242d5b5954992eb43a87179516ef54c3, type: 3}
+  pharoahPrefab: {fileID: 6694067083302284265, guid: 092a6e131b1d73f45ae11f85bd3efbd8, type: 3}
+  peasantPrefab: {fileID: 6694067083302284265, guid: 64065515f0ae2c84195d5aa137067669, type: 3}
   parent: {fileID: 960253812}
   levelParent: {fileID: 960253812}
 --- !u!224 &960253814
@@ -5850,7 +5852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1625110858
 MonoBehaviour:
   m_ObjectHideFlags: 0

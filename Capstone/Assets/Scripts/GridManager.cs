@@ -31,8 +31,10 @@ public class GridManager : MonoBehaviour
     public GameObject level3;
     public GameObject level4;
 
-    public GameObject player1prefab;
-    public GameObject player2prefab;
+    public GameObject scribePrefab;
+    public GameObject workerPrefab;
+    public GameObject pharoahPrefab;
+    public GameObject peasantPrefab;
 
     public GameObject parent;
     public GameObject levelParent;
@@ -119,7 +121,7 @@ public class GridManager : MonoBehaviour
         if (P1pawns.Contains(loc))
         {
             playerNum = 1;
-            player1Instance = Instantiate(player1prefab, startLocation, Grid[location.X, location.Y].transform.rotation);
+            player1Instance = Instantiate(scribePrefab, startLocation, Grid[location.X, location.Y].transform.rotation);
             placePlayerAnimation(location);
 
             player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -131,7 +133,7 @@ public class GridManager : MonoBehaviour
         else //if (P2pawns.Contains(loc))
         {
             playerNum = 2;
-            player2Instance = Instantiate(player2prefab, Grid[location.X, location.Y].transform.position, Grid[location.X, location.Y].transform.rotation);
+            player2Instance = Instantiate(workerPrefab, Grid[location.X, location.Y].transform.position, Grid[location.X, location.Y].transform.rotation);
             placePlayerAnimation(location);
 
             player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
