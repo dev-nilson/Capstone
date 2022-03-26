@@ -112,7 +112,7 @@ public class AudioManager : MonoBehaviour
                 Debug.Log("QUICK");
                 break;
             case 4: //FACEOFF
-                //Play();
+                Play("Divine Serpent");
                 Debug.Log("FACEOFF");
                 break;
             case 5: //ART
