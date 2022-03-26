@@ -17,6 +17,7 @@ public class HelpTimer : MonoBehaviour
 
     public GameObject move;
     public GameObject build;
+    public GameObject place;
 
     static float delay = 10.0f;
 
@@ -55,7 +56,7 @@ public class HelpTimer : MonoBehaviour
             else if (getP1avatar() == PlayerAvatar.WORKER) worker.SetActive(true);
 
             // display popup
-            if (CanPlacePawn()) Debug.Log("NEED ELEMENT FOR PLACING PAWN");// TO DO: ADD THING FOR PLACING PAWN!!!!!!!!!!!!!!!
+            if (CanPlacePawn()) place.SetActive(true);
             else if (CanBuild()) build.SetActive(true);
             else if (CanMove()) move.SetActive(true);
         }
