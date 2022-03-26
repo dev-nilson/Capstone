@@ -9,8 +9,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 //Add code for switching music in these places
-//QuickGameScreen.startGameClicked() (Quick to Game)
-//MenuScreen.artBookClicked() (Menu to Art)
 //MenuScreen.storyModeClicked() (Menu to Story)
 //UIP_LobbyController.HostLobbyOnClick() and UIP_RoomButton.JoomRoomOnClick() (Join/Host to FaceOff)
 //UIP_RoomController.StartGameOnClick() (FaceOff to Game)
@@ -118,11 +116,11 @@ public class AudioManager : MonoBehaviour
                 Debug.Log("FACEOFF");
                 break;
             case 5: //ART
-                    Play("My Quiet Room");
-                    Debug.Log("ART");
+                Play("My Quiet Room");
+                Debug.Log("ART");
                 break;
             case 6: //GAME
-                Play("An Ordinary Day");
+                Play("An Ordinary Day"); //add in code to switch between all 3 songs
                 Debug.Log("GAME");
                 break;
         }    

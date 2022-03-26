@@ -17,9 +17,12 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public static NetworkController netController;
     public static Coordinates coordinates;
     public static NetworkPlayer netPlayer;
+    
 
     [SerializeField]
     private PhotonView photonView;
+
+    private static bool networkMessage;
     #endregion
 
     #region AwakeStartUpdate
@@ -107,6 +110,20 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }
     }
 
+    public static void SendNetMessage()
+    {
+        netPlayer.SendNetworkMessage(networkMessage);
+    }
+
+    public static void SetNetMessage(bool message)
+    {
+        networkMessage = message;
+    }
+
+    public static bool GetNetMessage()
+    {
+        return networkMessage;
+    }
     #endregion
 }
 
