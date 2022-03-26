@@ -31,8 +31,13 @@ public class GridManager : MonoBehaviour
     public GameObject level3;
     public GameObject level4;
 
-    public GameObject player1prefab;
-    public GameObject player2prefab;
+    public GameObject scribePrefab;
+    public GameObject workerPrefab;
+    public GameObject pharoahPrefab;
+    public GameObject peasantPrefab;
+
+    GameObject player1Prefab;
+    GameObject player2Prefab;
 
     public GameObject parent;
     public GameObject levelParent;
@@ -111,15 +116,31 @@ public class GridManager : MonoBehaviour
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
+    void setPlayerPrefab()
+    {
+        if (getP1avatar() == PlayerAvatar.PEASANT) player1Prefab = peasantPrefab;
+        else if (getP1avatar() == PlayerAvatar.PHAROAH) player1Prefab = pharoahPrefab;
+        else if (getP1avatar() == PlayerAvatar.SCRIBE) player1Prefab = scribePrefab;
+        else if (getP1avatar() == PlayerAvatar.WORKER) player1Prefab = workerPrefab;
+
+        if (getP2avatar() == PlayerAvatar.PEASANT) player2Prefab = peasantPrefab;
+        else if (getP2avatar() == PlayerAvatar.PHAROAH) player2Prefab = pharoahPrefab;
+        else if (getP2avatar() == PlayerAvatar.SCRIBE) player2Prefab = scribePrefab;
+        else if (getP2avatar() == PlayerAvatar.WORKER) player2Prefab = workerPrefab;
+    }
+
     //This is used once at the beginning of the game when the players are first placed
     public void placePlayer(int[,] board, Coordinates location, Player P1, Player P2)
     {
         Coordinates[] P1pawns = P1.GetPlayerCoordinates();
         Coordinates loc = new Coordinates(location.X, location.Y);
+
+        setPlayerPrefab();
+
         if (P1pawns.Contains(loc))
         {
             playerNum = 1;
-            player1Instance = Instantiate(player1prefab, startLocation, Grid[location.X, location.Y].transform.rotation);
+            player1Instance = Instantiate(player1Prefab, startLocation, Grid[location.X, location.Y].transform.rotation);
             placePlayerAnimation(location);
 
             player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -131,7 +152,7 @@ public class GridManager : MonoBehaviour
         else //if (P2pawns.Contains(loc))
         {
             playerNum = 2;
-            player2Instance = Instantiate(player2prefab, Grid[location.X, location.Y].transform.position, Grid[location.X, location.Y].transform.rotation);
+            player2Instance = Instantiate(player2Prefab, Grid[location.X, location.Y].transform.position, Grid[location.X, location.Y].transform.rotation);
             placePlayerAnimation(location);
 
             player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
