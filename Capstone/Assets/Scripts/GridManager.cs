@@ -169,7 +169,8 @@ public class GridManager : MonoBehaviour
         }
 
         //this sets the alien that was selected to the end location
-        originalPlayer.transform.position = endLocation;
+        //originalPlayer.transform.position = endLocation;
+        movePlayerAnimation(originalPlayer, originalLocation, newLocation);
 
         //Debug.Log("original player name: " + originalPlayer.name);
 
@@ -401,6 +402,44 @@ public class GridManager : MonoBehaviour
         PlayGame();
         RotateMainCamera.EnableRotation();
         //Debug.Log(CanPlacePawn());
+    }
+
+    void movePlayerAnimation(GameObject player, Coordinates originalLocation, Coordinates newLocation)
+    {
+        Debug.Log("move player animation called");
+        Debug.Log("old loc: " + originalLocation.X + "," + originalLocation.Y + "new loc: " + newLocation.X + "," + newLocation.Y);
+        StartCoroutine(movePlayerDelay(player, originalLocation, newLocation));
+    }
+
+    IEnumerator movePlayerDelay(GameObject player, Coordinates originalLocation, Coordinates newLocation)
+    {
+        Debug.Log("move player coroutine called");
+        PauseGame();
+        RotateMainCamera.DisableRotation();
+
+        Vector3 curLocation = new Vector3(Grid[originalLocation.X, originalLocation.Y].transform.position.x, .7f, Grid[originalLocation.X, originalLocation.Y].transform.position.z);
+        
+        endLocation = new Vector3(Grid[newLocation.X, newLocation.Y].transform.position.x, .7f, Grid[newLocation.X, newLocation.Y].transform.position.z);
+
+        //Vector3 internalLocation = new Vector3((curLocation.x + endLocation.x) / 2, (curLocation.y + endLocation.y) / 2, (curLocation.z + endLocation.z) / 2);
+
+        while (curLocation != endLocation)
+        {
+            if ((endLocation.x - curLocation.x) < 0.1f && (endLocation.y - curLocation.y) < 0.1f && (endLocation.z - curLocation.z) < 0.1f)
+                curLocation = endLocation;
+            else
+            {
+                float x_step = (endLocation.x - curLocation.x) / 20;
+                float z_step = (endLocation.z - curLocation.z) / 20;
+                curLocation = new Vector3(curLocation.x + x_step, curLocation.y, curLocation.z + z_step);
+            }
+
+            player.transform.position = curLocation;
+            yield return new WaitForSeconds(.01f);
+        }
+
+        PlayGame();
+        RotateMainCamera.EnableRotation();
     }
 
 }
