@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 public static class GameUtilities //public  ??
 {
@@ -150,6 +151,7 @@ public static class GameUtilities //public  ??
 
     public static void PlayGame()
     {
+        Debug.Log("Game played");
         gamePaused = false;
     }
 
@@ -202,7 +204,7 @@ public static class GameUtilities //public  ??
 
     public static PlayerTurn RandomStartingPlayer()
     {
-        int num = new Random().Next(1, 3); // Generates a number [1,3)  or 1 <= num < 3
+        int num = new System.Random().Next(1, 3); // Generates a number [1,3)  or 1 <= num < 3
         playerTurn = (PlayerTurn)num; //Return the number 1 or 2 but casted as a Player
         return playerTurn;
     }
@@ -320,7 +322,7 @@ public static class GameUtilities //public  ??
         PlayerAvatar avatar_B;
         do
         {
-            int num = new Random().Next(0, 4); // Generates a number [0,4)  or 0 <= num < 4
+            int num = new System.Random().Next(0, 4); // Generates a number [0,4)  or 0 <= num < 4
             avatar_B = (PlayerAvatar)num; //Return the number 0, 1, 2, or 3 but casted as a PlayerAvatar
         } while (avatar_B == avatar_A);
         return avatar_B;
