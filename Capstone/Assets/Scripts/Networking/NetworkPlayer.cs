@@ -14,9 +14,18 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 
 	public static Coordinates coordinates;
 
+	private static bool networkMessage;
+
 	private void Start()
 	{
 		photonView = PhotonView.Get(this);
+	}
+
+	[PunRPC]
+	public void RPC_NetworkMessage(bool message)
+	{
+		NetworkController.SetNetMessage(networkMessage);
+		Debug.Log("Message sent over network: " + message);
 	}
 
 	//Will simply call the setCoordinate function in NetworkController
@@ -31,9 +40,15 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	//Calls the RPC function above and sends the result of that RPC call to the player other than the one that made the call
 	public void SendCoordinates(Coordinates coordinates)
 	{
-		Debug.Log("send coordinates function in NETWORK PLAYER called");
+		Debug.Log("SendCoordinates function in NETWORK PLAYER called");
 		Debug.LogWarning("coordinates are " + coordinates.X + " " + coordinates.Y);
 		photonView.RPC("RPC_SendCoordinates", RpcTarget.Others, coordinates);
+	}
+
+	public void SendNetworkMessage(bool message)
+    {
+		Debug.Log("SendNetworkMessage function in NETWORK PLAYER called");
+		photonView.RPC("RPC_NetworkMessage", RpcTarget.Others, networkMessage);
 	}
 }
 

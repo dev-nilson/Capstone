@@ -85,6 +85,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
             PhotonNetwork.LoadLevel(1);
+            FindObjectOfType<AudioManager>().StopCurrentSong(6);
         }
     }
 
