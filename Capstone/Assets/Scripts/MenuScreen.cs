@@ -15,17 +15,13 @@ public class MenuScreen : MonoBehaviour
 	public Button storyMode;
 	public Button artBook;
 
-	//Help Menu Items
-	public Button quickGameHelp;
-	public Button multiplayerHelp;
-	public Button tutorialHelp;
-	public Button storyModeHelp;
-	public Button artBookHelp;
-
 	//Upper lefthand buttons
 	public Button exitApp;
 	public Button exitSettings;
 	public Button settings;
+	public Button help;
+
+	public Button exitHelp;
 
 	//These are for the setting scroll (to make it fold)
 	public GameObject scroll1;
@@ -34,6 +30,8 @@ public class MenuScreen : MonoBehaviour
 	public GameObject scroll4;
 	public GameObject scroll5;
 	public GameObject scroll6;
+
+	public GameObject helpPanel;
 
 	LevelChanger levelChanger;
 
@@ -62,8 +60,16 @@ public class MenuScreen : MonoBehaviour
 		Button settingsBtn = settings.GetComponent<Button>();
 		settingsBtn.onClick.AddListener(settingsClicked);
 
+		Button helpBtn = help.GetComponent<Button>();
+		helpBtn.onClick.AddListener(helpClicked);
+
+		Button exitHelpBtn = exitHelp.GetComponent<Button>();
+		exitHelpBtn.onClick.AddListener(exitHelpClicked);
+
 		Button exitSettingsBtn = exitSettings.GetComponent<Button>();
 		exitSettingsBtn.onClick.AddListener(delayDisplay);
+
+		helpPanel.SetActive(false);
 
 		PlayingStoryMode = false;
 	}
@@ -123,9 +129,16 @@ public class MenuScreen : MonoBehaviour
 	void settingsClicked()
 	{
 		scroll1.SetActive(true);
+	}
 
-		//switch phases to turn off build and place player to create a fake modal pop up box
-		PauseGame();
+	void helpClicked()
+	{
+		helpPanel.SetActive(true);
+	}
+
+	void exitHelpClicked()
+	{
+		helpPanel.SetActive(false);
 	}
 
 	void delayDisplay()

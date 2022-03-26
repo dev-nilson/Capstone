@@ -652,7 +652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &366582538
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2306,7 +2306,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1250098560}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -2782,20 +2782,18 @@ MonoBehaviour:
   tutorial: {fileID: 1106222060}
   storyMode: {fileID: 1621470740}
   artBook: {fileID: 2000931646}
-  quickGameHelp: {fileID: 0}
-  multiplayerHelp: {fileID: 0}
-  tutorialHelp: {fileID: 0}
-  storyModeHelp: {fileID: 0}
-  artBookHelp: {fileID: 0}
   exitApp: {fileID: 145003501}
   exitSettings: {fileID: 927641208}
   settings: {fileID: 2131589104}
+  help: {fileID: 1250098559}
+  exitHelp: {fileID: 1250098559}
   scroll1: {fileID: 354930807}
   scroll2: {fileID: 191392502}
   scroll3: {fileID: 800678130}
   scroll4: {fileID: 1832877810}
   scroll5: {fileID: 1886293277}
   scroll6: {fileID: 317046374}
+  helpPanel: {fileID: 366582537}
 --- !u!1 &1621470738
 GameObject:
   m_ObjectHideFlags: 0
