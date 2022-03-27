@@ -9,6 +9,7 @@ public class StoryModeScreen : MonoBehaviour
 
     public Button next;
     public Button startGame;
+    public Button continueStory;
 
     public Button settings;
     public Button exitSettings;
@@ -17,6 +18,9 @@ public class StoryModeScreen : MonoBehaviour
     public GameObject set1;
     public GameObject set2;
     public GameObject set3;
+
+    public GameObject winScreen;
+    public GameObject loseScreen;
 
     void Start()
     {
@@ -28,18 +32,14 @@ public class StoryModeScreen : MonoBehaviour
         Button backBtn = back.GetComponent<Button>();
         backBtn.onClick.AddListener(backClicked);
 
-        Button settingsBtn = settings.GetComponent<Button>();
-        settingsBtn.onClick.AddListener(settingsClicked);
-
-        Button exitSettingsBtn = exitSettings.GetComponent<Button>();
-        exitSettingsBtn.onClick.AddListener(exitSettingsClicked);
-
         Button nextBtn = next.GetComponent<Button>();
         nextBtn.onClick.AddListener(nextClicked);
 
         Button startGameBtn = startGame.GetComponent<Button>();
         startGameBtn.onClick.AddListener(startGameClicked);
 
+        Button continueStoryBtn = continueStory.GetComponent<Button>();
+        continueStoryBtn.onClick.AddListener(continueStoryClicked);
     }
 
     void backClicked()
@@ -52,14 +52,12 @@ public class StoryModeScreen : MonoBehaviour
         set1.SetActive(false);
         set2.SetActive(true);
     }
+    void continueStoryClicked()
+    {
+        winScreen.SetActive(false);
+        set3.SetActive(true);
+    }
 
-    /*NOTES!!!
-     * 
-     * if they lose then make them redo the level
-     * LAURA GRACE set up the game to where we can skip the quick game and hard code in the difficulty and player aliens
-     * LAURA GRACE depending on if a player wins or loses they will need to either move on or stay on that level
-     * take them back to the 
-     */
     void startGameClicked()
     {
         //if it's on set2 then get ready to have the player vs. AI easy (Peasant vs. Scribe)
@@ -87,17 +85,4 @@ public class StoryModeScreen : MonoBehaviour
             SceneManager.LoadScene("GameBoard");
         }
     }
-
-    void settingsClicked()
-    {
-        Debug.Log("settings game");
-        settingsPopUp.SetActive(true); // false to hide, true to show
-    }
-
-    void exitSettingsClicked()
-    {
-        Debug.Log("exit");
-        settingsPopUp.SetActive(false); // false to hide, true to show
-    }
-
 }
