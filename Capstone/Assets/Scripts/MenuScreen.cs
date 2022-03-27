@@ -115,9 +115,9 @@ public class MenuScreen : MonoBehaviour
 
 	void artBookClicked()
 	{
+		FindObjectOfType<AudioManager>().Play("stoneButtonPress");
 		SceneManager.LoadScene("ArtBook");
 
-		FindObjectOfType<AudioManager>().Play("stoneButtonPress");
 		FindObjectOfType<AudioManager>().StopCurrentSong(5);
 	}
 
