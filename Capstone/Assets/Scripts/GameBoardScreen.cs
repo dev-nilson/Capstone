@@ -15,6 +15,11 @@ public class GameBoardScreen : MonoBehaviour
     public Button ok;
     public Button cancel;
 
+    //For the tutorial popup
+    public Button tutorial;
+    public Button exitTutorial;
+    public GameObject tutorialPopup;
+
     //This is for the setting scroll (makes it look like it's rolling up)
     public GameObject scroll1;
     public GameObject scroll2;
@@ -87,6 +92,12 @@ public class GameBoardScreen : MonoBehaviour
 
         Button cancelBtn = cancel.GetComponent<Button>();
         cancelBtn.onClick.AddListener(cancelClicked);
+
+        Button tutorialBtn = tutorial.GetComponent<Button>();
+        tutorialBtn.onClick.AddListener(tutorialClicked);
+
+        Button exitTutorialBtn = exitTutorial.GetComponent<Button>();
+        exitTutorialBtn.onClick.AddListener(exitTutorialClicked);
     }
 
     void Update()
@@ -144,6 +155,16 @@ public class GameBoardScreen : MonoBehaviour
         RotateMainCamera.EnableRotation();
         PlayGame();
         confirmExitPopUp.SetActive(false);
+    }
+
+    void tutorialClicked()
+    {
+        tutorialPopup.SetActive(true);
+    }
+
+    void exitTutorialClicked()
+    {
+        tutorialPopup.SetActive(false);
     }
 
     void settingsClicked()
