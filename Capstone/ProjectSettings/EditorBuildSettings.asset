@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ArtBook.unity
     guid: c59beb964c177ff4a95c8169ed27457f
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: dda837a3143d4534abe6a04026c0ba60
   m_configObjects: {}
