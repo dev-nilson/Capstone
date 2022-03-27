@@ -74,6 +74,7 @@ public class StoryModeScreen : MonoBehaviour
             Debug.Log("Peasant vs. Scribe on EASY");
             set2.SetActive(false);
             SceneManager.LoadScene("GameBoard");
+            FindObjectOfType<AudioManager>().StopCurrentSong(6);
         }
         //if it's on set3 slide then get ready to have the player vs. AI hard (Peasant vs. Pharoah)
         if (set3.activeInHierarchy)
@@ -85,6 +86,7 @@ public class StoryModeScreen : MonoBehaviour
             Debug.Log("Peasant vs. Pharoah on HARD");
             set3.SetActive(false);
             SceneManager.LoadScene("GameBoard");
+            FindObjectOfType<AudioManager>().StopCurrentSong(6);
         }
     }
 
