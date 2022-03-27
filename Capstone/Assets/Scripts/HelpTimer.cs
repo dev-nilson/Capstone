@@ -77,6 +77,7 @@ public class HelpTimer : MonoBehaviour
         // TO DO: ADD THING FOR PLACING PAWN!!!!!!!!!!!!!!!
         build.SetActive(false);
         move.SetActive(false);
+        place.SetActive(false);
 
         peasant.SetActive(false);
         pharoah.SetActive(false);
