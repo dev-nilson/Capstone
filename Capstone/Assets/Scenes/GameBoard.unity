@@ -509,7 +509,7 @@ MonoBehaviour:
   ok: {fileID: 646754500}
   cancel: {fileID: 1421396504}
   tutorial: {fileID: 1631387412}
-  exitTutorial: {fileID: 0}
+  exitTutorial: {fileID: 149728208}
   tutorialPopup: {fileID: 1960890937}
   scroll1: {fileID: 806531423}
   scroll2: {fileID: 748551506}
@@ -667,7 +667,7 @@ GameObject:
   - component: {fileID: 149728209}
   - component: {fileID: 149728208}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ExitHelp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8503,7 +8503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1960890938
 RectTransform:
   m_ObjectHideFlags: 0
