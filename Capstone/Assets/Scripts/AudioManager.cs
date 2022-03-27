@@ -7,6 +7,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 //Add code for switching music in these places
 //MenuScreen.storyModeClicked() (Menu to Story)
@@ -23,6 +24,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     bool firstTime = true;
+
+    string[] songs = { "Golden Sea", "Vagueness", "Ivory Towers", "My Quiet Room",
+                        "An Ordinary Day", "In the Bank We Trust", "Ghar Thowr",
+                        "Divine Serpent", "Closing In", "Devil's Disgrace", "Searching Through Sand"};
 
     //MainMenuSong Variables
     int songOneRecentPlay = 0;
@@ -100,11 +105,11 @@ public class AudioManager : MonoBehaviour
         switch (screen)
         {
             case 1: //MAIN
-                //Play();
+                Play(MainMenuSongs());
                 Debug.Log("MAIN");
                 break;
             case 2: //STORY
-                //Play();
+                Play("Searching Through Sand");
                 Debug.Log("STORY");
                 break;
             case 3: //QUICK
@@ -112,22 +117,25 @@ public class AudioManager : MonoBehaviour
                 Debug.Log("QUICK");
                 break;
             case 4: //FACEOFF
-                Play("Divine Serpent");
+                Play("Divine Serpent"); //needs to play both divine serpent and closing in
                 Debug.Log("FACEOFF");
                 break;
             case 5: //ART
-                Play("My Quiet Room");
+                Play("My Quiet Room"); //on a loop
                 Debug.Log("ART");
                 break;
             case 6: //GAME
                 Play("An Ordinary Day"); //add in code to switch between all 3 songs
                 Debug.Log("GAME");
                 break;
-        }    
+        }
     }
 
     public void Play(string name)
     {
+        List<string> gameSongs = new List<string>();
+        gameSongs.AddRange(songs);
+
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
         if (s == null)
@@ -136,8 +144,16 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        for (int i = 0; i < songs.Length; i++)
+        {
+            if (name == songs[i])
+            {
+                currentSong = s;
+                Debug.Log("Current song set to: " + currentSong);
+            }
+        }
+
         s.source.Play();
-        currentSong = s; //this has to go somewhere else, sounds will mess it up
     }
 
     private IEnumerator waitSong(int screen)
