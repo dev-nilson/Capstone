@@ -28,6 +28,8 @@ public class AudioManager : MonoBehaviour
     int currentScreen;
     int newScreen;
 
+    bool screenBeenChanged = false;
+    bool musicPlaying;
     bool isMusicOn = true;
 
     //MainMenuSong Variables
@@ -66,6 +68,7 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+            s.source.outputAudioMixerGroup = s.group;
         }
     }
 
@@ -88,18 +91,39 @@ public class AudioManager : MonoBehaviour
         if (currentScreen != newScreen)
         {
             currentSong.source.Stop();
+            screenBeenChanged = true;
             Debug.Log("Stopping song: " + currentSong.name);
         }
 
         currentScreen = newScreen;
 
-        if (!isMusicOn)
+        if (isMusicOn == false)
         {
-            currentSong.source.Pause();
+            currentSong.source.Stop();
+            musicPlaying = false;
         }
-        else if (isMusicOn)
+        else if (isMusicOn == true)
         {
-            currentSong.source.UnPause();
+            if (screenBeenChanged == true && musicPlaying == false)
+            {
+                Debug.Log("first condition in isMusicOn");
+                if (currentScreen == 1)
+                {
+                    StopCurrentSong(1);
+                    musicPlaying = true;
+                }
+                else if (currentScreen == 6)
+                {
+                    StopCurrentSong(6);
+                    musicPlaying = true;
+                }
+            }
+            else if (screenBeenChanged == false && musicPlaying == false)
+            {
+                Debug.Log("second condition in isMusicOn");
+                StopCurrentSong(1);
+                musicPlaying = true;
+            }
         }
     }
     #endregion
@@ -121,10 +145,10 @@ public class AudioManager : MonoBehaviour
 
     public void StopCurrentSong(int screen)
     {
-        if (isMusicOn == false)
-        {
-            return;
-        }
+        //if (isMusicOn == false)
+        //{
+        //    return;
+        //}
         
         //will update newScreen in order to make the current song being played stop
         newScreen = screen;
@@ -214,7 +238,6 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        s.source.outputAudioMixerGroup = s.group;
         s.source.Play();
     }
 
