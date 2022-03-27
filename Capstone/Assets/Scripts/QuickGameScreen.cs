@@ -30,6 +30,7 @@ public class QuickGameScreen : MonoBehaviour
 
     public InputField usernameInputField;
 
+
     // Checks if there is anything entered into the input field.
     void LockInput(InputField input)
     {
@@ -59,6 +60,8 @@ public class QuickGameScreen : MonoBehaviour
 
         Button workerBtn = worker.GetComponent<Button>();
         workerBtn.onClick.AddListener(workerClicked);
+
+        usernameInputField.characterLimit = 17;
 
         //Adds a listener that invokes the "LockInput" method when the player finishes editing the main input field.
         //Passes the main input field into the method when "LockInput" is invoked

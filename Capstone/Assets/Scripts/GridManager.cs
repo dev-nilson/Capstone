@@ -16,9 +16,6 @@ public class GridManager : MonoBehaviour
     //For drag drop on the players
     public GameObject selectedObject;
 
-
-    GameController gameController;
-
     int Col = 5, Row = 5;
     public GameObject tile1;
     public GameObject tile2;

@@ -21,6 +21,7 @@ public class GameOverGraphics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        resetPopupBoxes();
         Button backToMenuBtn = backToMenu.GetComponent<Button>();
         backToMenuBtn.onClick.AddListener(backToMenuClicked);
     }
@@ -58,14 +59,14 @@ public class GameOverGraphics : MonoBehaviour
         else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
             // Local player wins in story mode!
-            // Change screens ??
+            SceneManager.LoadScene("StoryMode");
         }
 
         // Local player loses in story mode
         else if (PlayingStoryMode)
         {
             // Local player loses in story mode :(
-            // Change screens ??
+            SceneManager.LoadScene("StoryMode");
         }
 
         // Local player wins in other game type
