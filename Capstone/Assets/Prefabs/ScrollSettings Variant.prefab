@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 261952960946014877, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 261952960946014877, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_LocalScale.x
@@ -245,7 +245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 261952961143054152, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 261952961143054153, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_Color.r
@@ -293,7 +293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 261952961236946088, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 261952961236946088, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_LocalScale.y
@@ -409,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 261952961379447821, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 261952961462851682, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_Color.r
@@ -425,7 +425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 261952961462851685, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 261952961521796413, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_LocalScale.x
@@ -473,7 +473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 261952961566687077, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 261952961566687077, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_LocalScale.x
@@ -1037,7 +1037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 261952962802023281, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_Name
-      value: ScrollSettings
+      value: ScrollSettings Variant
       objectReference: {fileID: 0}
     - target: {fileID: 261952962802023281, guid: a4419fa8778bc2f4ea3350698174b19e, type: 3}
       propertyPath: m_IsActive

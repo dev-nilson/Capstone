@@ -33,6 +33,8 @@ public class MenuScreen : MonoBehaviour
 
 	public GameObject helpPanel;
 
+	public GameObject clearPanel;
+
 	LevelChanger levelChanger;
 
 	void Start()
@@ -128,6 +130,7 @@ public class MenuScreen : MonoBehaviour
 
 	void settingsClicked()
 	{
+		clearPanel.SetActive(true);
 		scroll1.SetActive(true);
 	}
 
@@ -188,7 +191,9 @@ public class MenuScreen : MonoBehaviour
 			//reset height value
 			scrollArray[scrollNum].GetComponent<RectTransform>().sizeDelta = new Vector2(scrollReset[scrollNum].GetComponent<RectTransform>().rect.width, tempHeight);
 		}
+		clearPanel.SetActive(false);
 
+		//Why is this here???
 		PlayGame();
 	}
 }

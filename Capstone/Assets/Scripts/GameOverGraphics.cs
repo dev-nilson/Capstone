@@ -21,6 +21,7 @@ public class GameOverGraphics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        resetPopupBoxes();
         Button backToMenuBtn = backToMenu.GetComponent<Button>();
         backToMenuBtn.onClick.AddListener(backToMenuClicked);
     }
