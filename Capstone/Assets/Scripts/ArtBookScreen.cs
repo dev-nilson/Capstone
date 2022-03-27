@@ -16,7 +16,12 @@ public class ArtBookScreen : MonoBehaviour
     }
     public void backClicked()
     {
-        Debug.Log("I got clicked!!1!");
+
+        //Debug.Log("I got clicked!!1!");
         SceneManager.LoadScene("Menu");
+
+        FindObjectOfType<AudioManager>().StopCurrentSong(1);
+
+
     }
 }
