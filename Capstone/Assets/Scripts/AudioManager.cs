@@ -32,6 +32,9 @@ public class AudioManager : MonoBehaviour
     int songTwoRecentPlay = 0;
     int songThreeRecentPlay = 0;
 
+    //GameBoard Variables
+    int gameBoardSongOrder = 1;
+
     bool firstTime = true;
 
     string[] songs = { "Golden Sea", "Vagueness", "Ivory Towers", "My Quiet Room",
@@ -131,7 +134,7 @@ public class AudioManager : MonoBehaviour
             case 6: //GAME
                 Debug.Log("GAME");
 
-                Play("An Ordinary Day"); //add in code to switch between all 3 songs
+                Play(GameBoardSongs()); //add in code to switch between all 3 songs
                 break;
         }
 
@@ -162,17 +165,22 @@ public class AudioManager : MonoBehaviour
             {
                 StartCoroutine(MainMenuSwitch(s));
             }
-            if (currentScreen == 2)
+            if (currentScreen == 2) //STORY
             {
                 StopCoroutine(MainMenuSwitch(s));
             }
-            if (currentScreen == 4)
+            if (currentScreen == 4) //FACEOFF
             {
                 StopCoroutine(MainMenuSwitch(s));
             }
-            if (currentScreen == 5)
+            if (currentScreen == 5) //ART
             {
                 StopCoroutine(MainMenuSwitch(s));
+            }
+            if (name == songs[i] && currentScreen == 6) //GAMEBOARD
+            {
+                StopCoroutine(MainMenuSwitch(s));
+                StartCoroutine(GameBoardSwitch(s));
             }
         }
 
@@ -199,9 +207,56 @@ public class AudioManager : MonoBehaviour
             Play(MainMenuSongs());
         }
     }
+
+    private IEnumerator GameBoardSwitch(Sound s)
+    {
+        Debug.Log("Starting Coroutine");
+
+        yield return new WaitForSeconds(s.clip.length);
+
+        if (currentScreen == 6)
+        {
+            Play(GameBoardSongs());
+        }
+    }
     #endregion
 
-    #region Main Menu Randomize Stuff
+    #region GameBoard Song Stuff
+    private string GameBoardSongs()
+    {
+        string songOne = "An Ordinary Day";
+        string songTwo = "In The Bank We Trust";
+        string songThree = "Ghar Thowr";
+        string playSong;
+
+        if (gameBoardSongOrder == 1)
+        {
+            playSong = songOne;
+            gameBoardSongOrder++;
+            Debug.Log("GameBoardSongOrder is currently: " + gameBoardSongOrder);
+            return playSong;
+        }
+        else if (gameBoardSongOrder == 2)
+        {
+            playSong = songTwo;
+            gameBoardSongOrder++;
+            Debug.Log("GameBoardSongOrder is currently: " + gameBoardSongOrder);
+            return playSong;
+        }
+        else if (gameBoardSongOrder == 3)
+        {
+            playSong = songThree;
+            gameBoardSongOrder = 1;
+            Debug.Log("GameBoardSongOrder is currently: " + gameBoardSongOrder);
+            return playSong;
+        }
+
+        Debug.Log("GameBoardSongOrder is currently: " + gameBoardSongOrder);
+        return null;
+    }
+    #endregion
+
+    #region Main Menu Song Stuff
     //Main Menu, Quick Game, Tutorial, And Multiplayer will all have same songs
     private string MainMenuSongs()
     {
