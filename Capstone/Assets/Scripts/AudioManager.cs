@@ -159,25 +159,25 @@ public class AudioManager : MonoBehaviour
             if (name == songs[i])
             {
                 currentSong = s;
-                Debug.Log("Current song set to: " + currentSong);
+                Debug.Log("Current song set to: " + currentSong.name);
             }
-            if (name == songs[i] && currentScreen == 1)
+            if (name == songs[i] && currentScreen == 1) //MAINMENU
             {
                 StartCoroutine(MainMenuSwitch(s));
             }
-            if (currentScreen == 2) //STORY
+            else if (currentScreen == 2) //STORY
             {
                 StopCoroutine(MainMenuSwitch(s));
             }
-            if (currentScreen == 4) //FACEOFF
+            else if (currentScreen == 4) //FACEOFF
             {
                 StopCoroutine(MainMenuSwitch(s));
             }
-            if (currentScreen == 5) //ART
+            else if (currentScreen == 5) //ART
             {
                 StopCoroutine(MainMenuSwitch(s));
             }
-            if (name == songs[i] && currentScreen == 6) //GAMEBOARD
+            else if (name == songs[i] && currentScreen == 6) //GAMEBOARD
             {
                 StopCoroutine(MainMenuSwitch(s));
                 StartCoroutine(GameBoardSwitch(s));
@@ -198,7 +198,7 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator MainMenuSwitch(Sound s)
     {
-        Debug.Log("Starting Coroutine");
+        Debug.Log("Starting Coroutine MainMenuSwitch");
 
         yield return new WaitForSeconds(s.clip.length);
 
@@ -210,7 +210,7 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator GameBoardSwitch(Sound s)
     {
-        Debug.Log("Starting Coroutine");
+        Debug.Log("Starting Coroutine GameBoardSwitch");
 
         yield return new WaitForSeconds(s.clip.length);
 
