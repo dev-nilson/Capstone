@@ -38,8 +38,8 @@ public class AudioManager : MonoBehaviour
     bool firstTime = true;
 
     string[] songs = { "Golden Sea", "Vagueness", "Ivory Towers", "My Quiet Room",
-                        "An Ordinary Day", "In the Bank We Trust", "Ghar Thowr",
-                        "Divine Serpent", "Closing In", "Devil's Disgrace", "Searching Through Sand"};
+                        "OrdinaryBankThowr","SerpentClosing", "Devil's Disgrace", 
+                        "Searching Through Sand"};
     #endregion
 
     #region AwakeStartUpdate
@@ -124,7 +124,7 @@ public class AudioManager : MonoBehaviour
             case 4: //FACEOFF
                 Debug.Log("FACEOFF");
 
-                Play("Divine Serpent"); //needs to play both divine serpent and closing in
+                Play("SerpentClosing"); //needs to play both divine serpent and closing in
                 break;
             case 5: //ART
                 Debug.Log("ART");
@@ -134,7 +134,7 @@ public class AudioManager : MonoBehaviour
             case 6: //GAME
                 Debug.Log("GAME");
 
-                Play(GameBoardSongs()); //add in code to switch between all 3 songs
+                Play("OrdinaryBankThowr"); //add in code to switch between all 3 songs
                 break;
         }
 
@@ -180,7 +180,7 @@ public class AudioManager : MonoBehaviour
             else if (name == songs[i] && currentScreen == 6) //GAMEBOARD
             {
                 StopCoroutine(MainMenuSwitch(s));
-                StartCoroutine(GameBoardSwitch(s));
+                //StartCoroutine(GameBoardSwitch(s));
             }
         }
 
@@ -200,59 +200,13 @@ public class AudioManager : MonoBehaviour
     {
         Debug.Log("Starting Coroutine MainMenuSwitch");
 
+        
         yield return new WaitForSeconds(s.clip.length);
 
         if (currentScreen == 1)
         {
             Play(MainMenuSongs());
         }
-    }
-
-    private IEnumerator GameBoardSwitch(Sound s)
-    {
-        Debug.Log("Starting Coroutine GameBoardSwitch");
-
-        yield return new WaitForSeconds(s.clip.length);
-
-        if (currentScreen == 6)
-        {
-            Play(GameBoardSongs());
-        }
-    }
-    #endregion
-
-    #region GameBoard Song Stuff
-    private string GameBoardSongs()
-    {
-        string songOne = "An Ordinary Day";
-        string songTwo = "In The Bank We Trust";
-        string songThree = "Ghar Thowr";
-        string playSong;
-
-        if (gameBoardSongOrder == 1)
-        {
-            playSong = songOne;
-            gameBoardSongOrder++;
-            Debug.Log("GameBoardSongOrder is currently: " + gameBoardSongOrder);
-            return playSong;
-        }
-        else if (gameBoardSongOrder == 2)
-        {
-            playSong = songTwo;
-            gameBoardSongOrder++;
-            Debug.Log("GameBoardSongOrder is currently: " + gameBoardSongOrder);
-            return playSong;
-        }
-        else if (gameBoardSongOrder == 3)
-        {
-            playSong = songThree;
-            gameBoardSongOrder = 1;
-            Debug.Log("GameBoardSongOrder is currently: " + gameBoardSongOrder);
-            return playSong;
-        }
-
-        Debug.Log("GameBoardSongOrder is currently: " + gameBoardSongOrder);
-        return null;
     }
     #endregion
 
