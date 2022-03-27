@@ -23,23 +23,23 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
 
     Sound currentSong;
+    public AudioMixer audioMixer;
 
     int currentScreen;
     int newScreen;
+
+    bool isMusicOn = true;
 
     //MainMenuSong Variables
     int songOneRecentPlay = 0;
     int songTwoRecentPlay = 0;
     int songThreeRecentPlay = 0;
 
-    //GameBoard Variables
-    int gameBoardSongOrder = 1;
-
     bool firstTime = true;
 
     string[] songs = { "Golden Sea", "Vagueness", "Ivory Towers", "My Quiet Room",
                         "OrdinaryBankThowr","SerpentClosing", "Devil's Disgrace", 
-                        "Searching Through Sand"};
+                        "Searching Through Sand" };
     #endregion
 
     #region AwakeStartUpdate
@@ -92,14 +92,44 @@ public class AudioManager : MonoBehaviour
         }
 
         currentScreen = newScreen;
+
+        if (!isMusicOn)
+        {
+            currentSong.source.Pause();
+        }
+        else if (isMusicOn)
+        {
+            currentSong.source.UnPause();
+        }
     }
     #endregion
 
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("Volume", volume);
+    }
+
+    public void turnMusicOff()
+    {
+        isMusicOn = false;
+    }
+
+    public void turnMusicOn()
+    {
+        isMusicOn = true;
+    }
+
     public void StopCurrentSong(int screen)
     {
+        if (isMusicOn == false)
+        {
+            return;
+        }
+        
         //will update newScreen in order to make the current song being played stop
         newScreen = screen;
         StartCoroutine(waitSong(screen));
+        
     }
 
     public void nextSong(int screen)
@@ -184,6 +214,7 @@ public class AudioManager : MonoBehaviour
             }
         }
 
+        s.source.outputAudioMixerGroup = s.group;
         s.source.Play();
     }
 
