@@ -7,6 +7,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 //Add code for switching music in these places
 //MenuScreen.storyModeClicked() (Menu to Story)
@@ -24,6 +25,10 @@ public class AudioManager : MonoBehaviour
 
     bool firstTime = true;
 
+    string[] songs = { "Golden Sea", "Vagueness", "Ivory Towers", "My Quiet Room",
+                        "An Ordinary Day", "In the Bank We Trust", "Ghar Thowr",
+                        "Divine Serpent", "Closing In", "Devil's Disgrace", "Searching Through Sand"};
+
     //MainMenuSong Variables
     int songOneRecentPlay = 0;
     int songTwoRecentPlay = 0;
@@ -33,6 +38,8 @@ public class AudioManager : MonoBehaviour
     int newScreen;
 
     Sound currentSong;
+
+    string menuSong;
 
     // Start is called before the first frame update
     void Awake()
@@ -70,6 +77,8 @@ public class AudioManager : MonoBehaviour
         {
             firstTime = false;
             songOneRecentPlay = 2;
+            currentScreen = 1;
+            newScreen = 1;
             Play("Golden Sea"); //this would be a call to nextMusic function, play will be called from nextMusic
         }
     }
@@ -100,34 +109,45 @@ public class AudioManager : MonoBehaviour
         switch (screen)
         {
             case 1: //MAIN
-                //Play();
                 Debug.Log("MAIN");
+
+                Play(MainMenuSongs());
                 break;
             case 2: //STORY
-                //Play();
                 Debug.Log("STORY");
+
+                Play("Searching Through Sand");         
                 break;
             case 3: //QUICK
-                //Play();
                 Debug.Log("QUICK");
+
+                //Play();
                 break;
             case 4: //FACEOFF
-                Play("Divine Serpent");
                 Debug.Log("FACEOFF");
+
+                Play("Divine Serpent"); //needs to play both divine serpent and closing in 
                 break;
             case 5: //ART
-                Play("My Quiet Room");
                 Debug.Log("ART");
+
+                Play("My Quiet Room"); //on a loop
                 break;
             case 6: //GAME
-                Play("An Ordinary Day"); //add in code to switch between all 3 songs
                 Debug.Log("GAME");
+
+                Play("An Ordinary Day"); //add in code to switch between all 3 songs
                 break;
-        }    
+        }
+
+        Debug.Log("exiting switch statement");
     }
 
-    public void Play(string name)
+        public void Play(string name)
     {
+        List<string> gameSongs = new List<string>();
+        gameSongs.AddRange(songs);
+
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
         if (s == null)
@@ -136,8 +156,20 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        for (int i = 0; i < songs.Length; i++)
+        {
+            if (name == songs[i])
+            {
+                currentSong = s;
+                Debug.Log("Current song set to: " + currentSong);
+            }
+            if (name == songs[i] && currentScreen == 1)
+            {
+                StartCoroutine(MainMenuSwitch(s));
+            }
+        }
+
         s.source.Play();
-        currentSong = s; //this has to go somewhere else, sounds will mess it up
     }
 
     private IEnumerator waitSong(int screen)
@@ -146,6 +178,15 @@ public class AudioManager : MonoBehaviour
 
         Debug.Log("Calling nextSong");
         nextSong(screen);
+    }
+
+    private IEnumerator MainMenuSwitch(Sound s)
+    {
+        Debug.Log("Starting Coroutine");
+
+        yield return new WaitForSeconds(s.clip.length);
+
+        Play(MainMenuSongs());
     }
 
     #region Main Menu Randomize Stuff
@@ -179,7 +220,7 @@ public class AudioManager : MonoBehaviour
                         Debug.Log("Song 1 was chosen, but has played recently. Playing song 2");
                         return songTwo;
                     }
-                    else
+                    else if (songThreeRecentPlay == 0)
                     {
                         songThreeRecentPlay = 2;
 
@@ -208,8 +249,8 @@ public class AudioManager : MonoBehaviour
                         Debug.Log("Song 2 was chosen, but has played recently. Playing song 3");
                         return songThree;
                     }
-                    else
-                    {
+                    else if (songOneRecentPlay == 0)
+            {
                         songOneRecentPlay = 2;
 
                         songTwoRecentPlay = PlayedRecently(songTwoRecentPlay);
@@ -239,8 +280,8 @@ public class AudioManager : MonoBehaviour
                         Debug.Log("Song 3 was chosen, but has played recently. Playing song 1");
                         return songOne;
                     }
-                    else
-                    {
+                    else if (songTwoRecentPlay == 0)
+            {
                         songTwoRecentPlay = 2;
 
                         songOneRecentPlay = PlayedRecently(songOneRecentPlay);

@@ -31,8 +31,8 @@ public class TutorialScreen : MonoBehaviour
 
     void backClicked()
     {
-        Debug.Log("back clicked");
-
+        //Debug.Log("back clicked");
+        //FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         SceneManager.LoadScene("Menu");
     }
 

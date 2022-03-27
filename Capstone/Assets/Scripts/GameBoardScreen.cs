@@ -136,6 +136,7 @@ public class GameBoardScreen : MonoBehaviour
     {
         ClearGame();
         SceneManager.LoadScene("Menu");
+        FindObjectOfType<AudioManager>().StopCurrentSong(1);
     }
 
     void cancelClicked()
