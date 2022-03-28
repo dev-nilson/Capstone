@@ -168,6 +168,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         Debug.Log(roomName);
         CharacterSelectionLobbyPanel.SetActive(true);
+        FindObjectOfType<AudioManager>().StopCurrentSong(4);
 
         // Call to function in "GameUtilities.cs"
         SetPlayerTurn(PlayerTurn.ONE);
@@ -206,6 +207,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         multiplayerMenuPanel.SetActive(false);
         JoinGamePanel.SetActive(true);
         PhotonNetwork.JoinLobby(); //First tries to join a lobby
+        FindObjectOfType<AudioManager>().StopCurrentSong(4);
 
         // Call to function in "GameUtilities.cs"
         SetPlayerTurn(PlayerTurn.TWO);

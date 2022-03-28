@@ -16,9 +16,6 @@ public class GridManager : MonoBehaviour
     //For drag drop on the players
     public GameObject selectedObject;
 
-
-    GameController gameController;
-
     int Col = 5, Row = 5;
     public GameObject tile1;
     public GameObject tile2;
@@ -31,8 +28,13 @@ public class GridManager : MonoBehaviour
     public GameObject level3;
     public GameObject level4;
 
-    public GameObject player1prefab;
-    public GameObject player2prefab;
+    public GameObject scribePrefab;
+    public GameObject workerPrefab;
+    public GameObject pharoahPrefab;
+    public GameObject peasantPrefab;
+
+    GameObject player1Prefab;
+    GameObject player2Prefab;
 
     public GameObject parent;
     public GameObject levelParent;
@@ -71,7 +73,6 @@ public class GridManager : MonoBehaviour
 
     public void createBoard(int[,] temp)
     {
-        Debug.Log("I created a board");
         Grid = new GameObject[Col, Row];
         System.Random rnd = new System.Random();
 
@@ -112,15 +113,31 @@ public class GridManager : MonoBehaviour
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
+    void setPlayerPrefab()
+    {
+        if (getP1avatar() == PlayerAvatar.PEASANT) player1Prefab = peasantPrefab;
+        else if (getP1avatar() == PlayerAvatar.PHAROAH) player1Prefab = pharoahPrefab;
+        else if (getP1avatar() == PlayerAvatar.SCRIBE) player1Prefab = scribePrefab;
+        else if (getP1avatar() == PlayerAvatar.WORKER) player1Prefab = workerPrefab;
+
+        if (getP2avatar() == PlayerAvatar.PEASANT) player2Prefab = peasantPrefab;
+        else if (getP2avatar() == PlayerAvatar.PHAROAH) player2Prefab = pharoahPrefab;
+        else if (getP2avatar() == PlayerAvatar.SCRIBE) player2Prefab = scribePrefab;
+        else if (getP2avatar() == PlayerAvatar.WORKER) player2Prefab = workerPrefab;
+    }
+
     //This is used once at the beginning of the game when the players are first placed
     public void placePlayer(int[,] board, Coordinates location, Player P1, Player P2)
     {
         Coordinates[] P1pawns = P1.GetPlayerCoordinates();
         Coordinates loc = new Coordinates(location.X, location.Y);
+
+        setPlayerPrefab();
+
         if (P1pawns.Contains(loc))
         {
             playerNum = 1;
-            player1Instance = Instantiate(player1prefab, startLocation, Grid[location.X, location.Y].transform.rotation);
+            player1Instance = Instantiate(player1Prefab, startLocation, Grid[location.X, location.Y].transform.rotation);
             placePlayerAnimation(location);
 
             player1Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -132,7 +149,7 @@ public class GridManager : MonoBehaviour
         else //if (P2pawns.Contains(loc))
         {
             playerNum = 2;
-            player2Instance = Instantiate(player2prefab, Grid[location.X, location.Y].transform.position, Grid[location.X, location.Y].transform.rotation);
+            player2Instance = Instantiate(player2Prefab, Grid[location.X, location.Y].transform.position, Grid[location.X, location.Y].transform.rotation);
             placePlayerAnimation(location);
 
             player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -271,6 +288,11 @@ public class GridManager : MonoBehaviour
         return selectedTile;
     }
 
+    public static void clearSelectedTile()
+    {
+        selectedTile = new Coordinates();
+    }
+
     public void highlightValidTiles(List<Coordinates> locs)
     {
         for (var i = 0; i < Row; ++i)
@@ -358,6 +380,7 @@ public class GridManager : MonoBehaviour
     IEnumerator placePlayerDelay(Coordinates location)
     {
         PauseGame();
+        GameBoardScreen.DisableButtons();
         RotateMainCamera.DisableRotation();
 
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 5f, Grid[location.X, location.Y].transform.position.z);
@@ -374,6 +397,7 @@ public class GridManager : MonoBehaviour
         }
 
         PlayGame();
+        GameBoardScreen.EnableButtons();
         RotateMainCamera.EnableRotation();
     }
 
@@ -385,6 +409,7 @@ public class GridManager : MonoBehaviour
     IEnumerator placeLevelDelay(Coordinates location, float levelHeight)
     {
         PauseGame();
+        GameBoardScreen.DisableButtons();
         RotateMainCamera.DisableRotation();
 
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 7f, Grid[location.X, location.Y].transform.position.z);
@@ -400,6 +425,7 @@ public class GridManager : MonoBehaviour
         //This sets a delay after a player builds their level
         yield return new WaitForSeconds(1f);
         PlayGame();
+        GameBoardScreen.EnableButtons();
         RotateMainCamera.EnableRotation();
         //Debug.Log(CanPlacePawn());
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static GameUtilities;
@@ -18,6 +19,9 @@ public class MenuScreen : MonoBehaviour
 	public Button exitApp;
 	public Button exitSettings;
 	public Button settings;
+	public Button help;
+
+	public Button exitHelp;
 
 	//These are for the setting scroll (to make it fold)
 	public GameObject scroll1;
@@ -26,6 +30,10 @@ public class MenuScreen : MonoBehaviour
 	public GameObject scroll4;
 	public GameObject scroll5;
 	public GameObject scroll6;
+
+	public GameObject helpPanel;
+
+	public GameObject clearPanel;
 
 	LevelChanger levelChanger;
 
@@ -54,8 +62,16 @@ public class MenuScreen : MonoBehaviour
 		Button settingsBtn = settings.GetComponent<Button>();
 		settingsBtn.onClick.AddListener(settingsClicked);
 
+		Button helpBtn = help.GetComponent<Button>();
+		helpBtn.onClick.AddListener(helpClicked);
+
+		Button exitHelpBtn = exitHelp.GetComponent<Button>();
+		exitHelpBtn.onClick.AddListener(exitHelpClicked);
+
 		Button exitSettingsBtn = exitSettings.GetComponent<Button>();
 		exitSettingsBtn.onClick.AddListener(delayDisplay);
+
+		helpPanel.SetActive(false);
 
 		PlayingStoryMode = false;
 	}
@@ -97,11 +113,16 @@ public class MenuScreen : MonoBehaviour
 		FindObjectOfType<AudioManager>().Play("stoneButtonPress");
 
 		SceneManager.LoadScene("StoryMode");
+
+		FindObjectOfType<AudioManager>().StopCurrentSong(2);
 	}
 
 	void artBookClicked()
 	{
+		FindObjectOfType<AudioManager>().Play("stoneButtonPress");
 		SceneManager.LoadScene("ArtBook");
+
+		FindObjectOfType<AudioManager>().StopCurrentSong(5);
 	}
 
 	void exitAppClicked()
@@ -111,10 +132,18 @@ public class MenuScreen : MonoBehaviour
 
 	void settingsClicked()
 	{
+		clearPanel.SetActive(true);
 		scroll1.SetActive(true);
+	}
 
-		//switch phases to turn off build and place player to create a fake modal pop up box
-		PauseGame();
+	void helpClicked()
+	{
+		helpPanel.SetActive(true);
+	}
+
+	void exitHelpClicked()
+	{
+		helpPanel.SetActive(false);
 	}
 
 	void delayDisplay()
@@ -164,7 +193,9 @@ public class MenuScreen : MonoBehaviour
 			//reset height value
 			scrollArray[scrollNum].GetComponent<RectTransform>().sizeDelta = new Vector2(scrollReset[scrollNum].GetComponent<RectTransform>().rect.width, tempHeight);
 		}
+		clearPanel.SetActive(false);
 
+		//Why is this here???
 		PlayGame();
 	}
 }

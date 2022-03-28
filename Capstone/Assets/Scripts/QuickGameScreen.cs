@@ -30,13 +30,12 @@ public class QuickGameScreen : MonoBehaviour
 
     public InputField usernameInputField;
 
+
     // Checks if there is anything entered into the input field.
     void LockInput(InputField input)
     {
         if (input.text.Length > 0)
         {
-            Debug.Log(input.text);
-
             setP1username(input.text);
         }
     }
@@ -62,6 +61,8 @@ public class QuickGameScreen : MonoBehaviour
         Button workerBtn = worker.GetComponent<Button>();
         workerBtn.onClick.AddListener(workerClicked);
 
+        usernameInputField.characterLimit = 17;
+
         //Adds a listener that invokes the "LockInput" method when the player finishes editing the main input field.
         //Passes the main input field into the method when "LockInput" is invoked
         usernameInputField.onEndEdit.AddListener(delegate { LockInput(usernameInputField); });
@@ -78,12 +79,16 @@ public class QuickGameScreen : MonoBehaviour
     void startGameClicked()
     {
         // GameType and PlayerTurn are set in "ToggleGroup.cs"
-
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         SceneManager.LoadScene("GameBoard");
+
+        FindObjectOfType<AudioManager>().StopCurrentSong(6);
+        
     }
 
     void backClicked()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         SceneManager.LoadScene("Menu");
     }
 
