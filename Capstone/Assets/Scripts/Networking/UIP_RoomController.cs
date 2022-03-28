@@ -84,6 +84,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
+            FindObjectOfType<AudioManager>().Play("stoneButtonPress");
             PhotonNetwork.LoadLevel(1);
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
         }
@@ -105,6 +106,8 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         {
             multiplayerMenuPanel.SetActive(true);
         }
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+
         CharacterSelectionLobbyPanel.SetActive(false);
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
 

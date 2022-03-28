@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
 
     Sound currentSong;
+    public AudioMixer audioMixer;
 
     int currentScreen;
     int newScreen;
@@ -32,14 +33,12 @@ public class AudioManager : MonoBehaviour
     int songTwoRecentPlay = 0;
     int songThreeRecentPlay = 0;
 
-    //GameBoard Variables
-    int gameBoardSongOrder = 1;
-
     bool firstTime = true;
+    bool isMusicOn;
 
     string[] songs = { "Golden Sea", "Vagueness", "Ivory Towers", "My Quiet Room",
                         "OrdinaryBankThowr","SerpentClosing", "Devil's Disgrace", 
-                        "Searching Through Sand"};
+                        "Searching Through Sand" };
     #endregion
 
     #region AwakeStartUpdate
@@ -66,6 +65,7 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+            s.source.outputAudioMixerGroup = s.group;
         }
     }
 
@@ -95,11 +95,27 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("Volume", volume);
+    }
+
+    public void turnMusicOff()
+    {
+        AudioListener.volume = 0;
+    }
+
+    public void turnMusicOn()
+    {
+        AudioListener.volume = 1;
+    }
+
     public void StopCurrentSong(int screen)
     {
         //will update newScreen in order to make the current song being played stop
         newScreen = screen;
         StartCoroutine(waitSong(screen));
+        
     }
 
     public void nextSong(int screen)
