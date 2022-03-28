@@ -217,7 +217,7 @@ public class GameController : MonoBehaviour
                                 boardController.unhighlightTiles(validTiles);
                                 validTiles.Clear();
                                 /* This function call occurs after phase changes to accommodate for animation coroutines. */
-                                boardController.movePlayer(curLoc, newLoc, P1, P2);
+                                boardController.movePlayer(curLoc, newLoc, P1, P2, board_gc);
 
                                 HelpTimer.Set();
                             }
