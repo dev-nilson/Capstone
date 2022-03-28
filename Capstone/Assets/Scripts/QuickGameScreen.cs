@@ -68,12 +68,6 @@ public class QuickGameScreen : MonoBehaviour
         usernameInputField.onEndEdit.AddListener(delegate { LockInput(usernameInputField); });
         if (usernameInputField.text.Length == 0)
             setP1username("You");
-
-        //SAVE USERNAME HERE!!!
-        if (getP2avatar() == PlayerAvatar.PEASANT) setP2username("Peasant");
-        else if (getP2avatar() == PlayerAvatar.PHAROAH) setP2username("Pharaoh");
-        else if (getP2avatar() == PlayerAvatar.SCRIBE) setP2username("Scribe");
-        else if (getP2avatar() == PlayerAvatar.WORKER) setP2username("Worker");
     }
 
     void startGameClicked()
@@ -83,7 +77,12 @@ public class QuickGameScreen : MonoBehaviour
         SceneManager.LoadScene("GameBoard");
 
         FindObjectOfType<AudioManager>().StopCurrentSong(6);
-        
+
+        //SAVE P2 USERNAME HERE!!! (if you try to do this earlier, p2 avatar is still set from the previous game)
+        if (getP2avatar() == PlayerAvatar.PEASANT) setP2username("Peasant");
+        else if (getP2avatar() == PlayerAvatar.PHAROAH) setP2username("Pharaoh");
+        else if (getP2avatar() == PlayerAvatar.SCRIBE) setP2username("Scribe");
+        else if (getP2avatar() == PlayerAvatar.WORKER) setP2username("Worker");
     }
 
     void backClicked()
