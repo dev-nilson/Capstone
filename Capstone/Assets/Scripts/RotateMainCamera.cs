@@ -24,7 +24,7 @@ public class RotateMainCamera : MonoBehaviour
 		Button left = rotateLeft.GetComponent<Button>();
 		left.onClick.AddListener(rotateLeftClick2);
 
-		boardController = GameObject.Find("GridManager");
+        boardController = GameObject.Find("GridManager");
 		Board = boardController.GetComponent<GridManager>();
     }
 
