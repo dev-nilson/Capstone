@@ -417,6 +417,8 @@ public class GridManager : MonoBehaviour
     void movePlayerAnimation(GameObject player)
     {
         Debug.Log("move player animation called");
+        PauseGame();
+        RotateMainCamera.DisableRotation();
 
         StartCoroutine(movePlayerDelay(player));
     }
@@ -424,8 +426,7 @@ public class GridManager : MonoBehaviour
     IEnumerator movePlayerDelay(GameObject player)
     {
         Debug.Log("move player coroutine called");
-        PauseGame();
-        RotateMainCamera.DisableRotation();
+
 
         Vector3 internalLocation = new Vector3((startLocation.x + endLocation.x) / 2, Math.Max(startLocation.y, endLocation.y) + 1.0f, (startLocation.z + endLocation.z) / 2);
 
@@ -434,7 +435,7 @@ public class GridManager : MonoBehaviour
         float y_step = (endLocation.y - startLocation.y) / iters;
         float z_step = (endLocation.z - startLocation.z) / iters;
         Vector3 steps = new Vector3(x_step, y_step, z_step);
-        for (Vector3 curLocation = startLocation; curLocation != endLocation; curLocation += steps)
+        for (Vector3 curLocation = startLocation; curLocation != endLocation && count <= iters; curLocation += steps)
         {
             if (Math.Abs(endLocation.x - curLocation.x) < 0.1f && Math.Abs(endLocation.y - curLocation.y) < 0.1f && Math.Abs(endLocation.z - curLocation.z) < 0.1f)
                 curLocation = endLocation;
@@ -443,8 +444,8 @@ public class GridManager : MonoBehaviour
                 float percent = count / iters;
 
                 // implementation of quadratic bezier curve
-                curLocation = (float)Math.Pow(1 - percent, 2) * startLocation + 2 * (1 - percent) * percent * internalLocation + (float)Math.Pow(percent, 2) * endLocation;
-                
+                //curLocation = (float)Math.Pow(1 - percent, 2) * startLocation + 2 * (1 - percent) * percent * internalLocation + (float)Math.Pow(percent, 2) * endLocation;
+                curLocation = curLocation + steps;
 
                 player.transform.position = curLocation;
                 yield return new WaitForSeconds(.01f);
@@ -453,6 +454,7 @@ public class GridManager : MonoBehaviour
             ++count;
         }
 
+        yield return new WaitForSeconds(.01f);
         PlayGame();
         RotateMainCamera.EnableRotation();
     }
