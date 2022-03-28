@@ -28,16 +28,13 @@ public class AudioManager : MonoBehaviour
     int currentScreen;
     int newScreen;
 
-    bool screenBeenChanged = false;
-    bool musicPlaying;
-    bool isMusicOn = true;
-
     //MainMenuSong Variables
     int songOneRecentPlay = 0;
     int songTwoRecentPlay = 0;
     int songThreeRecentPlay = 0;
 
     bool firstTime = true;
+    bool isMusicOn;
 
     string[] songs = { "Golden Sea", "Vagueness", "Ivory Towers", "My Quiet Room",
                         "OrdinaryBankThowr","SerpentClosing", "Devil's Disgrace", 
@@ -91,40 +88,10 @@ public class AudioManager : MonoBehaviour
         if (currentScreen != newScreen)
         {
             currentSong.source.Stop();
-            screenBeenChanged = true;
             Debug.Log("Stopping song: " + currentSong.name);
         }
 
         currentScreen = newScreen;
-
-        if (isMusicOn == false)
-        {
-            currentSong.source.Stop();
-            musicPlaying = false;
-        }
-        else if (isMusicOn == true)
-        {
-            if (screenBeenChanged == true && musicPlaying == false)
-            {
-                Debug.Log("first condition in isMusicOn");
-                if (currentScreen == 1)
-                {
-                    StopCurrentSong(1);
-                    musicPlaying = true;
-                }
-                else if (currentScreen == 6)
-                {
-                    StopCurrentSong(6);
-                    musicPlaying = true;
-                }
-            }
-            else if (screenBeenChanged == false && musicPlaying == false)
-            {
-                Debug.Log("second condition in isMusicOn");
-                StopCurrentSong(1);
-                musicPlaying = true;
-            }
-        }
     }
     #endregion
 
@@ -135,21 +102,16 @@ public class AudioManager : MonoBehaviour
 
     public void turnMusicOff()
     {
-        isMusicOn = false;
+        AudioListener.volume = 0;
     }
 
     public void turnMusicOn()
     {
-        isMusicOn = true;
+        AudioListener.volume = 1;
     }
 
     public void StopCurrentSong(int screen)
     {
-        //if (isMusicOn == false)
-        //{
-        //    return;
-        //}
-        
         //will update newScreen in order to make the current song being played stop
         newScreen = screen;
         StartCoroutine(waitSong(screen));
