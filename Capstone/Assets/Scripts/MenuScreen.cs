@@ -127,22 +127,26 @@ public class MenuScreen : MonoBehaviour
 
 	void exitAppClicked()
 	{
+		FindObjectOfType<AudioManager>().Play("goldButtonPress");
 		Application.Quit();
 	}
 
 	void settingsClicked()
 	{
+		FindObjectOfType<AudioManager>().Play("goldButtonPress");
 		clearPanel.SetActive(true);
 		scroll1.SetActive(true);
 	}
 
 	void helpClicked()
 	{
+		FindObjectOfType<AudioManager>().Play("goldButtonPress");
 		helpPanel.SetActive(true);
 	}
 
 	void exitHelpClicked()
 	{
+		FindObjectOfType<AudioManager>().Play("goldButtonPress");
 		helpPanel.SetActive(false);
 	}
 
