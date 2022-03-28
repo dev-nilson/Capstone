@@ -3769,7 +3769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.data[3].name
@@ -3885,15 +3885,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.data[10].name
-      value: stoneButtonPress
+      value: goldButtonPress
       objectReference: {fileID: 0}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.data[10].clip
       value: 
-      objectReference: {fileID: 8300000, guid: c7c44ae05cda1444bb5041de9611d077, type: 3}
+      objectReference: {fileID: 8300000, guid: 760abc3f90b4ef4449a233fe4904b28f, type: 3}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.data[10].volume
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.data[10].pitch
@@ -3987,6 +3987,10 @@ PrefabInstance:
       propertyPath: audioMixer
       value: 
       objectReference: {fileID: 24100000, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
+      propertyPath: sounds.Array.data[10].group
+      value: 
+      objectReference: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
 --- !u!1 &1996615099
