@@ -45,21 +45,25 @@ public class StoryModeScreen : MonoBehaviour
     void backClicked()
     {
         SceneManager.LoadScene("Menu");
+        FindObjectOfType<AudioManager>().Play("goldButtonPress");
     }
 
     void nextClicked()
     {
+        FindObjectOfType<AudioManager>().Play("goldButtonPress");
         set1.SetActive(false);
         set2.SetActive(true);
     }
     void continueStoryClicked()
     {
+        FindObjectOfType<AudioManager>().Play("goldButtonPress");
         winScreen.SetActive(false);
         set3.SetActive(true);
     }
 
     void startGameClicked()
     {
+        FindObjectOfType<AudioManager>().Play("goldButtonPress");
         //if it's on set2 then get ready to have the player vs. AI easy (Peasant vs. Scribe)
         if (set2.activeInHierarchy)
         {

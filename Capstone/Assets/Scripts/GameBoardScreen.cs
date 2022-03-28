@@ -134,6 +134,7 @@ public class GameBoardScreen : MonoBehaviour
 
     void backClicked()
     {
+        FindObjectOfType<AudioManager>().Play("goldButtonPress");
         if (!disabled)
         {
             confirmExitPopUp.SetActive(true);
@@ -159,6 +160,7 @@ public class GameBoardScreen : MonoBehaviour
 
     void tutorialClicked()
     {
+        FindObjectOfType<AudioManager>().Play("goldButtonPress");
         tutorialPopup.SetActive(true);
     }
 
@@ -169,6 +171,7 @@ public class GameBoardScreen : MonoBehaviour
 
     void settingsClicked()
     {
+        FindObjectOfType<AudioManager>().Play("goldButtonPress");
         if (!disabled)
         {
             Debug.Log("settings game");

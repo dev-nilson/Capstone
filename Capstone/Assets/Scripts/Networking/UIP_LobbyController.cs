@@ -161,6 +161,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public void HostLobbyOnClick() //Paired to the Host button
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         multiplayerMenuPanel.SetActive(false);
 
         Debug.Log(PhotonNetwork.NickName);
@@ -187,11 +188,13 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         }
 
         Debug.Log("Are we connected to PhotonNetwork? " + PhotonNetwork.NetworkClientState);
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         SceneManager.LoadScene("Menu");
     }
 
     public void DisconnectedBackButton()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         SceneManager.LoadScene("Menu");
     }
 
@@ -204,6 +207,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public void JoinLobbyOnClick() //Paired to the Join button
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         multiplayerMenuPanel.SetActive(false);
         JoinGamePanel.SetActive(true);
         PhotonNetwork.JoinLobby(); //First tries to join a lobby
@@ -216,6 +220,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public void JoinGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         multiplayerMenuPanel.SetActive(true);
         JoinGamePanel.SetActive(false);
         PhotonNetwork.LeaveLobby();

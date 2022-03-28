@@ -16,7 +16,7 @@ public class ArtBookScreen : MonoBehaviour
     }
     public void backClicked()
     {
-
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         //Debug.Log("I got clicked!!1!");
         SceneManager.LoadScene("Menu");
 
