@@ -158,7 +158,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void movePlayer(Coordinates curLoc, Coordinates newLoc, Player P1, Player P2)
+    public void movePlayer(Coordinates curLoc, Coordinates newLoc, Player P1, Player P2, GameBoard board)
     {
         Coordinates[] P1pawns = P1.GetPlayerCoordinates();
         Coordinates[] P2pawns = P2.GetPlayerCoordinates();
@@ -166,8 +166,21 @@ public class GridManager : MonoBehaviour
         Coordinates originalLocation = new Coordinates(curLoc.X, curLoc.Y);
         Coordinates newLocation = new Coordinates(newLoc.X, newLoc.Y);
 
-        startLocation = new Vector3(Grid[curLoc.X, curLoc.Y].transform.position.x, Grid[curLoc.X, curLoc.Y].transform.position.z, Grid[curLoc.X, curLoc.Y].transform.position.z);
-        endLocation = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, .7f, Grid[newLoc.X, newLoc.Y].transform.position.z);
+        float curLevelHeight;
+        float newLevelHeight;
+
+        if (board.GetHeights()[curLoc.X, curLoc.Y] == 0) curLevelHeight = 0.7f;
+        else if (board.GetHeights()[curLoc.X, curLoc.Y] == 1) curLevelHeight = 2.0f;
+        else if (board.GetHeights()[curLoc.X, curLoc.Y] == 2) curLevelHeight = 2.75f;
+        else curLevelHeight = 3.25f;
+
+        if (board.GetHeights()[newLoc.X, newLoc.Y] == 0) newLevelHeight = 0.7f;
+        else if (board.GetHeights()[newLoc.X, newLoc.Y] == 1) newLevelHeight = 2.0f;
+        else if (board.GetHeights()[newLoc.X, newLoc.Y] == 2) newLevelHeight = 2.75f;
+        else newLevelHeight = 3.25f;
+
+        startLocation = new Vector3(Grid[curLoc.X, curLoc.Y].transform.position.x, curLevelHeight, Grid[curLoc.X, curLoc.Y].transform.position.z);
+        endLocation = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, newLevelHeight, Grid[newLoc.X, newLoc.Y].transform.position.z);
 
         GameObject originalPlayer = Grid[originalLocation.X, originalLocation.Y];
         GameObject newPlayer = Grid[newLocation.X, newLocation.Y].gameObject;
@@ -186,7 +199,8 @@ public class GridManager : MonoBehaviour
         }
 
         //this sets the alien that was selected to the end location
-        originalPlayer.transform.position = endLocation;
+        //originalPlayer.transform.position = endLocation;
+        movePlayerAnimation(originalPlayer);
 
         //Debug.Log("original player name: " + originalPlayer.name);
 
@@ -427,6 +441,43 @@ public class GridManager : MonoBehaviour
         GameBoardScreen.EnableButtons();
         RotateMainCamera.EnableRotation();
         //Debug.Log(CanPlacePawn());
+    }
+
+    void movePlayerAnimation(GameObject player)
+    {
+        Debug.Log("move player animation called");
+
+        StartCoroutine(movePlayerDelay(player));
+    }
+
+    IEnumerator movePlayerDelay(GameObject player)
+    {
+        Debug.Log("move player coroutine called");
+        PauseGame();
+        RotateMainCamera.DisableRotation();
+
+        //Vector3 internalLocation = new Vector3((curLocation.x + endLocation.x) / 2, (curLocation.y + endLocation.y) / 2, (curLocation.z + endLocation.z) / 2);
+
+        float x_step = (endLocation.x - startLocation.x) / 40;
+        float y_step = (endLocation.y - startLocation.y) / 40;
+        float z_step = (endLocation.z - startLocation.z) / 40;
+        Vector3 steps = new Vector3(x_step, y_step, z_step);
+        for (Vector3 curLocation = startLocation; curLocation != endLocation; curLocation += steps)
+        //for (float new_x = curLocation.x, new_y = curLocation.y, new_z = curLocation.z; new_x != endLocation.x && new_y != endLocation.y && new_z != endLocation.z; new_x += x_step, new_y += y_step, new_z += z_step)
+        {
+            if (Math.Abs(endLocation.x - curLocation.x) < 0.1f && Math.Abs(endLocation.y - curLocation.y) < 0.1f && Math.Abs(endLocation.z - curLocation.z) < 0.1f)
+                curLocation = endLocation;
+            else
+            {
+                //curLocation = new Vector3(new_x, new_y, new_z);
+
+                player.transform.position = curLocation;
+                yield return new WaitForSeconds(.01f);
+            }
+        }
+
+        PlayGame();
+        RotateMainCamera.EnableRotation();
     }
 
 }
