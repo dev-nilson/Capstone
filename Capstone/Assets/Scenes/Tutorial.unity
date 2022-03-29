@@ -2355,9 +2355,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: 'Game Over: A player wins when one of his aliens climbs to the top of a
-    3-tiered pyramid. A player loses if neither of his aliens are able to move or
-    if an alien he just moved is unable to build a pyramid level.'
+  m_Text: 'Game Over: A player wins when one of their aliens climbs to the top of
+    a 3-tiered pyramid. A player loses if neither of their aliens are able to move
+    or if an alien they just moved is unable to build a pyramid level.'
 --- !u!222 &1843388656
 CanvasRenderer:
   m_ObjectHideFlags: 0
