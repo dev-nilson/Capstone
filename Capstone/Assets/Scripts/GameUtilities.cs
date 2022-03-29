@@ -316,6 +316,12 @@ public static class GameUtilities //public  ??
         return P2avatar;
     }
 
+    public static PlayerAvatar RandomPlayerAvatar()
+    {
+        int num = new System.Random().Next(0, 4);
+        return (PlayerAvatar)num;
+    }
+
     // Returns a random avatar other than the one passed as a parameter
     public static PlayerAvatar RandomPlayerAvatar(PlayerAvatar avatar_A)
     {

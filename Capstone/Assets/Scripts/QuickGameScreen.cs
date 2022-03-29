@@ -63,6 +63,8 @@ public class QuickGameScreen : MonoBehaviour
 
         usernameInputField.characterLimit = 17;
 
+        setP1avatar(RandomPlayerAvatar());
+
         //Adds a listener that invokes the "LockInput" method when the player finishes editing the main input field.
         //Passes the main input field into the method when "LockInput" is invoked
         usernameInputField.onEndEdit.AddListener(delegate { LockInput(usernameInputField); });
@@ -77,6 +79,9 @@ public class QuickGameScreen : MonoBehaviour
         SceneManager.LoadScene("GameBoard");
 
         FindObjectOfType<AudioManager>().StopCurrentSong(6);
+
+        // Set a random player avatar for player 2 (the AI) other than p1's avatar
+        setP2avatar(RandomPlayerAvatar(getP1avatar()));
 
         //SAVE P2 USERNAME HERE!!! (if you try to do this earlier, p2 avatar is still set from the previous game)
         if (getP2avatar() == PlayerAvatar.PEASANT) setP2username("Peasant");
@@ -118,9 +123,6 @@ public class QuickGameScreen : MonoBehaviour
         choosePlayer.SetActive(false);
 
         setP1avatar(PlayerAvatar.PHAROAH);
-
-        // Set a random player avatar for player 2 (the AI) other than the pharoah
-        setP2avatar(RandomPlayerAvatar(PlayerAvatar.PHAROAH));
     }
 
     void scribeClicked()
@@ -133,9 +135,6 @@ public class QuickGameScreen : MonoBehaviour
         choosePlayer.SetActive(false);
 
         setP1avatar(PlayerAvatar.SCRIBE);
-
-        // Set a random player avatar for player 2 (the AI) other than the scribe
-        setP2avatar(RandomPlayerAvatar(PlayerAvatar.SCRIBE));
     }
 
     void peasantClicked()
@@ -148,9 +147,6 @@ public class QuickGameScreen : MonoBehaviour
         choosePlayer.SetActive(false);
 
         setP1avatar(PlayerAvatar.PEASANT);
-
-        // Set a random player avatar for player 2 (the AI) other than the peasant
-        setP2avatar(RandomPlayerAvatar(PlayerAvatar.PEASANT));
     }
 
     void workerClicked()
@@ -163,8 +159,5 @@ public class QuickGameScreen : MonoBehaviour
         choosePlayer.SetActive(false);
 
         setP1avatar(PlayerAvatar.WORKER);
-
-        // Set a random player avatar for player 2 (the AI) other than the worker
-        setP2avatar(RandomPlayerAvatar(PlayerAvatar.WORKER));
     }
 }
