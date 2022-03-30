@@ -153,6 +153,7 @@ public static class GameUtilities //public  ??
     public static void PlayGame()
     {
         Debug.Log("Game played");
+        GridManager.clearSelectedTile();
         gamePaused = false;
     }
 
