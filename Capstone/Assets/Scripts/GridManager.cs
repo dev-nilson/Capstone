@@ -63,6 +63,13 @@ public class GridManager : MonoBehaviour
     //get GameObject’s material and color
     MeshRenderer Renderer;
 
+    //This is for disabling the rotating board before the players are placed
+    public GameObject disabledRight;
+    public GameObject disabledLeft;
+
+    //needed for checking when to allow the board to rotate
+    int count = 0;
+
     void Start()
     {
         //get mesh renderer component
@@ -132,6 +139,9 @@ public class GridManager : MonoBehaviour
         Coordinates[] P1pawns = P1.GetPlayerCoordinates();
         Coordinates loc = new Coordinates(location.X, location.Y);
 
+        disabledRight.SetActive(true);
+        disabledLeft.SetActive(true);
+
         setPlayerPrefab();
 
         if (P1pawns.Contains(loc))
@@ -145,6 +155,8 @@ public class GridManager : MonoBehaviour
             player1Instance.transform.SetParent(Grid[location.X, location.Y].transform);
 
             Debug.Log(player1Instance.transform.parent);
+
+            count++;
         }
         else //if (P2pawns.Contains(loc))
         {
@@ -155,7 +167,18 @@ public class GridManager : MonoBehaviour
             player2Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
             player2Instance.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             player2Instance.transform.parent = Grid[location.X, location.Y].transform;
+
+            count++;
         }
+
+        //Make sure all four players have been placed before you allow the board to rotate
+        if(count == 4)
+        {
+            //Turn off the disabled rotating arrow images and that allows the user to rotate the board
+            disabledRight.SetActive(false);
+            disabledLeft.SetActive(false);
+        }
+        
     }
 
     public void movePlayer(Coordinates curLoc, Coordinates newLoc, Player P1, Player P2, GameBoard board)
