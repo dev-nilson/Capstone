@@ -85,6 +85,7 @@ public static class GameUtilities //public  ??
     public static void setGameType(GameType type)
     {
         gameType = type;
+        gameOver = false;
     }
 
     public static GameType getGameType()
