@@ -16,6 +16,11 @@ public class ScrollSettings : MonoBehaviour
         musicOn = GetComponent<Toggle>();
     }
 
+    void Update()
+    {
+        GameHints();
+    }
+
     public void ToggleSound()
     {
         if (musicOn.isOn)
@@ -38,10 +43,14 @@ public class ScrollSettings : MonoBehaviour
         if (hints.isOn)
         {
             //turn on hints
+            Debug.Log("Turning on hints");
+            HelpTimer.Set();
         }
         else
         {
             //turn off hints
+            Debug.Log("Turning off hints");
+            HelpTimer.TurnOff();
         }
     }
 }
