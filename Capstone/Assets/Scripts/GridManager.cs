@@ -453,51 +453,53 @@ public class GridManager : MonoBehaviour
         Debug.Log("move player coroutine called");
 
 
-        
+        float leapHeight = endLocation.y + 1.0f;
         int h_start = 0;
         int h_end = heightChange; //0, 1, -1, -2, -3
         float h_half = Math.Max(h_start, h_end) + 1.0f;
         int i = 20;
 
         float h_cur;
+
         for (float n = 0.0f; n < 1.0f; n += 1.0f/i)
         {
             h_cur = h(n, h_half, h_end);
 
             float x = startLocation.x + n * (endLocation.x - startLocation.x);
             float z = startLocation.z + n * (endLocation.z - startLocation.z);
-            float y = startLocation.y + h_cur * (endLocation.y - startLocation.y);
+            float y = startLocation.y + h_cur * (leapHeight - Math.Min(startLocation.y, endLocation.y));
 
             //0: 0.7f
             //1: 2.0f
             //2: 2.75f
             //3: 3.25f
 
-
-            Debug.Log(y + " " + x + " " + z);
-            yield return new WaitForSeconds(1.0f);
+            Debug.Log(h_cur + " --> " + y);
+            player.transform.position = new Vector3(x, y, z);
+            yield return new WaitForSeconds(0.05f);
         }
+        player.transform.position = endLocation;
 
         /* THIS IS GONNA GET REPLACED -- JUST MAKES PIECES MOVE */
-        int iters = 100, count = 0;
-        float x_step = (endLocation.x - startLocation.x) / iters;
-        float y_step = (endLocation.y - startLocation.y) / iters;
-        float z_step = (endLocation.z - startLocation.z) / iters;
-        Vector3 steps = new Vector3(x_step, y_step, z_step);
-        for (Vector3 curLocation = startLocation; curLocation != endLocation && count <= iters; )
-        {
-            if (Math.Abs(endLocation.x - curLocation.x) < 0.1f && Math.Abs(endLocation.y - curLocation.y) < 0.1f && Math.Abs(endLocation.z - curLocation.z) < 0.1f)
-                curLocation = endLocation;
-            else
-            {
-                curLocation = curLocation + 2*steps;
+        //int iters = 100, count = 0;
+        //float x_step = (endLocation.x - startLocation.x) / iters;
+        //float y_step = (endLocation.y - startLocation.y) / iters;
+        //float z_step = (endLocation.z - startLocation.z) / iters;
+        //Vector3 steps = new Vector3(x_step, y_step, z_step);
+        //for (Vector3 curLocation = startLocation; curLocation != endLocation && count <= iters; )
+        //{
+        //    if (Math.Abs(endLocation.x - curLocation.x) < 0.1f && Math.Abs(endLocation.y - curLocation.y) < 0.1f && Math.Abs(endLocation.z - curLocation.z) < 0.1f)
+        //        curLocation = endLocation;
+        //    else
+        //    {
+        //        curLocation = curLocation + 2*steps;
 
-                player.transform.position = curLocation;
-                yield return new WaitForSeconds(.01f);
-            }
+        //        player.transform.position = curLocation;
+        //        yield return new WaitForSeconds(.01f);
+        //    }
 
-            ++count;
-        }
+        //    ++count;
+        //}
 
         PlayGame();
         RotateMainCamera.EnableRotation();
