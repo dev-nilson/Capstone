@@ -50,5 +50,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 		Debug.Log("SendNetworkMessage function in NETWORK PLAYER called");
 		photonView.RPC("RPC_NetworkMessage", RpcTarget.Others, networkMessage);
 	}
+
+	//function for the playerinfo stuff
 }
 
