@@ -25,6 +25,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66fd1c535f2915d459c4f2ebe678aad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedObject: {fileID: 0}
   tile1: {fileID: 5638226049318727965, guid: edcae60f68456c84dac84600f28a5a5e, type: 3}
   tile2: {fileID: 8191874363350356236, guid: 3cc821dca2c00fe4ead679de8678e2ef, type: 3}
   tile3: {fileID: 6359731640391664434, guid: 2c0293aedf4e8914796c9ae1e017fa05, type: 3}
@@ -34,10 +35,14 @@ MonoBehaviour:
   level2: {fileID: 5424361190378693783, guid: 54542fb6fc681ee438175def720b0f27, type: 3}
   level3: {fileID: 4966038803555105557, guid: 95715f79ac92c8e4ebfb328b66d196db, type: 3}
   level4: {fileID: 8851965301860739284, guid: c3d9badc59c20174e9e6101049b41ce7, type: 3}
-  player1prefab: {fileID: 0}
-  player2prefab: {fileID: 0}
+  scribePrefab: {fileID: 0}
+  workerPrefab: {fileID: 0}
+  pharoahPrefab: {fileID: 0}
+  peasantPrefab: {fileID: 0}
   parent: {fileID: 0}
   levelParent: {fileID: 0}
+  disabledRight: {fileID: 0}
+  disabledLeft: {fileID: 0}
 --- !u!1 &7311633913134148478
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +103,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1650a101eb464774385a822b9cd18e04, type: 2}
+  - {fileID: 2100000, guid: 4335e49b0dc38e24d89ed9d25364b8f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
