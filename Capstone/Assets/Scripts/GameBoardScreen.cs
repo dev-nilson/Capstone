@@ -141,12 +141,14 @@ public class GameBoardScreen : MonoBehaviour
             //switch phases to turn off build and place player to create a fake modal pop up box
             RotateMainCamera.DisableRotation();
             PauseGame();
+            DisableButtons();
         }
     }
 
     void okClicked()
     {
         ClearGame();
+        EnableButtons();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
     }
@@ -155,18 +157,24 @@ public class GameBoardScreen : MonoBehaviour
     {
         RotateMainCamera.EnableRotation();
         PlayGame();
+        EnableButtons();
         confirmExitPopUp.SetActive(false);
     }
 
     void tutorialClicked()
     {
-        FindObjectOfType<AudioManager>().Play("goldButtonPress");
-        tutorialPopup.SetActive(true);
+        if (!disabled)
+        {
+            FindObjectOfType<AudioManager>().Play("goldButtonPress");
+            tutorialPopup.SetActive(true);
+            DisableButtons();
+        }
     }
 
     void exitTutorialClicked()
     {
         tutorialPopup.SetActive(false);
+        EnableButtons();
     }
 
     void settingsClicked()
@@ -180,6 +188,7 @@ public class GameBoardScreen : MonoBehaviour
             //switch phases to turn off build and place player to create a fake modal pop up box
             RotateMainCamera.DisableRotation();
             PauseGame();
+            DisableButtons();
         }
     }
 
@@ -233,6 +242,7 @@ public class GameBoardScreen : MonoBehaviour
 
         RotateMainCamera.EnableRotation();
         PlayGame();
+        EnableButtons();
     }
 
     public static void DisableButtons()
