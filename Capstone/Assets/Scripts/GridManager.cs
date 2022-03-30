@@ -458,7 +458,7 @@ public class GridManager : MonoBehaviour
         float y_step = (endLocation.y - startLocation.y) / iters;
         float z_step = (endLocation.z - startLocation.z) / iters;
         Vector3 steps = new Vector3(x_step, y_step, z_step);
-        for (Vector3 curLocation = startLocation; curLocation != endLocation && count <= iters; curLocation += steps)
+        for (Vector3 curLocation = startLocation; curLocation != endLocation && count <= iters; )//curLocation += steps)
         {
             if (Math.Abs(endLocation.x - curLocation.x) < 0.1f && Math.Abs(endLocation.y - curLocation.y) < 0.1f && Math.Abs(endLocation.z - curLocation.z) < 0.1f)
                 curLocation = endLocation;
@@ -468,7 +468,7 @@ public class GridManager : MonoBehaviour
 
                 // implementation of quadratic bezier curve
                 //curLocation = (float)Math.Pow(1 - percent, 2) * startLocation + 2 * (1 - percent) * percent * internalLocation + (float)Math.Pow(percent, 2) * endLocation;
-                curLocation = curLocation + steps;
+                curLocation = curLocation + 2*steps;
 
                 player.transform.position = curLocation;
                 yield return new WaitForSeconds(.01f);
