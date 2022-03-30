@@ -101,5 +101,6 @@ public class GameOverGraphics : MonoBehaviour
     void backToMenuClicked()
     {
         SceneManager.LoadScene("Menu");
+        FindObjectOfType<AudioManager>().StopCurrentSong(1);
     }
 }

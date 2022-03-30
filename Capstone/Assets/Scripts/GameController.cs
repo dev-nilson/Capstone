@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour
                     // Debug.Log("Failed to place player's pawn :(");
                 }
             }
-            if (CanMove())
+            else if (CanMove())
             {
                 if (CurrentPlayer.HasNoMoves(board_gc))
                 {
@@ -242,7 +242,7 @@ public class GameController : MonoBehaviour
                     }
                 }
             }
-            if (CanBuild())
+            else if (CanBuild())
             {
                 //If not currently waiting for any tiles, change this to wait for tiles
                 if (!WaitingForFirstTile() && !WaitingForSecondTile())
