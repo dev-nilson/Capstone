@@ -981,6 +981,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateRight: {fileID: 1070575755}
   rotateLeft: {fileID: 185621118}
+  disabledRight: {fileID: 541082386}
+  disabledLeft: {fileID: 1747388650}
 --- !u!114 &185621122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,6 +1530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 456043295}
+  - component: {fileID: 456043296}
   m_Layer: 5
   m_Name: Rotate
   m_TagString: Untagged
@@ -1558,6 +1561,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 125}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &456043296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456043294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5b92185d261004288e19d5d5ae2deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateRight: {fileID: 1070575755}
+  rotateLeft: {fileID: 185621118}
+  disabledRight: {fileID: 541082386}
+  disabledLeft: {fileID: 1747388650}
 --- !u!1 &504558924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,6 +1869,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateRight: {fileID: 541082390}
   rotateLeft: {fileID: 1747388651}
+  disabledRight: {fileID: 541082386}
+  disabledLeft: {fileID: 1747388650}
 --- !u!114 &541082390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3483,6 +3504,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateRight: {fileID: 1070575755}
   rotateLeft: {fileID: 185621118}
+  disabledRight: {fileID: 0}
+  disabledLeft: {fileID: 0}
 --- !u!114 &960253818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4122,6 +4145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateRight: {fileID: 1070575755}
   rotateLeft: {fileID: 185621118}
+  disabledRight: {fileID: 541082386}
+  disabledLeft: {fileID: 1747388650}
 --- !u!114 &1070575755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7200,6 +7225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateRight: {fileID: 541082390}
   rotateLeft: {fileID: 1747388651}
+  disabledRight: {fileID: 541082386}
+  disabledLeft: {fileID: 1747388650}
 --- !u!222 &1747388655
 CanvasRenderer:
   m_ObjectHideFlags: 0
