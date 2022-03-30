@@ -15,6 +15,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	public static Coordinates coordinates;
 
 	private static bool networkMessage;
+	private static bool readyUpStatus;
 
 	private void Start()
 	{
@@ -26,6 +27,13 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	{
 		NetworkController.SetNetMessage(networkMessage);
 		Debug.Log("Message sent over network: " + message);
+	}
+
+	[PunRPC]
+	public void RPC_SendReadyUpStatus(bool newStatus)
+	{
+		NetworkController.SetReadyUpStatus(readyUpStatus);
+		Debug.Log("Ready up status of other player is: " + readyUpStatus);
 	}
 
 	//Will simply call the setCoordinate function in NetworkController
@@ -49,6 +57,12 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
     {
 		Debug.Log("SendNetworkMessage function in NETWORK PLAYER called");
 		photonView.RPC("RPC_NetworkMessage", RpcTarget.Others, networkMessage);
+	}
+
+	public void SendReadyUpStatus(bool message)
+	{
+		Debug.Log("SendReadyUpStatus function in NETWORK PLAYER called");
+		photonView.RPC("RPC_ReadyUpStatus", RpcTarget.Others, readyUpStatus);
 	}
 
 	//function for the playerinfo stuff

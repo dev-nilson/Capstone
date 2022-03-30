@@ -28,6 +28,8 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     private GameObject StartGameButton; //only for the master client. used to start the game and load the multiplayer scene
     [SerializeField]
     private GameObject FaceoffBackButton;
+    [SerializeField]
+    private GameObject ReadyUpButton;
 
     [SerializeField]
     private GameObject PharoahButton;
@@ -46,6 +48,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     public Transform playerItemParent;
 
     private NetPlayerItem tempPlayer;
+    private bool readyUpStatus;
 
     public override void OnJoinedRoom()
     {
@@ -88,6 +91,17 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("GameBoard");
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
         }
+    }
+
+    public void ImReadyOnClick()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+            readyUpStatus = true;
+            NetworkController.SetReadyUpStatus(readyUpStatus);
+            NetworkController.SendReadyUpStatus();
+        }        
     }
 
     IEnumerator rejoinLobby()
@@ -142,7 +156,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
                 //newPlayerItem.FlipIt(player.Value);
-                if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2)
+                if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2 && NetworkController.GetReadyUpStatus() == true)
                 {
                     StartGameButton.SetActive(true);
                 }

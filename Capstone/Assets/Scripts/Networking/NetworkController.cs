@@ -18,6 +18,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public static Coordinates coordinates;
     public static NetworkPlayer netPlayer;
     //however I need to represent the username & playerAvatar
+    public static bool readyUpStatus;
     
 
     [SerializeField]
@@ -127,7 +128,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
     #endregion
 
-    #region PlayerRelatedFunctions
+    #region PlayerInfoRelatedFunctions
 
     public static void SendClientInfo()
     {
@@ -143,6 +144,23 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         //stuff for username & playerAvatar, probably need a seperate a function for both
         //make sure to change void to the data type we need back
+    }
+    #endregion
+
+    #region MiscellaneousFunctions
+    public static void SendReadyUpStatus()
+    {
+        netPlayer.SendReadyUpStatus(readyUpStatus);
+    }
+
+    public static void SetReadyUpStatus(bool newStatus)
+    {
+        readyUpStatus = newStatus;
+    }
+
+    public static bool GetReadyUpStatus()
+    {
+        return readyUpStatus;
     }
     #endregion
 }
