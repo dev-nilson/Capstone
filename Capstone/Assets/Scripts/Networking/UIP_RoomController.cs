@@ -85,7 +85,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
             FindObjectOfType<AudioManager>().Play("stoneButtonPress");
-            PhotonNetwork.LoadLevel(1);
+            PhotonNetwork.LoadLevel("GameBoard");
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
         }
     }
@@ -118,14 +118,14 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     void UpdatePlayerList()
     {
-        int flipCounter;
+        int flipCounter = 0;
 
         foreach (NetPlayerItem item in playerItemsList)
         {
             Destroy(item.gameObject);
         }
         playerItemsList.Clear();
-        Debug.Log("Clearing");
+        Debug.Log("Clearing playerList");
 
         if (PhotonNetwork.CurrentRoom == null)
         {
@@ -137,6 +137,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         {
             NetPlayerItem newPlayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newPlayerItem.SetPlayerInfo(player.Value);
+            flipCounter++;
 
             if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
@@ -146,6 +147,12 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
                     StartGameButton.SetActive(true);
                 }
             }
+
+            /*********************************************************************************************
+            * Checks to see if the current KeyValuePair is the local player, if so lets make a temporary
+            * varaible, tempPlayer, to store this player inside of (this allows us to change the aliens 
+            * from this script) using choosePharoah, chooseScribe, etc.    
+            **********************************************************************************************/
 
             if (player.Value == PhotonNetwork.LocalPlayer)
             {

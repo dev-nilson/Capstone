@@ -17,6 +17,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public static NetworkController netController;
     public static Coordinates coordinates;
     public static NetworkPlayer netPlayer;
+    //however I need to represent the username & playerAvatar
     
 
     [SerializeField]
@@ -68,7 +69,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
     #endregion
 
-    #region Functions
+    #region GameplayRelatedFunctions
     public static void SendCoordinates()
     {
         Debug.Log("SendCoordinates function in NETWORK CONTROLLER called");
@@ -123,6 +124,25 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public static bool GetNetMessage()
     {
         return networkMessage;
+    }
+    #endregion
+
+    #region PlayerRelatedFunctions
+
+    public static void SendClientInfo()
+    {
+        //stuff for username & playerAvatar, probably need a seperate a function for both
+    }
+
+    public static void SetClientInfo()
+    {
+        //stuff for username & playerAvatar, probably need a seperate a function for both
+    }
+
+    public static void GetClientInfo()
+    {
+        //stuff for username & playerAvatar, probably need a seperate a function for both
+        //make sure to change void to the data type we need back
     }
     #endregion
 }
