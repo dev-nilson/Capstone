@@ -99,6 +99,7 @@ public class GameBoardScreen : MonoBehaviour
             RotateMainCamera.DisableRotation();
             PauseGame();
             DisableButtons();
+            HelpTimer.TurnOff();
         }
     }
 
@@ -115,6 +116,7 @@ public class GameBoardScreen : MonoBehaviour
         RotateMainCamera.EnableRotation();
         PlayGame();
         EnableButtons();
+        HelpTimer.Set();
         confirmExitPopUp.SetActive(false);
     }
 
@@ -126,6 +128,7 @@ public class GameBoardScreen : MonoBehaviour
             tutorialPopup.SetActive(true);
             PauseGame();
             DisableButtons();
+            HelpTimer.TurnOff();
         }
     }
 
@@ -134,6 +137,7 @@ public class GameBoardScreen : MonoBehaviour
         tutorialPopup.SetActive(false);
         PlayGame();
         EnableButtons();
+        HelpTimer.Set();
     }
 
     void settingsClicked()
@@ -148,6 +152,7 @@ public class GameBoardScreen : MonoBehaviour
             RotateMainCamera.DisableRotation();
             PauseGame();
             DisableButtons();
+            HelpTimer.TurnOff();
         }
     }
 
@@ -202,6 +207,7 @@ public class GameBoardScreen : MonoBehaviour
         RotateMainCamera.EnableRotation();
         PlayGame();
         EnableButtons();
+        HelpTimer.Set();
     }
 
     public static void DisableButtons()

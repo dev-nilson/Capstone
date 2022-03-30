@@ -48,17 +48,25 @@ public class HelpTimer : MonoBehaviour
 
         if (GetPlayerTurn() == PlayerTurn.ONE)
         {
-            hintBanner.SetActive(true);
+            if (!GamePaused())
+            {
+                hintBanner.SetActive(true);
 
-            if (getP1avatar() == PlayerAvatar.PEASANT) peasant.SetActive(true);
-            else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoah.SetActive(true);
-            else if (getP1avatar() == PlayerAvatar.SCRIBE) scribe.SetActive(true);
-            else if (getP1avatar() == PlayerAvatar.WORKER) worker.SetActive(true);
+                if (getP1avatar() == PlayerAvatar.PEASANT) peasant.SetActive(true);
+                else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoah.SetActive(true);
+                else if (getP1avatar() == PlayerAvatar.SCRIBE) scribe.SetActive(true);
+                else if (getP1avatar() == PlayerAvatar.WORKER) worker.SetActive(true);
 
-            // display popup
-            if (CanPlacePawn()) place.SetActive(true);
-            else if (CanBuild()) build.SetActive(true);
-            else if (CanMove()) move.SetActive(true);
+                // display popup
+                if (CanPlacePawn()) place.SetActive(true);
+                else if (CanBuild()) build.SetActive(true);
+                else if (CanMove()) move.SetActive(true);
+
+                // eventually turn them off
+                yield return new WaitForSecondsRealtime(delay);
+                TurnOff();
+            }
+            StartCoroutine("HelpPopup");
         }
     }
 

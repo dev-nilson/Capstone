@@ -1526,7 +1526,7 @@ GameObject:
   - component: {fileID: 589191038}
   - component: {fileID: 589191037}
   m_Layer: 5
-  m_Name: Rematch
+  m_Name: Retry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1769,7 +1769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1049105422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2338,6 +2338,8 @@ MonoBehaviour:
   loseText: {fileID: 2123113132}
   backToMenu: {fileID: 134700490}
   rematch: {fileID: 394368829}
+  retry: {fileID: 589191037}
+  leaveStoryMode: {fileID: 1977954395}
   quickGameScreen: {fileID: 429248914}
   multiplayerScreen: {fileID: 849441082}
   storyModeScreen: {fileID: 1049105421}
@@ -2584,7 +2586,7 @@ GameObject:
   - component: {fileID: 1977954396}
   - component: {fileID: 1977954395}
   m_Layer: 5
-  m_Name: Back to Menu
+  m_Name: LeaveStoryMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

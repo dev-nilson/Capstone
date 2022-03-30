@@ -10,8 +10,13 @@ public class GameOverScreen : MonoBehaviour
     public GameObject winText;
     public GameObject loseText;
 
+    //Quick game buttons
     public Button backToMenu;
     public Button rematch;
+
+    //Story mode buttons
+    public Button retry;
+    public Button leaveStoryMode;
 
     public GameObject quickGameScreen;
     public GameObject multiplayerScreen;
@@ -34,6 +39,12 @@ public class GameOverScreen : MonoBehaviour
 
         Button rematchBtn = rematch.GetComponent<Button>();
         rematchBtn.onClick.AddListener(rematchClicked);
+
+        Button retryBtn = retry.GetComponent<Button>();
+        retryBtn.onClick.AddListener(rematchClicked);
+
+        Button leaveStoryModeBtn = leaveStoryMode.GetComponent<Button>();
+        leaveStoryModeBtn.onClick.AddListener(backToMenuClicked);
     }
 
     public void GameOverPopup()
@@ -79,7 +90,8 @@ public class GameOverScreen : MonoBehaviour
     void rematchClicked()
     {
         //Laura Grace!! this needs to play a game with all the saved info from the previous game
-        SceneManager.LoadScene("Menu");
+        ResetStartingPlayer();
+        SceneManager.LoadScene("GameBoard");
     }
 
 }

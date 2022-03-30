@@ -18,6 +18,7 @@ public static class GameUtilities //public  ??
     private static GameType gameType;
     public static bool PlayingStoryMode;
 
+    private static PlayerTurn startingPlayer;
     private static PlayerTurn playerTurn;
 
     private static bool gameOver = false;
@@ -85,7 +86,6 @@ public static class GameUtilities //public  ??
     public static void setGameType(GameType type)
     {
         gameType = type;
-        gameOver = false;
     }
 
     public static GameType getGameType()
@@ -197,6 +197,7 @@ public static class GameUtilities //public  ??
     public static void SetPlayerTurn(PlayerTurn turn)
     {
         playerTurn = turn;
+        startingPlayer = playerTurn;
     }
 
     public static PlayerTurn GetPlayerTurn()
@@ -208,6 +209,7 @@ public static class GameUtilities //public  ??
     {
         int num = new System.Random().Next(1, 3); // Generates a number [1,3)  or 1 <= num < 3
         playerTurn = (PlayerTurn)num; //Return the number 1 or 2 but casted as a Player
+        startingPlayer = playerTurn;
         return playerTurn;
     }
 
@@ -215,6 +217,11 @@ public static class GameUtilities //public  ??
     {
         if (playerTurn == PlayerTurn.ONE) playerTurn = PlayerTurn.TWO;
         else playerTurn = PlayerTurn.ONE;
+    }
+
+    public static void ResetStartingPlayer()
+    {
+        playerTurn = startingPlayer;
     }
     #endregion
 
@@ -225,6 +232,11 @@ public static class GameUtilities //public  ??
     private static void SetGameOver()
     {
         gameOver = true;
+    }
+    
+    public static void TurnOffGameOver()
+    {
+        gameOver = false;
     }
 
     public static bool IsGameOver()
