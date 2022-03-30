@@ -10,10 +10,8 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 //Add code for switching music in these places
-//MenuScreen.storyModeClicked() (Menu to Story)
-//UIP_LobbyController.HostLobbyOnClick() and UIP_RoomButton.JoomRoomOnClick() (Join/Host to FaceOff)
-//Disconnected back to Menu (Game/FaceOff)
-//Game back to Menu (GameBoardScreen.okClicked() / GameOverGraphics.backToMenuClicked())
+//Disconnected back to Menu (Game/FaceOff/MultiplayerScreen Disconnect popups)
+//Will need to change songs based on players preformance in the Story mode (GameOverGraphics)
 
 
 public class AudioManager : MonoBehaviour
@@ -95,6 +93,7 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
+    #region VolumeControlFunctions
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("Volume", volume);
@@ -109,11 +108,15 @@ public class AudioManager : MonoBehaviour
     {
         AudioListener.volume = 1;
     }
+    #endregion
 
+    #region SongRelatedFunctions
     public void StopCurrentSong(int screen)
     {
         //will update newScreen in order to make the current song being played stop
         newScreen = screen;
+
+        //the starts the waitSong coroutine, which will wait a couple of seconds to ensure newScreen has been changed
         StartCoroutine(waitSong(screen));
         
     }
@@ -140,21 +143,21 @@ public class AudioManager : MonoBehaviour
             case 4: //FACEOFF
                 Debug.Log("FACEOFF");
 
-                Play("SerpentClosing"); //needs to play both divine serpent and closing in
+                Play("SerpentClosing");
                 break;
             case 5: //ART
                 Debug.Log("ART");
 
-                Play("My Quiet Room"); //on a loop
+                Play("My Quiet Room");
                 break;
             case 6: //GAME
                 Debug.Log("GAME");
 
-                Play("OrdinaryBankThowr"); //add in code to switch between all 3 songs
+                Play("OrdinaryBankThowr");
                 break;
         }
 
-        Debug.Log("exiting switch statement");
+        //Debug.Log("exiting switch statement");
     }
 
     public void Play(string name)
@@ -202,6 +205,7 @@ public class AudioManager : MonoBehaviour
 
         s.source.Play();
     }
+    #endregion 
 
     #region Coroutines
     private IEnumerator waitSong(int screen)
@@ -227,7 +231,7 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     #region Main Menu Song Stuff
-    //Main Menu, Quick Game, Tutorial, And Multiplayer will all have same songs
+    //Wanted to have main menu play a different song, each time the player returns to the main menu.
     private string MainMenuSongs()
     {
         string songOne = "Golden Sea";

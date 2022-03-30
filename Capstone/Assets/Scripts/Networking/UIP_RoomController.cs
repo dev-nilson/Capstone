@@ -85,7 +85,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
             FindObjectOfType<AudioManager>().Play("stoneButtonPress");
-            PhotonNetwork.LoadLevel(1);
+            PhotonNetwork.LoadLevel("GameBoard");
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
         }
     }
