@@ -14,6 +14,9 @@ public class RotateMainCamera : MonoBehaviour
 	public Button rotateRight;
 	public Button rotateLeft;
 
+    public GameObject disabledRight;
+    public GameObject disabledLeft;
+
     float x = 0, z = 0;
 
 	void Start()
@@ -120,16 +123,20 @@ public class RotateMainCamera : MonoBehaviour
     IEnumerator rotateBoardRight()
     {
         PauseGame();
+        DisableRotation();
+        DisableButtons();
 
         int degrees = 1;
-        for (int i = 0; i < 30; i += degrees)
+        for (int i = 0; i < 90; i += degrees)
         {
             Board.transform.RotateAround(new Vector3(10.0f, 0f, 18.75f), Vector3.up, -degrees);
 
-            yield return new WaitForSeconds(.05f);
+            yield return new WaitForSeconds(.01f);
         }
 
         PlayGame();
+        EnableRotation();
+        EnableButtons();
     }
 
     void rotateLeftClick2()
@@ -141,16 +148,20 @@ public class RotateMainCamera : MonoBehaviour
     IEnumerator rotateBoardLeft()
     {
         PauseGame();
+        DisableRotation();
+        DisableButtons();
 
         int degrees = 1;
-        for (int i = 0; i < 30; i += degrees)
+        for (int i = 0; i < 90; i += degrees)
         {
             Board.transform.RotateAround(new Vector3(10.0f, 0f, 18.75f), Vector3.up, degrees);
 
-            yield return new WaitForSeconds(.05f);
+            yield return new WaitForSeconds(.01f);
         }
 
         PlayGame();
+        EnableRotation();
+        EnableButtons();
     }
 
     public static void DisableRotation()
@@ -161,5 +172,17 @@ public class RotateMainCamera : MonoBehaviour
     public static void EnableRotation()
     {
         rotateOn = true;
+    }
+
+    private void DisableButtons()
+    {
+        disabledRight.SetActive(true);
+        disabledLeft.SetActive(true);
+    }
+
+    private void EnableButtons()
+    {
+        disabledRight.SetActive(false);
+        disabledLeft.SetActive(false);
     }
 }

@@ -13,11 +13,20 @@ public class GameOverScreen : MonoBehaviour
     public Button backToMenu;
     public Button rematch;
 
+    public GameObject quickGameScreen;
+    public GameObject multiplayerScreen;
+    public GameObject storyModeScreen;
+
     // Start is called before the first frame update
     void Start()
     {
         winText.SetActive(false);
         loseText.SetActive(false);
+
+        quickGameScreen.SetActive(false);
+        multiplayerScreen.SetActive(false);
+        storyModeScreen.SetActive(false);
+
         GameOverPopup();
 
         Button backToMenuBtn = backToMenu.GetComponent<Button>();
@@ -32,6 +41,7 @@ public class GameOverScreen : MonoBehaviour
         // Local player wins in story mode
         if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
+            storyModeScreen.SetActive(true);
             // Local player wins in story mode!
             winText.SetActive(true);
         }
@@ -39,6 +49,7 @@ public class GameOverScreen : MonoBehaviour
         // Local player loses in story mode
         else if (PlayingStoryMode)
         {
+            storyModeScreen.SetActive(true);
             // Local player loses in story mode :(
             loseText.SetActive(true);
         }
@@ -46,6 +57,7 @@ public class GameOverScreen : MonoBehaviour
         // Local player wins in other game type
         else if (GetWinningPlayer() == PlayerTurn.ONE)
         {
+            quickGameScreen.SetActive(true);
             //Debug.Log("Local player loses: no available moves");
             winText.SetActive(true);
         }
@@ -53,6 +65,7 @@ public class GameOverScreen : MonoBehaviour
         // Local player loses in other game type
         else
         {
+            quickGameScreen.SetActive(true);
             //Debug.Log("Opposing player loses: no available moves"); 
             loseText.SetActive(true);
         }

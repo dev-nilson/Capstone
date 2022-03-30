@@ -85,6 +85,7 @@ public static class GameUtilities //public  ??
     public static void setGameType(GameType type)
     {
         gameType = type;
+        gameOver = false;
     }
 
     public static GameType getGameType()
@@ -152,6 +153,7 @@ public static class GameUtilities //public  ??
     public static void PlayGame()
     {
         Debug.Log("Game played");
+        GridManager.clearSelectedTile();
         gamePaused = false;
     }
 

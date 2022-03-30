@@ -222,7 +222,9 @@ public class GridManager : MonoBehaviour
 
         //this sets the alien that was selected to the end location
         //originalPlayer.transform.position = endLocation;
-        movePlayerAnimation(originalPlayer);
+
+        int heightChange = board.GetHeights()[newLoc.X, newLoc.Y] - board.GetHeights()[curLoc.X, curLoc.Y];
+        movePlayerAnimation(originalPlayer, heightChange);
     }
 
     public void buildLevel(int[,] levelsOnBoard, Coordinates newLoc)
@@ -274,17 +276,6 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    /*public void clearBoard()
-    {
-        Debug.Log(GameObject.FindGameObjectsWithTag("Alien").Length);
-        GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
-        foreach(GameObject go in aliens)
-        {
-            Destroy(go);
-        }
-        //Destroy(GameObject.FindWithTag("Alien"));
-    }*/
-
     public static GameObject getBoardTile(int row, int col)
     {
         return Grid[row, col];
@@ -311,25 +302,12 @@ public class GridManager : MonoBehaviour
                     Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                     //Color32 newColor = new Color32(0, 200, 26, 200);
                     //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
-                    //Grid[i, j].GetComponent<Renderer>().ma
+                    //Grid[i, j].GetComponent<Renderer>().material.SetTexture()
 
                 }
             }
         }
     }
-    /*public void highlightValidTiles(int[,] temp)
-    {
-        for (var i = 0; i < Row; i++)
-        {
-            for (var j = 0; j < Col; j++)
-            {
-                if (temp[i, j] == 0)
-                {
-                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
-                }
-            }
-        }
-    }*/
 
     public void unhighlightTiles(List<Coordinates> locs)
     {
@@ -363,19 +341,6 @@ public class GridManager : MonoBehaviour
                     }
                 }
             }
-
-            /*Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            Debug.Log("mouse x: " + mousePos.x);
-            Debug.Log("mouse y: " + mousePos.y);
-
-            Collider2D targetObject = Physics2D.OverlapPoint(mousePos);
-            if (targetObject)
-            {
-                selectedObject = targetObject.transform.gameObject;
-                Debug.Log("Selected gameobject tag: " + selectedObject.gameObject.tag);
-            }*/
-
         }
     }
 
@@ -437,50 +402,76 @@ public class GridManager : MonoBehaviour
         //Debug.Log(CanPlacePawn());
     }
 
-    void movePlayerAnimation(GameObject player)
+    void movePlayerAnimation(GameObject player, int heightChange)
     {
         Debug.Log("move player animation called");
         PauseGame();
         RotateMainCamera.DisableRotation();
 
-        StartCoroutine(movePlayerDelay(player));
+        StartCoroutine(movePlayerDelay(player, heightChange));
     }
 
-    IEnumerator movePlayerDelay(GameObject player)
+    IEnumerator movePlayerDelay(GameObject player, int heightChange)
     {
         Debug.Log("move player coroutine called");
 
 
-        Vector3 internalLocation = new Vector3((startLocation.x + endLocation.x) / 2, Math.Max(startLocation.y, endLocation.y) + 1.0f, (startLocation.z + endLocation.z) / 2);
+        float leapHeight = endLocation.y + 1.0f;
+        int h_start = 0;
+        int h_end = heightChange; //0, 1, -1, -2, -3
+        float h_half = Math.Max(h_start, h_end) + 1.0f;
+        int i = 20;
 
-        int iters = 100, count = 0;
-        float x_step = (endLocation.x - startLocation.x) / iters;
-        float y_step = (endLocation.y - startLocation.y) / iters;
-        float z_step = (endLocation.z - startLocation.z) / iters;
-        Vector3 steps = new Vector3(x_step, y_step, z_step);
-        for (Vector3 curLocation = startLocation; curLocation != endLocation && count <= iters; )//curLocation += steps)
+        float h_cur;
+
+        for (float n = 0.0f; n < 1.0f; n += 1.0f/i)
         {
-            if (Math.Abs(endLocation.x - curLocation.x) < 0.1f && Math.Abs(endLocation.y - curLocation.y) < 0.1f && Math.Abs(endLocation.z - curLocation.z) < 0.1f)
-                curLocation = endLocation;
-            else
-            {
-                float percent = count / iters;
+            h_cur = h(n, h_half, h_end);
 
-                // implementation of quadratic bezier curve
-                //curLocation = (float)Math.Pow(1 - percent, 2) * startLocation + 2 * (1 - percent) * percent * internalLocation + (float)Math.Pow(percent, 2) * endLocation;
-                curLocation = curLocation + 2*steps;
+            float x = startLocation.x + n * (endLocation.x - startLocation.x);
+            float z = startLocation.z + n * (endLocation.z - startLocation.z);
+            float y = startLocation.y + h_cur * (leapHeight - Math.Min(startLocation.y, endLocation.y));
 
-                player.transform.position = curLocation;
-                yield return new WaitForSeconds(.01f);
-            }
+            //0: 0.7f
+            //1: 2.0f
+            //2: 2.75f
+            //3: 3.25f
 
-            ++count;
+            Debug.Log(h_cur + " --> " + y);
+            player.transform.position = new Vector3(x, y, z);
+            yield return new WaitForSeconds(0.05f);
         }
+        player.transform.position = endLocation;
+
+        /* THIS IS GONNA GET REPLACED -- JUST MAKES PIECES MOVE */
+        //int iters = 100, count = 0;
+        //float x_step = (endLocation.x - startLocation.x) / iters;
+        //float y_step = (endLocation.y - startLocation.y) / iters;
+        //float z_step = (endLocation.z - startLocation.z) / iters;
+        //Vector3 steps = new Vector3(x_step, y_step, z_step);
+        //for (Vector3 curLocation = startLocation; curLocation != endLocation && count <= iters; )
+        //{
+        //    if (Math.Abs(endLocation.x - curLocation.x) < 0.1f && Math.Abs(endLocation.y - curLocation.y) < 0.1f && Math.Abs(endLocation.z - curLocation.z) < 0.1f)
+        //        curLocation = endLocation;
+        //    else
+        //    {
+        //        curLocation = curLocation + 2*steps;
+
+        //        player.transform.position = curLocation;
+        //        yield return new WaitForSeconds(.01f);
+        //    }
+
+        //    ++count;
+        //}
 
         PlayGame();
         RotateMainCamera.EnableRotation();
     }
 
+    private float h(float x, float h_half, int h_end)
+    {
+        return (2.0f * h_end - 4.0f * h_half) * (float)Math.Pow(x, 2.0f) + (4.0f * h_half - h_end) * x;
+    }
 }
 
 
