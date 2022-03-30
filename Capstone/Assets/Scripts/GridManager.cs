@@ -466,8 +466,7 @@ public class GridManager : MonoBehaviour
 
             float x = startLocation.x + n * (endLocation.x - startLocation.x);
             float z = startLocation.z + n * (endLocation.z - startLocation.z);
-
-            //float y =
+            float y = startLocation.y + h_cur * (endLocation.y - startLocation.y);
 
             //0: 0.7f
             //1: 2.0f
@@ -475,11 +474,11 @@ public class GridManager : MonoBehaviour
             //3: 3.25f
 
 
-            Debug.Log(h_cur + " " + x + " " + z);
+            Debug.Log(y + " " + x + " " + z);
             yield return new WaitForSeconds(1.0f);
         }
 
-        /* THIS IS GONNA GET REPLACED -- JUST MAKES PIECES MOVE ALONG LINES */
+        /* THIS IS GONNA GET REPLACED -- JUST MAKES PIECES MOVE */
         int iters = 100, count = 0;
         float x_step = (endLocation.x - startLocation.x) / iters;
         float y_step = (endLocation.y - startLocation.y) / iters;
