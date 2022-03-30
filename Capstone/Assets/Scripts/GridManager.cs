@@ -477,7 +477,6 @@ public class GridManager : MonoBehaviour
             ++count;
         }
 
-        yield return new WaitForSeconds(.01f);
         PlayGame();
         RotateMainCamera.EnableRotation();
     }
