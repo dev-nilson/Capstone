@@ -752,7 +752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &105492335
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4127,7 +4127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1452958048
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5279,7 +5279,7 @@ MonoBehaviour:
   multiplayerMenuPanel: {fileID: 2299199394656597057}
   StartGameButton: {fileID: 566037755}
   FaceoffBackButton: {fileID: 83210058}
-  ReadyUpButton: {fileID: 0}
+  ReadyUpButton: {fileID: 1452958047}
   PharoahButton: {fileID: 1092665095}
   ScribeButton: {fileID: 4664651}
   WorkerButton: {fileID: 969291659}

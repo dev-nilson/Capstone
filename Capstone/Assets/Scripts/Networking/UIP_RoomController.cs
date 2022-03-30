@@ -54,14 +54,17 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     {
         CharacterSelectionLobbyPanel.SetActive(true); //activate the display for being in a room
         JoinGamePanel.SetActive(false); //hide the display for being in a lobby
-        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2) //if master client then activate the start button
+        StartGameButton.SetActive(false);
+
+        if (PhotonNetwork.IsMasterClient) //if master client then activate the start button
         {
-            StartGameButton.SetActive(true);
+            ReadyUpButton.SetActive(false);
+            Debug.Log("Host should not have access to the ready up button anymore");
         }
         else
         {
             WaitingForOpponents.text = "Waiting for Host to start";
-            StartGameButton.SetActive(false);
+            ReadyUpButton.SetActive(true);
         }
         UpdatePlayerList();
     }
@@ -101,6 +104,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             readyUpStatus = true;
             NetworkController.SetReadyUpStatus(readyUpStatus);
             NetworkController.SendReadyUpStatus();
+            ReadyUpButton.SetActive(false);
         }        
     }
 
