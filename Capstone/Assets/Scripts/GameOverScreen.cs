@@ -22,6 +22,11 @@ public class GameOverScreen : MonoBehaviour
     public GameObject multiplayerScreen;
     public GameObject storyModeScreen;
 
+    public GameObject scribePrefab;
+    public GameObject workerPrefab;
+    public GameObject pharoahPrefab;
+    public GameObject peasantPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +37,13 @@ public class GameOverScreen : MonoBehaviour
         multiplayerScreen.SetActive(false);
         storyModeScreen.SetActive(false);
 
+        scribePrefab.SetActive(false);
+        workerPrefab.SetActive(false);
+        pharoahPrefab.SetActive(false);
+        peasantPrefab.SetActive(false);
+
         GameOverPopup();
+        displayAlien();
 
         Button backToMenuBtn = backToMenu.GetComponent<Button>();
         backToMenuBtn.onClick.AddListener(backToMenuClicked);
@@ -80,6 +91,14 @@ public class GameOverScreen : MonoBehaviour
             //Debug.Log("Opposing player loses: no available moves"); 
             loseText.SetActive(true);
         }
+    }
+
+    void displayAlien()
+    {
+        if (getP1avatar() == PlayerAvatar.PEASANT) peasantPrefab.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.PHAROAH)pharoahPrefab.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.SCRIBE)scribePrefab.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.WORKER)workerPrefab.SetActive(true);
     }
 
     void backToMenuClicked()
