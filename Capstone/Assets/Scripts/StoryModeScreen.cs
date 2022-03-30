@@ -68,7 +68,7 @@ public class StoryModeScreen : MonoBehaviour
         if (set2.activeInHierarchy)
         {
             setP1avatar(PlayerAvatar.PEASANT);
-            setP1username("Peasant");
+            setP1username("Peasant (You)");
             setP2avatar(PlayerAvatar.SCRIBE);
             setP2username("Scribe");
             setGameType(GameType.EASY);
