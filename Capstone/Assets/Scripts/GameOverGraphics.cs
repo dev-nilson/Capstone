@@ -59,14 +59,14 @@ public class GameOverGraphics : MonoBehaviour
         else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
             // Local player wins in story mode!
-            SceneManager.LoadScene("StoryMode");
+            SceneManager.LoadScene("GameOver");
         }
 
         // Local player loses in story mode
         else if (PlayingStoryMode)
         {
             // Local player loses in story mode :(
-            SceneManager.LoadScene("StoryMode");
+            SceneManager.LoadScene("GameOver");
         }
 
         // Local player wins in other game type

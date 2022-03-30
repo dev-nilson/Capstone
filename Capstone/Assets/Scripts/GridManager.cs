@@ -276,17 +276,6 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    /*public void clearBoard()
-    {
-        Debug.Log(GameObject.FindGameObjectsWithTag("Alien").Length);
-        GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
-        foreach(GameObject go in aliens)
-        {
-            Destroy(go);
-        }
-        //Destroy(GameObject.FindWithTag("Alien"));
-    }*/
-
     public static GameObject getBoardTile(int row, int col)
     {
         return Grid[row, col];
@@ -313,25 +302,12 @@ public class GridManager : MonoBehaviour
                     Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                     //Color32 newColor = new Color32(0, 200, 26, 200);
                     //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
-                    //Grid[i, j].GetComponent<Renderer>().ma
+                    //Grid[i, j].GetComponent<Renderer>().material.SetTexture()
 
                 }
             }
         }
     }
-    /*public void highlightValidTiles(int[,] temp)
-    {
-        for (var i = 0; i < Row; i++)
-        {
-            for (var j = 0; j < Col; j++)
-            {
-                if (temp[i, j] == 0)
-                {
-                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
-                }
-            }
-        }
-    }*/
 
     public void unhighlightTiles(List<Coordinates> locs)
     {
@@ -365,19 +341,6 @@ public class GridManager : MonoBehaviour
                     }
                 }
             }
-
-            /*Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            Debug.Log("mouse x: " + mousePos.x);
-            Debug.Log("mouse y: " + mousePos.y);
-
-            Collider2D targetObject = Physics2D.OverlapPoint(mousePos);
-            if (targetObject)
-            {
-                selectedObject = targetObject.transform.gameObject;
-                Debug.Log("Selected gameobject tag: " + selectedObject.gameObject.tag);
-            }*/
-
         }
     }
 
