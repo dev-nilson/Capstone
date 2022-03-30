@@ -89,38 +89,6 @@ public class GameBoardScreen : MonoBehaviour
         exitTutorialBtn.onClick.AddListener(exitTutorialClicked);
     }
 
-    //void Update()
-    //{
-    //    if (GetPlayerTurn() == PlayerTurn.ONE && (CanPlacePawn() || CanMove()))
-    //    {
-    //        Turn of player 2 highlighted icon
-    //        if (getP2avatar() == PlayerAvatar.PEASANT) p2PeasantIcon_H.SetActive(false);
-    //        else if (getP2avatar() == PlayerAvatar.PHAROAH) p2PharoahIcon_H.SetActive(false);
-    //        else if (getP2avatar() == PlayerAvatar.SCRIBE) p2ScribeIcon_H.SetActive(false);
-    //        else if (getP2avatar() == PlayerAvatar.WORKER) p2WorkerIcon_H.SetActive(false);
-
-    //        Turn on the highlighted icon
-    //        if (getP1avatar() == PlayerAvatar.PEASANT) p1PeasantIcon_H.SetActive(true);
-    //        else if (getP1avatar() == PlayerAvatar.PHAROAH) p1PharoahIcon_H.SetActive(true);
-    //        else if (getP1avatar() == PlayerAvatar.SCRIBE) p1ScribeIcon_H.SetActive(true);
-    //        else if (getP1avatar() == PlayerAvatar.WORKER) p1WorkerIcon_H.SetActive(true);
-    //    }
-    //    else if (GetPlayerTurn() == PlayerTurn.TWO && (CanPlacePawn() || CanMove()))
-    //    {
-    //        Turn off player 1 highlighted icon
-    //        if (getP1avatar() == PlayerAvatar.PEASANT) p1PeasantIcon_H.SetActive(false);
-    //        else if (getP1avatar() == PlayerAvatar.PHAROAH) p1PharoahIcon_H.SetActive(false);
-    //        else if (getP1avatar() == PlayerAvatar.SCRIBE) p1ScribeIcon_H.SetActive(false);
-    //        else if (getP1avatar() == PlayerAvatar.WORKER) p1WorkerIcon_H.SetActive(false);
-
-    //        Turn on the highlighted icon
-    //        if (getP2avatar() == PlayerAvatar.PEASANT) p2PeasantIcon_H.SetActive(true);
-    //        else if (getP2avatar() == PlayerAvatar.PHAROAH) p2PharoahIcon_H.SetActive(true);
-    //        else if (getP2avatar() == PlayerAvatar.SCRIBE) p2ScribeIcon_H.SetActive(true);
-    //        else if (getP2avatar() == PlayerAvatar.WORKER) p2WorkerIcon_H.SetActive(true);
-    //    }
-    //}
-
     void backClicked()
     {
         FindObjectOfType<AudioManager>().Play("goldButtonPress");
