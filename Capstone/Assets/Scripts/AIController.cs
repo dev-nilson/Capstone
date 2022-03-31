@@ -105,6 +105,7 @@ namespace AmazingGame
                                 gameBoard.GetHeights()[build.X, build.Y]--;
                             }
                         }
+
                         playingPlayer.updatePawn(move, pawn);
                     }
                 }
@@ -141,7 +142,7 @@ namespace AmazingGame
                                 possiblePlay.score = score;
                                 possiblePlays.Add(possiblePlay);
 
-                                possiblePlay.children = GetPossiblePlays(waitingPlayer, playingPlayer, waitingPawns, playingPawns, gameBoard, turns + 1);
+                                possiblePlay.children = GetPossiblePlaysExpert(waitingPlayer, playingPlayer, waitingPawns, playingPawns, gameBoard, turns + 1);
 
                                 gameBoard.GetHeights()[build.X, build.Y]--;
                             }
