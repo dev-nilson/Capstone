@@ -47,7 +47,6 @@ public class ScrollSettings : MonoBehaviour
     {
         if (hints.isOn != hintsOn)
         {
-            Debug.Log("Changing whether hints are on");
             hintsOn = hints.isOn;
 
             if (!IsGameOver())

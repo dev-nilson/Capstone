@@ -40,7 +40,6 @@ public class HelpTimer : MonoBehaviour
     {
         if (scarabOn)
         {
-            Debug.Log("Turning on timer for scarab");
             helptimer.startDelay();
         }
     }

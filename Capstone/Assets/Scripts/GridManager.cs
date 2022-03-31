@@ -178,7 +178,6 @@ public class GridManager : MonoBehaviour
             disabledRight.SetActive(false);
             disabledLeft.SetActive(false);
         }
-        
     }
 
     public void movePlayer(Coordinates curLoc, Coordinates newLoc, Player P1, Player P2, GameBoard board)
@@ -219,9 +218,6 @@ public class GridManager : MonoBehaviour
                 Debug.Log("original player name: " + originalPlayer.name);
             }
         }
-
-        //this sets the alien that was selected to the end location
-        //originalPlayer.transform.position = endLocation;
 
         int heightChange = board.GetHeights()[newLoc.X, newLoc.Y] - board.GetHeights()[curLoc.X, curLoc.Y];
         movePlayerAnimation(originalPlayer, heightChange);
@@ -404,7 +400,6 @@ public class GridManager : MonoBehaviour
 
     void movePlayerAnimation(GameObject player, int heightChange)
     {
-        Debug.Log("move player animation called");
         PauseGame();
         RotateMainCamera.DisableRotation();
 
@@ -413,9 +408,6 @@ public class GridManager : MonoBehaviour
 
     IEnumerator movePlayerDelay(GameObject player, int heightChange)
     {
-        Debug.Log("move player coroutine called");
-
-
         float leapHeight = endLocation.y + 1.0f;
         int h_start = 0;
         int h_end = heightChange; //0, 1, -1, -2, -3
