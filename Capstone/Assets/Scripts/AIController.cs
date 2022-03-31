@@ -48,9 +48,34 @@ namespace AmazingGame
             }
         }
 
+        public static void SimulateTurnExpert(Player opponent, Player local, GameBoard gameBoard)
+        {
+            Coordinates[] pawns = Player.GetBothPlayersPawns();
+            Coordinates[] localPawns = { pawns[0], pawns[1] };
+            Coordinates[] opponentPawns = { pawns[2], pawns[3] };
+
+            Node root = new Node(new Coordinates(-1, -1), new Coordinates(-1, -1), new Coordinates(-1, -1));
+            root.children = GetPossiblePlaysExpert(opponent, local, opponentPawns, localPawns, gameBoard, 0);
+
+            bestNode = null;
+            Minimax(root, gameBoard, 0, true, Double.MinValue, Double.MaxValue);
+
+            if (bestNode == null)
+            {
+                foreach (var child in root.children)
+                {
+                    if (root.score == child.score)
+                    {
+                        bestNode = child;
+                        break;
+                    }
+                }
+            }
+        }
+
         public static List<Node> GetPossiblePlays(Player playingPlayer, Player waitingPlayer, Coordinates[] playingPawns, Coordinates[] waitingPawns, GameBoard gameBoard, int turns)
         {
-            if (turns == 3)
+            if (turns == 1)
                 return null;
 
             List<Node> possiblePlays = new List<Node>();
@@ -68,7 +93,7 @@ namespace AmazingGame
                             {
                                 Node possiblePlay = new Node(pawn, move, build);
 
-                                int score = NoviceAI.HeightDifference(Player.GetBothPlayersPawns(), gameBoard) + NoviceAI.Centricity(playingPlayer.GetPlayerCoordinates()) +
+                                int score = NoviceAI.HeightDifference(Player.GetBothPlayersPawns(), gameBoard) +
                                 NoviceAI.WinningThreat(Player.GetBothPlayersPawns(), gameBoard) + NoviceAI.Mobility(Player.GetBothPlayersPawns(), gameBoard) + 
                                 NoviceAI.Verticality(Player.GetBothPlayersPawns(), gameBoard);
 
@@ -88,7 +113,46 @@ namespace AmazingGame
             return possiblePlays;
         }
 
-       
+
+        public static List<Node> GetPossiblePlaysExpert(Player playingPlayer, Player waitingPlayer, Coordinates[] playingPawns, Coordinates[] waitingPawns, GameBoard gameBoard, int turns)
+        {
+            if (turns == 3)
+                return null;
+
+            List<Node> possiblePlays = new List<Node>();
+            foreach (var pawn in playingPawns)
+            {
+                List<Coordinates> moves = gameBoard.AvailableMoves(pawn);
+                foreach (var move in moves)
+                {
+                    if (playingPlayer.updatePawn(pawn, move))
+                    {
+                        List<Coordinates> builds = gameBoard.AvailableBuilds(move);
+                        foreach (var build in builds)
+                        {
+                            if (gameBoard.BuildPiece(move, build))
+                            {
+                                Node possiblePlay = new Node(pawn, move, build);
+
+                                int score = ExpertAI.HeightDifference(Player.GetBothPlayersPawns(), gameBoard) + ExpertAI.Centricity(playingPlayer.GetPlayerCoordinates()) +
+                                ExpertAI.WinningThreat(Player.GetBothPlayersPawns(), gameBoard) + ExpertAI.Mobility(Player.GetBothPlayersPawns(), gameBoard) +
+                                ExpertAI.Verticality(Player.GetBothPlayersPawns(), gameBoard);
+
+                                possiblePlay.score = score;
+                                possiblePlays.Add(possiblePlay);
+
+                                possiblePlay.children = GetPossiblePlays(waitingPlayer, playingPlayer, waitingPawns, playingPawns, gameBoard, turns + 1);
+
+                                gameBoard.GetHeights()[build.X, build.Y]--;
+                            }
+                        }
+                        playingPlayer.updatePawn(move, pawn);
+                    }
+                }
+            }
+
+            return possiblePlays;
+        }
 
         public static int Minimax(Node node, GameBoard gameBoard, int depth, bool isMaximizingPlayer)
         {
