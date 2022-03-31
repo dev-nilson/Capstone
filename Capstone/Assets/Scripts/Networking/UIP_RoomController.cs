@@ -50,6 +50,18 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     private NetPlayerItem tempPlayer;
     private bool readyUpStatus;
 
+    private void Update()
+    {
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2 && NetworkController.GetReadyUpStatus() == true)
+        {
+            StartGameButton.SetActive(true);
+        }
+        else
+        {
+            StartGameButton.SetActive(false);
+        }
+    }
+
     public override void OnJoinedRoom()
     {
         CharacterSelectionLobbyPanel.SetActive(true); //activate the display for being in a room
@@ -93,10 +105,11 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             FindObjectOfType<AudioManager>().Play("stoneButtonPress");
             PhotonNetwork.LoadLevel("GameBoard");
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
+            readyUpStatus = false;
         }
     }
 
-    public void ImReadyOnClick()
+    public void ImReadyOnClick() //--------------------------------------------
     {
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -156,15 +169,6 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             NetPlayerItem newPlayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newPlayerItem.SetPlayerInfo(player.Value);
             flipCounter++;
-
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-            {
-                //newPlayerItem.FlipIt(player.Value);
-                if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2 && NetworkController.GetReadyUpStatus() == true)
-                {
-                    StartGameButton.SetActive(true);
-                }
-            }
 
             /*********************************************************************************************
             * Checks to see if the current KeyValuePair is the local player, if so lets make a temporary

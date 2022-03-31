@@ -150,12 +150,14 @@ public class NetworkController : MonoBehaviourPunCallbacks
     #region MiscellaneousFunctions
     public static void SendReadyUpStatus()
     {
+        Debug.Log("SendReadyUpStatus function in NETWORK CONTROLLER called");
         netPlayer.SendReadyUpStatus(readyUpStatus);
     }
 
     public static void SetReadyUpStatus(bool newStatus)
     {
         readyUpStatus = newStatus;
+        Debug.Log("This is the value in readyUpStatus: " + readyUpStatus);
     }
 
     public static bool GetReadyUpStatus()

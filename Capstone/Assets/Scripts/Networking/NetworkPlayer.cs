@@ -30,7 +30,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	}
 
 	[PunRPC]
-	public void RPC_SendReadyUpStatus(bool newStatus)
+	public void RPC_SendReadyUpStatus(bool readyUpStatus)
 	{
 		NetworkController.SetReadyUpStatus(readyUpStatus);
 		Debug.Log("Ready up status of other player is: " + readyUpStatus);
@@ -59,10 +59,10 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 		photonView.RPC("RPC_NetworkMessage", RpcTarget.Others, networkMessage);
 	}
 
-	public void SendReadyUpStatus(bool message)
+	public void SendReadyUpStatus(bool readyUpStatus)
 	{
 		Debug.Log("SendReadyUpStatus function in NETWORK PLAYER called");
-		photonView.RPC("RPC_ReadyUpStatus", RpcTarget.Others, readyUpStatus);
+		photonView.RPC("RPC_SendReadyUpStatus", RpcTarget.Others, readyUpStatus);
 	}
 
 	//function for the playerinfo stuff
