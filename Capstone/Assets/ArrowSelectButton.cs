@@ -9,6 +9,7 @@ public class ArrowSelectButton : MonoBehaviour
 {
     public Button RightArrow;
     public Button LeftArrow;
+    public Button step0;
     public Button step1;
     public Button step2;
     public Button step3;
@@ -39,7 +40,7 @@ public class ArrowSelectButton : MonoBehaviour
         Button _leftArrow = LeftArrow.GetComponent<Button>();
         _leftArrow.onClick.AddListener(LeftArrowSelect);
 
-        _index = 1;
+        _index = 0;
         //video1.SetActive(true);
         // script1.SetActive(true);
     }
@@ -48,7 +49,7 @@ public class ArrowSelectButton : MonoBehaviour
     {
         _index++;
         if (_index > 6)
-            _index = 1;
+            _index = 0;
 
         Debug.Log(_index);
         swapVideo();
@@ -58,7 +59,7 @@ public class ArrowSelectButton : MonoBehaviour
     public void LeftArrowSelect()
     {
         _index--;
-        if (_index < 1)
+        if (_index < 0)
             _index = 6;
         swapVideo();
         // swapScript();
@@ -74,6 +75,10 @@ public class ArrowSelectButton : MonoBehaviour
         //video5.SetActive(false);
         //video6.SetActive(false);
 
+        if (_index == 0)
+        {
+            step0.onClick.Invoke();
+        }
         if (_index == 1)
         {
             //video1.SetActive(true);
