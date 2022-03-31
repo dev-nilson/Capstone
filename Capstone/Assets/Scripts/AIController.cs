@@ -54,11 +54,40 @@ namespace AmazingGame
             Coordinates[] localPawns = { pawns[0], pawns[1] };
             Coordinates[] opponentPawns = { pawns[2], pawns[3] };
 
-            Node root = new Node(new Coordinates(-1, -1), new Coordinates(-1, -1), new Coordinates(-1, -1));
-            root.children = GetPossiblePlaysExpert(opponent, local, opponentPawns, localPawns, gameBoard, 0);
+            bool didWin = false;
 
-            bestNode = null;
-            Minimax(root, gameBoard, 0, true, Double.MinValue, Double.MaxValue);
+            foreach (var move in gameBoard.AvailableMoves(opponentPawns[0]))
+            {
+                if (gameBoard.GetHeights()[move.X, move.Y] == 3)
+                {
+                    bestNode = new Node(opponentPawns[0], move, move);
+                    didWin = true;
+                    break;
+                }
+            }
+
+            if (!didWin)
+            {
+                foreach (var move in gameBoard.AvailableMoves(opponentPawns[1]))
+                {
+                    if (gameBoard.GetHeights()[move.X, move.Y] == 3)
+                    {
+                        bestNode = new Node(opponentPawns[1], move, move);
+                        didWin = true;
+                        break;
+                    }
+                }
+            }
+
+            Node root = new Node(new Coordinates(-1, -1), new Coordinates(-1, -1), new Coordinates(-1, -1));
+
+            // if AI has not winning move options
+            if (!didWin)
+            {
+                root.children = GetPossiblePlaysExpert(opponent, local, opponentPawns, localPawns, gameBoard, 0);
+                bestNode = null;
+                Minimax(root, gameBoard, 0, true, Double.MinValue, Double.MaxValue);
+            }
 
             if (bestNode == null)
             {
@@ -201,7 +230,9 @@ namespace AmazingGame
         {
             if (node.GetMoveTo().X != -1 && node.GetMoveTo().Y != -1)
             {
-                if (depth != 2 && gameBoard.IsGameOver(new Coordinates(node.GetMoveTo().X, node.GetMoveTo().Y)))
+                if (depth != 2 && 
+                    (gameBoard.IsGameOver(new Coordinates(node.GetMoveTo().X, node.GetMoveTo().Y)) ||
+                    gameBoard.CanBlock(new Coordinates(node.BuildTo().X, node.BuildTo().Y))))
                 {
                     bestNode = node;
                     return node.score;
