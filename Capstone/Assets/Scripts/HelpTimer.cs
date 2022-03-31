@@ -102,38 +102,29 @@ public class HelpTimer : MonoBehaviour
             else
                 hintBanner.transform.position -= new Vector3(x_shift, 0.0f, 0.0f);
             Debug.Log("slide on is running");
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(0.01f);
         }
     }
 
     IEnumerator SlideOff()
     {
+        Debug.Log("Starting slide off");
         float x_shift = 1.0f;
+
         while (hintBanner.transform.position.x < offScreen_x)
         {
             if (Math.Abs(hintBanner.transform.position.x - offScreen_x) < 6.0f)
                 hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
             else
+            {
                 hintBanner.transform.position += new Vector3(x_shift, 0.0f, 0.0f);
+                Debug.Log("slide off is being called");
+            }
 
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(0.01f);
         }
-    }
-
-    public static void TurnOff()
-    {
-        helptimer._turnOff();
-    }
-
-    // Non static function called by TurnOff()
-    void _turnOff()
-    {
-        StartCoroutine("SlideOff");
-
-        StopCoroutine("HelpPopup");
 
         // turn off popups
-
         build.SetActive(false);
         move.SetActive(false);
         place.SetActive(false);
@@ -144,6 +135,19 @@ public class HelpTimer : MonoBehaviour
         worker.SetActive(false);
 
         hintBanner.SetActive(false);
+    }
+
+    public static void TurnOff()
+    {
+        helptimer._turnOff();
+    }
+
+    // Non static function called by TurnOff()
+    void _turnOff()
+    {
+        StopCoroutine("HelpPopup");
+
+        StartCoroutine("SlideOff");
     }
 
     public static void DisableScarab()
