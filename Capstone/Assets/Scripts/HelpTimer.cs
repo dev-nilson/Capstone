@@ -24,11 +24,19 @@ public class HelpTimer : MonoBehaviour
     static HelpTimer helptimer;
 
     private static bool scarabOn;
+    private float onScreen_x;
+    private float offScreen_x;
 
     void Start()
     {
         helptimer = this;
         helptimer._turnOff();
+
+        // set x positions for on and off screen scarab
+        onScreen_x = hintBanner.transform.position.x;
+        offScreen_x = 1100.0f;
+
+        hintBanner.transform.position = new Vector3(1100.0f, hintBanner.transform.position.y, hintBanner.transform.position.z);
 
         if (ScrollSettings.HintsOn())
             scarabOn = true;
@@ -73,11 +81,42 @@ public class HelpTimer : MonoBehaviour
                 else if (CanBuild()) build.SetActive(true);
                 else if (CanMove()) move.SetActive(true);
 
+                StartCoroutine("SlideIn");
+
                 // eventually turn them off
                 yield return new WaitForSecondsRealtime(delay);
                 TurnOff();
             }
             StartCoroutine("HelpPopup");
+        }
+    }
+
+    IEnumerator SlideIn()
+    {
+        float x_shift = 1.0f;
+        Debug.Log("slide in called");
+        while (hintBanner.transform.position.x > onScreen_x)
+        {
+            if (Math.Abs(hintBanner.transform.position.x - onScreen_x) < 6.0f)
+                hintBanner.transform.position = new Vector3(onScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
+            else
+                hintBanner.transform.position -= new Vector3(x_shift, 0.0f, 0.0f);
+            Debug.Log("slide on is running");
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
+    }
+
+    IEnumerator SlideOff()
+    {
+        float x_shift = 1.0f;
+        while (hintBanner.transform.position.x < offScreen_x)
+        {
+            if (Math.Abs(hintBanner.transform.position.x - offScreen_x) < 6.0f)
+                hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
+            else
+                hintBanner.transform.position += new Vector3(x_shift, 0.0f, 0.0f);
+
+            yield return new WaitForSecondsRealtime(0.1f);
         }
     }
 
@@ -89,11 +128,12 @@ public class HelpTimer : MonoBehaviour
     // Non static function called by TurnOff()
     void _turnOff()
     {
+        StartCoroutine("SlideOff");
+
         StopCoroutine("HelpPopup");
 
         // turn off popups
 
-        // TO DO: ADD THING FOR PLACING PAWN!!!!!!!!!!!!!!!
         build.SetActive(false);
         move.SetActive(false);
         place.SetActive(false);
