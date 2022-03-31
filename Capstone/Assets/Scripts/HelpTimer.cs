@@ -23,14 +23,26 @@ public class HelpTimer : MonoBehaviour
 
     static HelpTimer helptimer;
 
+    private static bool scarabOn;
+
     void Start()
     {
         helptimer = this;
+        helptimer._turnOff();
+
+        if (ScrollSettings.HintsOn())
+            scarabOn = true;
+        else
+            scarabOn = false;
     }
 
     public static void Set()
     {
-        helptimer.startDelay();
+        if (scarabOn)
+        {
+            Debug.Log("Turning on timer for scarab");
+            helptimer.startDelay();
+        }
     }
 
     // Non static function called by Set()
@@ -93,5 +105,14 @@ public class HelpTimer : MonoBehaviour
         worker.SetActive(false);
 
         hintBanner.SetActive(false);
+    }
+
+    public static void DisableScarab()
+    {
+        scarabOn = false;
+    }
+    public static void EnableScarab()
+    {
+        scarabOn = true;
     }
 }

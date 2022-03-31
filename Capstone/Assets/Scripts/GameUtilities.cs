@@ -229,7 +229,7 @@ public static class GameUtilities //public  ??
     //////////////////////////////////////
     // Game over functionalities
     //////////////////////////////////////
-    private static void SetGameOver()
+    public static void SetGameOver()
     {
         gameOver = true;
     }

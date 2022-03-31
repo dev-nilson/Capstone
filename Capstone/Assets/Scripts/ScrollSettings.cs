@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameUtilities;
 
 public class ScrollSettings : MonoBehaviour
 {
@@ -10,10 +11,14 @@ public class ScrollSettings : MonoBehaviour
     public Slider slider;
     public Toggle hints;
 
+    private static bool hintsOn = true;
+
     // Start is called before the first frame update
     void Start()
     {
         musicOn = GetComponent<Toggle>();
+
+        hints.isOn = hintsOn;
     }
 
     void Update()
@@ -40,17 +45,26 @@ public class ScrollSettings : MonoBehaviour
 
     public void GameHints()
     {
-        if (hints.isOn)
+        if (hints.isOn != hintsOn)
         {
-            //turn on hints
-            Debug.Log("Turning on hints");
-            HelpTimer.Set();
+            Debug.Log("Changing whether hints are on");
+            hintsOn = hints.isOn;
+
+            if (!IsGameOver())
+            {
+                if (hints.isOn == true)
+                {
+                    HelpTimer.EnableScarab();
+                    HelpTimer.Set();
+                }
+                else
+                    HelpTimer.DisableScarab();
+            }
         }
-        else
-        {
-            //turn off hints
-            Debug.Log("Turning off hints");
-            HelpTimer.TurnOff();
-        }
+    }
+
+    public static bool HintsOn()
+    {
+        return hintsOn;
     }
 }
