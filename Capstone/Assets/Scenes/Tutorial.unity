@@ -2244,19 +2244,19 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: 'Introduction to the Game!
+  m_Text: 'Introduction to Pyramid Paradox!
 
     1. Goal of the game
 
-    2. Placing aliens
-    on the board
+    2. Placing
+    aliens on the board
 
     3. Moving aliens
 
     4. Building pyramid pieces
 
-    5. Game
-    over scenarios
+    5.
+    Game over scenarios
 
     6. Tips'
 --- !u!222 &684272932
