@@ -23,7 +23,12 @@ public class HelpTimer : MonoBehaviour
 
     static HelpTimer helptimer;
 
+    // this variable is used to enable and disable the help scarab
     private static bool scarabOn;
+
+    // this variable is used to determine whether the scarab is allowed to move in or out
+    private bool moveIn = true;
+
     private float onScreen_x;
     private float offScreen_x;
 
@@ -93,35 +98,39 @@ public class HelpTimer : MonoBehaviour
 
     IEnumerator SlideIn()
     {
+        moveIn = true;
+
         float x_shift = 1.0f;
-        Debug.Log("slide in called");
-        while (hintBanner.transform.position.x > onScreen_x)
+        //Debug.Log("slide in called");
+        while (hintBanner.transform.position.x > onScreen_x && moveIn)
         {
             if (Math.Abs(hintBanner.transform.position.x - onScreen_x) < 6.0f)
                 hintBanner.transform.position = new Vector3(onScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
             else
                 hintBanner.transform.position -= new Vector3(x_shift, 0.0f, 0.0f);
-            Debug.Log("slide on is running");
-            yield return new WaitForSecondsRealtime(0.01f);
+            //Debug.Log("slide on is running");
+            yield return new WaitForSecondsRealtime(0.003f);
         }
     }
 
     IEnumerator SlideOff()
     {
-        Debug.Log("Starting slide off");
+        //Debug.Log("Starting slide off");
+        moveIn = false;
+
         float x_shift = 1.0f;
 
-        while (hintBanner.transform.position.x < offScreen_x)
+        while (hintBanner.transform.position.x < offScreen_x && !moveIn)
         {
             if (Math.Abs(hintBanner.transform.position.x - offScreen_x) < 6.0f)
                 hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
             else
             {
                 hintBanner.transform.position += new Vector3(x_shift, 0.0f, 0.0f);
-                Debug.Log("slide off is being called");
+                //Debug.Log("slide off is being called");
             }
 
-            yield return new WaitForSecondsRealtime(0.01f);
+            yield return new WaitForSecondsRealtime(0.003f);
         }
 
         // turn off popups
