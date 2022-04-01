@@ -159,33 +159,29 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OpponentAlien()
+    public void OpponentAlien() //maybe this can occur on the click when the host starts a game, then send this stuff over to the gui
     {
-            foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
             {
-                if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+                if ((bool)(p.CustomProperties["playerAlien"] = 0))
                 {
-                    if ((bool)(playerProperties["playerAlien"] = 0))
-                    {
-                        setP2avatar(PlayerAvatar.PHAROAH);
-                        Debug.Log("Player two is the Pharoah");
-                    }
-                    else if ((bool)(playerProperties["playerAlien"] = 1))
-                    {
-                        setP2avatar(PlayerAvatar.SCRIBE);
-                        Debug.Log("Player two is the Scribe");
-                    }
-                    else if ((bool)(playerProperties["playerAlien"] = 2))
-                    {
-                        setP2avatar(PlayerAvatar.WORKER);
-                        Debug.Log("Player two is the Worker");
-                    }
-                    else if ((bool)(playerProperties["playerAlien"] = 3))
-                    {
-                        setP2avatar(PlayerAvatar.PEASANT);
-                        Debug.Log("Player two is the Peasant");
-                    }
+                    setP2avatar(PlayerAvatar.PHAROAH);
+                }
+                else if ((bool)(p.CustomProperties["playerAlien"] = 1))
+                {
+                    setP2avatar(PlayerAvatar.SCRIBE);
+                }
+                else if ((bool)(p.CustomProperties["playerAlien"] = 2))
+                {
+                    setP2avatar(PlayerAvatar.WORKER);
+                }
+                else if ((bool)(p.CustomProperties["playerAlien"] = 3))
+                {
+                    setP2avatar(PlayerAvatar.PEASANT);
                 }
             }
+        }
     }
 }
