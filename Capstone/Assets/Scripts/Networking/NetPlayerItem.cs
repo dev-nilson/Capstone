@@ -161,8 +161,6 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
 
     public void OpponentAlien()
     {
-        if (player != PhotonNetwork.LocalPlayer)
-        {
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
                 if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
@@ -170,21 +168,24 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
                     if ((bool)(playerProperties["playerAlien"] = 0))
                     {
                         setP2avatar(PlayerAvatar.PHAROAH);
+                        Debug.Log("Player two is the Pharoah");
                     }
                     else if ((bool)(playerProperties["playerAlien"] = 1))
                     {
                         setP2avatar(PlayerAvatar.SCRIBE);
+                        Debug.Log("Player two is the Scribe");
                     }
                     else if ((bool)(playerProperties["playerAlien"] = 2))
                     {
                         setP2avatar(PlayerAvatar.WORKER);
+                        Debug.Log("Player two is the Worker");
                     }
                     else if ((bool)(playerProperties["playerAlien"] = 3))
                     {
                         setP2avatar(PlayerAvatar.PEASANT);
+                        Debug.Log("Player two is the Peasant");
                     }
                 }
             }
-        }
     }
 }
