@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66fd1c535f2915d459c4f2ebe678aad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedObject: {fileID: 0}
   tile1: {fileID: 5638226049318727965, guid: edcae60f68456c84dac84600f28a5a5e, type: 3}
   tile2: {fileID: 8191874363350356236, guid: 3cc821dca2c00fe4ead679de8678e2ef, type: 3}
   tile3: {fileID: 6359731640391664434, guid: 2c0293aedf4e8914796c9ae1e017fa05, type: 3}
@@ -21,10 +22,14 @@ MonoBehaviour:
   level2: {fileID: 5424361190378693783, guid: 54542fb6fc681ee438175def720b0f27, type: 3}
   level3: {fileID: 4966038803555105557, guid: 95715f79ac92c8e4ebfb328b66d196db, type: 3}
   level4: {fileID: 8851965301860739284, guid: c3d9badc59c20174e9e6101049b41ce7, type: 3}
-  player1: {fileID: 2413851275917778590, guid: 929dc814c6ebd1e4da601e78f43c180b, type: 3}
-  player2: {fileID: 678481456461886712, guid: 6e38aeaf4861da9429029eaa16f1e460, type: 3}
+  scribePrefab: {fileID: 0}
+  workerPrefab: {fileID: 0}
+  pharoahPrefab: {fileID: 0}
+  peasantPrefab: {fileID: 0}
   parent: {fileID: 0}
   levelParent: {fileID: 0}
+  disabledRight: {fileID: 0}
+  disabledLeft: {fileID: 0}
 --- !u!1001 &1001191512289084484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104,6 +109,10 @@ PrefabInstance:
       propertyPath: m_DynamicOccludee
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 23000012732811326, guid: 3e21f0d87380e8a4ab812ed8ecaf90be, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bf3b587b45eeade48a6e741d3358859c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e21f0d87380e8a4ab812ed8ecaf90be, type: 3}
 --- !u!1 &1001910046952135676 stripped
