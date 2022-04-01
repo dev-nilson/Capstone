@@ -166,6 +166,45 @@ public class GameBoard //public  ??
         return false;
     }
 
+    public bool CanBlock(Coordinates loc)
+    {
+        Coordinates[] playerPawns = Player.GetBothPlayersPawns();
+
+        if (heights[loc.X, loc.Y] == 3)
+        {
+            if (heights[playerPawns[0].X, playerPawns[0].Y] == 2)
+            {
+                if (playerPawns[0] == new Coordinates(loc.X - 1, loc.Y - 1) ||
+                playerPawns[0] == new Coordinates(loc.X - 1, loc.Y) ||
+                playerPawns[0] == new Coordinates(loc.X - 1, loc.Y + 1) ||
+                playerPawns[0] == new Coordinates(loc.X, loc.Y - 1) ||
+                playerPawns[0] == new Coordinates(loc.X, loc.Y) ||
+                playerPawns[0] == new Coordinates(loc.X, loc.Y + 1) ||
+                playerPawns[0] == new Coordinates(loc.X + 1, loc.Y - 1) ||
+                playerPawns[0] == new Coordinates(loc.X + 1, loc.Y) ||
+                playerPawns[0] == new Coordinates(loc.X + 1, loc.Y + 1))
+                    return true;
+            }
+
+            if (heights[playerPawns[1].X, playerPawns[1].Y] == 2)
+            {
+                if (playerPawns[1] == new Coordinates(loc.X - 1, loc.Y - 1) ||
+                playerPawns[1] == new Coordinates(loc.X - 1, loc.Y) ||
+                playerPawns[1] == new Coordinates(loc.X - 1, loc.Y + 1) ||
+                playerPawns[1] == new Coordinates(loc.X, loc.Y - 1) ||
+                playerPawns[1] == new Coordinates(loc.X, loc.Y) ||
+                playerPawns[1] == new Coordinates(loc.X, loc.Y + 1) ||
+                playerPawns[1] == new Coordinates(loc.X + 1, loc.Y - 1) ||
+                playerPawns[1] == new Coordinates(loc.X + 1, loc.Y) ||
+                playerPawns[1] == new Coordinates(loc.X + 1, loc.Y + 1))
+                    return true;
+            }
+
+        }
+
+        return false;
+    }
+
     public static void ClearBoard()
     {
         for (int x = 0; x < BOARD_DIMENSION; ++x)
