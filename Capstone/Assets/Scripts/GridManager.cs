@@ -361,7 +361,7 @@ public class GridManager : MonoBehaviour
                 player1Instance.transform.position = endLocation;
             else
                 player2Instance.transform.position = endLocation;
-            yield return new WaitForSeconds(.01f);
+            yield return new WaitForSeconds(.02f);
         }
 
         PlayGame();
@@ -387,7 +387,7 @@ public class GridManager : MonoBehaviour
         {
             endLocation.y = i;
             child.transform.position = endLocation;
-            yield return new WaitForSeconds(.001f);
+            yield return new WaitForSeconds(.015f);
         }
 
         //This sets a delay after a player builds their level
