@@ -52,7 +52,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2 && NetworkController.GetReadyUpStatus() == true)
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             StartGameButton.SetActive(true);
         }
@@ -70,13 +70,13 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient) //if master client then activate the start button
         {
-            ReadyUpButton.SetActive(false);
+            //ReadyUpButton.SetActive(false);
             Debug.Log("Host should not have access to the ready up button anymore");
         }
         else
         {
             WaitingForOpponents.text = "Waiting for Host to start";
-            ReadyUpButton.SetActive(true);
+            //ReadyUpButton.SetActive(true);
         }
         UpdatePlayerList();
     }
@@ -109,17 +109,17 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void ImReadyOnClick() //--------------------------------------------
-    {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            FindObjectOfType<AudioManager>().Play("stoneButtonPress");
-            readyUpStatus = true;
-            NetworkController.SetReadyUpStatus(readyUpStatus);
-            NetworkController.SendReadyUpStatus();
-            ReadyUpButton.SetActive(false);
-        }        
-    }
+    //public void ImReadyOnClick() //--------------------------------------------
+    //{
+    //    if (!PhotonNetwork.IsMasterClient)
+    //    {
+    //        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+    //        readyUpStatus = true;
+    //        NetworkController.SetReadyUpStatus(readyUpStatus);
+    //        NetworkController.SendReadyUpStatus();
+    //        ReadyUpButton.SetActive(false);
+    //    }        
+    //}
 
     IEnumerator rejoinLobby()
     {

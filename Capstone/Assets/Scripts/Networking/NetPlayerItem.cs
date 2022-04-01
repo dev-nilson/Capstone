@@ -52,9 +52,11 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         {
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
-                if (p.NickName != myNickname)
+                if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
                 {
+                    
                     playerName.text = p.NickName;
+                    setP2username(playerName.text);
                 }
             }
         }
@@ -154,6 +156,35 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
             }
 
             PhotonNetwork.SetPlayerCustomProperties(playerProperties);
+        }
+    }
+
+    public void OpponentAlien()
+    {
+        if (player != PhotonNetwork.LocalPlayer)
+        {
+            foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+            {
+                if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+                {
+                    if ((bool)(playerProperties["playerAlien"] = 0))
+                    {
+                        setP2avatar(PlayerAvatar.PHAROAH);
+                    }
+                    else if ((bool)(playerProperties["playerAlien"] = 1))
+                    {
+                        setP2avatar(PlayerAvatar.SCRIBE);
+                    }
+                    else if ((bool)(playerProperties["playerAlien"] = 2))
+                    {
+                        setP2avatar(PlayerAvatar.WORKER);
+                    }
+                    else if ((bool)(playerProperties["playerAlien"] = 3))
+                    {
+                        setP2avatar(PlayerAvatar.PEASANT);
+                    }
+                }
+            }
         }
     }
 }
