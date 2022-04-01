@@ -67,6 +67,7 @@ public class GameController : MonoBehaviour
         HelpTimer.Set();
 
         // Game begins with only place pawn phase
+        TurnOffGameOver();
         DisablePhases();
         SwapPlacePawnPhase();
         PlayGame();

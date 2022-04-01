@@ -178,7 +178,6 @@ public class GridManager : MonoBehaviour
             disabledRight.SetActive(false);
             disabledLeft.SetActive(false);
         }
-        
     }
 
     public void movePlayer(Coordinates curLoc, Coordinates newLoc, Player P1, Player P2, GameBoard board)
@@ -219,9 +218,6 @@ public class GridManager : MonoBehaviour
                 Debug.Log("original player name: " + originalPlayer.name);
             }
         }
-
-        //this sets the alien that was selected to the end location
-        //originalPlayer.transform.position = endLocation;
 
         int heightChange = board.GetHeights()[newLoc.X, newLoc.Y] - board.GetHeights()[curLoc.X, curLoc.Y];
         movePlayerAnimation(originalPlayer, heightChange);
@@ -404,7 +400,6 @@ public class GridManager : MonoBehaviour
 
     void movePlayerAnimation(GameObject player, int heightChange)
     {
-        Debug.Log("move player animation called");
         PauseGame();
         RotateMainCamera.DisableRotation();
 
@@ -413,9 +408,6 @@ public class GridManager : MonoBehaviour
 
     IEnumerator movePlayerDelay(GameObject player, int heightChange)
     {
-        Debug.Log("move player coroutine called");
-
-
         float leapHeight = endLocation.y + 1.0f;
         int h_start = 0;
         int h_end = heightChange; //0, 1, -1, -2, -3
@@ -432,37 +424,11 @@ public class GridManager : MonoBehaviour
             float z = startLocation.z + n * (endLocation.z - startLocation.z);
             float y = startLocation.y + h_cur * (leapHeight - Math.Min(startLocation.y, endLocation.y));
 
-            //0: 0.7f
-            //1: 2.0f
-            //2: 2.75f
-            //3: 3.25f
-
-            Debug.Log(h_cur + " --> " + y);
+            //Debug.Log(h_cur + " --> " + y);
             player.transform.position = new Vector3(x, y, z);
             yield return new WaitForSeconds(0.05f);
         }
         player.transform.position = endLocation;
-
-        /* THIS IS GONNA GET REPLACED -- JUST MAKES PIECES MOVE */
-        //int iters = 100, count = 0;
-        //float x_step = (endLocation.x - startLocation.x) / iters;
-        //float y_step = (endLocation.y - startLocation.y) / iters;
-        //float z_step = (endLocation.z - startLocation.z) / iters;
-        //Vector3 steps = new Vector3(x_step, y_step, z_step);
-        //for (Vector3 curLocation = startLocation; curLocation != endLocation && count <= iters; )
-        //{
-        //    if (Math.Abs(endLocation.x - curLocation.x) < 0.1f && Math.Abs(endLocation.y - curLocation.y) < 0.1f && Math.Abs(endLocation.z - curLocation.z) < 0.1f)
-        //        curLocation = endLocation;
-        //    else
-        //    {
-        //        curLocation = curLocation + 2*steps;
-
-        //        player.transform.position = curLocation;
-        //        yield return new WaitForSeconds(.01f);
-        //    }
-
-        //    ++count;
-        //}
 
         PlayGame();
         RotateMainCamera.EnableRotation();

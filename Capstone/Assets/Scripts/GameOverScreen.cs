@@ -10,12 +10,22 @@ public class GameOverScreen : MonoBehaviour
     public GameObject winText;
     public GameObject loseText;
 
+    //Quick game buttons
     public Button backToMenu;
     public Button rematch;
+
+    //Story mode buttons
+    public Button retry;
+    public Button leaveStoryMode;
 
     public GameObject quickGameScreen;
     public GameObject multiplayerScreen;
     public GameObject storyModeScreen;
+
+    public GameObject scribePrefab;
+    public GameObject workerPrefab;
+    public GameObject pharoahPrefab;
+    public GameObject peasantPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -27,13 +37,25 @@ public class GameOverScreen : MonoBehaviour
         multiplayerScreen.SetActive(false);
         storyModeScreen.SetActive(false);
 
+        scribePrefab.SetActive(false);
+        workerPrefab.SetActive(false);
+        pharoahPrefab.SetActive(false);
+        peasantPrefab.SetActive(false);
+
         GameOverPopup();
+        displayAlien();
 
         Button backToMenuBtn = backToMenu.GetComponent<Button>();
         backToMenuBtn.onClick.AddListener(backToMenuClicked);
 
         Button rematchBtn = rematch.GetComponent<Button>();
         rematchBtn.onClick.AddListener(rematchClicked);
+
+        Button retryBtn = retry.GetComponent<Button>();
+        retryBtn.onClick.AddListener(rematchClicked);
+
+        Button leaveStoryModeBtn = leaveStoryMode.GetComponent<Button>();
+        leaveStoryModeBtn.onClick.AddListener(backToMenuClicked);
     }
 
     public void GameOverPopup()
@@ -71,6 +93,14 @@ public class GameOverScreen : MonoBehaviour
         }
     }
 
+    void displayAlien()
+    {
+        if (getP1avatar() == PlayerAvatar.PEASANT) peasantPrefab.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.PHAROAH)pharoahPrefab.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.SCRIBE)scribePrefab.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.WORKER)workerPrefab.SetActive(true);
+    }
+
     void backToMenuClicked()
     {
         SceneManager.LoadScene("Menu");
@@ -79,7 +109,8 @@ public class GameOverScreen : MonoBehaviour
     void rematchClicked()
     {
         //Laura Grace!! this needs to play a game with all the saved info from the previous game
-        SceneManager.LoadScene("Menu");
+        ResetStartingPlayer();
+        SceneManager.LoadScene("GameBoard");
     }
 
 }
