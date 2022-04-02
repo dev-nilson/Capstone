@@ -12,7 +12,9 @@ public class UIP_RoomButton : MonoBehaviour
 
     public void JoinRoomOnClick() //paired the button that is the room listing. joins the player to a room by its name
     {
-        Debug.Log("clicked!!");
+        Debug.Log("Joining Room");
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+        FindObjectOfType<AudioManager>().StopCurrentSong(4);
         PhotonNetwork.JoinRoom(roomName);
     }
 
