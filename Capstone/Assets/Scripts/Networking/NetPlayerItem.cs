@@ -76,38 +76,6 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         Debug.Log("Flipped it!");
     }
 
-    public void OnClickLeftArrow()
-    {
-        if (player == PhotonNetwork.LocalPlayer)
-        {
-            if ((int)playerProperties["playerAlien"] == 0)
-            {
-                playerProperties["playerAlien"] = aliens.Length - 1;
-            }
-            else
-            {
-                playerProperties["playerAlien"] = (int)playerProperties["playerAlien"] - 1;
-            }
-            PhotonNetwork.SetPlayerCustomProperties(playerProperties);
-        }
-    }
-
-    public void OnClickRightArrow()
-    {
-        if (player == PhotonNetwork.LocalPlayer)
-        {
-            if ((int)playerProperties["playerAlien"] == aliens.Length - 1)
-            {
-                playerProperties["playerAlien"] = 0;
-            }
-            else
-            {
-                playerProperties["playerAlien"] = (int)playerProperties["playerAlien"] + 1;
-            }
-            PhotonNetwork.SetPlayerCustomProperties(playerProperties);
-        }
-    }
-
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         if (player == targetPlayer)

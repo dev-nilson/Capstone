@@ -32,10 +32,8 @@ public class AudioManager : MonoBehaviour
     int songThreeRecentPlay = 0;
 
     bool firstTime = true;
-    bool isMusicOn;
 
-    string lastMainMenuSong;
-    string[] songs = { "Golden Sea", "Vagueness", "Ivory Towers", "My Quiet Room",
+    string[] songs = { "GoldenVagueTower", "VagueTowerGolden", "TowerVagueGolden", "My Quiet Room",
                         "OrdinaryBankThowr","SerpentClosing", "Devil's Disgrace", 
                         "Searching Through Sand" };
     #endregion
@@ -77,8 +75,7 @@ public class AudioManager : MonoBehaviour
             songOneRecentPlay = 2;
             currentScreen = 1;
             newScreen = 1;
-            lastMainMenuSong = "Vagueness";
-            Play("Golden Sea");
+            Play("GoldenVagueTower");
         }
     }
 
@@ -158,8 +155,6 @@ public class AudioManager : MonoBehaviour
                 Play("OrdinaryBankThowr");
                 break;
         }
-
-        //Debug.Log("exiting switch statement");
     }
 
     public void Play(string name)
@@ -182,28 +177,6 @@ public class AudioManager : MonoBehaviour
                 currentSong = s;
                 Debug.Log("Current song set to: " + currentSong.name);
             }
-            if (name == songs[i] && currentScreen == 1) //MAINMENU
-            {
-                StopCoroutine(MainMenuSwitch(s)); Debug.Log("STOPPING MMS COROUTINE");
-                StartCoroutine(MainMenuSwitch(s));
-            }
-            else if (currentScreen == 2) //STORY
-            {
-                StopCoroutine(MainMenuSwitch(s)); Debug.Log("STOPPING MMS COROUTINE");
-            }
-            else if (currentScreen == 4) //FACEOFF
-            {
-                StopCoroutine(MainMenuSwitch(s)); Debug.Log("STOPPING MMS COROUTINE");
-            }
-            else if (currentScreen == 5) //ART
-            {
-                StopCoroutine(MainMenuSwitch(s)); Debug.Log("STOPPING MMS COROUTINE");
-            }
-            else if (name == songs[i] && currentScreen == 6) //GAMEBOARD
-            {
-                StopCoroutine(MainMenuSwitch(s)); Debug.Log("STOPPING MMS COROUTINE");
-                //StartCoroutine(GameBoardSwitch(s));
-            }
         }
 
         s.source.Play();
@@ -218,28 +191,15 @@ public class AudioManager : MonoBehaviour
         Debug.Log("Calling nextSong");
         nextSong(screen);
     }
-
-    private IEnumerator MainMenuSwitch(Sound s)
-    {
-        Debug.Log("Starting Coroutine MainMenuSwitch. Current song is " + currentSong.name);
-
-        yield return new WaitForSeconds(currentSong.clip.length);
-
-        if (currentScreen == 1)
-        {
-            Debug.Log("Playing a new song");
-            Play(MainMenuSongs());
-        }
-    }
     #endregion
 
     #region Main Menu Song Stuff
     //Wanted to have main menu play a different song, each time the player returns to the main menu.
     private string MainMenuSongs()
     {
-        string songOne = "Golden Sea";
-        string songTwo = "Vagueness";
-        string songThree = "Ivory Towers";
+        string songOne = "GoldenVagueTower";
+        string songTwo = "VagueTowerGolden";
+        string songThree = "TowerVagueGolden";
 
         System.Random r = new System.Random();
         int randInt = r.Next(0, 10);
@@ -253,7 +213,6 @@ public class AudioManager : MonoBehaviour
 
                         songTwoRecentPlay = PlayedRecently(songTwoRecentPlay);
                         songThreeRecentPlay = PlayedRecently(songThreeRecentPlay);
-                        lastMainMenuSong = "Golden Sea";
                         return songOne;
                     }
                     else if (songTwoRecentPlay == 0)
@@ -263,7 +222,6 @@ public class AudioManager : MonoBehaviour
                         songOneRecentPlay = PlayedRecently(songOneRecentPlay);
                         songThreeRecentPlay = PlayedRecently(songThreeRecentPlay);
                         Debug.Log("Song 1 was chosen, but has played recently. Playing song 2");
-                        lastMainMenuSong = "Vagueness";
                         return songTwo;
                     }
                     else if (songThreeRecentPlay == 0)
@@ -273,7 +231,6 @@ public class AudioManager : MonoBehaviour
                         songOneRecentPlay = PlayedRecently(songOneRecentPlay);
                         songTwoRecentPlay = PlayedRecently(songTwoRecentPlay);
                         Debug.Log("Song 1 was chosen, but has played recently. Playing song 3");
-                        lastMainMenuSong = "Ivory Towers";
                         return songThree;
                     }
             }
@@ -285,7 +242,6 @@ public class AudioManager : MonoBehaviour
 
                         songOneRecentPlay = PlayedRecently(songOneRecentPlay);
                         songThreeRecentPlay = PlayedRecently(songThreeRecentPlay);
-                        lastMainMenuSong = "Vagueness";
                         return songTwo;
                     }
                     else if (songThreeRecentPlay == 0)
@@ -295,7 +251,6 @@ public class AudioManager : MonoBehaviour
                         songOneRecentPlay = PlayedRecently(songOneRecentPlay);
                         songTwoRecentPlay = PlayedRecently(songTwoRecentPlay);
                         Debug.Log("Song 2 was chosen, but has played recently. Playing song 3");
-                        lastMainMenuSong = "Ivory Towers";
                         return songThree;
                     }
                     else if (songOneRecentPlay == 0)
@@ -305,7 +260,6 @@ public class AudioManager : MonoBehaviour
                         songTwoRecentPlay = PlayedRecently(songTwoRecentPlay);
                         songThreeRecentPlay = PlayedRecently(songThreeRecentPlay);
                         Debug.Log("Song 2 was chosen, but has played recently. Playing song 1");
-                        lastMainMenuSong = "Golden Sea";
                         return songOne;
 
                     }
@@ -318,7 +272,6 @@ public class AudioManager : MonoBehaviour
 
                         songOneRecentPlay = PlayedRecently(songOneRecentPlay);
                         songTwoRecentPlay = PlayedRecently(songTwoRecentPlay);
-                        lastMainMenuSong = "Ivory Towers";
                         return songThree;
 
                     }
@@ -329,7 +282,6 @@ public class AudioManager : MonoBehaviour
                         songTwoRecentPlay = PlayedRecently(songTwoRecentPlay);
                         songThreeRecentPlay = PlayedRecently(songThreeRecentPlay);
                         Debug.Log("Song 3 was chosen, but has played recently. Playing song 1");
-                        lastMainMenuSong = "Golden Sea";
                         return songOne;
                     }
                     else if (songTwoRecentPlay == 0)
@@ -339,7 +291,6 @@ public class AudioManager : MonoBehaviour
                         songOneRecentPlay = PlayedRecently(songOneRecentPlay);
                         songThreeRecentPlay = PlayedRecently(songThreeRecentPlay);
                         Debug.Log("Song 3 was chosen, but has played recently. Playing song 2");
-                        lastMainMenuSong = "Vagueness";
                         return songTwo;
                     }
             }

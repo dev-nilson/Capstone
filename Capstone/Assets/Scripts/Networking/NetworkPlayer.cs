@@ -14,27 +14,17 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 
 	public static Coordinates coordinates;
 
-	private static bool networkMessage;
-	private static bool readyUpStatus;
-
 	private void Start()
 	{
 		photonView = PhotonView.Get(this);
 	}
 
-	[PunRPC]
-	public void RPC_NetworkMessage(bool message)
-	{
-		NetworkController.SetNetMessage(networkMessage);
-		Debug.Log("Message sent over network: " + message);
-	}
-
-	[PunRPC]
-	public void RPC_SendReadyUpStatus(bool readyUpStatus)
-	{
-		NetworkController.SetReadyUpStatus(readyUpStatus);
-		Debug.Log("Ready up status of other player is: " + readyUpStatus);
-	}
+	//[PunRPC]
+	//public void RPC_NetworkMessage(bool message)
+	//{
+	//	NetworkController.SetNetMessage(networkMessage);
+	//	Debug.Log("Message sent over network: " + message);
+	//}
 
 	//Will simply call the setCoordinate function in NetworkController
 	[PunRPC]
@@ -53,18 +43,11 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 		photonView.RPC("RPC_SendCoordinates", RpcTarget.OthersBuffered, coordinates);
 	}
 
-	public void SendNetworkMessage(bool message)
-    {
-		Debug.Log("SendNetworkMessage function in NETWORK PLAYER called");
-		photonView.RPC("RPC_NetworkMessage", RpcTarget.Others, networkMessage);
-	}
+	//public void SendNetworkMessage(bool message)
+ //   {
+	//	Debug.Log("SendNetworkMessage function in NETWORK PLAYER called");
+	//	photonView.RPC("RPC_NetworkMessage", RpcTarget.Others, networkMessage);
+	//}
 
-	public void SendReadyUpStatus(bool readyUpStatus)
-	{
-		Debug.Log("SendReadyUpStatus function in NETWORK PLAYER called");
-		photonView.RPC("RPC_SendReadyUpStatus", RpcTarget.Others, readyUpStatus);
-	}
-
-	//function for the playerinfo stuff
 }
 

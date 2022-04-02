@@ -17,8 +17,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public static NetworkController netController;
     public static Coordinates coordinates;
     public static NetworkPlayer netPlayer;
-    //however I need to represent the username & playerAvatar
-    public static bool readyUpStatus;
     
 
     [SerializeField]
@@ -112,58 +110,20 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }
     }
 
-    public static void SendNetMessage()
-    {
-        netPlayer.SendNetworkMessage(networkMessage);
-    }
+    //public static void SendNetMessage()
+    //{
+    //    netPlayer.SendNetworkMessage(networkMessage);
+    //}
 
-    public static void SetNetMessage(bool message)
-    {
-        networkMessage = message;
-    }
+    //public static void SetNetMessage(bool message)
+    //{
+    //    networkMessage = message;
+    //}
 
-    public static bool GetNetMessage()
-    {
-        return networkMessage;
-    }
-    #endregion
-
-    #region PlayerInfoRelatedFunctions
-
-    public static void SendClientInfo()
-    {
-        //stuff for username & playerAvatar, probably need a seperate a function for both
-    }
-
-    public static void SetClientInfo()
-    {
-        //stuff for username & playerAvatar, probably need a seperate a function for both
-    }
-
-    public static void GetClientInfo()
-    {
-        //stuff for username & playerAvatar, probably need a seperate a function for both
-        //make sure to change void to the data type we need back
-    }
-    #endregion
-
-    #region MiscellaneousFunctions
-    public static void SendReadyUpStatus()
-    {
-        Debug.Log("SendReadyUpStatus function in NETWORK CONTROLLER called");
-        netPlayer.SendReadyUpStatus(readyUpStatus);
-    }
-
-    public static void SetReadyUpStatus(bool newStatus)
-    {
-        readyUpStatus = newStatus;
-        Debug.Log("This is the value in readyUpStatus: " + readyUpStatus);
-    }
-
-    public static bool GetReadyUpStatus()
-    {
-        return readyUpStatus;
-    }
+    //public static bool GetNetMessage()
+    //{
+    //    return networkMessage;
+    //}
     #endregion
 }
 
