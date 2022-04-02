@@ -57,6 +57,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     private string roomName; //string for saving room name, is usually the Players name or Players name + numbers
     public bool intentionalDisconnect = false;
+    public bool onFaceoffScreen = false;
 
 
     private List<RoomInfo> roomList; //list of current rooms
@@ -99,6 +100,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             }
             if (CharacterSelectionLobbyPanel.activeSelf)
             {
+                onFaceoffScreen = true;
                 CharacterSelectionLobbyPanel.SetActive(false);
             }
             if (LoadingPanel.activeSelf)
@@ -270,6 +272,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         multiplayerMenuPanel.SetActive(false);
         roomName = "Join " + PlayerPrefs.GetString("NickName")+ "'s room";
 
+        
         CharacterSelectionLobbyPanel.SetActive(true);
         FindObjectOfType<AudioManager>().StopCurrentSong(4);
 
@@ -297,6 +300,11 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public void DisconnectedBackButton()
     {
         FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+        if (onFaceoffScreen == true)
+        {
+            FindObjectOfType<AudioManager>().StopCurrentSong(1);
+            onFaceoffScreen = false;
+        }
         SceneManager.LoadScene("Menu");
     }
 
@@ -313,7 +321,6 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         multiplayerMenuPanel.SetActive(false);
         JoinGamePanel.SetActive(true);
         PhotonNetwork.JoinLobby();
-        FindObjectOfType<AudioManager>().StopCurrentSong(4);
 
         // Call to function in "GameUtilities.cs"
         SetPlayerTurn(PlayerTurn.TWO);

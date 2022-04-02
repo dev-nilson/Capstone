@@ -141,8 +141,12 @@ public class AudioManager : MonoBehaviour
                 break;
             case 4: //FACEOFF
                 Debug.Log("FACEOFF");
+                Debug.Log("current screen is" + currentScreen);
 
-                Play("SerpentClosing");
+                if (currentScreen != 1)
+                {
+                    Play("SerpentClosing");
+                }
                 break;
             case 5: //ART
                 Debug.Log("ART");
