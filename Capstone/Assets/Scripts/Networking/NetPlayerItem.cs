@@ -26,6 +26,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
     ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     public Image playerAlien;
     public Sprite[] aliens;
+    public string alienChosen;
 
     private PhotonView photonView;
 
@@ -106,29 +107,37 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
             {
                 playerProperties["playerAlien"] = 0;
                 setP1avatar(PlayerAvatar.PHAROAH);
+                alienChosen = "PHAROAH";
             }
             else if (chosen == 1)
             {
                 playerProperties["playerAlien"] = 1;
                 setP1avatar(PlayerAvatar.SCRIBE);
+                alienChosen = "SCRIBE";
             }
             else if (chosen == 2)
             {
                 playerProperties["playerAlien"] = 2;
                 setP1avatar(PlayerAvatar.WORKER);
+                alienChosen = "WORKER";
             }
             else if (chosen == 3)
             {
                 playerProperties["playerAlien"] = 3;
                 setP1avatar(PlayerAvatar.PEASANT);
+                alienChosen = "PEASANT";
             }
 
             PhotonNetwork.SetPlayerCustomProperties(playerProperties);
         }
     }
 
-    public void OpponentAlien() //maybe this can occur on the click when the host starts a game, then send this stuff over to the gui
+    public string OpponentAlien() //maybe this can occur on the click when the host starts a game, then send this stuff over to the gui
     {
+        string pharoahChosen = "PHAROAH";
+        string scribeChosen = "SCRIBE";
+        string workerChosen = "WORKER";
+        string peasantChosen = "PEASANT";
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
             if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
@@ -136,20 +145,26 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
                 if (((int)p.CustomProperties["playerAlien"] == 0))
                 {
                     setP2avatar(PlayerAvatar.PHAROAH);
+                    return pharoahChosen;
                 }
                 else if (((int)p.CustomProperties["playerAlien"] == 1))
                 {
                     setP2avatar(PlayerAvatar.SCRIBE);
+                    return scribeChosen;
                 }
                 else if (((int)p.CustomProperties["playerAlien"] == 2))
                 {
                     setP2avatar(PlayerAvatar.WORKER);
+                    return workerChosen;
                 }
                 else if (((int)p.CustomProperties["playerAlien"] == 3))
                 {
                     setP2avatar(PlayerAvatar.PEASANT);
+                    return peasantChosen;
                 }
             }
         }
+
+        return null;
     }
 }

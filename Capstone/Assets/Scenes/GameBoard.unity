@@ -2042,6 +2042,46 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_MinValue
+      value: -65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_MaxValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_Value
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AudioManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672770068826516259, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3672770069305409641, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
       propertyPath: m_Name
       value: ScrollSettings Variant

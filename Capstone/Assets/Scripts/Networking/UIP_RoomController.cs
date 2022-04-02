@@ -58,6 +58,86 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if (tempPlayer.OpponentAlien() == "PHAROAH")
+        {
+            PharoahButton.SetActive(false);
+            if (tempPlayer.alienChosen == "SCRIBE")
+            {
+                WorkerButton.SetActive(true);
+                PeasantButton.SetActive(true);
+            }
+            else if (tempPlayer.alienChosen == "WORKER")
+            {
+                ScribeButton.SetActive(true);
+                PeasantButton.SetActive(true);
+            }
+            else if (tempPlayer.alienChosen == "PEASANT")
+            {
+                ScribeButton.SetActive(true);
+                WorkerButton.SetActive(true);
+            }
+        }
+        else if (tempPlayer.OpponentAlien() == "SCRIBE")
+        {
+            ScribeButton.SetActive(false);
+            if (tempPlayer.alienChosen == "PHAROAH")
+            {
+                WorkerButton.SetActive(true);
+                PeasantButton.SetActive(true);
+            }
+            else if (tempPlayer.alienChosen == "WORKER")
+            {
+                PharoahButton.SetActive(true);
+                PeasantButton.SetActive(true);
+            }
+            else if (tempPlayer.alienChosen == "PEASANT")
+            {
+                PharoahButton.SetActive(true);
+                WorkerButton.SetActive(true);
+            }
+        }
+        else if (tempPlayer.OpponentAlien() == "WORKER")
+        {
+            WorkerButton.SetActive(false);
+            if (tempPlayer.alienChosen == "PHAROAH")
+            {
+                ScribeButton.SetActive(true);
+                PeasantButton.SetActive(true);
+            }
+            else if (tempPlayer.alienChosen == "SCRIBE")
+            {
+                PharoahButton.SetActive(true);
+                PeasantButton.SetActive(true);
+            }
+            else if (tempPlayer.alienChosen == "PEASANT")
+            {
+                ScribeButton.SetActive(true);
+                PharoahButton.SetActive(true);
+            }
+        }
+        else if (tempPlayer.OpponentAlien() == "PEASANT")
+        {
+            PeasantButton.SetActive(false);
+            if (tempPlayer.alienChosen == "PHAROAH")
+            {
+                WorkerButton.SetActive(true);
+                ScribeButton.SetActive(true);
+            }
+            else if (tempPlayer.alienChosen == "SCRIBE")
+            {
+                PharoahButton.SetActive(true);
+                WorkerButton.SetActive(true);
+            }
+            else if (tempPlayer.alienChosen == "WORKER")
+            {
+                PharoahButton.SetActive(true);
+                ScribeButton.SetActive(true);
+            }
+        }
+    }
+
+    private void LateUpdate()
+    {
         if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             StartGameButton.SetActive(true);
@@ -216,6 +296,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
 
         tempPlayer.changeAlien(chosen);
+        PharoahButton.SetActive(false);
     }
 
     public void chooseScribe()
@@ -232,6 +313,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
 
         tempPlayer.changeAlien(chosen);
+        ScribeButton.SetActive(false);
     }
 
     public void chooseWorker()
@@ -248,6 +330,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
 
         tempPlayer.changeAlien(chosen);
+        WorkerButton.SetActive(false);
     }
 
     public void choosePeasant()
@@ -264,5 +347,6 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
 
         tempPlayer.changeAlien(chosen);
+        PeasantButton.SetActive(false);
     }
 }
