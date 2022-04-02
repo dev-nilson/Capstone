@@ -8,6 +8,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using static GameUtilities;
 
 public class UIP_RoomController : MonoBehaviourPunCallbacks
@@ -49,6 +50,11 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     private NetPlayerItem tempPlayer;
     private bool readyUpStatus;
+
+    private void Start()
+    {
+        SceneManager.activeSceneChanged += OnGameStarting;
+    }
 
     private void Update()
     {
@@ -109,6 +115,11 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
     }
 
+    private void OnGameStarting(Scene current, Scene next)
+    {
+        tempPlayer.OpponentAlien();
+        Debug.Log("Called OnGameStarting");
+    }
     //public void ImReadyOnClick() //--------------------------------------------
     //{
     //    if (!PhotonNetwork.IsMasterClient)

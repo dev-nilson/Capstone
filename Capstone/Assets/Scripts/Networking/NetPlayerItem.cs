@@ -165,19 +165,19 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         {
             if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
             {
-                if ((bool)(p.CustomProperties["playerAlien"] = 0))
+                if (((int)p.CustomProperties["playerAlien"] == 0))
                 {
                     setP2avatar(PlayerAvatar.PHAROAH);
                 }
-                else if ((bool)(p.CustomProperties["playerAlien"] = 1))
+                else if (((int)p.CustomProperties["playerAlien"] == 1))
                 {
                     setP2avatar(PlayerAvatar.SCRIBE);
                 }
-                else if ((bool)(p.CustomProperties["playerAlien"] = 2))
+                else if (((int)p.CustomProperties["playerAlien"] == 2))
                 {
                     setP2avatar(PlayerAvatar.WORKER);
                 }
-                else if ((bool)(p.CustomProperties["playerAlien"] = 3))
+                else if (((int)p.CustomProperties["playerAlien"] == 3))
                 {
                     setP2avatar(PlayerAvatar.PEASANT);
                 }
