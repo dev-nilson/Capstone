@@ -41,13 +41,13 @@ public class GameOverGraphics : MonoBehaviour
     public void GameOverPopup()
     {
         // Network disconnect
-        if (IsLocalDisconnect())
+        if (getGameType() == GameType.NETWORK && IsLocalDisconnect())
         {
             disconnectedPopup.SetActive(true);
             youDisconnected.SetActive(true);
         }
 
-        else if (IsOpponentDisconnect())
+        else if (getGameType() == GameType.NETWORK && IsOpponentDisconnect())
         {
             disconnectedPopup.SetActive(true);
             opponectDisconnected.SetActive(true);
