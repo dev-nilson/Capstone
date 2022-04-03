@@ -21,7 +21,10 @@ public class GameOverScreen : MonoBehaviour
 
     public GameObject quickGameScreen;
     public GameObject multiplayerScreen;
-    public GameObject storyModeScreen;
+
+    //Story mode
+    public GameObject winStoryModeScreen;
+    public GameObject loseStoryModeScreen;
     public GameObject beatStoryModeScreen;
 
 
@@ -41,7 +44,8 @@ public class GameOverScreen : MonoBehaviour
 
         quickGameScreen.SetActive(false);
         multiplayerScreen.SetActive(false);
-        storyModeScreen.SetActive(false);
+        winStoryModeScreen.SetActive(false);
+        loseStoryModeScreen.SetActive(false);
         beatStoryModeScreen.SetActive(false);
 
         scribePrefab.SetActive(false);
@@ -80,7 +84,7 @@ public class GameOverScreen : MonoBehaviour
             }
             else
             {
-                storyModeScreen.SetActive(true);
+                winStoryModeScreen.SetActive(true);
                 // Local player wins in story mode!
                 winText.SetActive(true);
                 //increment this so you know you have been here once
@@ -91,7 +95,7 @@ public class GameOverScreen : MonoBehaviour
         // Local player loses in story mode
         else if (PlayingStoryMode)
         {
-            storyModeScreen.SetActive(true);
+            loseStoryModeScreen.SetActive(true);
             // Local player loses in story mode :(
             loseText.SetActive(true);
         }
