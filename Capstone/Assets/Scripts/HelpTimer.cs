@@ -78,18 +78,6 @@ public class HelpTimer : MonoBehaviour
         {
             if (!GamePaused())
             {
-                hintBanner.SetActive(true);
-
-                if (getP1avatar() == PlayerAvatar.PEASANT) peasant.SetActive(true);
-                else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoah.SetActive(true);
-                else if (getP1avatar() == PlayerAvatar.SCRIBE) scribe.SetActive(true);
-                else if (getP1avatar() == PlayerAvatar.WORKER) worker.SetActive(true);
-
-                // display popup
-                if (CanPlacePawn()) place.SetActive(true);
-                else if (CanBuild()) build.SetActive(true);
-                else if (CanMove()) move.SetActive(true);
-
                 StartCoroutine("SlideIn");
 
                 // eventually turn them off
@@ -103,6 +91,16 @@ public class HelpTimer : MonoBehaviour
     IEnumerator SlideIn()
     {
         moveIn = true;
+
+        if (getP1avatar() == PlayerAvatar.PEASANT) peasant.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoah.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.SCRIBE) scribe.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.WORKER) worker.SetActive(true);
+
+        // display popup
+        if (CanPlacePawn()) place.SetActive(true);
+        else if (CanBuild()) build.SetActive(true);
+        else if (CanMove()) move.SetActive(true);
 
         //Debug.Log("slide in called");
         while (hintBanner.transform.position.x > onScreen_x && moveIn)
@@ -143,8 +141,6 @@ public class HelpTimer : MonoBehaviour
         pharoah.SetActive(false);
         scribe.SetActive(false);
         worker.SetActive(false);
-
-        hintBanner.SetActive(false);
     }
 
     public static void TurnOff()
