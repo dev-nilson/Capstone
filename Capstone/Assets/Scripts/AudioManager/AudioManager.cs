@@ -32,9 +32,8 @@ public class AudioManager : MonoBehaviour
     int songThreeRecentPlay = 0;
 
     bool firstTime = true;
-    bool isMusicOn;
 
-    string[] songs = { "Golden Sea", "Vagueness", "Ivory Towers", "My Quiet Room",
+    string[] songs = { "GoldenVagueTower", "VagueTowerGolden", "TowerVagueGolden", "My Quiet Room",
                         "OrdinaryBankThowr","SerpentClosing", "Devil's Disgrace", 
                         "Searching Through Sand" };
     #endregion
@@ -76,7 +75,7 @@ public class AudioManager : MonoBehaviour
             songOneRecentPlay = 2;
             currentScreen = 1;
             newScreen = 1;
-            Play("Golden Sea");
+            Play("GoldenVagueTower");
         }
     }
 
@@ -142,8 +141,12 @@ public class AudioManager : MonoBehaviour
                 break;
             case 4: //FACEOFF
                 Debug.Log("FACEOFF");
+                Debug.Log("current screen is" + currentScreen);
 
-                Play("SerpentClosing");
+                if (currentScreen != 1)
+                {
+                    Play("SerpentClosing");
+                }
                 break;
             case 5: //ART
                 Debug.Log("ART");
@@ -156,8 +159,6 @@ public class AudioManager : MonoBehaviour
                 Play("OrdinaryBankThowr");
                 break;
         }
-
-        //Debug.Log("exiting switch statement");
     }
 
     public void Play(string name)
@@ -180,27 +181,6 @@ public class AudioManager : MonoBehaviour
                 currentSong = s;
                 Debug.Log("Current song set to: " + currentSong.name);
             }
-            if (name == songs[i] && currentScreen == 1) //MAINMENU
-            {
-                StartCoroutine(MainMenuSwitch(s));
-            }
-            else if (currentScreen == 2) //STORY
-            {
-                StopCoroutine(MainMenuSwitch(s));
-            }
-            else if (currentScreen == 4) //FACEOFF
-            {
-                StopCoroutine(MainMenuSwitch(s));
-            }
-            else if (currentScreen == 5) //ART
-            {
-                StopCoroutine(MainMenuSwitch(s));
-            }
-            else if (name == songs[i] && currentScreen == 6) //GAMEBOARD
-            {
-                StopCoroutine(MainMenuSwitch(s));
-                //StartCoroutine(GameBoardSwitch(s));
-            }
         }
 
         s.source.Play();
@@ -215,28 +195,15 @@ public class AudioManager : MonoBehaviour
         Debug.Log("Calling nextSong");
         nextSong(screen);
     }
-
-    private IEnumerator MainMenuSwitch(Sound s)
-    {
-        Debug.Log("Starting Coroutine MainMenuSwitch");
-
-        
-        yield return new WaitForSeconds(s.clip.length);
-
-        if (currentScreen == 1)
-        {
-            Play(MainMenuSongs());
-        }
-    }
     #endregion
 
     #region Main Menu Song Stuff
     //Wanted to have main menu play a different song, each time the player returns to the main menu.
     private string MainMenuSongs()
     {
-        string songOne = "Golden Sea";
-        string songTwo = "Vagueness";
-        string songThree = "Ivory Towers";
+        string songOne = "GoldenVagueTower";
+        string songTwo = "VagueTowerGolden";
+        string songThree = "TowerVagueGolden";
 
         System.Random r = new System.Random();
         int randInt = r.Next(0, 10);
