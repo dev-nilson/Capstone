@@ -268,7 +268,7 @@ public class GridManager : MonoBehaviour
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
             //child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.75f, Grid[newLoc.X, newLoc.Y].transform.position.z);
-            child.transform.localScale = new Vector3(.08f, .23f, .08f);
+            child.transform.localScale = new Vector3(.091f, .25f, .091f);
         }
     }
 
