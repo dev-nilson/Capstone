@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 134700491}
   - component: {fileID: 134700490}
   m_Layer: 5
-  m_Name: Back to Menu
+  m_Name: Back to Menu_LQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,7 +809,7 @@ GameObject:
   - component: {fileID: 320451961}
   - component: {fileID: 320451960}
   m_Layer: 5
-  m_Name: You Lose
+  m_Name: You Lose_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 359564122}
   - component: {fileID: 359564121}
   m_Layer: 5
-  m_Name: Rematch
+  m_Name: Rematch_WQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1194,7 +1194,7 @@ GameObject:
   - component: {fileID: 394368830}
   - component: {fileID: 394368829}
   m_Layer: 5
-  m_Name: Rematch
+  m_Name: Rematch_LQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 589191038}
   - component: {fileID: 589191037}
   m_Layer: 5
-  m_Name: Retry
+  m_Name: Retry_LS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1778,7 +1778,7 @@ GameObject:
   - component: {fileID: 629338454}
   - component: {fileID: 629338453}
   m_Layer: 5
-  m_Name: Rematch
+  m_Name: Rematch_LM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2065,7 +2065,7 @@ GameObject:
   - component: {fileID: 666830649}
   - component: {fileID: 666830648}
   m_Layer: 5
-  m_Name: You Win
+  m_Name: You Win_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2139,7 +2139,7 @@ GameObject:
   - component: {fileID: 738516651}
   - component: {fileID: 738516650}
   m_Layer: 5
-  m_Name: Back to Menu
+  m_Name: Back to Menu_WQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3130,18 +3130,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a57aac2729ea44ba8df015e8b1e2b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winText: {fileID: 666830646}
-  loseText: {fileID: 1498739394}
-  backToMenu: {fileID: 134700490}
-  rematch: {fileID: 394368829}
-  retry: {fileID: 589191037}
-  leaveStoryMode: {fileID: 1977954395}
-  menuButton: {fileID: 1942959175}
-  quickGameScreen: {fileID: 429248914}
-  multiplayerScreen: {fileID: 0}
+  winMultiScreen: {fileID: 1161588140}
+  loseMultiScreen: {fileID: 1236661225}
+  backToMenu_WM: {fileID: 1559275913}
+  backToMenu_LM: {fileID: 2130602279}
+  rematch_WM: {fileID: 1653360251}
+  rematch_LM: {fileID: 629338453}
+  winQuickGameScreen: {fileID: 1063019856}
+  loseQuickGameScreen: {fileID: 429248914}
+  backToMenu_WQ: {fileID: 738516650}
+  backToMenu_LQ: {fileID: 134700490}
+  rematch_WQ: {fileID: 359564121}
+  rematch_LQ: {fileID: 394368829}
   winStoryModeScreen: {fileID: 1914460769}
   loseStoryModeScreen: {fileID: 1049105421}
   beatStoryModeScreen: {fileID: 212790814}
+  backToMenu_WS: {fileID: 1502416078}
+  backToMenu_LS: {fileID: 1977954395}
+  continue_WS: {fileID: 2113650745}
+  rematch_LS: {fileID: 589191037}
+  backToMenu_BS: {fileID: 1942959175}
   scribePrefab: {fileID: 2020709286}
   workerPrefab: {fileID: 1358231189}
   pharoahPrefab: {fileID: 545416057}
@@ -3233,7 +3241,7 @@ GameObject:
   - component: {fileID: 1502416079}
   - component: {fileID: 1502416078}
   m_Layer: 5
-  m_Name: LeaveStoryMode
+  m_Name: LeaveStoryMode_WS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3353,7 +3361,7 @@ GameObject:
   - component: {fileID: 1559275914}
   - component: {fileID: 1559275913}
   m_Layer: 5
-  m_Name: Menu
+  m_Name: backToMenu_WM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3627,7 +3635,7 @@ GameObject:
   - component: {fileID: 1653360252}
   - component: {fileID: 1653360251}
   m_Layer: 5
-  m_Name: Rematch
+  m_Name: Rematch_WM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4483,7 +4491,7 @@ GameObject:
   - component: {fileID: 1977954396}
   - component: {fileID: 1977954395}
   m_Layer: 5
-  m_Name: LeaveStoryMode
+  m_Name: LeaveStoryMode_LS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5083,7 +5091,7 @@ GameObject:
   - component: {fileID: 2130602280}
   - component: {fileID: 2130602279}
   m_Layer: 5
-  m_Name: Menu
+  m_Name: backToMenu_LM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
