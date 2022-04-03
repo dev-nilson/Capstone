@@ -32,6 +32,7 @@ public class HelpTimer : MonoBehaviour
     private float onScreen_x;
     private float offScreen_x;
     private float x_shift;
+    private float pause = 0.5f / Screen.width;
 
     void Start()
     {
@@ -40,10 +41,11 @@ public class HelpTimer : MonoBehaviour
 
         // set x positions for on and off screen scarab
         onScreen_x = hintBanner.transform.position.x;
-        offScreen_x = onScreen_x + 200.0f;
-        x_shift = Math.Abs(offScreen_x - onScreen_x)/300.0f;
+        offScreen_x = onScreen_x + 300.0f;
+        x_shift = Math.Abs(offScreen_x - onScreen_x)/80.0f;
 
         hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
+        Debug.Log(1.0f / Screen.width);
 
         if (ScrollSettings.HintsOn())
             scarabOn = true;
@@ -110,7 +112,7 @@ public class HelpTimer : MonoBehaviour
             else
                 hintBanner.transform.position -= new Vector3(x_shift, 0.0f, 0.0f);
             //Debug.Log("slide on is running");
-            yield return new WaitForSecondsRealtime(0.0003f);
+            yield return new WaitForSecondsRealtime(pause);
         }
     }
 
@@ -129,7 +131,7 @@ public class HelpTimer : MonoBehaviour
                 //Debug.Log("slide off is being called");
             }
 
-            yield return new WaitForSecondsRealtime(0.0003f);
+            yield return new WaitForSecondsRealtime(pause);
         }
 
         // turn off popups
