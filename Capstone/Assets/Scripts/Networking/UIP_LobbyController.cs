@@ -14,28 +14,30 @@ using static GameUtilities;
 
 public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
+    #region Variables
     public static UIP_LobbyController lobby;
 
+    //Buttons
     [SerializeField]
-    private GameObject hostRoomButton; //button used for joining a Lobby as the host.
+    private GameObject hostRoomButton;
     [SerializeField]
-    private GameObject joinRoomButton; //button used for joining a Lobby as the client.
+    private GameObject joinRoomButton;
     [SerializeField]
-    private GameObject hostRoomBackButton; //button used for joining a Lobby as the host.
+    private GameObject hostRoomBackButton;
     [SerializeField]
-    private GameObject joinRoomBackButton; //button used for joining a Lobby as the client.
+    private GameObject joinRoomBackButton;
     [SerializeField]
     private GameObject multiplayerMenuBackButton;
     [SerializeField]
     private GameObject disconnectedBackButton;
 
-
+    //Panels
     [SerializeField]
-    private GameObject multiplayerMenuPanel; //panel for displaying the main menu
+    private GameObject multiplayerMenuPanel;
     [SerializeField]
-    private GameObject JoinGamePanel; //panel for displaying join lobby.
+    private GameObject JoinGamePanel;
     [SerializeField]
-    private GameObject HostGamePanel; //panel for displaying host lobby.
+    private GameObject HostGamePanel;
     [SerializeField]
     private GameObject CharacterSelectionLobbyPanel;
     [SerializeField]
@@ -43,6 +45,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     [SerializeField]
     private GameObject LoadingPanel;
 
+    //Misc
     [SerializeField]
     private GameObject roomListingPrefab; //prefab for displayer each room in the lobby
     [SerializeField]
@@ -54,18 +57,18 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     private string roomName; //string for saving room name, is usually the Players name or Players name + numbers
     public bool intentionalDisconnect = false;
+    public bool onFaceoffScreen = false;
 
 
     private List<RoomInfo> roomList; //list of current rooms
-    private Dictionary<string, RoomInfo> cachedRoomList;
-    private Dictionary<string, GameObject> roomListEntries;
+    #endregion
 
+    #region AwakeStartUpdate
     private void Awake()
     {
         lobby = this;
 
-        cachedRoomList = new Dictionary<string, RoomInfo>();
-        roomListEntries = new Dictionary<string, GameObject>();
+        //This line is needed in order for Photon to know how to send types that aren't your basic primitive types (int, char, bool, etc)
         PhotonPeer.RegisterType(typeof(Coordinates), 1, Coordinates.Serialize, Coordinates.Deserialize);
 
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -76,7 +79,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         if (PhotonNetwork.IsConnected)
             StartCoroutine(DisconnectReconnect());
 
-        PhotonNetwork.ConnectUsingSettings();   // -> OnConnectedToMaster
+        PhotonNetwork.ConnectUsingSettings();
 
         if (PhotonNetwork.AutomaticallySyncScene == false)
             PhotonNetwork.AutomaticallySyncScene = true;
@@ -97,6 +100,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             }
             if (CharacterSelectionLobbyPanel.activeSelf)
             {
+                onFaceoffScreen = true;
                 CharacterSelectionLobbyPanel.SetActive(false);
             }
             if (LoadingPanel.activeSelf)
@@ -109,7 +113,6 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             }
 
             DisconnectedPanel.SetActive(true);
-
         }
     }
 
@@ -121,135 +124,24 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         while (PhotonNetwork.IsConnected)
             yield return null;
     }
+    #endregion
 
-    public override void OnConnectedToMaster() //Callback function for when the first connection is established successfully.
+    #region PUNCallbacks
+    public override void OnConnectedToMaster()
     {
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
         intentionalDisconnect = false;
         multiplayerMenuPanel.SetActive(true);
-        //hostRoomButton.SetActive(false);
-        //joinRoomButton.SetActive(false); 
-        roomList = new List<RoomInfo>(); //initializing roomListing
+        roomList = new List<RoomInfo>();
 
-        ////check for player name saved to player prefs
-        //if (PlayerPrefs.HasKey("NickName"))
-        //{
-        //    if (PlayerPrefs.GetString("NickName") == "")
-        //    {
-        //        PhotonNetwork.NickName = PlayerPrefs.GetString("NickName"); //get saved player name
-        //    }
-        //}
+        //=============================================================================
+        // Callback function for when the first PhotonNetwork connection is
+        // successfully established.
+        //=============================================================================
     }
 
-    public void PlayerNameUpdateInputChanged() //input function for player name. paired to player name input field
-    {
-        string text = playerNameInput.text;
-        if(!string.IsNullOrWhiteSpace(text))
-        {
-            hostRoomButton.SetActive(true); //activate button for connecting to lobby
-            joinRoomButton.SetActive(true); 
-        }
-        else if (string.IsNullOrWhiteSpace(text) && PlayerPrefs.GetString("NickName") == "")
-        {
-            hostRoomButton.SetActive(false); //deactivate button for connecting to lobby
-            joinRoomButton.SetActive(false);
-        }
-        
-        PhotonNetwork.NickName = text;
-        PlayerPrefs.SetString("NickName", text);
-    }
-
-    public void HostLobbyOnClick() //Paired to the Host button
-    {
-        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
-        multiplayerMenuPanel.SetActive(false);
-
-        Debug.Log(PhotonNetwork.NickName);
-        roomName = "Join " + PlayerPrefs.GetString("NickName")+ "'s room";
-
-        Debug.Log(roomName);
-        CharacterSelectionLobbyPanel.SetActive(true);
-        FindObjectOfType<AudioManager>().StopCurrentSong(4);
-
-        // Call to function in "GameUtilities.cs"
-        SetPlayerTurn(PlayerTurn.ONE);
-        setP1username(roomName);
-
-        //NameOfHost.text = roomName;
-        CreateRoom();
-    }
-
-    public void MultiplayerMenuBackButton()
-    {
-        if (PhotonNetwork.IsConnected)
-        {
-            intentionalDisconnect = true;
-            PhotonNetwork.Disconnect(); ;
-        }
-
-        Debug.Log("Are we connected to PhotonNetwork? " + PhotonNetwork.NetworkClientState);
-        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
-        SceneManager.LoadScene("Menu");
-    }
-
-    public void DisconnectedBackButton()
-    {
-        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
-        SceneManager.LoadScene("Menu");
-    }
-
-    public void HostGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
-    {
-        multiplayerMenuPanel.SetActive(true);
-        CharacterSelectionLobbyPanel.SetActive(false);
-        PhotonNetwork.LeaveLobby();
-    }
-
-    public void JoinLobbyOnClick() //Paired to the Join button
-    {
-        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
-        multiplayerMenuPanel.SetActive(false);
-        JoinGamePanel.SetActive(true);
-        PhotonNetwork.JoinLobby(); //First tries to join a lobby
-        FindObjectOfType<AudioManager>().StopCurrentSong(4);
-
-        // Call to function in "GameUtilities.cs"
-        SetPlayerTurn(PlayerTurn.TWO);
-        setP2username(roomName);
-    }
-
-    public void JoinGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
-    {
-        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
-        multiplayerMenuPanel.SetActive(true);
-        JoinGamePanel.SetActive(false);
-        PhotonNetwork.LeaveLobby();
-    }
-
-    public void CreateRoom() //function paired to the host room button
-    {
-        Debug.Log("Creating room now");
-        RoomOptions roomOps = new RoomOptions()
-        {
-            IsVisible = true,
-            IsOpen = true,
-            MaxPlayers = 2,
-            BroadcastPropsChangeToAll = true
-        };
-
-        PhotonNetwork.CreateRoom(roomName, roomOps); //attempting to create a new room
-    }
-
-    /*
-     * create room will fail if room already exists
-     * this most often happens when there is already a room by that name
-     * This function will take the username that was the same, and try
-     * to create a new room under that same username + a random addition of numbers
-     */
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        //base.OnCreateRoomFailed(returnCode, message);
-
         RoomOptions roomOps = new RoomOptions()
         {
             EmptyRoomTtl = 1,
@@ -262,6 +154,13 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         roomName = PlayerPrefs.GetString("NickName") + Random.Range(0, 100);
         PhotonNetwork.CreateRoom(roomName, roomOps);
+
+        //=============================================================================
+        // On some occassions, the creation of a room may fail to occur. The most common
+        // reason for this is due to there already being an exisiting room by that name.
+        // This function addresses this occurence by creating another room under that
+        // same name but with a random addition of numbers at the end.
+        //=============================================================================
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -274,7 +173,8 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         PhotonNetwork.Disconnect();
     }
 
-    public override void OnRoomListUpdate(List<RoomInfo> roomList) //Once in lobby this function is called every time there is an update to the room list
+    //Once the player has connect to the PhotonNetwork and is in a Lobby this function is called every time there is an update to the room list
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         Debug.Log("OnRoomListUpdate was called");
         int tempIndex;
@@ -304,13 +204,46 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             }
         }
     }
-
     public override void OnJoinedRoom()//called when the local player joins the room
     {
         for (int i = roomsContainer.childCount - 1; i == 0; i--)
         {
             Destroy(roomsContainer.GetChild(i).gameObject);
         }
+    }
+    #endregion
+
+    #region Functions
+    public void PlayerNameUpdateInputChanged()
+    {
+        string text = playerNameInput.text;
+        if (!string.IsNullOrWhiteSpace(text))
+        {
+            hostRoomButton.SetActive(true);
+            joinRoomButton.SetActive(true);
+        }
+        else if (string.IsNullOrWhiteSpace(text) && PlayerPrefs.GetString("NickName") == "")
+        {
+            hostRoomButton.SetActive(false);
+            joinRoomButton.SetActive(false);
+        }
+
+        PhotonNetwork.NickName = text;
+        PlayerPrefs.SetString("NickName", text);
+    }
+
+    public void CreateRoom()
+    {
+        Debug.Log("Creating room now");
+        RoomOptions roomOps = new RoomOptions()
+        {
+            IsVisible = true,
+            IsOpen = true,
+            MaxPlayers = 2,
+            BroadcastPropsChangeToAll = true
+        };
+
+        PhotonNetwork.CreateRoom(roomName, roomOps);
     }
 
     static System.Predicate<RoomInfo> ByName(string name) //predicate function for seach through room list
@@ -330,6 +263,78 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
             tempButton.SetRoom(room.Name);
         }
     }
+    #endregion
+
+    #region Buttons
+    public void HostLobbyOnClick()
+    {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+        multiplayerMenuPanel.SetActive(false);
+        roomName = "Join " + PlayerPrefs.GetString("NickName")+ "'s room";
+
+        
+        CharacterSelectionLobbyPanel.SetActive(true);
+        FindObjectOfType<AudioManager>().StopCurrentSong(4);
+
+        // Call to function in "GameUtilities.cs"
+        SetPlayerTurn(PlayerTurn.ONE);
+        setP1username(roomName);
+
+        //NameOfHost.text = roomName;
+        CreateRoom();
+    }
+
+    public void MultiplayerMenuBackButton()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            intentionalDisconnect = true;
+            PhotonNetwork.Disconnect(); ;
+        }
+
+        Debug.Log("Are we connected to PhotonNetwork? " + PhotonNetwork.NetworkClientState);
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void DisconnectedBackButton()
+    {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+        if (onFaceoffScreen == true)
+        {
+            FindObjectOfType<AudioManager>().StopCurrentSong(1);
+            onFaceoffScreen = false;
+        }
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void HostGameBackButton()
+    {
+        multiplayerMenuPanel.SetActive(true);
+        CharacterSelectionLobbyPanel.SetActive(false);
+        PhotonNetwork.LeaveLobby();
+    }
+
+    public void JoinLobbyOnClick() //Paired to the Join button
+    {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+        multiplayerMenuPanel.SetActive(false);
+        JoinGamePanel.SetActive(true);
+        PhotonNetwork.JoinLobby();
+
+        // Call to function in "GameUtilities.cs"
+        SetPlayerTurn(PlayerTurn.TWO);
+        setP2username(roomName);
+    }
+
+    public void JoinGameBackButton() //Paired to the host game panels back button. Used to go back to the main menu
+    {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+        multiplayerMenuPanel.SetActive(true);
+        JoinGamePanel.SetActive(false);
+        PhotonNetwork.LeaveLobby();
+    }
+    #endregion
 }
 
 
