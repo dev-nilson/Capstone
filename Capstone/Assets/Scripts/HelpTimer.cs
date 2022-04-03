@@ -41,7 +41,7 @@ public class HelpTimer : MonoBehaviour
 
         // set x positions for on and off screen scarab
         onScreen_x = hintBanner.transform.position.x;
-        offScreen_x = onScreen_x + 300.0f;
+        offScreen_x = onScreen_x + 400.0f;
         x_shift = Math.Abs(offScreen_x - onScreen_x)/80.0f;
 
         hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
