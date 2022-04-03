@@ -39,9 +39,9 @@ public class HelpTimer : MonoBehaviour
 
         // set x positions for on and off screen scarab
         onScreen_x = hintBanner.transform.position.x;
-        offScreen_x = 1100.0f;
+        offScreen_x = -75.0f;
 
-        hintBanner.transform.position = new Vector3(1100.0f, hintBanner.transform.position.y, hintBanner.transform.position.z);
+        hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
 
         if (ScrollSettings.HintsOn())
             scarabOn = true;
@@ -102,14 +102,14 @@ public class HelpTimer : MonoBehaviour
 
         float x_shift = 1.0f;
         //Debug.Log("slide in called");
-        while (hintBanner.transform.position.x > onScreen_x && moveIn)
+        while (hintBanner.transform.position.x < onScreen_x && moveIn)
         {
-            if (Math.Abs(hintBanner.transform.position.x - onScreen_x) < 6.0f)
+            if (Math.Abs(hintBanner.transform.position.x - onScreen_x) < 4.0f)
                 hintBanner.transform.position = new Vector3(onScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
             else
-                hintBanner.transform.position -= new Vector3(x_shift, 0.0f, 0.0f);
+                hintBanner.transform.position += new Vector3(x_shift, 0.0f, 0.0f);
             //Debug.Log("slide on is running");
-            yield return new WaitForSecondsRealtime(0.003f);
+            yield return new WaitForSecondsRealtime(0.001f);
         }
     }
 
@@ -120,17 +120,17 @@ public class HelpTimer : MonoBehaviour
 
         float x_shift = 1.0f;
 
-        while (hintBanner.transform.position.x < offScreen_x && !moveIn)
+        while (hintBanner.transform.position.x > offScreen_x && !moveIn)
         {
-            if (Math.Abs(hintBanner.transform.position.x - offScreen_x) < 6.0f)
+            if (Math.Abs(hintBanner.transform.position.x - offScreen_x) < 4.0f)
                 hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
             else
             {
-                hintBanner.transform.position += new Vector3(x_shift, 0.0f, 0.0f);
+                hintBanner.transform.position -= new Vector3(x_shift, 0.0f, 0.0f);
                 //Debug.Log("slide off is being called");
             }
 
-            yield return new WaitForSecondsRealtime(0.003f);
+            yield return new WaitForSecondsRealtime(0.001f);
         }
 
         // turn off popups
