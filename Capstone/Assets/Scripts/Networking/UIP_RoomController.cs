@@ -292,12 +292,15 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
             if (player.Value == PhotonNetwork.LocalPlayer)
             {
-                //newPlayerItem.ApplyLocalChanges();
-                //if (player.Value == PhotonNetwork.LocalPlayer && (!PhotonNetwork.IsMasterClient))
-                //{
-                //    newPlayerItem.FlipIt(player.Value);
-                //}
                 tempPlayer = newPlayerItem;
+            }
+            if (player.Value == PhotonNetwork.LocalPlayer && PhotonNetwork.CurrentRoom.PlayerCount == 2)
+            {
+                newPlayerItem.FlipIt(player.Value);
+                if (player.Value == PhotonNetwork.LocalPlayer)
+                {
+                    newPlayerItem.FlipIt(player.Value);
+                }
             }
 
             playerItemsList.Add(newPlayerItem);
