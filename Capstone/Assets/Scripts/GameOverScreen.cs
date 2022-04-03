@@ -17,15 +17,21 @@ public class GameOverScreen : MonoBehaviour
     //Story mode buttons
     public Button retry;
     public Button leaveStoryMode;
+    public Button menuButton;
 
     public GameObject quickGameScreen;
     public GameObject multiplayerScreen;
     public GameObject storyModeScreen;
+    public GameObject beatStoryModeScreen;
+
 
     public GameObject scribePrefab;
     public GameObject workerPrefab;
     public GameObject pharoahPrefab;
     public GameObject peasantPrefab;
+
+    //This is used to determine whether it is time to to dispay the final screen saying you beat storymode
+    int count = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +42,7 @@ public class GameOverScreen : MonoBehaviour
         quickGameScreen.SetActive(false);
         multiplayerScreen.SetActive(false);
         storyModeScreen.SetActive(false);
+        beatStoryModeScreen.SetActive(false);
 
         scribePrefab.SetActive(false);
         workerPrefab.SetActive(false);
@@ -56,6 +63,9 @@ public class GameOverScreen : MonoBehaviour
 
         Button leaveStoryModeBtn = leaveStoryMode.GetComponent<Button>();
         leaveStoryModeBtn.onClick.AddListener(backToMenuClicked);
+
+        Button menuBtn = menuButton.GetComponent<Button>();
+        menuBtn.onClick.AddListener(backToMenuClicked);
     }
 
     public void GameOverPopup()
@@ -63,9 +73,19 @@ public class GameOverScreen : MonoBehaviour
         // Local player wins in story mode
         if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
-            storyModeScreen.SetActive(true);
-            // Local player wins in story mode!
-            winText.SetActive(true);
+            if(count == 1)
+            {
+                beatStoryModeScreen.SetActive(true);
+                count = 0;
+            }
+            else
+            {
+                storyModeScreen.SetActive(true);
+                // Local player wins in story mode!
+                winText.SetActive(true);
+                //increment this so you know you have been here once
+                count++;
+            }
         }
 
         // Local player loses in story mode
