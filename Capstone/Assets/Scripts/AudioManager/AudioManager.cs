@@ -33,6 +33,9 @@ public class AudioManager : MonoBehaviour
 
     bool firstTime = true;
 
+    public static float musicVolume;
+    public static bool musicOn = true;
+
     string[] songs = { "GoldenVagueTower", "VagueTowerGolden", "TowerVagueGolden", "My Quiet Room",
                         "OrdinaryBankThowr","SerpentClosing", "Devil's Disgrace", 
                         "Searching Through Sand" };
@@ -96,16 +99,20 @@ public class AudioManager : MonoBehaviour
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("Volume", volume);
+        musicVolume = volume;
+        Debug.Log(volume);
     }
 
     public void turnMusicOff()
     {
         AudioListener.volume = 0;
+        musicOn = false;
     }
 
     public void turnMusicOn()
     {
         AudioListener.volume = 1;
+        musicOn = true;
     }
     #endregion
 

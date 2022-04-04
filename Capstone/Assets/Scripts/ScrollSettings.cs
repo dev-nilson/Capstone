@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static GameUtilities;
 
 public class ScrollSettings : MonoBehaviour
 {
+    public static ScrollSettings instance;
     public Toggle musicOn;
     public Toggle musicOff;
     public Slider slider;
@@ -13,12 +15,18 @@ public class ScrollSettings : MonoBehaviour
 
     private static bool hintsOn = true;
 
-    // Start is called before the first frame update
-    void Start()
+        // Start is called before the first frame update
+        void Start()
     {
-        musicOn = GetComponent<Toggle>();
+        SceneManager.activeSceneChanged += setSoundSettings;
+
+        //musicOn = GetComponent<Toggle>();
 
         hints.isOn = hintsOn;
+
+        slider.value = AudioManager.musicVolume;
+        musicOn.isOn = AudioManager.musicOn;
+        musicOff.isOn = !AudioManager.musicOn;
     }
 
     void Update()
@@ -28,19 +36,18 @@ public class ScrollSettings : MonoBehaviour
 
     public void ToggleSound()
     {
-        if (musicOn.isOn)
-        {
-            //idk
-        }
-        else
-        {
-            //idk
-        }
+        musicOn.isOn = AudioManager.musicOn;
+        musicOff.isOn = !AudioManager.musicOn;
     }
 
-    public void GameVolume()
+    public void setSoundSettings(Scene current, Scene next)
     {
-        //idk
+
+        Debug.Log(AudioManager.musicVolume);
+        slider.value = AudioManager.musicVolume;
+        Debug.Log("slider value is: " + slider.value);
+        musicOn.isOn = AudioManager.musicOn;
+        musicOff.isOn = !AudioManager.musicOn;
     }
 
     public void GameHints()
