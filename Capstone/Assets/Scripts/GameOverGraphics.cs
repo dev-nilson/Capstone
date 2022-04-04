@@ -38,10 +38,22 @@ public class GameOverGraphics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsGameOver() && canShake == false)
+        // Network disconnect
+        if (IsLocalDisconnect())
+        {
+            disconnectedPopup.SetActive(true);
+            youDisconnected.SetActive(true);
+        }
+
+        else if (IsOpponentDisconnect())
+        {
+            disconnectedPopup.SetActive(true);
+            opponectDisconnected.SetActive(true);
+        }
+        else if (IsGameOver() && canShake == false)
         {
             canShake = true;
-            GameOverPopup();
+            //GameOverPopup();
             shakeTheScreen();
             //SceneManager.LoadScene("GameOver");
         }
@@ -64,7 +76,7 @@ public class GameOverGraphics : MonoBehaviour
 
         // TO DO: WHAT IF SOMEONE LEAVES THE GAME????????????
 
-        // Local player wins in story mode
+        /*// Local player wins in story mode
         else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
             // Local player wins in story mode!
@@ -100,16 +112,14 @@ public class GameOverGraphics : MonoBehaviour
             //losePopup.SetActive(true);
             //shakeTheScreen();
             //SceneManager.LoadScene("GameOver");
-        }
+        }*/
     }
 
     void resetPopupBoxes()
     {
-        losePopup.SetActive(false);
         disconnectedPopup.SetActive(false);
         opponectDisconnected.SetActive(false);
         youDisconnected.SetActive(false);
-        winPopup.SetActive(false);
     }
 
     void backToMenuClicked()
@@ -120,9 +130,6 @@ public class GameOverGraphics : MonoBehaviour
 
     void shakeTheScreen()
     {
-        //ScreenShake.instance.StartShake(5f, 5f);
-        //ScreenShake.instance.StartShake(1f, 1f);
-        //canShake = true;
         StartCoroutine(shakeScreen());
     }
 
@@ -143,5 +150,7 @@ public class GameOverGraphics : MonoBehaviour
         ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("GameOver");
     }
 }
