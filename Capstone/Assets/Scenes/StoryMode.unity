@@ -1225,7 +1225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 494356076}
   m_Layer: 0
-  m_Name: StartGame
+  m_Name: StartGame_Two
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3041,7 +3041,7 @@ GameObject:
   - component: {fileID: 1011624743}
   - component: {fileID: 1011624742}
   m_Layer: 5
-  m_Name: Start Button
+  m_Name: Start Button_One
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3508,7 +3508,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   back: {fileID: 1348463778}
   next: {fileID: 1409753847}
-  startGame: {fileID: 1011624742}
+  startGame_One: {fileID: 1011624742}
+  startGame_Two: {fileID: 1358767943}
   continueStory: {fileID: 587616451}
   settings: {fileID: 1677442473}
   exitSettings: {fileID: 605125999}
@@ -4374,7 +4375,7 @@ GameObject:
   - component: {fileID: 1358767944}
   - component: {fileID: 1358767943}
   m_Layer: 5
-  m_Name: Start Button
+  m_Name: Start Button_Two
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5117,7 +5118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1554388333}
   m_Layer: 0
-  m_Name: StartGame
+  m_Name: StartGame_One
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
