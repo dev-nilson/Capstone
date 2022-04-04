@@ -19,7 +19,7 @@ public class GameOverGraphics : MonoBehaviour
 
     ScreenShake screenShake = new ScreenShake();
 
-    bool canShake = true;
+    bool canShake = false;
 
 
     // Start is called before the first frame update
@@ -28,13 +28,6 @@ public class GameOverGraphics : MonoBehaviour
         resetPopupBoxes();
         Button backToMenuBtn = backToMenu.GetComponent<Button>();
         backToMenuBtn.onClick.AddListener(backToMenuClicked);
-
-        shakeTheScreen();
-        shakeTheScreen();
-        shakeTheScreen();
-        shakeTheScreen();
-        shakeTheScreen();
-
     }
 
     void Awake()
@@ -45,8 +38,12 @@ public class GameOverGraphics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsGameOver())
+        if (IsGameOver() && canShake == false)
+        {
+            canShake = true;
             GameOverPopup();
+            shakeTheScreen();
+        }
     }
 
     public void GameOverPopup()
@@ -70,14 +67,16 @@ public class GameOverGraphics : MonoBehaviour
         else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
             // Local player wins in story mode!
-            shakeTheScreen();
+            if (canShake)
+                shakeTheScreen();
             SceneManager.LoadScene("GameOver");
         }
 
         // Local player loses in story mode
         else if (PlayingStoryMode)
         {
-            shakeTheScreen();
+            if (canShake)
+                shakeTheScreen();
             // Local player loses in story mode :(
             SceneManager.LoadScene("GameOver");
         }
@@ -88,6 +87,7 @@ public class GameOverGraphics : MonoBehaviour
             //winPopup.SetActive(true);
             //Debug.Log("Local player loses: no available moves");
             shakeTheScreen();
+            canShake = true;
             SceneManager.LoadScene("GameOver");
 
         }
@@ -97,8 +97,7 @@ public class GameOverGraphics : MonoBehaviour
         {
             //Debug.Log("Opposing player loses: no available moves"); 
             //losePopup.SetActive(true);
-            if(canShake)
-                shakeTheScreen();
+            //shakeTheScreen();
             //SceneManager.LoadScene("GameOver");
         }
     }
@@ -120,26 +119,27 @@ public class GameOverGraphics : MonoBehaviour
 
     void shakeTheScreen()
     {
-        ScreenShake.instance.StartShake(1f, 1f);
-
-        canShake = false;
+        //ScreenShake.instance.StartShake(5f, 5f);
+        //ScreenShake.instance.StartShake(1f, 1f);
+        //canShake = true;
+        StartCoroutine(shakeScreen());
     }
 
     IEnumerator shakeScreen()
     {
-        screenShake.StartShake(.5f, 1f);
+        ScreenShake.instance.StartShake(1f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        screenShake.StartShake(.5f, 1f);
+        ScreenShake.instance.StartShake(1f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        screenShake.StartShake(.5f, 1f);
+        ScreenShake.instance.StartShake(1f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        screenShake.StartShake(.5f, 1f);
+        ScreenShake.instance.StartShake(1f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        screenShake.StartShake(.5f, 1f);
+        ScreenShake.instance.StartShake(1f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
     }
