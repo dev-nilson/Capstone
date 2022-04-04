@@ -1,16 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameUtilities;
 
 public class ScreenShake : MonoBehaviour
 {
     private float shakeTimeRemaining, shakePower, shakeFadeTime;
-  
+
+    public static ScreenShake instance;
+
+    private void Start()
+    {
+        instance = this;
+    }
+
     // Update is called once per frame
     void Update()
     {
         //possible if statement for if correct trigger was activated
-        StartShake(.5f, 1f);
+        //if (IsGameOver())
+        //{
+        //    StartShake(.5f, 1f);
+        //}
     }
 
     private void LateUpdate()
@@ -28,7 +39,7 @@ public class ScreenShake : MonoBehaviour
         }
     }
 
-    private void StartShake(float length, float power)
+    public void StartShake(float length, float power)
     {
         shakeTimeRemaining = length;
         shakePower = power;
