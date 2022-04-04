@@ -139,7 +139,7 @@ public class GameController : MonoBehaviour
 
                     HelpTimer.TurnOff();
 
-                    ClearGame();
+                    ClearGame(board_gc);
                 }
                 else
                 {
@@ -152,31 +152,32 @@ public class GameController : MonoBehaviour
 
                         curLoc = playerController.GetPawn(board_gc, CurrentPlayer, WaitingPlayer);
 
-                        if (curLoc != new Coordinates(-1, -1))
+                        Debug.Log("ALL PAWNS? " + Player.GetBothPlayersPawns()[0].X + "," + Player.GetBothPlayersPawns()[0].Y + " " + Player.GetBothPlayersPawns()[1].X + "," + Player.GetBothPlayersPawns()[1].Y + " " + Player.GetBothPlayersPawns()[2].X + "," + Player.GetBothPlayersPawns()[2].Y + " " + Player.GetBothPlayersPawns()[3].X + "," + Player.GetBothPlayersPawns()[3].Y);
+                        Debug.Log("current player has this pawn? " + CurrentPlayer.HasThisPawn(curLoc));
+                        // Collect the first tile
+                        if (curLoc != null && CurrentPlayer.HasThisPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
                         {
-                            // Collect the first tile
-                            if (curLoc != null && CurrentPlayer.HasThisPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
+                            if (curLoc != null) Debug.Log("curLoc = " + curLoc.X + " " + curLoc.Y);
+
+                            // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
+                            validTiles = board_gc.AvailableMoves(curLoc);
+
+                            if (validTiles.Count == 0)
                             {
-                                // Get the coordinates of available moves surrounding that pawn and then highlight those tiles
-                                validTiles = board_gc.AvailableMoves(curLoc);
-
-                                if (validTiles.Count == 0)
-                                {
-                                    // NOTIFY PLAYER THAT THIS PAWN HAS NO AVAILABLE MOVES
-                                    // THEY MUST MOVE THE OTHER PAWN
-                                }
-                                else
-                                {
-                                    if (CurrentPlayer.Type() == Player.Tag.LOCAL) boardController.highlightValidTiles(validTiles);
-
-                                    // Record the fact that the first tile has been collected for the "move" phase. Will begin waiting for the second tile
-                                    CollectedFirstTile();
-                                }
+                                // NOTIFY PLAYER THAT THIS PAWN HAS NO AVAILABLE MOVES
+                                // THEY MUST MOVE THE OTHER PAWN
                             }
                             else
                             {
-                                // Should we notify the player that they are not clicking a valid tile (containing a pawn)?
+                                if (CurrentPlayer.Type() == Player.Tag.LOCAL) boardController.highlightValidTiles(validTiles);
+
+                                // Record the fact that the first tile has been collected for the "move" phase. Will begin waiting for the second tile
+                                CollectedFirstTile();
                             }
+                        }
+                        else
+                        {
+                            // Should we notify the player that they are not clicking a valid tile (containing a pawn)?
                         }
                     }
                     else //WaitingForSecondTile()
@@ -241,7 +242,7 @@ public class GameController : MonoBehaviour
 
                                     HelpTimer.TurnOff();
 
-                                    ClearGame();
+                                    ClearGame(board_gc);
                                 }
                                 else if (moveStatus == MoveType.INVALID)
                                 {
@@ -277,7 +278,7 @@ public class GameController : MonoBehaviour
 
                         HelpTimer.TurnOff();
 
-                        ClearGame();
+                        ClearGame(board_gc);
                     }
                     else
                     {

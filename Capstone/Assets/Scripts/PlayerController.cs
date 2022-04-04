@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
+            Debug.Log("trying to get pawn coord from hard AI");
             if (!AIController.isRunning)
             {
                 AIController.SimulateTurnExpert(currentPlayer, waitingPlayer, board);

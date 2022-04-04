@@ -29,7 +29,7 @@ using static GameUtilities;
 
 public class GameBoard //public  ??
 {
-    private static int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
+    private int[,] heights; // 2D element the size of the game board, stores height of each tile: 0, 1, 2, 3, or 4        //private ??
         
 
     // Constructor that creates a game board object and initializes game board with heights of 0
@@ -205,7 +205,7 @@ public class GameBoard //public  ??
         return false;
     }
 
-    public static void ClearBoard()
+    public void ClearBoard()
     {
         for (int x = 0; x < BOARD_DIMENSION; ++x)
         {

@@ -351,9 +351,9 @@ public static class GameUtilities //public  ??
     //////////////////////////////////////
     // Generic game functionalities
     //////////////////////////////////////
-    public static void ClearGame()
+    public static void ClearGame(GameBoard gameboard)
     {
-        GameBoard.ClearBoard();
+        gameboard.ClearBoard();
         Player.ClearPawns();
         GridManager.clearSelectedTile();
         // TO DO: CLEAR USERNAMES AS WELL???
