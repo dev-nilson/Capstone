@@ -17,6 +17,10 @@ public class GameOverGraphics : MonoBehaviour
     public GameObject winPopup;
     public GameObject losePopup;
 
+    ScreenShake screenShake = new ScreenShake();
+
+    bool canShake = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +38,12 @@ public class GameOverGraphics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsGameOver())
+        if (IsGameOver() && canShake == false)
+        {
+            canShake = true;
             GameOverPopup();
+            shakeTheScreen();
+        }
     }
 
     public void GameOverPopup()
@@ -59,12 +67,16 @@ public class GameOverGraphics : MonoBehaviour
         else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
             // Local player wins in story mode!
+            if (canShake)
+                shakeTheScreen();
             SceneManager.LoadScene("GameOver");
         }
 
         // Local player loses in story mode
         else if (PlayingStoryMode)
         {
+            if (canShake)
+                shakeTheScreen();
             // Local player loses in story mode :(
             SceneManager.LoadScene("GameOver");
         }
@@ -74,7 +86,8 @@ public class GameOverGraphics : MonoBehaviour
         {
             //winPopup.SetActive(true);
             //Debug.Log("Local player loses: no available moves");
-
+            shakeTheScreen();
+            canShake = true;
             SceneManager.LoadScene("GameOver");
 
         }
@@ -84,8 +97,8 @@ public class GameOverGraphics : MonoBehaviour
         {
             //Debug.Log("Opposing player loses: no available moves"); 
             //losePopup.SetActive(true);
-
-            SceneManager.LoadScene("GameOver");
+            //shakeTheScreen();
+            //SceneManager.LoadScene("GameOver");
         }
     }
 
@@ -102,5 +115,32 @@ public class GameOverGraphics : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
+    }
+
+    void shakeTheScreen()
+    {
+        //ScreenShake.instance.StartShake(5f, 5f);
+        //ScreenShake.instance.StartShake(1f, 1f);
+        //canShake = true;
+        StartCoroutine(shakeScreen());
+    }
+
+    IEnumerator shakeScreen()
+    {
+        ScreenShake.instance.StartShake(1f, 1f);
+        Debug.Log("Wait");
+        yield return new WaitForSeconds(2f);
+        ScreenShake.instance.StartShake(1f, 1f);
+        Debug.Log("Wait");
+        yield return new WaitForSeconds(2f);
+        ScreenShake.instance.StartShake(1f, 1f);
+        Debug.Log("Wait");
+        yield return new WaitForSeconds(2f);
+        ScreenShake.instance.StartShake(1f, 1f);
+        Debug.Log("Wait");
+        yield return new WaitForSeconds(2f);
+        ScreenShake.instance.StartShake(1f, 1f);
+        Debug.Log("Wait");
+        yield return new WaitForSeconds(2f);
     }
 }

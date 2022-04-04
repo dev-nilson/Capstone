@@ -73,7 +73,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
 
     public void FlipIt(Photon.Realtime.Player netPlayer)
     {
-        playerAlien.transform.RotateAround(transform.position, transform.up, 180f);
+        playerAlien.transform.rotation = Quaternion.Euler(0, 180, 0);
         Debug.Log("Flipped it!");
     }
 
