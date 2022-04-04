@@ -43,6 +43,7 @@ public class GameOverGraphics : MonoBehaviour
             canShake = true;
             GameOverPopup();
             shakeTheScreen();
+            //SceneManager.LoadScene("GameOver");
         }
     }
 
@@ -127,19 +128,19 @@ public class GameOverGraphics : MonoBehaviour
 
     IEnumerator shakeScreen()
     {
-        ScreenShake.instance.StartShake(1f, 1f);
+        ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        ScreenShake.instance.StartShake(1f, 1f);
+        ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        ScreenShake.instance.StartShake(1f, 1f);
+        ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        ScreenShake.instance.StartShake(1f, 1f);
+        ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        ScreenShake.instance.StartShake(1f, 1f);
+        ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
     }
