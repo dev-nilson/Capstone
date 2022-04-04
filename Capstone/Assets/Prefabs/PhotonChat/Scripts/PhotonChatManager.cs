@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameUtilities;
 
 public class PhotonChatManager : MonoBehaviour, IChatClientListener //IChatClientListener needs special callbacks in order to work
 {
@@ -52,7 +53,11 @@ public class PhotonChatManager : MonoBehaviour, IChatClientListener //IChatClien
     // Start is called before the first frame update
     void Start()
     {
-     
+        Debug.Log(getGameType());
+        if (getGameType() == GameType.NETWORK)
+        {
+            chatPanel.SetActive(true);
+        }
     }
 
     // Update is called once per frame

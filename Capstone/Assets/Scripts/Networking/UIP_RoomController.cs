@@ -8,13 +8,12 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using static GameUtilities;
 
 public class UIP_RoomController : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    private int multiPlayerSceneIndex; //scene index for loading multiplayer scene
-
+    #region Variables
     [SerializeField]
     private GameObject JoinGamePanel; //display for when in lobby
     [SerializeField]
@@ -28,6 +27,10 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     private GameObject StartGameButton; //only for the master client. used to start the game and load the multiplayer scene
     [SerializeField]
     private GameObject FaceoffBackButton;
+    [SerializeField]
+    private GameObject ReadyUpButton;
+    [SerializeField]
+    private GameObject DisabledStartButton;
 
     [SerializeField]
     private GameObject PharoahButton;
@@ -46,19 +49,127 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     public Transform playerItemParent;
 
     private NetPlayerItem tempPlayer;
+    private bool readyUpStatus;
+    #endregion
 
-    public override void OnJoinedRoom()
+    #region StartUpdateLateUpdate
+    private void Start()
     {
-        CharacterSelectionLobbyPanel.SetActive(true); //activate the display for being in a room
-        JoinGamePanel.SetActive(false); //hide the display for being in a lobby
-        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2) //if master client then activate the start button
+        SceneManager.activeSceneChanged += OnGameStarting;
+    }
+
+    private void Update()
+    {
+        if (CharacterSelectionLobbyPanel.activeInHierarchy)
+        {
+            if (tempPlayer.OpponentAlien() == "PHAROAH")
+            {
+                PharoahButton.SetActive(false);
+                if (tempPlayer.alienChosen == "SCRIBE")
+                {
+                    WorkerButton.SetActive(true);
+                    PeasantButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "WORKER")
+                {
+                    ScribeButton.SetActive(true);
+                    PeasantButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "PEASANT")
+                {
+                    ScribeButton.SetActive(true);
+                    WorkerButton.SetActive(true);
+                }
+            }
+            else if (tempPlayer.OpponentAlien() == "SCRIBE")
+            {
+                ScribeButton.SetActive(false);
+                if (tempPlayer.alienChosen == "PHAROAH")
+                {
+                    WorkerButton.SetActive(true);
+                    PeasantButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "WORKER")
+                {
+                    PharoahButton.SetActive(true);
+                    PeasantButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "PEASANT")
+                {
+                    PharoahButton.SetActive(true);
+                    WorkerButton.SetActive(true);
+                }
+            }
+            else if (tempPlayer.OpponentAlien() == "WORKER")
+            {
+                WorkerButton.SetActive(false);
+                if (tempPlayer.alienChosen == "PHAROAH")
+                {
+                    ScribeButton.SetActive(true);
+                    PeasantButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "SCRIBE")
+                {
+                    PharoahButton.SetActive(true);
+                    PeasantButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "PEASANT")
+                {
+                    ScribeButton.SetActive(true);
+                    PharoahButton.SetActive(true);
+                }
+            }
+            else if (tempPlayer.OpponentAlien() == "PEASANT")
+            {
+                PeasantButton.SetActive(false);
+                if (tempPlayer.alienChosen == "PHAROAH")
+                {
+                    WorkerButton.SetActive(true);
+                    ScribeButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "SCRIBE")
+                {
+                    PharoahButton.SetActive(true);
+                    WorkerButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "WORKER")
+                {
+                    PharoahButton.SetActive(true);
+                    ScribeButton.SetActive(true);
+                }
+            }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (PhotonNetwork.IsMasterClient && 
+            PhotonNetwork.CurrentRoom.PlayerCount == 2 && 
+            tempPlayer.alienChosen != null && 
+            tempPlayer.OpponentAlien() != null)
         {
             StartGameButton.SetActive(true);
         }
         else
         {
-            WaitingForOpponents.text = "Waiting for Host to start";
             StartGameButton.SetActive(false);
+        }
+    }
+    #endregion
+
+    public override void OnJoinedRoom()
+    {
+        CharacterSelectionLobbyPanel.SetActive(true);
+        JoinGamePanel.SetActive(false);
+        StartGameButton.SetActive(false);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            DisabledStartButton.SetActive(true);
+        }
+        else
+        {
+            WaitingForOpponents.text = "Waiting for Host to start";
         }
         UpdatePlayerList();
     }
@@ -71,10 +182,43 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
+        Debug.Log("PLAYER LEFT ROOM");
         UpdatePlayerList();
         if (PhotonNetwork.IsMasterClient)//if the local player is now the new master client then we activate the start button
         {
-            StartGameButton.SetActive(true);
+            DisabledStartButton.SetActive(true);
+        }
+        if (tempPlayer.alienChosen == "PHAROAH")
+        {
+            ScribeButton.SetActive(true);
+            WorkerButton.SetActive(true);
+            PeasantButton.SetActive(true);
+            Debug.Log("DONE");
+        }
+        else if (tempPlayer.alienChosen == "SCRIBE")
+        {
+            PharoahButton.SetActive(true);
+            WorkerButton.SetActive(true);
+            PeasantButton.SetActive(true);
+        }
+        else if (tempPlayer.alienChosen == "WORKER")
+        {
+            PharoahButton.SetActive(true);
+            ScribeButton.SetActive(true);
+            PeasantButton.SetActive(true);
+        }
+        else if (tempPlayer.alienChosen == "PEASANT")
+        {
+            PharoahButton.SetActive(true);
+            ScribeButton.SetActive(true);
+            WorkerButton.SetActive(true);
+        }
+        else if (tempPlayer.alienChosen == null)
+        {
+            PharoahButton.SetActive(true);
+            ScribeButton.SetActive(true);
+            WorkerButton.SetActive(true);
+            PeasantButton.SetActive(true);
         }
         WaitingForOpponents.text = "Waiting for Opponents";
     }
@@ -87,6 +231,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             FindObjectOfType<AudioManager>().Play("stoneButtonPress");
             PhotonNetwork.LoadLevel("GameBoard");
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
+            readyUpStatus = false;
         }
     }
 
@@ -139,15 +284,6 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             newPlayerItem.SetPlayerInfo(player.Value);
             flipCounter++;
 
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-            {
-                //newPlayerItem.FlipIt(player.Value);
-                if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2)
-                {
-                    StartGameButton.SetActive(true);
-                }
-            }
-
             /*********************************************************************************************
             * Checks to see if the current KeyValuePair is the local player, if so lets make a temporary
             * varaible, tempPlayer, to store this player inside of (this allows us to change the aliens 
@@ -169,6 +305,16 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
     }
 
+    #region Miscellaneous Functions
+    private void OnGameStarting(Scene current, Scene next)
+    {
+        tempPlayer.OpponentAlien();
+        if (next.name == "GameBoard")
+        {
+            FindObjectOfType<AudioManager>().StopCurrentSong(6);
+        }
+        Debug.Log("Called OnGameStarting");
+    }
     public void choosePharoah()
     {
         int chosen = 0;
@@ -183,6 +329,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
 
         tempPlayer.changeAlien(chosen);
+        PharoahButton.SetActive(false);
     }
 
     public void chooseScribe()
@@ -199,6 +346,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
 
         tempPlayer.changeAlien(chosen);
+        ScribeButton.SetActive(false);
     }
 
     public void chooseWorker()
@@ -215,6 +363,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
 
         tempPlayer.changeAlien(chosen);
+        WorkerButton.SetActive(false);
     }
 
     public void choosePeasant()
@@ -231,5 +380,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
 
         tempPlayer.changeAlien(chosen);
+        PeasantButton.SetActive(false);
     }
+    #endregion
 }

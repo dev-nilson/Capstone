@@ -74,6 +74,7 @@ public class MenuScreen : MonoBehaviour
 		helpPanel.SetActive(false);
 
 		PlayingStoryMode = false;
+		SetGameOver();
 	}
 
 	void quickGameClicked()

@@ -73,11 +73,14 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-            // If the mouse was clicked, return that coordinate
-            if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
+            Coordinates loc = AIController.PlacePawns(board);
+            if (GameBoard.IsValidCoord(loc))
+                return loc;
             else
+            {
+                Debug.Log("AI (hard) failed to return a valid coordinate");
                 return new Coordinates();
+            }
         }
         else
         {
@@ -117,15 +120,14 @@ public class PlayerController : MonoBehaviour
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
             AIController.SimulateTurn(currentPlayer, waitingPlayer, board);
+            Debug.Log("Playing easy AI");
             return AIController.bestNode.GetMoveFrom();
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-            // If the mouse was clicked, return that coordinate
-            if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
-            else
-                return new Coordinates();
+            AIController.SimulateTurnExpert(currentPlayer, waitingPlayer, board);
+            Debug.Log("Playing hard AI");
+            return AIController.bestNode.GetMoveFrom();
         }
         else
         {
@@ -167,11 +169,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-            // If the mouse was clicked, return that coordinate
-            if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
-            else
-                return new Coordinates();
+            return AIController.bestNode.GetMoveTo();
         }
         else
         {
@@ -212,11 +210,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-            // If the mouse was clicked, return that coordinate
-            if (Input.GetMouseButtonDown(0))
-                return GridManager.getSelectedTile();
-            else
-                return new Coordinates();
+            return AIController.bestNode.BuildTo();
         }
         else
         {

@@ -178,7 +178,6 @@ public class GridManager : MonoBehaviour
             disabledRight.SetActive(false);
             disabledLeft.SetActive(false);
         }
-        
     }
 
     public void movePlayer(Coordinates curLoc, Coordinates newLoc, Player P1, Player P2, GameBoard board)
@@ -219,9 +218,6 @@ public class GridManager : MonoBehaviour
                 Debug.Log("original player name: " + originalPlayer.name);
             }
         }
-
-        //this sets the alien that was selected to the end location
-        //originalPlayer.transform.position = endLocation;
 
         int heightChange = board.GetHeights()[newLoc.X, newLoc.Y] - board.GetHeights()[curLoc.X, curLoc.Y];
         movePlayerAnimation(originalPlayer, heightChange);
@@ -272,20 +268,9 @@ public class GridManager : MonoBehaviour
             child.transform.parent = Grid[newLoc.X, newLoc.Y].transform;
             child.transform.rotation = Quaternion.Euler(0, 0, 0);
             //child.transform.position = new Vector3(Grid[newLoc.X, newLoc.Y].transform.position.x, 2.75f, Grid[newLoc.X, newLoc.Y].transform.position.z);
-            child.transform.localScale = new Vector3(.08f, .23f, .08f);
+            child.transform.localScale = new Vector3(.091f, .25f, .091f);
         }
     }
-
-    /*public void clearBoard()
-    {
-        Debug.Log(GameObject.FindGameObjectsWithTag("Alien").Length);
-        GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
-        foreach(GameObject go in aliens)
-        {
-            Destroy(go);
-        }
-        //Destroy(GameObject.FindWithTag("Alien"));
-    }*/
 
     public static GameObject getBoardTile(int row, int col)
     {
@@ -313,25 +298,12 @@ public class GridManager : MonoBehaviour
                     Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                     //Color32 newColor = new Color32(0, 200, 26, 200);
                     //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
-                    //Grid[i, j].GetComponent<Renderer>().ma
+                    //Grid[i, j].GetComponent<Renderer>().material.SetTexture()
 
                 }
             }
         }
     }
-    /*public void highlightValidTiles(int[,] temp)
-    {
-        for (var i = 0; i < Row; i++)
-        {
-            for (var j = 0; j < Col; j++)
-            {
-                if (temp[i, j] == 0)
-                {
-                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
-                }
-            }
-        }
-    }*/
 
     public void unhighlightTiles(List<Coordinates> locs)
     {
@@ -365,19 +337,6 @@ public class GridManager : MonoBehaviour
                     }
                 }
             }
-
-            /*Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            Debug.Log("mouse x: " + mousePos.x);
-            Debug.Log("mouse y: " + mousePos.y);
-
-            Collider2D targetObject = Physics2D.OverlapPoint(mousePos);
-            if (targetObject)
-            {
-                selectedObject = targetObject.transform.gameObject;
-                Debug.Log("Selected gameobject tag: " + selectedObject.gameObject.tag);
-            }*/
-
         }
     }
 
@@ -402,7 +361,7 @@ public class GridManager : MonoBehaviour
                 player1Instance.transform.position = endLocation;
             else
                 player2Instance.transform.position = endLocation;
-            yield return new WaitForSeconds(.01f);
+            yield return new WaitForSeconds(.02f);
         }
 
         PlayGame();
@@ -428,7 +387,7 @@ public class GridManager : MonoBehaviour
         {
             endLocation.y = i;
             child.transform.position = endLocation;
-            yield return new WaitForSeconds(.001f);
+            yield return new WaitForSeconds(.015f);
         }
 
         //This sets a delay after a player builds their level
@@ -441,7 +400,6 @@ public class GridManager : MonoBehaviour
 
     void movePlayerAnimation(GameObject player, int heightChange)
     {
-        Debug.Log("move player animation called");
         PauseGame();
         RotateMainCamera.DisableRotation();
 
@@ -450,9 +408,6 @@ public class GridManager : MonoBehaviour
 
     IEnumerator movePlayerDelay(GameObject player, int heightChange)
     {
-        Debug.Log("move player coroutine called");
-
-
         float leapHeight = endLocation.y + 1.0f;
         int h_start = 0;
         int h_end = heightChange; //0, 1, -1, -2, -3
@@ -469,37 +424,11 @@ public class GridManager : MonoBehaviour
             float z = startLocation.z + n * (endLocation.z - startLocation.z);
             float y = startLocation.y + h_cur * (leapHeight - Math.Min(startLocation.y, endLocation.y));
 
-            //0: 0.7f
-            //1: 2.0f
-            //2: 2.75f
-            //3: 3.25f
-
-            Debug.Log(h_cur + " --> " + y);
+            //Debug.Log(h_cur + " --> " + y);
             player.transform.position = new Vector3(x, y, z);
             yield return new WaitForSeconds(0.05f);
         }
         player.transform.position = endLocation;
-
-        /* THIS IS GONNA GET REPLACED -- JUST MAKES PIECES MOVE */
-        //int iters = 100, count = 0;
-        //float x_step = (endLocation.x - startLocation.x) / iters;
-        //float y_step = (endLocation.y - startLocation.y) / iters;
-        //float z_step = (endLocation.z - startLocation.z) / iters;
-        //Vector3 steps = new Vector3(x_step, y_step, z_step);
-        //for (Vector3 curLocation = startLocation; curLocation != endLocation && count <= iters; )
-        //{
-        //    if (Math.Abs(endLocation.x - curLocation.x) < 0.1f && Math.Abs(endLocation.y - curLocation.y) < 0.1f && Math.Abs(endLocation.z - curLocation.z) < 0.1f)
-        //        curLocation = endLocation;
-        //    else
-        //    {
-        //        curLocation = curLocation + 2*steps;
-
-        //        player.transform.position = curLocation;
-        //        yield return new WaitForSeconds(.01f);
-        //    }
-
-        //    ++count;
-        //}
 
         PlayGame();
         RotateMainCamera.EnableRotation();

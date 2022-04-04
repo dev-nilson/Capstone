@@ -23,14 +23,38 @@ public class HelpTimer : MonoBehaviour
 
     static HelpTimer helptimer;
 
+    // this variable is used to enable and disable the help scarab
+    private static bool scarabOn;
+
+    // this variable is used to determine whether the scarab is allowed to move in or out
+    private bool moveIn = true;
+
+    private float onScreen_x;
+    private float offScreen_x;
+
     void Start()
     {
         helptimer = this;
+        helptimer._turnOff();
+
+        // set x positions for on and off screen scarab
+        onScreen_x = hintBanner.transform.position.x;
+        offScreen_x = 1100.0f;
+
+        hintBanner.transform.position = new Vector3(1100.0f, hintBanner.transform.position.y, hintBanner.transform.position.z);
+
+        if (ScrollSettings.HintsOn())
+            scarabOn = true;
+        else
+            scarabOn = false;
     }
 
     public static void Set()
     {
-        helptimer.startDelay();
+        if (scarabOn)
+        {
+            helptimer.startDelay();
+        }
     }
 
     // Non static function called by Set()
@@ -48,18 +72,78 @@ public class HelpTimer : MonoBehaviour
 
         if (GetPlayerTurn() == PlayerTurn.ONE)
         {
-            hintBanner.SetActive(true);
+            if (!GamePaused())
+            {
+                hintBanner.SetActive(true);
 
-            if (getP1avatar() == PlayerAvatar.PEASANT) peasant.SetActive(true);
-            else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoah.SetActive(true);
-            else if (getP1avatar() == PlayerAvatar.SCRIBE) scribe.SetActive(true);
-            else if (getP1avatar() == PlayerAvatar.WORKER) worker.SetActive(true);
+                if (getP1avatar() == PlayerAvatar.PEASANT) peasant.SetActive(true);
+                else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoah.SetActive(true);
+                else if (getP1avatar() == PlayerAvatar.SCRIBE) scribe.SetActive(true);
+                else if (getP1avatar() == PlayerAvatar.WORKER) worker.SetActive(true);
 
-            // display popup
-            if (CanPlacePawn()) place.SetActive(true);
-            else if (CanBuild()) build.SetActive(true);
-            else if (CanMove()) move.SetActive(true);
+                // display popup
+                if (CanPlacePawn()) place.SetActive(true);
+                else if (CanBuild()) build.SetActive(true);
+                else if (CanMove()) move.SetActive(true);
+
+                StartCoroutine("SlideIn");
+
+                // eventually turn them off
+                yield return new WaitForSecondsRealtime(delay);
+                TurnOff();
+            }
+            StartCoroutine("HelpPopup");
         }
+    }
+
+    IEnumerator SlideIn()
+    {
+        moveIn = true;
+
+        float x_shift = 1.0f;
+        //Debug.Log("slide in called");
+        while (hintBanner.transform.position.x > onScreen_x && moveIn)
+        {
+            if (Math.Abs(hintBanner.transform.position.x - onScreen_x) < 6.0f)
+                hintBanner.transform.position = new Vector3(onScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
+            else
+                hintBanner.transform.position -= new Vector3(x_shift, 0.0f, 0.0f);
+            //Debug.Log("slide on is running");
+            yield return new WaitForSecondsRealtime(0.003f);
+        }
+    }
+
+    IEnumerator SlideOff()
+    {
+        //Debug.Log("Starting slide off");
+        moveIn = false;
+
+        float x_shift = 1.0f;
+
+        while (hintBanner.transform.position.x < offScreen_x && !moveIn)
+        {
+            if (Math.Abs(hintBanner.transform.position.x - offScreen_x) < 6.0f)
+                hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
+            else
+            {
+                hintBanner.transform.position += new Vector3(x_shift, 0.0f, 0.0f);
+                //Debug.Log("slide off is being called");
+            }
+
+            yield return new WaitForSecondsRealtime(0.003f);
+        }
+
+        // turn off popups
+        build.SetActive(false);
+        move.SetActive(false);
+        place.SetActive(false);
+
+        peasant.SetActive(false);
+        pharoah.SetActive(false);
+        scribe.SetActive(false);
+        worker.SetActive(false);
+
+        hintBanner.SetActive(false);
     }
 
     public static void TurnOff()
@@ -72,18 +156,15 @@ public class HelpTimer : MonoBehaviour
     {
         StopCoroutine("HelpPopup");
 
-        // turn off popups
+        StartCoroutine("SlideOff");
+    }
 
-        // TO DO: ADD THING FOR PLACING PAWN!!!!!!!!!!!!!!!
-        build.SetActive(false);
-        move.SetActive(false);
-        place.SetActive(false);
-
-        peasant.SetActive(false);
-        pharoah.SetActive(false);
-        scribe.SetActive(false);
-        worker.SetActive(false);
-
-        hintBanner.SetActive(false);
+    public static void DisableScarab()
+    {
+        scarabOn = false;
+    }
+    public static void EnableScarab()
+    {
+        scarabOn = true;
     }
 }

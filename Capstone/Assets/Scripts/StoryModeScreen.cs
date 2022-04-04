@@ -8,7 +8,8 @@ public class StoryModeScreen : MonoBehaviour
     public Button back;
 
     public Button next;
-    public Button startGame;
+    public Button startGame_One;
+    public Button startGame_Two;
     public Button continueStory;
 
     public Button settings;
@@ -35,11 +36,21 @@ public class StoryModeScreen : MonoBehaviour
         Button nextBtn = next.GetComponent<Button>();
         nextBtn.onClick.AddListener(nextClicked);
 
-        Button startGameBtn = startGame.GetComponent<Button>();
-        startGameBtn.onClick.AddListener(startGameClicked);
+        Button startGameOneBtn = startGame_One.GetComponent<Button>();
+        startGameOneBtn.onClick.AddListener(startGameOneClicked);
+
+        Button startGameTwoBtn = startGame_Two.GetComponent<Button>();
+        startGameTwoBtn.onClick.AddListener(startGameTwoClicked);
 
         Button continueStoryBtn = continueStory.GetComponent<Button>();
         continueStoryBtn.onClick.AddListener(continueStoryClicked);
+
+        if (GameOverScreen.readyForStoryModeSetThree == true)
+        {
+            set1.SetActive(false);
+            set2.SetActive(false);
+            set3.SetActive(true);
+        }
     }
 
     void backClicked()
@@ -61,14 +72,12 @@ public class StoryModeScreen : MonoBehaviour
         set3.SetActive(true);
     }
 
-    void startGameClicked()
+    void startGameOneClicked()
     {
         FindObjectOfType<AudioManager>().Play("goldButtonPress");
-        //if it's on set2 then get ready to have the player vs. AI easy (Peasant vs. Scribe)
-        if (set2.activeInHierarchy)
-        {
+       
             setP1avatar(PlayerAvatar.PEASANT);
-            setP1username("Peasant");
+            setP1username("Peasant (You)");
             setP2avatar(PlayerAvatar.SCRIBE);
             setP2username("Scribe");
             setGameType(GameType.EASY);
@@ -77,18 +86,17 @@ public class StoryModeScreen : MonoBehaviour
             set2.SetActive(false);
             SceneManager.LoadScene("GameBoard");
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
-        }
-        //if it's on set3 slide then get ready to have the player vs. AI hard (Peasant vs. Pharoah)
-        if (set3.activeInHierarchy)
-        {
-            setP2avatar(PlayerAvatar.PHAROAH);
-            setP2username("Pharaoh");
-            setGameType(GameType.DIFFICULT);
+    }
 
-            Debug.Log("Peasant vs. Pharoah on HARD");
-            set3.SetActive(false);
-            SceneManager.LoadScene("GameBoard");
-            FindObjectOfType<AudioManager>().StopCurrentSong(6);
-        }
+    void startGameTwoClicked()
+    {
+        setP2avatar(PlayerAvatar.PHAROAH);
+        setP2username("Pharaoh");
+        setGameType(GameType.DIFFICULT);
+
+        Debug.Log("Peasant vs. Pharoah on HARD");
+        set3.SetActive(false);
+        SceneManager.LoadScene("GameBoard");
+        FindObjectOfType<AudioManager>().StopCurrentSong(6);
     }
 }
