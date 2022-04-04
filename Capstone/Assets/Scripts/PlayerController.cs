@@ -125,9 +125,18 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-            AIController.SimulateTurnExpert(currentPlayer, waitingPlayer, board);
-            Debug.Log("Playing hard AI");
-            return AIController.bestNode.GetMoveFrom();
+            if (!AIController.isRunning)
+            {
+                AIController.SimulateTurnExpert(currentPlayer, waitingPlayer, board);
+                Debug.Log("Playing hard AI");
+                if (AIController.bestNode != null)
+                {
+                    Debug.Log(AIController.bestNode.GetMoveFrom().X + ", " + AIController.bestNode.GetMoveFrom().Y);
+                    return AIController.bestNode.GetMoveFrom();
+                }
+            }
+
+            return new Coordinates(-1, -1);
         }
         else
         {
@@ -165,7 +174,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.EASY)
         {
-            return AIController.bestNode.GetMoveTo();
+            if (AIController.bestNode != null)
+                return AIController.bestNode.GetMoveTo();
+
+            return new Coordinates(-1, -1);
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {

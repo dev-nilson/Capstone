@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
+using UnityEngine;
 using System.Diagnostics;
 
 namespace AmazingGame
 {
     class AIController
     {
-        public static Node bestNode = null;       
+        public static Node bestNode = null;
+        public static bool isRunning = false;
 
         public static Coordinates PlacePawns(GameBoard gameBoard)
         {
@@ -48,8 +51,10 @@ namespace AmazingGame
             }
         }
 
-        public static void SimulateTurnExpert(Player opponent, Player local, GameBoard gameBoard)
+        public static async void SimulateTurnExpert(Player opponent, Player local, GameBoard gameBoard)
         {
+            isRunning = true;
+
             Coordinates[] pawns = Player.GetBothPlayersPawns();
             Coordinates[] localPawns = { pawns[0], pawns[1] };
             Coordinates[] opponentPawns = { pawns[2], pawns[3] };
@@ -81,10 +86,18 @@ namespace AmazingGame
 
             Node root = new Node(new Coordinates(-1, -1), new Coordinates(-1, -1), new Coordinates(-1, -1));
 
-            // if AI has not winning move options
+           
             if (!didWin)
             {
-                root.children = GetPossiblePlaysExpert(opponent, local, opponentPawns, localPawns, gameBoard, 0);
+                UnityEngine.Debug.Log("Start Task");
+                var result = await Task.Run(() =>
+                {
+                    List<Node> children = GetPossiblePlaysExpert(opponent, local, opponentPawns, localPawns, gameBoard, 0);
+                    return children;
+                });
+                root.children = result;
+                UnityEngine.Debug.Log("End Task");
+
                 bestNode = null;
                 Minimax(root, gameBoard, 0, true, Double.MinValue, Double.MaxValue);
             }
@@ -100,6 +113,8 @@ namespace AmazingGame
                     }
                 }
             }
+
+            isRunning = false;
         }
 
         public static List<Node> GetPossiblePlays(Player playingPlayer, Player waitingPlayer, Coordinates[] playingPawns, Coordinates[] waitingPawns, GameBoard gameBoard, int turns)
