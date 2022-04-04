@@ -20,6 +20,11 @@ public class GameBoardScreen : MonoBehaviour
     public Button exitTutorial;
     public GameObject tutorialPopup;
 
+    // add text for tutorial popup depending on the game phase
+    public GameObject placeText;
+    public GameObject moveText;
+    public GameObject buildText;
+
     //This is for the setting scroll (makes it look like it's rolling up)
     public GameObject scroll1;
     public GameObject scroll2;
@@ -126,6 +131,10 @@ public class GameBoardScreen : MonoBehaviour
         {
             FindObjectOfType<AudioManager>().Play("goldButtonPress");
             tutorialPopup.SetActive(true);
+            if (CanPlacePawn()) placeText.SetActive(true);
+            else if (CanMove()) moveText.SetActive(true);
+            else if (CanBuild()) buildText.SetActive(true);
+
             PauseGame();
             DisableButtons();
             HelpTimer.TurnOff();
@@ -134,6 +143,9 @@ public class GameBoardScreen : MonoBehaviour
 
     void exitTutorialClicked()
     {
+        placeText.SetActive(false);
+        moveText.SetActive(false);
+        buildText.SetActive(false);
         tutorialPopup.SetActive(false);
         PlayGame();
         EnableButtons();
