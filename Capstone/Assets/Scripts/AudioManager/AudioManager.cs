@@ -54,7 +54,6 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         DontDestroyOnLoad(gameObject);
 
         foreach (Sound s in sounds)
@@ -71,6 +70,20 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
+        // Load Player's previous volume if it exists.
+        if (PlayerPrefs.HasKey("Volume"))
+        {
+            audioMixer.SetFloat("Volume", PlayerPrefs.GetFloat("Volume"));
+            musicVolume = PlayerPrefs.GetFloat("Volume");
+            Debug.LogFormat("<Color=Green>The player already made a decision about volume, so it got loaded :)</Color>");
+        }
+        else
+        {
+            // first time playing, save default volume.
+            float volume;
+            audioMixer.GetFloat("Volume", out volume);
+            PlayerPrefs.SetFloat("Volume",volume);
+        }
         Debug.Log(firstTime);
         if (firstTime == true)
         {
@@ -98,9 +111,11 @@ public class AudioManager : MonoBehaviour
     #region VolumeControlFunctions
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("Volume", volume);
+        audioMixer.SetFloat("Master", volume);
         musicVolume = volume;
-        Debug.Log(volume);
+        // Save it in their Unity prefs.
+        PlayerPrefs.SetFloat("Volume", volume);
+        Debug.Log($"The volume is now {volume}, and saved in PlayerPrefs :^)");
     }
 
     public void turnMusicOff()

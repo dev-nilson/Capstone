@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,7 +39,7 @@ public class ScrollSettings : MonoBehaviour
         //SceneManager.activeSceneChanged += setSoundSettings;
         //SceneManager.activeSceneChanged += ToggleSound;
 
-        musicOn = GetComponent<Toggle>();
+        // musicOn = GetComponent<Toggle>();
 
         hints.isOn = hintsOn;
         Debug.Log("scroll volume value is: " + AudioManager.musicVolume);
