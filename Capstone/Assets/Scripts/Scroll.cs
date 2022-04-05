@@ -37,8 +37,8 @@ public class Scroll : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("goldButtonPress");
         if (!disabled)
         {
-            Debug.Log("settings game");
-            scroll1.SetActive(true);
+            scroll6.SetActive(true);
+            StartCoroutine(openSettingsClicked());
 
             //switch phases to turn off build and place player to create a fake modal pop up box
             RotateMainCamera.DisableRotation();
@@ -110,6 +110,64 @@ public class Scroll : MonoBehaviour
     public static void EnableButtons()
     {
         disabled = false;
+    }
+
+    void delayOpenningScrollDisplay()
+    {
+        StartCoroutine(openSettingsClicked());
+    }
+
+    IEnumerator openSettingsClicked()
+    {
+        //time that the scroll waits before it moves on to the next image
+        float delay = .001f;
+
+        GameObject[] scrollArray = new GameObject[7];
+
+        //Get the Rectransform of each height in order to get the height 
+        scrollArray[1] = scroll1;
+        scrollArray[2] = scroll2;
+        scrollArray[3] = scroll3;
+        scrollArray[4] = scroll4;
+        scrollArray[5] = scroll5;
+        scrollArray[6] = scroll6;
+
+        //Create a copy of the scrolls in order to reset the heights back to the original
+        GameObject[] scrollReset = scrollArray;
+
+        //BEAUTIFUL PIECE OF CODE --- Love Dad
+        for (int scrollNum = 6; scrollNum >= 1; scrollNum--)
+        {
+            Debug.Log(scrollNum);
+
+            scrollArray[scrollNum].SetActive(true);
+            float firstScrollRef = scrollArray[scrollNum].GetComponent<RectTransform>().rect.height;
+            Debug.Log("first scroll: " + firstScrollRef);
+
+            float tempHeight = firstScrollRef;
+            float secondScrollRef = scrollArray[scrollNum - 1].GetComponent<RectTransform>().rect.height;
+            Debug.Log("second scroll: " + secondScrollRef);
+
+            for (float i = firstScrollRef; i <= (firstScrollRef - ((firstScrollRef - secondScrollRef))); i += 10)
+            {
+                scrollArray[scrollNum].GetComponent<RectTransform>().sizeDelta = new Vector2(scrollArray[scrollNum].GetComponent<RectTransform>().rect.width, i);
+                yield return new WaitForSecondsRealtime(delay);
+            }
+            scrollArray[scrollNum].SetActive(false);
+
+            //add delay before is turns off
+            if (scrollNum == 1)
+            {
+                scrollArray[1].SetActive(true);
+            }
+            //reset height value
+            scrollArray[scrollNum].GetComponent<RectTransform>().sizeDelta = new Vector2(scrollReset[scrollNum].GetComponent<RectTransform>().rect.width, tempHeight);
+        }
+
+        RotateMainCamera.EnableRotation();
+        PlayGame();
+        EnableButtons();
+        HelpTimer.Set();
     }
 
 }
