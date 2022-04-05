@@ -8,7 +8,6 @@ using static GameUtilities;
 
 public class Scroll : MonoBehaviour
 {
-
     public Button settings;
     public Button exitSettings;
 
@@ -29,7 +28,7 @@ public class Scroll : MonoBehaviour
         settingsBtn.onClick.AddListener(settingsClicked);
 
         Button exitSettingsBtn = exitSettings.GetComponent<Button>();
-        exitSettingsBtn.onClick.AddListener(delayDisplay);
+        exitSettingsBtn.onClick.AddListener(exitSettingsClicked);
     }
 
     void settingsClicked()
@@ -48,12 +47,12 @@ public class Scroll : MonoBehaviour
         }
     }
 
-    void delayDisplay()
+    void exitSettingsClicked()
     {
-        StartCoroutine(exitSettingsClicked());
+        StartCoroutine(rollUpScroll());
     }
 
-    IEnumerator exitSettingsClicked()
+    IEnumerator rollUpScroll()
     {
         //time that the scroll waits before it moves on to the next image
         float delay = .001f;
