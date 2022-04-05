@@ -23,12 +23,17 @@ public class StoryModeScreen : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
 
+    public GameObject backToMenu;
+
     void Start()
     {
         settingsPopUp.SetActive(false);
         set1.SetActive(true);
         set2.SetActive(false);
         set3.SetActive(false);
+
+        Button backToMenuBtn = backToMenu.GetComponent<Button>();
+        backToMenuBtn.onClick.AddListener(backToMenuClicked);
 
         Button backBtn = back.GetComponent<Button>();
         backBtn.onClick.AddListener(backClicked);
@@ -54,6 +59,13 @@ public class StoryModeScreen : MonoBehaviour
     }
 
     void backClicked()
+    {
+        set2.SetActive(false);
+        set1.SetActive(true);
+        FindObjectOfType<AudioManager>().Play("goldButtonPress");
+    }
+
+    void backToMenuClicked()
     {
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().Play("goldButtonPress");
