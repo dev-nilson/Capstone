@@ -1124,14 +1124,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: "Moving aliens: During a turn, a player may select one of their aliens
-    to move. An alien may be moved to any of its neighboring highlighted tiles on
-    the board. An alien may climb on top of any adjacent pyramid piece; however,
-    the pyramid may not be more than one level higher than the alien\u2019s current
-    location. An alien may jump down any number of pyramid levels in a move. Additionally,
-    an alien may not be moved onto a fully built/completed/capped pyramid or onto
-    a tile/space occupied by another alien. (Note: all pyramids are shared by the
-    players)"
+  m_Text: "Now the 2 players  alternate turns until the game is over. During a turn,
+    a player may select one of their aliens to move to any of its neighboring highlighted
+    tiles on the board. An alien may climb on top of any adjacent pyramid piece;
+    however, the pyramid may not be more than one level higher than the alien\u2019s
+    current location. An alien may jump down any number of pyramid levels. Additionally,
+    an alien may not be moved onto a fully built pyramid or onto a tile occupied
+    by another alien.\n(Note: all pyramids are shared by the players)"
 --- !u!222 &304936653
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1355,10 +1354,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: 'Placing aliens: At the beginning of the game each player gets to place
-    their two aliens at any locations/tiles on the board, with the first player placing
-    2 aliens followed by the other player placing their 2 aliens. The 2 players will
-    then alternate turns until the game is over.'
+  m_Text: At the beginning of the game each player gets to place their two aliens
+    at any tiles on the board, with the first player placing 2 aliens followed by
+    the other player placing 2 aliens.
 --- !u!222 &361801993
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1437,10 +1435,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: "Tips:\r\nYou can BLOCK your opponite by placing a layer two pieces higher
-    than your opponent, rendering the opponent unable to move on the title\nAdd a
-    fourth/cap to a pyramid to block your opponent from winning. (maybe show animation
-    of this)\r"
+  m_Text: 'Tips:
+
+    You can block your opponent by building a pyramid piece two
+    layers higher than your opponent.
+
+    Add a fourth piece to a pyramid to block
+    your opponent from winning.'
 --- !u!222 &416477594
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4009,13 +4010,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: 'Building Pyramids: After an alien is moved, a pyramid piece may be placed
-    on any of its neighboring tiles to build up a pyramid. Only the recently moved
-    alien can build part of a pyramid. An alien can build on a tile containing a
-    pyramid of any height, but once a pyramid is completed with a fourth and final
-    piece, no more pyramid pieces may be built on top of it. A pyramid piece may
-    not be placed on a space if it is currently occupied by an alien. (maybe show
-    pics/animations of the different pyramid layers)'
+  m_Text: After an alien is moved, a pyramid piece may be placed on any of its neighboring
+    tiles to build up a pyramid. Only the recently moved alien can build part of
+    a pyramid. An alien can build on a tile containing a pyramid of any height, but
+    once a pyramid is completed with a fourth and final piece, no more pyramid pieces
+    may be built on top of it. A pyramid piece may not be placed on a space if it
+    is currently occupied by an alien.
 --- !u!222 &1540553622
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5171,9 +5171,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: 'Game Over: A player wins when one of their aliens climbs to the top of
-    a 3-tiered pyramid. A player loses if neither of their aliens are able to move
-    or if an alien they just moved is unable to build a pyramid level.'
+  m_Text: A player wins when one of their aliens climbs to the top of a 3-tiered
+    pyramid. A player loses if neither of their aliens are able to move or if an
+    alien they just moved is unable to build a pyramid level.
 --- !u!222 &1843388656
 CanvasRenderer:
   m_ObjectHideFlags: 0
