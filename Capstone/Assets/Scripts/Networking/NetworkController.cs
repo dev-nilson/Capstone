@@ -39,31 +39,34 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        //add watcher that will continually see if player has disconnected yet or not
-        if (PhotonNetwork.NetworkClientState == ClientState.Disconnected)
+        if (getGameType() == GameType.NETWORK)
         {
-            //code for however we decide to tell player they've disconnected
-            // ** see "GameOverGraphics.cs"
+            //add watcher that will continually see if player has disconnected yet or not
+            if (PhotonNetwork.NetworkClientState == ClientState.Disconnected)
+            {
+                //code for however we decide to tell player they've disconnected
+                // ** see "GameOverGraphics.cs"
 
-            //disable game phases
-            DisablePhases();
-            Debug.Log("You have lost network connection");
+                //disable game phases
+                DisablePhases();
+                Debug.Log("You have lost network connection");
 
-            SetLocalDisconnect();
-        }
-        else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2)
-        {
-            //code to tell person still left in the room that their opponent has disconnected
-            // ** see "GameOverGraphics.cs"
+                SetLocalDisconnect();
+            }
+            else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2)
+            {
+                //code to tell person still left in the room that their opponent has disconnected
+                // ** see "GameOverGraphics.cs"
 
-            //disable game phases
-            DisablePhases();
-            Debug.Log("Your opponent has lost network connection");
+                //disable game phases
+                DisablePhases();
+                Debug.Log("Your opponent has lost network connection");
 
-            SetOpponentDisconnect();
-            
-            // Don't forget to disconnect our end of network stuff!!!!!!!!!
+                SetOpponentDisconnect();
 
+                // Don't forget to disconnect our end of network stuff!!!!!!!!!
+
+            }
         }
     }
     #endregion

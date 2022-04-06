@@ -62,48 +62,50 @@ public class GameOverScreen : MonoBehaviour
         pharoahPrefab.SetActive(false);
         peasantPrefab.SetActive(false);
 
-        GameOverPopup();
-        displayAlien();
+        if (IsGameOver())
+        {
+            GameOverPopup();
+            displayAlien();
 
-        //Multiplayer buttons
-        //Back to Menu
-        Button backToMenuBtn_WM = backToMenu_WM.GetComponent<Button>();
-        backToMenuBtn_WM.onClick.AddListener(backToMenuClicked);
-        Button backToMenuBtn_LM = backToMenu_LM.GetComponent<Button>();
-        backToMenuBtn_LM.onClick.AddListener(backToMenuClicked);
-        //Rematch
-        Button rematchBtn_WM = rematch_WM.GetComponent<Button>();
-        rematchBtn_WM.onClick.AddListener(rematchClicked);
-        Button rematchBtn_LM = rematch_LM.GetComponent<Button>();
-        rematchBtn_LM.onClick.AddListener(rematchClicked);
+            //Multiplayer buttons
+            //Back to Menu
+            Button backToMenuBtn_WM = backToMenu_WM.GetComponent<Button>();
+            backToMenuBtn_WM.onClick.AddListener(backToMenuClicked);
+            Button backToMenuBtn_LM = backToMenu_LM.GetComponent<Button>();
+            backToMenuBtn_LM.onClick.AddListener(backToMenuClicked);
+            //Rematch
+            Button rematchBtn_WM = rematch_WM.GetComponent<Button>();
+            rematchBtn_WM.onClick.AddListener(rematchClicked);
+            Button rematchBtn_LM = rematch_LM.GetComponent<Button>();
+            rematchBtn_LM.onClick.AddListener(rematchClicked);
 
-        //Quick Game buttons
-        //Back to Menu
-        Button backToMenuBtn_WQ = backToMenu_WQ.GetComponent<Button>();
-        backToMenuBtn_WQ.onClick.AddListener(backToMenuClicked);
-        Button backToMenuBtn_LQ = backToMenu_LQ.GetComponent<Button>();
-        backToMenuBtn_LQ.onClick.AddListener(backToMenuClicked);
-        //Rematch
-        Button rematchBtn_WQ = rematch_WQ.GetComponent<Button>();
-        rematchBtn_WQ.onClick.AddListener(rematchClicked);
-        Button rematchBtn_LQ = rematch_LQ.GetComponent<Button>();
-        rematchBtn_LQ.onClick.AddListener(rematchClicked);
+            //Quick Game buttons
+            //Back to Menu
+            Button backToMenuBtn_WQ = backToMenu_WQ.GetComponent<Button>();
+            backToMenuBtn_WQ.onClick.AddListener(backToMenuClicked);
+            Button backToMenuBtn_LQ = backToMenu_LQ.GetComponent<Button>();
+            backToMenuBtn_LQ.onClick.AddListener(backToMenuClicked);
+            //Rematch
+            Button rematchBtn_WQ = rematch_WQ.GetComponent<Button>();
+            rematchBtn_WQ.onClick.AddListener(rematchClicked);
+            Button rematchBtn_LQ = rematch_LQ.GetComponent<Button>();
+            rematchBtn_LQ.onClick.AddListener(rematchClicked);
 
-        //Story mode buttons
-        //Back to Menu
-        Button backToMenuBtn_WS = backToMenu_WS.GetComponent<Button>();
-        backToMenuBtn_WS.onClick.AddListener(backToMenuClicked);
-        Button backToMenuBtn_LS = backToMenu_LS.GetComponent<Button>();
-        backToMenuBtn_LS.onClick.AddListener(backToMenuClicked);
-        Button backToMenuBtn_BS = backToMenu_BS.GetComponent<Button>();
-        backToMenuBtn_BS.onClick.AddListener(backToMenuClicked);
-        //Retry
-        Button rematchBtn_LS = rematch_LS.GetComponent<Button>();
-        rematchBtn_LS.onClick.AddListener(rematchClicked);
-        //Continue
-        Button continueBtn_WS = continue_WS.GetComponent<Button>();
-        continueBtn_WS.onClick.AddListener(continueStoryClicked);
-
+            //Story mode buttons
+            //Back to Menu
+            Button backToMenuBtn_WS = backToMenu_WS.GetComponent<Button>();
+            backToMenuBtn_WS.onClick.AddListener(backToMenuClicked);
+            Button backToMenuBtn_LS = backToMenu_LS.GetComponent<Button>();
+            backToMenuBtn_LS.onClick.AddListener(backToMenuClicked);
+            Button backToMenuBtn_BS = backToMenu_BS.GetComponent<Button>();
+            backToMenuBtn_BS.onClick.AddListener(backToMenuClicked);
+            //Retry
+            Button rematchBtn_LS = rematch_LS.GetComponent<Button>();
+            rematchBtn_LS.onClick.AddListener(rematchClicked);
+            //Continue
+            Button continueBtn_WS = continue_WS.GetComponent<Button>();
+            continueBtn_WS.onClick.AddListener(continueStoryClicked);
+        }
     }
 
     public void GameOverPopup()
