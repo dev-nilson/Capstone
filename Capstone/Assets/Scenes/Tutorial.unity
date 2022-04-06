@@ -1181,7 +1181,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: "Now the 2 players  alternate turns until the game is over. During a turn,
+  m_Text: "Now the 2 players alternate turns until the game is over. During a turn,
     a player may select one of their aliens to move to any of its neighboring highlighted
     tiles on the board. An alien may climb on top of any adjacent pyramid piece;
     however, the pyramid may not be more than one level higher than the alien\u2019s
