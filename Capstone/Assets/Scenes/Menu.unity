@@ -399,11 +399,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145003499}
   m_CullTransparentMesh: 0
---- !u!1 &191392502 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3672770069676991187, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
-  m_PrefabInstance: {fileID: 3556410215632761440}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &199476533
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,11 +577,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
---- !u!1 &317046374 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3672770069363500473, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
-  m_PrefabInstance: {fileID: 3556410215632761440}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &339545567
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,11 +656,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339545567}
   m_CullTransparentMesh: 0
---- !u!1 &354930807 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3672770068519243648, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
-  m_PrefabInstance: {fileID: 3556410215632761440}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &366582537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,11 +1777,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774000309}
   m_CullTransparentMesh: 0
---- !u!1 &800678130 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3672770069159941494, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
-  m_PrefabInstance: {fileID: 3556410215632761440}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &898751616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,17 +1872,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
---- !u!114 &927641208 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3672770070190459279, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
-  m_PrefabInstance: {fileID: 3556410215632761440}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1007363311
 GameObject:
   m_ObjectHideFlags: 0
@@ -3279,16 +3248,8 @@ MonoBehaviour:
   storyMode: {fileID: 1621470740}
   artBook: {fileID: 2000931646}
   exitApp: {fileID: 145003501}
-  exitSettings: {fileID: 927641208}
-  settings: {fileID: 2131589104}
   help: {fileID: 601105819}
   exitHelp: {fileID: 1250098559}
-  scroll1: {fileID: 354930807}
-  scroll2: {fileID: 191392502}
-  scroll3: {fileID: 800678130}
-  scroll4: {fileID: 1832877810}
-  scroll5: {fileID: 1886293277}
-  scroll6: {fileID: 317046374}
   helpPanel: {fileID: 366582537}
   clearPanel: {fileID: 2105682727}
 --- !u!1 &1496136192
@@ -4116,11 +4077,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736929824}
   m_CullTransparentMesh: 0
---- !u!1 &1832877810 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3672770068557542844, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
-  m_PrefabInstance: {fileID: 3556410215632761440}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1840439108
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,11 +4268,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1849125345}
   m_CullTransparentMesh: 0
---- !u!1 &1886293277 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3672770069954308674, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
-  m_PrefabInstance: {fileID: 3556410215632761440}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1937779672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5846,6 +5797,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3672770069676991187, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3672770069731127685, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5902,6 +5857,10 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3835919647548393657, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 2131589104}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
 --- !u!1001 &7215104916417615213

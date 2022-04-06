@@ -34,7 +34,7 @@ public class GameOverScreen : MonoBehaviour
     public Button backToMenu_BS;
 
     public static bool readyForStoryModeSetThree = false;
-
+    public static bool beatStoryMode = false;
 
     public GameObject scribePrefab;
     public GameObject workerPrefab;
@@ -113,17 +113,14 @@ public class GameOverScreen : MonoBehaviour
         // Local player wins in story mode
         if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
-            if(count == 1)
+            if(beatStoryMode)
             {
                 beatStoryModeScreen.SetActive(true);
-                count = 0;
             }
             else
             {
                 // Local player wins in story mode!
                 winStoryModeScreen.SetActive(true);
-                //increment this so you know you have been here once
-                count++;
             }
         }
 
@@ -166,6 +163,7 @@ public class GameOverScreen : MonoBehaviour
     void backToMenuClicked()
     {
         SceneManager.LoadScene("Menu");
+        beatStoryMode = false;
     }
 
     void rematchClicked()
@@ -179,6 +177,8 @@ public class GameOverScreen : MonoBehaviour
         Debug.Log("Continue clicked");
         readyForStoryModeSetThree = true;
         SceneManager.LoadScene("StoryMode");
+
+        beatStoryMode = true;
     }
 
 }
