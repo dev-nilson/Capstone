@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static GameUtilities;
 using AmazingGame;
+using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
@@ -127,7 +128,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-            StartCoroutine(_SimulateTurnExpert(currentPlayer, waitingPlayer, board));
+            var _ = AsyncSimulateTurnExpert(currentPlayer, waitingPlayer, board);
             if (AIdone)
             {
                 AIdone = false;
@@ -148,12 +149,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator _SimulateTurnExpert(Player currentPlayer, Player waitingPlayer, GameBoard board)
+    private async Task AsyncSimulateTurnExpert(Player currentPlayer, Player waitingPlayer, GameBoard board)
     {
-        
+        ////https://techcommunity.microsoft.com/t5/windows-dev-appconsult/asynchronous-programming-in-unity-using-coroutine-and-tap/ba-p/316851#:~:text=%20Asynchronous%20programming%20in%20Unity%2C%20Using%20Coroutine%20and,will%20be%20some%20property%20tabs.%20Unfold...%20More%20
+        Debug.Log("starting async");
+        await Task.Delay(0);
         AIController.SimulateTurn(currentPlayer, waitingPlayer, board);
-        AIdone = true;
-        yield return null;
+        Debug.Log("finishing async");
     }
 
     public Coordinates GetMove(GameBoard board, Player player)
