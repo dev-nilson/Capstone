@@ -53,7 +53,7 @@ public class ScrollSettings : MonoBehaviour
         GameHints();
 
         slider.value = AudioManager.musicVolume;
-        Debug.Log(musicOn.isOn);
+        //Debug.Log(musicOn.isOn);
         if (musicOn.isOn != AudioManager.musicOn)
         {
             musicOn.isOn = AudioManager.musicOn;

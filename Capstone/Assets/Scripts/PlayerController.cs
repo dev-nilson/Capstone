@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
     private NetworkController networkController;
 
+    private bool AIdone = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,15 +127,33 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-            AIController.SimulateTurnExpert(currentPlayer, waitingPlayer, board);
-            Debug.Log("Playing hard AI");
-            return AIController.bestNode.GetMoveFrom();
+            StartCoroutine(_SimulateTurnExpert(currentPlayer, waitingPlayer, board));
+            if (AIdone)
+            {
+                AIdone = false;
+                return AIController.bestNode.GetMoveFrom();
+            }
+            else
+                return new Coordinates();
+
+
+            //AIController.SimulateTurnExpert(currentPlayer, waitingPlayer, board);
+            //Debug.Log("Playing hard AI");
+            //return AIController.bestNode.GetMoveFrom();
         }
         else
         {
             Debug.Log("ERROR: NO GAME TYPE SET");
             return new Coordinates();
         }
+    }
+
+    private IEnumerator _SimulateTurnExpert(Player currentPlayer, Player waitingPlayer, GameBoard board)
+    {
+        
+        AIController.SimulateTurn(currentPlayer, waitingPlayer, board);
+        AIdone = true;
+        yield return null;
     }
 
     public Coordinates GetMove(GameBoard board, Player player)
