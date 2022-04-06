@@ -31,14 +31,14 @@ public class ScrollSettings : MonoBehaviour
     //    DontDestroyOnLoad(gameObject);
     //}
 
-        // Start is called before the first frame update
-        void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         Debug.Log("SCROLL STARTED");
         //SceneManager.activeSceneChanged += setSoundSettings;
         //SceneManager.activeSceneChanged += ToggleSound;
 
-        musicOn = GetComponent<Toggle>();
+        //musicOn = GetComponent<Toggle>();
 
         hints.isOn = hintsOn;
         Debug.Log("scroll volume value is: " + AudioManager.musicVolume);
@@ -53,6 +53,7 @@ public class ScrollSettings : MonoBehaviour
         GameHints();
 
         slider.value = AudioManager.musicVolume;
+        Debug.Log(musicOn.isOn); //this line has an error... :(
         if (musicOn.isOn != AudioManager.musicOn)
         {
             musicOn.isOn = AudioManager.musicOn;
