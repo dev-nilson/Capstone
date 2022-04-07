@@ -135,6 +135,8 @@ public class GameOverGraphics : MonoBehaviour
 
     IEnumerator shakeScreen()
     {
+        FindObjectOfType<AudioManager>().StopCurrentSong(7);
+        yield return new WaitForSeconds(1f);
         ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
@@ -147,7 +149,7 @@ public class GameOverGraphics : MonoBehaviour
         ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        ScreenShake.instance.StartShake(.5f, 1f);
+        ScreenShake.instance.StartShake(1f, 2f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
 

@@ -42,7 +42,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private void Update()
     {
         //add watcher that will continually see if player has disconnected yet or not
-        if (PhotonNetwork.NetworkClientState == ClientState.Disconnected)
+        if (PhotonNetwork.NetworkClientState == ClientState.Disconnected) //local player loses connection
         {
             //code for however we decide to tell player they've disconnected
             // ** see "GameOverGraphics.cs"
@@ -53,7 +53,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
             SetLocalDisconnect();
         }
-        else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2)
+        else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2 && playerIntentionallyLeftRoom == false) //players opponent loses connection
         {
             //code to tell person still left in the room that their opponent has disconnected
             // ** see "GameOverGraphics.cs"
@@ -66,12 +66,19 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.LeaveLobby();
-            // Don't forget to disconnect our end of network stuff!!!!!!!!!
-
         }
-        else if (PhotonNetwork.IsConnected && playerIntentionallyLeftRoom == true) 
+        else if (PhotonNetwork.IsConnected && playerIntentionallyLeftRoom == true) //local player intentionally leaves the game
         {
-            //when player leaves game mid way or game is over and returning to menu
+            Debug.Log("You have left the network");
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.LeaveLobby();
+        }
+        else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2 && playerIntentionallyLeftRoom == true) //players opponent initentionally leaves the game
+        {
+            DisablePhases();
+            Debug.Log("Your opponent has intentionally left the network");
+
+            SetOpponentDisconnect();
 
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.LeaveLobby();
