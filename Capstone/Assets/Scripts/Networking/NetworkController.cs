@@ -23,7 +23,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private PhotonView photonView;
 
     private static bool networkMessage;
-    private static bool playerIntentionallyLeftRoom;
+    public static bool playerIntentionallyLeftRoom;
     #endregion
 
     #region AwakeStartUpdate

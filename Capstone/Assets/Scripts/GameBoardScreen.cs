@@ -100,6 +100,7 @@ public class GameBoardScreen : MonoBehaviour
         EnableButtons();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
+        NetworkController.playerIntentionallyLeftRoom = true;
     }
 
     void cancelClicked()
