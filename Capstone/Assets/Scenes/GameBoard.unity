@@ -3494,7 +3494,7 @@ MonoBehaviour:
   workerPrefab: {fileID: 6694067083302284265, guid: 242d5b5954992eb43a87179516ef54c3, type: 3}
   pharoahPrefab: {fileID: 6694067083302284265, guid: 092a6e131b1d73f45ae11f85bd3efbd8, type: 3}
   peasantPrefab: {fileID: 6694067083302284265, guid: 64065515f0ae2c84195d5aa137067669, type: 3}
-  glowingBorder: {fileID: 6097765346862373977, guid: 74c64d978075ef742b2aa0ac5ad1d200, type: 3}
+  glowingBorder: {fileID: 5169997281419582638, guid: 774eb3eaa4f9e73468088f5575fd2cad, type: 3}
   parent: {fileID: 960253812}
   levelParent: {fileID: 960253812}
   disabledRight: {fileID: 541082386}
