@@ -31,6 +31,8 @@ public class HelpTimer : MonoBehaviour
 
     private float onScreen_x;
     private float offScreen_x;
+    private float x_shift;
+    private float pause = 0.5f / Screen.width;
 
     void Start()
     {
@@ -39,9 +41,11 @@ public class HelpTimer : MonoBehaviour
 
         // set x positions for on and off screen scarab
         onScreen_x = hintBanner.transform.position.x;
-        offScreen_x = 1100.0f;
+        offScreen_x = onScreen_x - 400.0f;
+        x_shift = Math.Abs(offScreen_x - onScreen_x)/80.0f;
 
-        hintBanner.transform.position = new Vector3(1100.0f, hintBanner.transform.position.y, hintBanner.transform.position.z);
+        hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
+        Debug.Log(1.0f / Screen.width);
 
         if (ScrollSettings.HintsOn())
             scarabOn = true;
@@ -74,18 +78,6 @@ public class HelpTimer : MonoBehaviour
         {
             if (!GamePaused())
             {
-                hintBanner.SetActive(true);
-
-                if (getP1avatar() == PlayerAvatar.PEASANT) peasant.SetActive(true);
-                else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoah.SetActive(true);
-                else if (getP1avatar() == PlayerAvatar.SCRIBE) scribe.SetActive(true);
-                else if (getP1avatar() == PlayerAvatar.WORKER) worker.SetActive(true);
-
-                // display popup
-                if (CanPlacePawn()) place.SetActive(true);
-                else if (CanBuild()) build.SetActive(true);
-                else if (CanMove()) move.SetActive(true);
-
                 StartCoroutine("SlideIn");
 
                 // eventually turn them off
@@ -100,16 +92,25 @@ public class HelpTimer : MonoBehaviour
     {
         moveIn = true;
 
-        float x_shift = 1.0f;
+        if (getP1avatar() == PlayerAvatar.PEASANT) peasant.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoah.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.SCRIBE) scribe.SetActive(true);
+        else if (getP1avatar() == PlayerAvatar.WORKER) worker.SetActive(true);
+
+        // display popup
+        if (CanPlacePawn()) place.SetActive(true);
+        else if (CanBuild()) build.SetActive(true);
+        else if (CanMove()) move.SetActive(true);
+
         //Debug.Log("slide in called");
-        while (hintBanner.transform.position.x > onScreen_x && moveIn)
+        while (hintBanner.transform.position.x < onScreen_x && moveIn)
         {
-            if (Math.Abs(hintBanner.transform.position.x - onScreen_x) < 6.0f)
+            if (Math.Abs(hintBanner.transform.position.x - onScreen_x) < 4.0f)
                 hintBanner.transform.position = new Vector3(onScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
             else
-                hintBanner.transform.position -= new Vector3(x_shift, 0.0f, 0.0f);
+                hintBanner.transform.position += new Vector3(x_shift, 0.0f, 0.0f);
             //Debug.Log("slide on is running");
-            yield return new WaitForSecondsRealtime(0.003f);
+            yield return new WaitForSecondsRealtime(pause);
         }
     }
 
@@ -118,19 +119,17 @@ public class HelpTimer : MonoBehaviour
         //Debug.Log("Starting slide off");
         moveIn = false;
 
-        float x_shift = 1.0f;
-
-        while (hintBanner.transform.position.x < offScreen_x && !moveIn)
+        while (hintBanner.transform.position.x > offScreen_x && !moveIn)
         {
-            if (Math.Abs(hintBanner.transform.position.x - offScreen_x) < 6.0f)
+            if (Math.Abs(hintBanner.transform.position.x - offScreen_x) < 4.0f)
                 hintBanner.transform.position = new Vector3(offScreen_x, hintBanner.transform.position.y, hintBanner.transform.position.z);
             else
             {
-                hintBanner.transform.position += new Vector3(x_shift, 0.0f, 0.0f);
+                hintBanner.transform.position -= new Vector3(x_shift, 0.0f, 0.0f);
                 //Debug.Log("slide off is being called");
             }
 
-            yield return new WaitForSecondsRealtime(0.003f);
+            yield return new WaitForSecondsRealtime(pause);
         }
 
         // turn off popups
@@ -142,8 +141,6 @@ public class HelpTimer : MonoBehaviour
         pharoah.SetActive(false);
         scribe.SetActive(false);
         worker.SetActive(false);
-
-        hintBanner.SetActive(false);
     }
 
     public static void TurnOff()
