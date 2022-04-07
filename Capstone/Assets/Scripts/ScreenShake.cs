@@ -9,6 +9,8 @@ public class ScreenShake : MonoBehaviour
 
     public static ScreenShake instance;
 
+    Vector3 startingPosition;
+
     private void Start()
     {
         instance = this;
@@ -30,8 +32,13 @@ public class ScreenShake : MonoBehaviour
         {
             shakeTimeRemaining -= Time.deltaTime;
 
-            float xAmount = Random.Range(-1f, 1f) * shakePower;
-            float yAmount = Random.Range(-1f, 1f) * shakePower;
+            float xAmount = Random.Range(0f, 1f) * shakePower;
+            float yAmount = Random.Range(0f, 1f) * shakePower;
+
+            if (transform.position.x - startingPosition.x > 0f)
+                xAmount = -xAmount;
+            if (transform.position.y - startingPosition.y > 0f)
+                yAmount = -yAmount;
 
             transform.position += new Vector3(xAmount, yAmount, 0f);
 
@@ -41,6 +48,8 @@ public class ScreenShake : MonoBehaviour
 
     public void StartShake(float length, float power)
     {
+        startingPosition = transform.position;
+
         shakeTimeRemaining = length;
         shakePower = power;
 
