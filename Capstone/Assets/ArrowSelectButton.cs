@@ -9,13 +9,15 @@ public class ArrowSelectButton : MonoBehaviour
 {
     public Button RightArrow;
     public Button LeftArrow;
-    public Button step0;
     public Button step1;
     public Button step2;
     public Button step3;
     public Button step4;
     public Button step5;
     public Button step6;
+    public Button step7;
+    public Button step8;
+    public Button step9;
     public int _index;
 
     //public GameObject video1;
@@ -48,7 +50,7 @@ public class ArrowSelectButton : MonoBehaviour
     public void RightArrowSelect()
     {
         _index++;
-        if (_index > 6)
+        if (_index > 9)
             _index = 0;
 
         Debug.Log(_index);
@@ -59,8 +61,8 @@ public class ArrowSelectButton : MonoBehaviour
     public void LeftArrowSelect()
     {
         _index--;
-        if (_index < 0)
-            _index = 6;
+        if (_index < 1)
+            _index = 9;
         swapVideo();
         // swapScript();
     }
@@ -75,10 +77,6 @@ public class ArrowSelectButton : MonoBehaviour
         //video5.SetActive(false);
         //video6.SetActive(false);
 
-        if (_index == 0)
-        {
-            step0.onClick.Invoke();
-        }
         if (_index == 1)
         {
             //video1.SetActive(true);
@@ -125,6 +123,36 @@ public class ArrowSelectButton : MonoBehaviour
             //video6.SetActive(false);
             step5.onClick.Invoke();
         }
+        else if (_index == 6)
+        {
+            //video1.SetActive(false);
+            //video2.SetActive(false);
+            //video3.SetActive(false);
+            //video4.SetActive(false);
+            //video5.SetActive(true);
+            //video6.SetActive(false);
+            step6.onClick.Invoke();
+        }
+        else if (_index == 7)
+        {
+            //video1.SetActive(false);
+            //video2.SetActive(false);
+            //video3.SetActive(false);
+            //video4.SetActive(false);
+            //video5.SetActive(true);
+            //video6.SetActive(false);
+            step7.onClick.Invoke();
+        }
+        else if (_index == 8)
+        {
+            //video1.SetActive(false);
+            //video2.SetActive(false);
+            //video3.SetActive(false);
+            //video4.SetActive(false);
+            //video5.SetActive(true);
+            //video6.SetActive(false);
+            step8.onClick.Invoke();
+        }
         else
         {
             //video1.SetActive(false);
@@ -133,7 +161,7 @@ public class ArrowSelectButton : MonoBehaviour
             //video4.SetActive(false);
             //video5.SetActive(false);
             //video6.SetActive(true);
-            step6.onClick.Invoke();
+            step9.onClick.Invoke();
         }
     }
 
