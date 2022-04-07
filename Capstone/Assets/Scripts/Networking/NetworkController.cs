@@ -23,6 +23,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private PhotonView photonView;
 
     private static bool networkMessage;
+    public static bool playerIntentionallyLeftRoom;
     #endregion
 
     #region AwakeStartUpdate
@@ -35,6 +36,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         GameObject player = PhotonNetwork.Instantiate("networkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
         netPlayer = player.GetComponent<NetworkPlayer>();
+        playerIntentionallyLeftRoom = false;
     }
 
     private void Update()
@@ -61,9 +63,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
             Debug.Log("Your opponent has lost network connection");
 
             SetOpponentDisconnect();
-            
+
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.LeaveLobby();
             // Don't forget to disconnect our end of network stuff!!!!!!!!!
 
+        }
+        else if (PhotonNetwork.IsConnected && playerIntentionallyLeftRoom == true) 
+        {
+            //when player leaves game mid way or game is over and returning to menu
+
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.LeaveLobby();
         }
     }
     #endregion
@@ -124,6 +135,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
     //{
     //    return networkMessage;
     //}
+
+
     #endregion
 }
 
