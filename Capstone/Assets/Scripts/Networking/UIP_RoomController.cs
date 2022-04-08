@@ -166,9 +166,11 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             DisabledStartButton.SetActive(true);
+            tempPlayer.alienChosen = null;
         }
         else
         {
+            tempPlayer.alienChosen = null;
             WaitingForOpponents.text = "Waiting for Host to start";
         }
         UpdatePlayerList();
@@ -184,7 +186,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     {
         Debug.Log("PLAYER LEFT ROOM");
         UpdatePlayerList();
-        if (PhotonNetwork.IsMasterClient)//if the local player is now the new master client then we activate the start button
+        if (PhotonNetwork.IsMasterClient)//if the local player is now the new master client then we activate the disabled start button
         {
             DisabledStartButton.SetActive(true);
         }
