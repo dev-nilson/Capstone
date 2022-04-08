@@ -38,20 +38,44 @@ public class GameOverGraphics : MonoBehaviour
         // Network disconnect
         if (getGameType() == GameType.NETWORK && IsLocalDisconnect())
         {
+            RotateMainCamera.DisableRotation();
+            PauseGame();
+            GameBoardScreen.DisableButtons();
+            Scroll.DisableButtons();
+            HelpTimer.TurnOff();
+
             disconnectedPopup.SetActive(true);
             youDisconnected.SetActive(true);
         }
         else if (getGameType() == GameType.NETWORK && IsOpponentDisconnect())
         {
+            RotateMainCamera.DisableRotation();
+            PauseGame();
+            GameBoardScreen.DisableButtons();
+            Scroll.DisableButtons();
+            HelpTimer.TurnOff();
+
             disconnectedPopup.SetActive(true);
             opponectDisconnected.SetActive(true);
         }
         else if (getGameType() == GameType.NETWORK && IsOpponentLeft())
         {
+            RotateMainCamera.DisableRotation();
+            PauseGame();
+            GameBoardScreen.DisableButtons();
+            Scroll.DisableButtons();
+            HelpTimer.TurnOff();
+
             opponentLeft.SetActive(true);
         }
         else if (IsGameOver() && canShake == false)
         {
+            RotateMainCamera.DisableRotation();
+            PauseGame();
+            GameBoardScreen.DisableButtons();
+            Scroll.DisableButtons();
+            HelpTimer.TurnOff();
+
             canShake = true;
             //GameOverPopup();
             shakeTheScreen();
@@ -65,6 +89,10 @@ public class GameOverGraphics : MonoBehaviour
         opponectDisconnected.SetActive(false);
         youDisconnected.SetActive(false);
         opponentLeft.SetActive(false);
+
+        ClearGame();
+        GameBoardScreen.EnableButtons();
+        Scroll.EnableButtons();
     }
 
     void backToMenuClicked()

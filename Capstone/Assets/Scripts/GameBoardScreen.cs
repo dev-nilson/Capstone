@@ -88,6 +88,7 @@ public class GameBoardScreen : MonoBehaviour
             //switch phases to turn off build and place player to create a fake modal pop up box
             RotateMainCamera.DisableRotation();
             PauseGame();
+            Scroll.DisableButtons();
             DisableButtons();
             HelpTimer.TurnOff();
         }
@@ -123,6 +124,7 @@ public class GameBoardScreen : MonoBehaviour
 
             PauseGame();
             DisableButtons();
+            Scroll.DisableButtons();
             HelpTimer.TurnOff();
         }
     }
@@ -135,6 +137,7 @@ public class GameBoardScreen : MonoBehaviour
         tutorialPopup.SetActive(false);
         PlayGame();
         EnableButtons();
+        Scroll.EnableButtons();
         HelpTimer.Set();
     }
 
