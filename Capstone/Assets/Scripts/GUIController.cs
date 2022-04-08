@@ -24,7 +24,6 @@ public class GUIController : MonoBehaviour
         boardController = board.GetComponent<GridManager>();
         Board = boardController.GetComponent<GridManager>();
         playerController = player.GetComponent<PlayerController>();
-
     }
 
     // Start is called before the first frame update
@@ -43,37 +42,37 @@ public class GUIController : MonoBehaviour
 
             Player P1 = new Player(local, username);*/
 
-        //PLACE PLAYERS
-        //playerController.placePlayer(1,1);
-        //playerController.placePlayer(1,2);
+    //PLACE PLAYERS
+    //playerController.placePlayer(1,1);
+    //playerController.placePlayer(1,2);
 
-        //GC UPDATE BOARD AND PASS BACK 
-
-
-        //LOOP WHILE NO ERROR
-
-            //MOVE PLAYERS ------
-            //IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
-            //till move is selected
-                //GUI TELLS GC WHICH PAWN WAS CLICKED
-                //GC TELLS GUI WHAT MOVES ARE VALID
-                //GUI HIGHLIGHTs THE VALID MOVES
-                //GUI SENDS GC WHAT TILE WAS CLICKED (break)
-            //GC UPDATE BOARD AND SEND TO ME
-            //I UPDATE
-        
-            //BUILD------
-            //GC GIVES ME ALL THE VALID BUILD SPACES
-            // I SEND GC THE CLICK
-            //GC BUILDS, UPDATES, SEND BACK TO ME
-            //I UPDATE BOARD
+    //GC UPDATE BOARD AND PASS BACK 
 
 
-        //IF WON OR LOST REACT TO THAT
+    //LOOP WHILE NO ERROR
 
-        //playerController.movePlayer(1, 1, 1, 3);
+    //MOVE PLAYERS ------
+    //IF NEITHER OF PLAYER'S PAWNS CAN MOVE, YOU LOSE (break loop)
+    //till move is selected
+    //GUI TELLS GC WHICH PAWN WAS CLICKED
+    //GC TELLS GUI WHAT MOVES ARE VALID
+    //GUI HIGHLIGHTs THE VALID MOVES
+    //GUI SENDS GC WHAT TILE WAS CLICKED (break)
+    //GC UPDATE BOARD AND SEND TO ME
+    //I UPDATE
 
-        //BUILD AT A SPECIFIC LOCATION
+    //BUILD------
+    //GC GIVES ME ALL THE VALID BUILD SPACES
+    // I SEND GC THE CLICK
+    //GC BUILDS, UPDATES, SEND BACK TO ME
+    //I UPDATE BOARD
+
+
+    //IF WON OR LOST REACT TO THAT
+
+    //playerController.movePlayer(1, 1, 1, 3);
+
+    //BUILD AT A SPECIFIC LOCATION
 
 
 

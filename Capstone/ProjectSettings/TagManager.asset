@@ -12,6 +12,7 @@ TagManager:
   - p2Username
   - fakeStoryMode
   - highlight
+  - Player1
   layers:
   - Default
   - TransparentFX

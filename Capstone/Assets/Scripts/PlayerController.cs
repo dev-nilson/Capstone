@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject playerParent;
     GameObject child;
+    GameObject go;
 
     public GameObject[,] PlayerPosition;
     GameObject[,] tempPlayer;
@@ -125,9 +126,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-            AIController.SimulateTurnExpert(currentPlayer, waitingPlayer, board);
+            GameObject.Find("Player1").SetActive(true);
+            StartCoroutine(AIController.Do(currentPlayer, waitingPlayer, board));
             Debug.Log("Playing hard AI");
-            return AIController.bestNode.GetMoveFrom();
+
+            return AIController.bestNode?.GetMoveFrom();
         }
         else
         {

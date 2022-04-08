@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8124570711406532594}
   m_Layer: 0
   m_Name: Player1
-  m_TagString: Untagged
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,5 +109,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1273aed8630aa749bd6a14945f8816d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 7846403189435030061}
-  player2: {fileID: 678481456461886712, guid: 6e38aeaf4861da9429029eaa16f1e460, type: 3}
+  playerParent: {fileID: 0}
+  board: {fileID: 0}

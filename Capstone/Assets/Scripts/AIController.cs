@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace AmazingGame
 {
@@ -48,7 +51,13 @@ namespace AmazingGame
             }
         }
 
-        public static void SimulateTurnExpert(Player opponent, Player local, GameBoard gameBoard)
+        public static IEnumerator Do(Player opponent, Player local, GameBoard gameBoard)
+        {
+            SimulateTurnExpert(opponent, local, gameBoard);
+            yield return null;
+        }
+
+        public static async void SimulateTurnExpert(Player opponent, Player local, GameBoard gameBoard)
         {
             Coordinates[] pawns = Player.GetBothPlayersPawns();
             Coordinates[] localPawns = { pawns[0], pawns[1] };
@@ -84,7 +93,12 @@ namespace AmazingGame
             // if AI has not winning move options
             if (!didWin)
             {
-                root.children = GetPossiblePlaysExpert(opponent, local, opponentPawns, localPawns, gameBoard, 0);
+                var result = await Task.Run(() =>
+                {
+                    List<Node> children = GetPossiblePlaysExpert(opponent, local, opponentPawns, localPawns, gameBoard, 0);
+                    return children;
+                });
+                root.children = result;
                 bestNode = null;
                 Minimax(root, gameBoard, 0, true, Double.MinValue, Double.MaxValue);
             }
