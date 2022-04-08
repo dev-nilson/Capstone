@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using static GameUtilities;
 using UnityEngine;
 using System.Diagnostics;
 
@@ -92,6 +93,7 @@ namespace AmazingGame
                 UnityEngine.Debug.Log("Start Task");
                 var result = await Task.Run(() =>
                 {
+                    Buffer.BlockCopy(Player.Pawns, 0, Player.PawnsCopy, 0, Player.Pawns.Length);
                     List<Node> children = GetPossiblePlaysExpert(opponent, local, opponentPawns, localPawns, gameBoard, 0);
                     return children;
                 });
@@ -113,6 +115,8 @@ namespace AmazingGame
                     }
                 }
             }
+
+            UnityEngine.Debug.Log("********************" + bestNode.GetMoveTo().X + "," + bestNode.GetMoveTo().Y);
 
             isRunning = false;
         }
@@ -170,7 +174,7 @@ namespace AmazingGame
                 List<Coordinates> moves = gameBoard.AvailableMoves(pawn);
                 foreach (var move in moves)
                 {
-                    if (playingPlayer.updatePawn(pawn, move))
+                    if (playingPlayer.updatePawnCopy(pawn, move))
                     {
                         List<Coordinates> builds = gameBoard.AvailableBuilds(move);
                         foreach (var build in builds)
@@ -191,7 +195,7 @@ namespace AmazingGame
                                 gameBoard.GetHeights()[build.X, build.Y]--;
                             }
                         }
-                        playingPlayer.updatePawn(move, pawn);
+                        playingPlayer.updatePawnCopy(move, pawn);
                     }
                 }
             }

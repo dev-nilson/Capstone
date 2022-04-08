@@ -21,10 +21,12 @@ public class Player
 
     // Stores locations of the player's two pawns
     // Local player gets [0,] and opposing player gets [1,]
-    private static Coordinates[][] Pawns = { new Coordinates[] { new Coordinates(), new Coordinates() },
+    public static Coordinates[][] Pawns = { new Coordinates[] { new Coordinates(), new Coordinates() },
                                              new Coordinates[] { new Coordinates(), new Coordinates() } };
 
-        
+    public static Coordinates[][] PawnsCopy = { new Coordinates[] { new Coordinates(), new Coordinates() },
+                                             new Coordinates[] { new Coordinates(), new Coordinates() } };
+
     //constructor w/ input for Local/Opponent, username, myTurn
     public Player(bool local/*, string _name/*, bool _turn*/)
     {
@@ -99,6 +101,26 @@ public class Player
         {
             //update pawn
             Pawns[(int)this.player][1] = newLoc;
+            return true;
+        }
+        else // If neither pawn was selected
+        {
+            return false;
+        }
+    }
+
+    public bool updatePawnCopy(Coordinates curLoc, Coordinates newLoc)
+    {
+        if (PawnsCopy[(int)this.player][0] == curLoc) // If moving the first pawn
+        {
+            //update pawn
+            PawnsCopy[(int)this.player][0] = newLoc;
+            return true;
+        }
+        else if (PawnsCopy[(int)this.player][1] == curLoc) // If moving the second pawn
+        {
+            //update pawn
+            PawnsCopy[(int)this.player][1] = newLoc;
             return true;
         }
         else // If neither pawn was selected

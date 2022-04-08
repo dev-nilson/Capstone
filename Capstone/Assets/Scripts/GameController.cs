@@ -155,6 +155,7 @@ public class GameController : MonoBehaviour
                         Debug.Log("ALL PAWNS? " + Player.GetBothPlayersPawns()[0].X + "," + Player.GetBothPlayersPawns()[0].Y + " " + Player.GetBothPlayersPawns()[1].X + "," + Player.GetBothPlayersPawns()[1].Y + " " + Player.GetBothPlayersPawns()[2].X + "," + Player.GetBothPlayersPawns()[2].Y + " " + Player.GetBothPlayersPawns()[3].X + "," + Player.GetBothPlayersPawns()[3].Y);
                         Debug.Log("current player has this pawn? " + CurrentPlayer.HasThisPawn(curLoc));
                         // Collect the first tile
+                        Debug.Log(">>>" + curLoc.X + "," + curLoc.Y);
                         if (curLoc != null && CurrentPlayer.HasThisPawn(curLoc)) // Make sure the tile is not null and is the location of a pawn
                         {
                             if (curLoc != null) Debug.Log("curLoc = " + curLoc.X + " " + curLoc.Y);
@@ -184,12 +185,9 @@ public class GameController : MonoBehaviour
                     {
                         // If the mouse was clicked, store that new coordinate
                         newLoc = playerController.GetMove(board_gc, CurrentPlayer);
-                        Debug.Log(newLoc.X + " - " + newLoc.Y);
 
                         if (playerController.GetMove(board_gc, CurrentPlayer) != new Coordinates(-1, -1))
                         {
-                            Debug.Log("Execute");
-
                             // The new coordinate could be the current or other pawn, if so update curLoc to contain the most recently selected pawn
                             if (newLoc != null && CurrentPlayer.HasThisPawn(newLoc))
                             {
