@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
+using System.Threading;
 using static GameUtilities;
 using UnityEngine.Events;
 using System;
@@ -14,6 +15,10 @@ public class GameBoardScreen : MonoBehaviour
     public GameObject confirmExitPopUp;
     public Button ok;
     public Button cancel;
+
+    public GameObject firstQ;
+    public GameObject secondQ;
+    public GameObject thirdQ;
 
     //For the tutorial popup
     public Button tutorial;
@@ -43,6 +48,9 @@ public class GameBoardScreen : MonoBehaviour
     public PlayerAvatar p2Alien;
 
     private static bool disabled;
+    private static bool Qsready = true;
+
+    //Thread ChildThread = null;
 
     void Start()
     {
@@ -51,6 +59,8 @@ public class GameBoardScreen : MonoBehaviour
 
         p1Alien = getP1avatar();
         p2Alien = getP2avatar();
+
+        //ChildThread = new Thread(StartAIQs);
 
         if (getP1avatar() == PlayerAvatar.PEASANT) p1PeasantIcon.SetActive(true);
         else if (getP1avatar() == PlayerAvatar.PHAROAH) p1PharoahIcon.SetActive(true);
@@ -77,6 +87,14 @@ public class GameBoardScreen : MonoBehaviour
 
         Button exitTutorialBtn = exitTutorial.GetComponent<Button>();
         exitTutorialBtn.onClick.AddListener(exitTutorialClicked);
+    }
+
+    void Update()
+    {
+        if (Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && CanMove())
+            StartAIQs();
+        if (!Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && CanBuild())
+            EndAIQs();
     }
 
     void backClicked()
@@ -149,5 +167,37 @@ public class GameBoardScreen : MonoBehaviour
     public static void EnableButtons()
     {
         disabled = false;
+    }
+
+    public void StartAIQs()
+    {
+        Debug.Log("hereeeeeeeeeee");
+        StartCoroutine("TurnOnQs");
+    }
+
+    IEnumerator TurnOnQs()
+    {
+        Qsready = false;
+        while (true)
+        {
+            firstQ.SetActive(true);
+            yield return new WaitForSeconds(0.7f);
+            firstQ.SetActive(false);
+            secondQ.SetActive(true);
+            yield return new WaitForSeconds(0.7f);
+            secondQ.SetActive(false);
+            thirdQ.SetActive(true);
+            yield return new WaitForSeconds(0.7f);
+            thirdQ.SetActive(false);
+        }
+    }
+
+    public void EndAIQs()
+    {
+        firstQ.SetActive(false);
+        secondQ.SetActive(false);
+        thirdQ.SetActive(false);
+        StopCoroutine("TurnOnQs");
+        Qsready = true;
     }
 }
