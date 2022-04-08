@@ -20,7 +20,7 @@ public class GameOverGraphics : MonoBehaviour
 
     bool canShake = false;
 
-    bool ready = true;
+    private static bool ready = true;
 
 
     // Start is called before the first frame update
@@ -137,5 +137,15 @@ public class GameOverGraphics : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene("GameOver");
+    }
+
+    public static void MakeReady()
+    {
+        ready = true;
+    }
+
+    public static void MakeNotReady()
+    {
+        ready = false;
     }
 }

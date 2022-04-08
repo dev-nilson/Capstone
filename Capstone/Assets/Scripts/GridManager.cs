@@ -416,6 +416,7 @@ public class GridManager : MonoBehaviour
     {
         PauseGame();
         RotateMainCamera.DisableRotation();
+        GameOverGraphics.MakeNotReady();
 
         StartCoroutine(movePlayerDelay(player, heightChange));
     }
@@ -446,6 +447,7 @@ public class GridManager : MonoBehaviour
 
         PlayGame();
         RotateMainCamera.EnableRotation();
+        GameOverGraphics.MakeReady();
     }
 
     private float h(float x, float h_half, int h_end)
