@@ -45,6 +45,7 @@ MonoBehaviour:
   - RPC_SendCoordinates
   - RPC_NetworkMessage
   - RPC_SendReadyUpStatus
+  - RPC_SendPlayerLeft
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
