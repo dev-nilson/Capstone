@@ -11,11 +11,8 @@ public class GameOverGraphics : MonoBehaviour
     public GameObject disconnectedPopup;
     public GameObject youDisconnected;
     public GameObject opponectDisconnected;
+    public GameObject opponentLeft;
     public GameObject backToMenu;
-
-    //Normal popups
-    public GameObject winPopup;
-    public GameObject losePopup;
 
     ScreenShake screenShake = new ScreenShake();
 
@@ -44,11 +41,14 @@ public class GameOverGraphics : MonoBehaviour
             disconnectedPopup.SetActive(true);
             youDisconnected.SetActive(true);
         }
-
         else if (getGameType() == GameType.NETWORK && IsOpponentDisconnect())
         {
             disconnectedPopup.SetActive(true);
             opponectDisconnected.SetActive(true);
+        }
+        else if (getGameType() == GameType.NETWORK && IsOpponentLeft())
+        {
+            opponentLeft.SetActive(true);
         }
         else if (IsGameOver() && canShake == false)
         {
@@ -59,71 +59,17 @@ public class GameOverGraphics : MonoBehaviour
         }
     }
 
-    ////public void GameOverPopup()
-    ////{
-    ////    Network disconnect
-    ////    if (IsLocalDisconnect())
-    ////    {
-    ////        disconnectedPopup.SetActive(true);
-    ////        youDisconnected.SetActive(true);
-    ////    }
-
-    ////    else if (IsOpponentDisconnect())
-    ////    {
-    ////        disconnectedPopup.SetActive(true);
-    ////        opponectDisconnected.SetActive(true);
-    ////    }
-
-    ////    TO DO: WHAT IF SOMEONE LEAVES THE GAME????????????
-
-    ////    /*// Local player wins in story mode
-    ////    else if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
-    ////    {
-    ////         Local player wins in story mode!
-    ////        if (canShake)
-    ////            shakeTheScreen();
-    ////        SceneManager.LoadScene("GameOver");
-    ////    }
-
-    ////     Local player loses in story mode
-    ////    else if (PlayingStoryMode)
-    ////    {
-    ////        if (canShake)
-    ////            shakeTheScreen();
-    ////         Local player loses in story mode :(
-    ////        SceneManager.LoadScene("GameOver");
-    ////    }
-
-    ////     Local player wins in other game type
-    ////    else if (GetWinningPlayer() == PlayerTurn.ONE)
-    ////    {
-    ////        winPopup.SetActive(true);
-    ////        Debug.Log("Local player loses: no available moves");
-    ////        shakeTheScreen();
-    ////        canShake = true;
-    ////        SceneManager.LoadScene("GameOver");
-
-    ////    }
-
-    ////     Local player loses in other game type
-    ////    else
-    ////    {
-    ////        Debug.Log("Opposing player loses: no available moves"); 
-    ////        losePopup.SetActive(true);
-    ////        shakeTheScreen();
-    ////        SceneManager.LoadScene("GameOver");
-    ////    }*/
-    ////}
-
-    void resetPopupBoxes()
+    public void resetPopupBoxes()
     {
         disconnectedPopup.SetActive(false);
         opponectDisconnected.SetActive(false);
         youDisconnected.SetActive(false);
+        opponentLeft.SetActive(false);
     }
 
     void backToMenuClicked()
     {
+        resetPopupBoxes();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
     }
