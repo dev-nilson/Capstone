@@ -299,14 +299,14 @@ public class GridManager : MonoBehaviour
                 if (locs.Contains(new Coordinates(i, j)))
                 {
                     //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                    //Color32 newColor = new Color32(0, 200, 50, 235);
-                    //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
+                    Color32 newColor = new Color32(175, 255, 186, 37);
+                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
                     //Grid[i, j].GetComponent<Renderer>().material.SetTexture()
 
-                    h_Tile = Instantiate(glowingBorder, Grid[i,j].transform.position, Grid[i,j].transform.rotation);
+                    /*h_Tile = Instantiate(glowingBorder, Grid[i,j].transform.position, Grid[i,j].transform.rotation);
                     h_Tile.transform.localScale = new Vector3(4.9f, .01f, 4.9f);
                     h_Tile.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    h_Tile.transform.position = new Vector3(Grid[i,j].transform.position.x, .5f, Grid[i,j].transform.position.z);
+                    h_Tile.transform.position = new Vector3(Grid[i,j].transform.position.x, .5f, Grid[i,j].transform.position.z);*/
 
 
                 }
