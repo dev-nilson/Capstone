@@ -166,11 +166,11 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             DisabledStartButton.SetActive(true);
-            tempPlayer.alienChosen = null;
+            //tempPlayer.alienChosen = null;
         }
         else
         {
-            tempPlayer.alienChosen = null;
+            //tempPlayer.alienChosen = null;
             WaitingForOpponents.text = "Waiting for Host to start";
         }
         UpdatePlayerList();
