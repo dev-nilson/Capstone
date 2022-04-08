@@ -13,10 +13,14 @@ public class GameOverGraphics : MonoBehaviour
     public GameObject opponectDisconnected;
     public GameObject opponentLeft;
     public GameObject backToMenu;
+    public GameObject backToMenu_OpponentLeft;
+
 
     ScreenShake screenShake = new ScreenShake();
 
     bool canShake = false;
+
+    bool ready = true;
 
 
     // Start is called before the first frame update
@@ -24,56 +28,67 @@ public class GameOverGraphics : MonoBehaviour
     {
         Button backToMenuBtn = backToMenu.GetComponent<Button>();
         backToMenuBtn.onClick.AddListener(backToMenuClicked);
+
+        Button backToMenu_OLBtn = backToMenu_OpponentLeft.GetComponent<Button>();
+        backToMenu_OLBtn.onClick.AddListener(backToMenuClicked);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Network disconnect
-        if (getGameType() == GameType.NETWORK && IsLocalDisconnect())
+        if (ready)
         {
-            RotateMainCamera.DisableRotation();
-            PauseGame();
-            GameBoardScreen.DisableButtons();
-            Scroll.DisableButtons();
-            HelpTimer.TurnOff();
+            // Network disconnect
+            if (getGameType() == GameType.NETWORK && IsLocalDisconnect())
+            {
+                RotateMainCamera.DisableRotation();
+                PauseGame();
+                GameBoardScreen.DisableButtons();
+                Scroll.DisableButtons();
+                HelpTimer.TurnOff();
 
-            disconnectedPopup.SetActive(true);
-            youDisconnected.SetActive(true);
-        }
-        else if (getGameType() == GameType.NETWORK && IsOpponentDisconnect())
-        {
-            RotateMainCamera.DisableRotation();
-            PauseGame();
-            GameBoardScreen.DisableButtons();
-            Scroll.DisableButtons();
-            HelpTimer.TurnOff();
+                disconnectedPopup.SetActive(true);
+                youDisconnected.SetActive(true);
 
-            disconnectedPopup.SetActive(true);
-            opponectDisconnected.SetActive(true);
-        }
-        else if (getGameType() == GameType.NETWORK && IsOpponentLeft())
-        {
-            RotateMainCamera.DisableRotation();
-            PauseGame();
-            GameBoardScreen.DisableButtons();
-            Scroll.DisableButtons();
-            HelpTimer.TurnOff();
+                ready = false;
+            }
+            else if (getGameType() == GameType.NETWORK && IsOpponentDisconnect())
+            {
+                RotateMainCamera.DisableRotation();
+                PauseGame();
+                GameBoardScreen.DisableButtons();
+                Scroll.DisableButtons();
+                HelpTimer.TurnOff();
 
-            opponentLeft.SetActive(true);
-        }
-        else if (IsGameOver() && canShake == false)
-        {
-            RotateMainCamera.DisableRotation();
-            PauseGame();
-            GameBoardScreen.DisableButtons();
-            Scroll.DisableButtons();
-            HelpTimer.TurnOff();
+                disconnectedPopup.SetActive(true);
+                opponectDisconnected.SetActive(true);
+                ready = false;
+            }
+            else if (getGameType() == GameType.NETWORK && IsOpponentLeft())
+            {
+                RotateMainCamera.DisableRotation();
+                PauseGame();
+                GameBoardScreen.DisableButtons();
+                Scroll.DisableButtons();
+                HelpTimer.TurnOff();
 
-            canShake = true;
-            //GameOverPopup();
-            shakeTheScreen();
-            //SceneManager.LoadScene("GameOver");
+                opponentLeft.SetActive(true);
+                ready = false;
+            }
+            else if (IsGameOver() && canShake == false)
+            {
+                RotateMainCamera.DisableRotation();
+                PauseGame();
+                GameBoardScreen.DisableButtons();
+                Scroll.DisableButtons();
+                HelpTimer.TurnOff();
+
+                canShake = true;
+                //GameOverPopup();
+                shakeTheScreen();
+                //SceneManager.LoadScene("GameOver");
+                ready = false;
+            }
         }
     }
 

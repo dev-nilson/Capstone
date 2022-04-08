@@ -540,6 +540,7 @@ MonoBehaviour:
   opponectDisconnected: {fileID: 946220412}
   opponentLeft: {fileID: 1662404295}
   backToMenu: {fileID: 2123767484}
+  backToMenu_OpponentLeft: {fileID: 997948228}
 --- !u!114 &117170433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4126,7 +4127,7 @@ GameObject:
   - component: {fileID: 997948231}
   - component: {fileID: 997948230}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button_OL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
