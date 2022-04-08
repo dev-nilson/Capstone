@@ -42,6 +42,7 @@ public class Scroll : MonoBehaviour
             //switch phases to turn off build and place player to create a fake modal pop up box
             RotateMainCamera.DisableRotation();
             PauseGame();
+            GameBoardScreen.DisableButtons();
             DisableButtons();
             HelpTimer.TurnOff();
         }
@@ -97,6 +98,7 @@ public class Scroll : MonoBehaviour
 
         RotateMainCamera.EnableRotation();
         PlayGame();
+        GameBoardScreen.EnableButtons();
         EnableButtons();
         HelpTimer.Set();
     }
@@ -165,6 +167,7 @@ public class Scroll : MonoBehaviour
 
         RotateMainCamera.EnableRotation();
         PlayGame();
+        GameBoardScreen.EnableButtons();
         EnableButtons();
         HelpTimer.Set();
     }
