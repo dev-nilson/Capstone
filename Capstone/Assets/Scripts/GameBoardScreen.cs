@@ -95,11 +95,12 @@ public class GameBoardScreen : MonoBehaviour
 
     void okClicked()
     {
+        NetworkController.playerIntentionallyLeftRoom = true;
+        NetworkController.SendPlayerLeft();
         ClearGame();
         EnableButtons();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
-        NetworkController.playerIntentionallyLeftRoom = true;
     }
 
     void cancelClicked()
