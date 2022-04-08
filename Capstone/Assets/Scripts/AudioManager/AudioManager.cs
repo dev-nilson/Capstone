@@ -165,6 +165,11 @@ public class AudioManager : MonoBehaviour
 
                 Play("OrdinaryBankThowr");
                 break;
+            case 7: //GAMEOVER
+                Debug.Log("GAMEOVER");
+
+                Play("endOfGameSound");
+                break;
         }
     }
 

@@ -768,8 +768,8 @@ RectTransform:
   m_Children:
   - {fileID: 1849125346}
   - {fileID: 1840439109}
-  - {fileID: 1621470739}
   - {fileID: 1106222059}
+  - {fileID: 1621470739}
   - {fileID: 2124057698}
   - {fileID: 87616220}
   - {fileID: 2000931645}
@@ -2169,11 +2169,11 @@ RectTransform:
   m_Children:
   - {fileID: 1636425972}
   m_Father: {fileID: 537237128}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -212, y: 40}
+  m_AnchoredPosition: {x: -212, y: 88}
   m_SizeDelta: {x: 142, y: 38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1106222060
@@ -3585,11 +3585,11 @@ RectTransform:
   m_Children:
   - {fileID: 898751617}
   m_Father: {fileID: 537237128}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -212, y: 88}
+  m_AnchoredPosition: {x: -212, y: 40}
   m_SizeDelta: {x: 142, y: 38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1621470740
@@ -4333,7 +4333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.data[3].name
@@ -4481,12 +4481,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.data[11].name
-      value: pyramidFalling
+      value: placingPiece
       objectReference: {fileID: 0}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.data[11].clip
       value: 
-      objectReference: {fileID: 8300000, guid: afe87c1f025e31544aa84d58143b2f73, type: 3}
+      objectReference: {fileID: 8300000, guid: 51938dcbe11faae439cab25d07e657ca, type: 3}
     - target: {fileID: 4862038227617439605, guid: 31c3dd18029204c459f4fc5b4410f7cf, type: 3}
       propertyPath: sounds.Array.data[11].volume
       value: 1
@@ -5661,6 +5661,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScrollSettings
       objectReference: {fileID: 0}
+    - target: {fileID: 3672770069305409641, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3672770069305409654, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5787,11 +5791,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3672770069520054192, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.7222222
+      value: 0.6666667
       objectReference: {fileID: 0}
     - target: {fileID: 3672770069520054192, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.7222222
+      value: 0.6666667
       objectReference: {fileID: 0}
     - target: {fileID: 3672770069662535445, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5819,7 +5823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3672770069827757136, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.7222222
+      value: 0.6666667
       objectReference: {fileID: 0}
     - target: {fileID: 3672770069844359531, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
       propertyPath: m_Text
@@ -5829,6 +5833,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio
       objectReference: {fileID: 0}
+    - target: {fileID: 3672770070188034960, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: f47e627a999a4384a9e984bd4a4f730b, type: 3}
     - target: {fileID: 3672770070248609398, guid: 60c02935615d59540a0cb0bd1db60a12, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1

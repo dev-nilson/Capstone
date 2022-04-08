@@ -163,6 +163,7 @@ public class GameOverScreen : MonoBehaviour
     void backToMenuClicked()
     {
         SceneManager.LoadScene("Menu");
+        FindObjectOfType<AudioManager>().StopCurrentSong(1);
         beatStoryMode = false;
     }
 
@@ -170,6 +171,7 @@ public class GameOverScreen : MonoBehaviour
     {
         ResetStartingPlayer();
         SceneManager.LoadScene("GameBoard");
+        FindObjectOfType<AudioManager>().StopCurrentSong(6);
     }
 
     void continueStoryClicked()
@@ -177,6 +179,7 @@ public class GameOverScreen : MonoBehaviour
         Debug.Log("Continue clicked");
         readyForStoryModeSetThree = true;
         SceneManager.LoadScene("StoryMode");
+        FindObjectOfType<AudioManager>().StopCurrentSong(3);
 
         beatStoryMode = true;
     }
