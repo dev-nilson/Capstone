@@ -52,7 +52,6 @@ public class GameBoardScreen : MonoBehaviour
         p1Alien = getP1avatar();
         p2Alien = getP2avatar();
 
-
         if (getP1avatar() == PlayerAvatar.PEASANT) p1PeasantIcon.SetActive(true);
         else if (getP1avatar() == PlayerAvatar.PHAROAH) p1PharoahIcon.SetActive(true);
         else if (getP1avatar() == PlayerAvatar.SCRIBE) p1ScribeIcon.SetActive(true);
