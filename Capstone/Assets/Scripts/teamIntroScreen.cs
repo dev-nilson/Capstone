@@ -29,10 +29,10 @@ public class teamIntroScreen : MonoBehaviour
             if (clickCount == 2)
             {
                 Debug.Log("second click");
+
                 SceneManager.LoadScene("Menu");
             }
         }
-        
     }
 
     void startTeamIntroVideo()
