@@ -54,7 +54,6 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     [SerializeField]
     private InputField playerNameInput; //Input field so player can change their NickName
 
-
     private string roomName; //string for saving room name, is usually the Players name or Players name + numbers
     public bool intentionalDisconnect = false;
     public bool onFaceoffScreen = false;
@@ -84,6 +83,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         if (PhotonNetwork.AutomaticallySyncScene == false)
             PhotonNetwork.AutomaticallySyncScene = true;
 
+        playerNameInput.characterLimit = 17;
     }
 
     private void Update()
@@ -217,6 +217,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public void PlayerNameUpdateInputChanged()
     {
         string text = playerNameInput.text;
+
         if (!string.IsNullOrWhiteSpace(text))
         {
             hostRoomButton.SetActive(true);

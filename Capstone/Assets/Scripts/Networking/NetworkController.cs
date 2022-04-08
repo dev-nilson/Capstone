@@ -41,38 +41,45 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        //add watcher that will continually see if player has disconnected yet or not
-        if (PhotonNetwork.NetworkClientState == ClientState.Disconnected)
-        {
-            //code for however we decide to tell player they've disconnected
-            // ** see "GameOverGraphics.cs"
+        playerIntentionallyLeftRoom = GetPlayerLeftStatus();
+        Debug.Log("Player intentionally left room: " + playerIntentionallyLeftRoom);
 
+        if (getGameType() == GameType.NETWORK && PhotonNetwork.NetworkClientState == ClientState.Disconnected) //local player loses connection
+        {
             //disable game phases
             DisablePhases();
             Debug.Log("You have lost network connection");
 
             SetLocalDisconnect();
         }
-        else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2)
+        else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2) //players opponent initentionally leaves the game
         {
-            //code to tell person still left in the room that their opponent has disconnected
-            // ** see "GameOverGraphics.cs"
+            if (playerIntentionallyLeftRoom == true)
+            {
+                DisablePhases();
+                Debug.Log("Your opponent has intentionally left the network");
 
-            //disable game phases
-            DisablePhases();
-            Debug.Log("Your opponent has lost network connection");
+                //SetOpponentDisconnect();
+                SetOpponentLeft();
 
-            SetOpponentDisconnect();
+                PhotonNetwork.LeaveRoom();
+                PhotonNetwork.LeaveLobby();
+            }
+            else if (playerIntentionallyLeftRoom == false)
+            {
+                //disable game phases
+                DisablePhases();
+                Debug.Log("Your opponent has lost network connection");
 
-            PhotonNetwork.LeaveRoom();
-            PhotonNetwork.LeaveLobby();
-            // Don't forget to disconnect our end of network stuff!!!!!!!!!
+                SetOpponentDisconnect();
 
+                PhotonNetwork.LeaveRoom();
+                PhotonNetwork.LeaveLobby();
+            }
         }
-        else if (PhotonNetwork.IsConnected && playerIntentionallyLeftRoom == true) 
+        else if (PhotonNetwork.IsConnected && playerIntentionallyLeftRoom == true) //local player intentionally leaves the game
         {
-            //when player leaves game mid way or game is over and returning to menu
-
+            Debug.Log("You have left the network");
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.LeaveLobby();
         }
@@ -121,23 +128,22 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }
     }
 
-    //public static void SendNetMessage()
-    //{
-    //    netPlayer.SendNetworkMessage(networkMessage);
-    //}
+    public static void SendPlayerLeft()
+    {
+        netPlayer.SendPlayerLeft(playerIntentionallyLeftRoom);
+    }
 
-    //public static void SetNetMessage(bool message)
-    //{
-    //    networkMessage = message;
-    //}
+    public static void SetPlayerLeftStatus(bool playerStatus)
+    {
+        playerIntentionallyLeftRoom = playerStatus;
+    }
 
-    //public static bool GetNetMessage()
-    //{
-    //    return networkMessage;
-    //}
-
-
+    public static bool GetPlayerLeftStatus()
+    {
+        return playerIntentionallyLeftRoom;
+    }
     #endregion
+
 }
 
 

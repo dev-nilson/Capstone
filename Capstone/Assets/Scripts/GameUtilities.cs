@@ -24,6 +24,7 @@ public static class GameUtilities //public  ??
     private static bool gameOver = false;
     private static bool localDisconnect = false;
     private static bool opponentDisconnect = false;
+    private static bool opponentLeft = false;
     private static PlayerTurn winningPlayer;
 
     private static string P1username;
@@ -236,6 +237,9 @@ public static class GameUtilities //public  ??
     public static void TurnOffGameOver()
     {
         gameOver = false;
+        localDisconnect = false;
+        opponentDisconnect = false;
+        opponentLeft = false;
     }
 
     public static bool IsGameOver()
@@ -269,6 +273,20 @@ public static class GameUtilities //public  ??
     public static bool IsOpponentDisconnect()
     {
         if (opponentDisconnect == false) // (opponentDisconnect == null ||
+            return false;
+        else
+            return true;
+    }
+
+    public static void SetOpponentLeft()
+    {
+        SetGameOver();
+        opponentLeft = true;
+    }
+
+    public static bool IsOpponentLeft()
+    {
+        if (opponentLeft == false)
             return false;
         else
             return true;

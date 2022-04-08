@@ -298,9 +298,9 @@ public class GridManager : MonoBehaviour
             {
                 if (locs.Contains(new Coordinates(i, j)))
                 {
-                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                    //Color32 newColor = new Color32(0, 200, 50, 235);
-                    //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
+                    //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+                    Color32 newColor = new Color32(175, 255, 186, 37);
+                    Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
                     //Grid[i, j].GetComponent<Renderer>().material.SetTexture()
 
                     /*h_Tile = Instantiate(glowingBorder, Grid[i,j].transform.position, Grid[i,j].transform.rotation);
@@ -359,6 +359,7 @@ public class GridManager : MonoBehaviour
     {
         PauseGame();
         GameBoardScreen.DisableButtons();
+        Scroll.DisableButtons();
         RotateMainCamera.DisableRotation();
 
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 5f, Grid[location.X, location.Y].transform.position.z);
@@ -376,6 +377,7 @@ public class GridManager : MonoBehaviour
 
         PlayGame();
         GameBoardScreen.EnableButtons();
+        Scroll.EnableButtons();
         RotateMainCamera.EnableRotation();
     }
 
@@ -388,6 +390,7 @@ public class GridManager : MonoBehaviour
     {
         PauseGame();
         GameBoardScreen.DisableButtons();
+        Scroll.DisableButtons();
         RotateMainCamera.DisableRotation();
 
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 7f, Grid[location.X, location.Y].transform.position.z);
@@ -404,6 +407,7 @@ public class GridManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         PlayGame();
         GameBoardScreen.EnableButtons();
+        Scroll.EnableButtons();
         RotateMainCamera.EnableRotation();
         //Debug.Log(CanPlacePawn());
     }
@@ -412,6 +416,7 @@ public class GridManager : MonoBehaviour
     {
         PauseGame();
         RotateMainCamera.DisableRotation();
+        GameOverGraphics.MakeNotReady();
 
         StartCoroutine(movePlayerDelay(player, heightChange));
     }
@@ -442,6 +447,7 @@ public class GridManager : MonoBehaviour
 
         PlayGame();
         RotateMainCamera.EnableRotation();
+        GameOverGraphics.MakeReady();
     }
 
     private float h(float x, float h_half, int h_end)
