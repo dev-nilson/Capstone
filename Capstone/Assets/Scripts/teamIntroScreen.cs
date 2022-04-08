@@ -13,6 +13,12 @@ public class teamIntroScreen : MonoBehaviour
         startTeamIntroVideo();
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+            SceneManager.LoadScene("GameIntro");
+    }
+
     void startTeamIntroVideo()
     {
         StartCoroutine("startVideo");
