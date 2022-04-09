@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class teamIntroScreen : MonoBehaviour
 {
     public GameObject teamIntro;
-    int delay = 5;
+    public GameObject gameIntro;
+
+    int clickCount = 0;
+    int delay = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,19 +20,44 @@ public class teamIntroScreen : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            StopAllCoroutines();
-            SceneManager.LoadScene("GameIntro");
+            teamIntro.SetActive(false);
+            StopCoroutine("startTeamVideo");
+            startGameIntroVideo();
+
+            clickCount++;
+
+            if (clickCount == 2)
+            {
+                Debug.Log("second click");
+
+                SceneManager.LoadScene("Menu");
+            }
         }
     }
 
     void startTeamIntroVideo()
     {
-        StartCoroutine("startVideo");
+        StartCoroutine("startTeamVideo");
     }
 
-    IEnumerator startVideo()
+    IEnumerator startTeamVideo()
     {
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene("GameIntro");
+        teamIntro.SetActive(false);
+        startGameIntroVideo();
+    }
+
+    void startGameIntroVideo()
+    {
+        StartCoroutine("starGameVideo");
+    }
+
+    IEnumerator starGameVideo()
+    {
+        gameIntro.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene("Menu");
     }
 }
+
+

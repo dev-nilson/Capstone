@@ -42,7 +42,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private void Update()
     {
         playerIntentionallyLeftRoom = GetPlayerLeftStatus();
-        Debug.Log("Player intentionally left room: " + playerIntentionallyLeftRoom);
+        //Debug.Log("Player intentionally left room: " + playerIntentionallyLeftRoom);
 
         if (getGameType() == GameType.NETWORK && PhotonNetwork.NetworkClientState == ClientState.Disconnected) //local player loses connection
         {
