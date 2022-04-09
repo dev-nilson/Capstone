@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 117170431}
   - component: {fileID: 117170432}
   - component: {fileID: 117170433}
+  - component: {fileID: 117170434}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -561,6 +562,29 @@ MonoBehaviour:
   move: {fileID: 945451813}
   build: {fileID: 1894239328}
   place: {fileID: 706943734}
+--- !u!114 &117170434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117170426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb91959a0f02ac4cbc2e4653ea8cdb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RightButton: {fileID: 769660708}
+  LeftButton: {fileID: 2095298573}
+  step1: {fileID: 279567928}
+  step2: {fileID: 1613923694}
+  step3: {fileID: 2123196122}
+  videoPlayer1: {fileID: 1916544865}
+  videoPlayer2: {fileID: 1508962141}
+  videoPlayer3: {fileID: 1464062489}
+  placeText: {fileID: 347721593}
+  moveText: {fileID: 1287055160}
+  buildText: {fileID: 1285089516}
 --- !u!1 &136656955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,85 +1431,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292356874}
-  m_CullTransparentMesh: 0
---- !u!1 &297773218
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 297773219}
-  - component: {fileID: 297773221}
-  - component: {fileID: 297773220}
-  m_Layer: 5
-  m_Name: test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &297773219
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297773218}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5359398, y: 1.5359397, z: 0}
-  m_Children: []
-  m_Father: {fileID: 2145246520}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -80.000015, y: -92}
-  m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &297773220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297773218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: f47e627a999a4384a9e984bd4a4f730b, type: 3}
-    m_FontSize: 15
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Place an alien nerd!
---- !u!222 &297773221
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297773218}
   m_CullTransparentMesh: 0
 --- !u!1 &325075505
 GameObject:
@@ -9170,7 +9115,6 @@ MonoBehaviour:
   videoPlayer2: {fileID: 1508962141}
   videoPlayer3: {fileID: 1464062489}
   placeText: {fileID: 347721593}
-  testText: {fileID: 297773218}
   moveText: {fileID: 1287055160}
   buildText: {fileID: 1285089516}
 --- !u!1 &1979483959
@@ -9970,7 +9914,6 @@ RectTransform:
   - {fileID: 347721594}
   - {fileID: 1287055161}
   - {fileID: 1285089517}
-  - {fileID: 297773219}
   m_Father: {fileID: 1960890938}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

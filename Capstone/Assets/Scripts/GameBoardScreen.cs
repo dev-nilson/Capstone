@@ -88,7 +88,7 @@ public class GameBoardScreen : MonoBehaviour
         Button exitTutorialBtn = exitTutorial.GetComponent<Button>();
         exitTutorialBtn.onClick.AddListener(exitTutorialClicked);
 
-        GameHelp = gameObject.AddComponent<HelpArrow>();
+        GameHelp = gameObject.GetComponent<HelpArrow>();
     }
 
     void Update()
@@ -137,6 +137,11 @@ public class GameBoardScreen : MonoBehaviour
     {
         if (!disabled)
         {
+            PauseGame();
+            DisableButtons();
+            Scroll.DisableButtons();
+            HelpTimer.TurnOff();
+
             tutorialPopup.SetActive(true);
             FindObjectOfType<AudioManager>().Play("goldButtonPress");
             GameHelp.TutorialStart();
@@ -144,11 +149,6 @@ public class GameBoardScreen : MonoBehaviour
             if (CanPlacePawn()) placeText.SetActive(true);
             if (CanMove()) moveText.SetActive(true);
             if (CanBuild()) buildText.SetActive(true);
-
-            PauseGame();
-            DisableButtons();
-            Scroll.DisableButtons();
-            HelpTimer.TurnOff();
         }
     }
 

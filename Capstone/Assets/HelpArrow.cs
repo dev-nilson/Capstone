@@ -27,11 +27,11 @@ public class HelpArrow : MonoBehaviour
 
     private void Start()
     {
-        Button _rightArrow = RightButton.GetComponent<Button>();
-        _rightArrow.onClick.AddListener(RightButtonSelect);
+        Button rightArrow = RightButton.GetComponent<Button>();
+        rightArrow.onClick.AddListener(RightButtonSelect);
 
-        Button _leftArrow = LeftButton.GetComponent<Button>();
-        _leftArrow.onClick.AddListener(LeftButtonSelect);
+        Button leftArrow = LeftButton.GetComponent<Button>();
+        leftArrow.onClick.AddListener(LeftButtonSelect);
 
         _index = 1;
         //video1.SetActive(true);
@@ -40,6 +40,7 @@ public class HelpArrow : MonoBehaviour
 
     public void TutorialStart()
     {
+        placeText.SetActive(true);
         if (CanPlacePawn())
         {
             HelpArrow._index = 1;
@@ -117,12 +118,6 @@ public class HelpArrow : MonoBehaviour
         }
         else 
         {
-            //video1.SetActive(false);
-            //video2.SetActive(false);
-            //video3.SetActive(true);
-            //video4.SetActive(false);
-            //video5.SetActive(false);
-            //video6.SetActive(false);
             videoPlayer3.Play();
             videoPlayer2.Stop();
             videoPlayer1.Stop();
