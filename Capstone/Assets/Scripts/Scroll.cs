@@ -40,6 +40,7 @@ public class Scroll : MonoBehaviour
     {
         Debug.Log("settings clicked!!!");
         FindObjectOfType<AudioManager>().Play("goldButtonPress");
+        Debug.Log("Disabled is:" + disabled);
         if (!disabled)
         {
             scroll6.SetActive(true);
@@ -126,6 +127,7 @@ public class Scroll : MonoBehaviour
 
     IEnumerator openSettingsClicked()
     {
+        Debug.Log("opening settings yeye");
         //time that the scroll waits before it moves on to the next image
         float delay = .001f;
 
@@ -145,15 +147,15 @@ public class Scroll : MonoBehaviour
         //BEAUTIFUL PIECE OF CODE --- Love Dad
         for (int scrollNum = 6; scrollNum >= 1; scrollNum--)
         {
-            Debug.Log(scrollNum);
+            //Debug.Log(scrollNum);
 
             scrollArray[scrollNum].SetActive(true);
             float firstScrollRef = scrollArray[scrollNum].GetComponent<RectTransform>().rect.height;
-            Debug.Log("first scroll: " + firstScrollRef);
+            //Debug.Log("first scroll: " + firstScrollRef);
 
             float tempHeight = firstScrollRef;
             float secondScrollRef = scrollArray[scrollNum - 1].GetComponent<RectTransform>().rect.height;
-            Debug.Log("second scroll: " + secondScrollRef);
+            //Debug.Log("second scroll: " + secondScrollRef);
 
             for (float i = firstScrollRef; i <= (firstScrollRef - ((firstScrollRef - secondScrollRef))); i += 10)
             {

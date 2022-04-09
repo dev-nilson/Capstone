@@ -94,25 +94,35 @@ public class AudioManager : MonoBehaviour
 
         currentScreen = newScreen;
     }
+
+    private void LateUpdate()
+    {
+        if (musicOn)
+        {
+            AudioListener.volume = 1;
+        }
+        else if (!musicOn)
+        {
+            AudioListener.volume = 0;
+        }
+    }
     #endregion
 
     #region VolumeControlFunctions
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("Volume", volume);
-        //musicVolume = volume;
+        musicVolume = volume;
         Debug.Log(volume);
     }
 
     public void turnMusicOff()
     {
-        AudioListener.volume = 0;
         musicOn = false;
     }
 
     public void turnMusicOn()
     {
-        AudioListener.volume = 1;
         musicOn = true;
     }
     #endregion
