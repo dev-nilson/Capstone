@@ -12,6 +12,8 @@ public class GameOverScreen : MonoBehaviour
     public GameObject loseMultiScreen;
     public Button backToMenu_WM;
     public Button backToMenu_LM;
+    public Button rematch_WM;
+    public Button rematch_LM;
 
     //Quick game
     public GameObject winQuickGameScreen;
@@ -69,6 +71,11 @@ public class GameOverScreen : MonoBehaviour
         backToMenuBtn_WM.onClick.AddListener(backToMenuClicked);
         Button backToMenuBtn_LM = backToMenu_LM.GetComponent<Button>();
         backToMenuBtn_LM.onClick.AddListener(backToMenuClicked);
+        //Rematch
+        Button rematchBtn_WM = rematch_WM.GetComponent<Button>();
+        rematchBtn_WM.onClick.AddListener(rematchClicked);
+        Button rematchBtn_LM = rematch_LM.GetComponent<Button>();
+        rematchBtn_LM.onClick.AddListener(rematchClicked);
 
         //Quick Game buttons
         //Back to Menu
