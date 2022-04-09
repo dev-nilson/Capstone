@@ -18,6 +18,7 @@ public class ArrowSelectButton : MonoBehaviour
     public Button step7;
     public Button step8;
     public Button step9;
+    public Button FinalButton;
     public int _index;
 
     //public GameObject video1;
@@ -153,7 +154,7 @@ public class ArrowSelectButton : MonoBehaviour
             //video6.SetActive(false);
             step8.onClick.Invoke();
         }
-        else
+        else if (_index == 9)
         {
             //video1.SetActive(false);
             //video2.SetActive(false);
@@ -162,6 +163,10 @@ public class ArrowSelectButton : MonoBehaviour
             //video5.SetActive(false);
             //video6.SetActive(true);
             step9.onClick.Invoke();
+        }
+        else
+        {
+            FinalButton.onClick.Invoke();
         }
     }
 
