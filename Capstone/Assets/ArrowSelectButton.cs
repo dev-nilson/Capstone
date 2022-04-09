@@ -19,7 +19,7 @@ public class ArrowSelectButton : MonoBehaviour
     public Button step8;
     public Button step9;
     public Button FinalButton;
-    public int _index;
+    private int _index;
 
     //public GameObject video1;
     //public GameObject video2;

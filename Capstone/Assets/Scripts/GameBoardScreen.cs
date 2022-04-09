@@ -24,8 +24,6 @@ public class GameBoardScreen : MonoBehaviour
     public Button tutorial;
     public Button exitTutorial;
     public GameObject tutorialPopup;
-
-    // add text for tutorial popup depending on the game phase
     public GameObject placeText;
     public GameObject moveText;
     public GameObject buildText;
@@ -46,6 +44,8 @@ public class GameBoardScreen : MonoBehaviour
 
     public PlayerAvatar p1Alien;
     public PlayerAvatar p2Alien;
+
+    HelpArrow GameHelp;
 
     private static bool disabled;
     private static bool Qsready = true;
@@ -87,6 +87,8 @@ public class GameBoardScreen : MonoBehaviour
 
         Button exitTutorialBtn = exitTutorial.GetComponent<Button>();
         exitTutorialBtn.onClick.AddListener(exitTutorialClicked);
+
+        GameHelp = gameObject.AddComponent<HelpArrow>();
     }
 
     void Update()
@@ -135,11 +137,13 @@ public class GameBoardScreen : MonoBehaviour
     {
         if (!disabled)
         {
-            FindObjectOfType<AudioManager>().Play("goldButtonPress");
             tutorialPopup.SetActive(true);
+            FindObjectOfType<AudioManager>().Play("goldButtonPress");
+            GameHelp.TutorialStart();
+
             if (CanPlacePawn()) placeText.SetActive(true);
-            else if (CanMove()) moveText.SetActive(true);
-            else if (CanBuild()) buildText.SetActive(true);
+            if (CanMove()) moveText.SetActive(true);
+            if (CanBuild()) buildText.SetActive(true);
 
             PauseGame();
             DisableButtons();
@@ -150,9 +154,7 @@ public class GameBoardScreen : MonoBehaviour
 
     void exitTutorialClicked()
     {
-        placeText.SetActive(false);
-        moveText.SetActive(false);
-        buildText.SetActive(false);
+        //GameHelp.TutorialEnd();
         tutorialPopup.SetActive(false);
         PlayGame();
         EnableButtons();
