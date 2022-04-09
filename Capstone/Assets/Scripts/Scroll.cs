@@ -21,6 +21,11 @@ public class Scroll : MonoBehaviour
     public GameObject scroll5;
     public GameObject scroll6;
 
+    private void Awake()
+    {
+        Debug.Log("THE SETTINGS HAVE AWOKEN");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +38,7 @@ public class Scroll : MonoBehaviour
 
     void settingsClicked()
     {
+        Debug.Log("settings clicked!!!");
         FindObjectOfType<AudioManager>().Play("goldButtonPress");
         if (!disabled)
         {
