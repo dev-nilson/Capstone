@@ -13,21 +13,22 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	[SerializeField] private PhotonView photonView;
 
 	public static Coordinates coordinates;
+	public static bool playerIntentionallyLeftRoom;
 
 	private void Start()
 	{
 		photonView = PhotonView.Get(this);
 	}
 
-	//[PunRPC]
-	//public void RPC_NetworkMessage(bool message)
-	//{
-	//	NetworkController.SetNetMessage(networkMessage);
-	//	Debug.Log("Message sent over network: " + message);
-	//}
+    [PunRPC]
+    public void RPC_SendPlayerLeft(bool playerStatus)
+    {
+        NetworkController.SetPlayerLeftStatus(playerStatus);
+        Debug.Log("Message sent over network: " + playerStatus);
+    }
 
-	//Will simply call the setCoordinate function in NetworkController
-	[PunRPC]
+    //Will simply call the setCoordinate function in NetworkController
+    [PunRPC]
 	public void RPC_SendCoordinates(Coordinates coordinates)
 	{
 		Debug.Log("Receiving coordinates...");
@@ -43,11 +44,11 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 		photonView.RPC("RPC_SendCoordinates", RpcTarget.OthersBuffered, coordinates);
 	}
 
-	//public void SendNetworkMessage(bool message)
- //   {
-	//	Debug.Log("SendNetworkMessage function in NETWORK PLAYER called");
-	//	photonView.RPC("RPC_NetworkMessage", RpcTarget.Others, networkMessage);
-	//}
+    public void SendPlayerLeft(bool playerStatus)
+    {
+        Debug.Log("SendPlayerLeft function in NETWORK PLAYER called");
+        photonView.RPC("RPC_SendPlayerLeft", RpcTarget.Others, playerStatus);
+    }
 
 }
 
