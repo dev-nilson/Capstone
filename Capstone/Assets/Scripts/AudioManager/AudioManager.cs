@@ -85,7 +85,7 @@ public class AudioManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         if (currentScreen != newScreen)
         {
             currentSong.source.Stop();
@@ -93,17 +93,14 @@ public class AudioManager : MonoBehaviour
         }
 
         currentScreen = newScreen;
+        Debug.Log("Current screen is " + currentScreen);
     }
 
     private void LateUpdate()
     {
-        if (musicOn)
+        if (!musicOn)
         {
-            AudioListener.volume = 1;
-        }
-        else if (!musicOn)
-        {
-            AudioListener.volume = 0;
+            currentSong.source.Stop();
         }
     }
     #endregion
@@ -124,6 +121,19 @@ public class AudioManager : MonoBehaviour
     public void turnMusicOn()
     {
         musicOn = true;
+        //currentScreen somehow becomes null/0 no matter hat when evaluating in this function
+        Debug.Log("Current screen is " + currentScreen);
+
+        if (currentScreen == 6)
+        {
+            nextSong(6);
+
+        }
+        else if (currentScreen == 1)
+        {
+            Debug.Log("WE DID IT!");
+            nextSong(1);
+        }
     }
     #endregion
 
@@ -206,7 +216,14 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        s.source.Play();
+        if (musicOn == false)
+        {
+            return;
+        }
+        else
+        {
+            s.source.Play();
+        }
     }
     #endregion 
 
