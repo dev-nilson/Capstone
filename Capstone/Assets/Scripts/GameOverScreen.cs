@@ -153,6 +153,8 @@ public class GameOverScreen : MonoBehaviour
 
     void backToMenuClicked()
     {
+        Scroll.EnableButtons();
+        GameBoardScreen.EnableButtons();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
         beatStoryMode = false;
@@ -160,6 +162,8 @@ public class GameOverScreen : MonoBehaviour
 
     void rematchClicked()
     {
+        Scroll.EnableButtons();
+        GameBoardScreen.EnableButtons();
         ResetStartingPlayer();
         SceneManager.LoadScene("GameBoard");
         FindObjectOfType<AudioManager>().StopCurrentSong(6);
