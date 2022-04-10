@@ -46,8 +46,7 @@ public class GameOverScreen : MonoBehaviour
     public GameObject pharoahShipPrefab;
     public GameObject peasantShipPrefab;
 
-    //This is used to determine whether it is time to to dispay the final screen saying you beat storymode
-    int count = 0;
+    static bool readyToDisplayText = false;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +71,6 @@ public class GameOverScreen : MonoBehaviour
         pharoahShipPrefab.SetActive(false);
         peasantShipPrefab.SetActive(false);
 
-        GameOverPopup();
         displayAlien();
         displayShip();
 
@@ -112,12 +110,22 @@ public class GameOverScreen : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        waitForShipToLeave();
+        if (readyToDisplayText)
+        {
+            GameOverPopup();
+        }
+    }
+
     public void GameOverPopup()
     {
         // Local player wins in story mode
         if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
-            if(beatStoryMode)
+            waitForShipToLeave();
+            if (beatStoryMode)
             {
                 beatStoryModeScreen.SetActive(true);
             }
@@ -142,7 +150,9 @@ public class GameOverScreen : MonoBehaviour
             if (getGameType() == GameType.NETWORK)
                 winMultiScreen.SetActive(true);
             else
+            {
                 winQuickGameScreen.SetActive(true);
+            }
         }
 
         // Local player loses in other game type
@@ -152,7 +162,9 @@ public class GameOverScreen : MonoBehaviour
             if (getGameType() == GameType.NETWORK)
                 loseMultiScreen.SetActive(true);
             else
+            {
                 loseQuickGameScreen.SetActive(true);
+            }
         }
     }
 
@@ -211,6 +223,16 @@ public class GameOverScreen : MonoBehaviour
         FindObjectOfType<AudioManager>().StopCurrentSong(3);
 
         beatStoryMode = true;
+    }
+
+    void waitForShipToLeave()
+    {
+        StartCoroutine("shipDelay");
+    }
+    IEnumerator shipDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        readyToDisplayText = true;
     }
 
 }
