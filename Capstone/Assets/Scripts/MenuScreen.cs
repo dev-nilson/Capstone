@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static GameUtilities;
 
-public class MenuScreen : MonoBehaviour
+public class MenuScreen : MonoBehaviour, IPointerDownHandler
 {
 	//Menu Items
 	public Button quickGame;
@@ -63,12 +63,6 @@ public class MenuScreen : MonoBehaviour
 		Button exitHelpBtn = exitHelp.GetComponent<Button>();
 		exitHelpBtn.onClick.AddListener(exitHelpClicked);
 
-		if(firstTimeThrough)
-        {
-			teamIntro.SetActive(true);
-			startTeamIntroVideo();
-		}
-
 		helpPanel.SetActive(false);
 
 		PlayingStoryMode = false;
@@ -76,6 +70,12 @@ public class MenuScreen : MonoBehaviour
 
 		GameBoardScreen.EnableButtons();
 		Scroll.EnableButtons();
+
+		if (firstTimeThrough)
+		{
+			teamIntro.SetActive(true);
+			startTeamIntroVideo();
+		}
 	}
 	void startTeamIntroVideo()
 	{
@@ -104,21 +104,21 @@ public class MenuScreen : MonoBehaviour
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-		Debug.Log(" click");
+        Debug.Log(count);
 
-		count++;
-		if (count == 1)
-		{
-			Debug.Log("first click");
-			StopCoroutine("startTeamVideo");
-			startGameIntroVideo();
-		}
-		else
-		{
-			StopCoroutine("startGameVideo");
-			introductionPanel.SetActive(false);
-		}
-	}
+        count++;
+        if (count == 1)
+        {
+            Debug.Log("first click");
+            StopCoroutine("startTeamVideo");
+            startGameIntroVideo();
+        }
+        else
+        {
+            StopCoroutine("startGameVideo");
+            introductionPanel.SetActive(false);
+        }
+    }
 
 	void quickGameClicked()
 	{
