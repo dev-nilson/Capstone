@@ -14,10 +14,10 @@ public class teamIntroScreen : MonoBehaviour, IPointerDownHandler
 
     void startTeamIntroVideo()
     {
-        StartCoroutine("startTeamVideo");
+        StartCoroutine("startVideo");
     }
 
-    IEnumerator startTeamVideo()
+    IEnumerator startVideo()
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene("GameIntro");
@@ -30,5 +30,3 @@ public class teamIntroScreen : MonoBehaviour, IPointerDownHandler
         SceneManager.LoadScene("GameIntro");
     }
 }
-
-
