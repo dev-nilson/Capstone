@@ -26,6 +26,15 @@ public class MenuScreen : MonoBehaviour
 
 	LevelChanger levelChanger;
 
+	float screenDelay = 5f;
+
+	public GameObject teamIntro;
+	public GameObject gameIntro;
+	public GameObject introductionPanel;
+
+	static int count = 0;
+	static bool firstTimeThrough = true;
+
 	void Start()
 	{
 		//settingsPopUp.SetActive(false); // false to hide, true to show
@@ -54,6 +63,12 @@ public class MenuScreen : MonoBehaviour
 		Button exitHelpBtn = exitHelp.GetComponent<Button>();
 		exitHelpBtn.onClick.AddListener(exitHelpClicked);
 
+		if(firstTimeThrough)
+        {
+			teamIntro.SetActive(true);
+			startTeamIntroVideo();
+		}
+
 		helpPanel.SetActive(false);
 
 		PlayingStoryMode = false;
@@ -61,6 +76,46 @@ public class MenuScreen : MonoBehaviour
 
 		GameBoardScreen.EnableButtons();
 		Scroll.EnableButtons();
+	}
+	void startTeamIntroVideo()
+	{
+		firstTimeThrough = false;
+		StartCoroutine("startTeamVideo");
+	}
+
+	IEnumerator startTeamVideo()
+	{
+		yield return new WaitForSeconds(screenDelay);
+		teamIntro.SetActive(false);
+		startGameIntroVideo();
+	}
+
+	void startGameIntroVideo()
+	{
+		gameIntro.SetActive(true);
+		StartCoroutine("startGameVideo");
+	}
+
+	IEnumerator startGameVideo()
+	{
+		yield return new WaitForSeconds(screenDelay);
+		gameIntro.SetActive(false);
+	}
+
+	public void OnPointerDown(PointerEventData eventData)
+	{
+		count++;
+		if (count == 1)
+		{
+			Debug.Log("first click");
+			StopCoroutine("startTeamVideo");
+			startGameIntroVideo();
+		}
+		else
+		{
+			StopCoroutine("startGameVideo");
+			introductionPanel.SetActive(false);
+		}
 	}
 
 	void quickGameClicked()
