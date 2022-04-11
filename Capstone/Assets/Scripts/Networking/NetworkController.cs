@@ -158,6 +158,11 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
     #endregion
 
+    public static void DisconnectPlayer()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LeaveLobby();
+    }
 }
 
 
