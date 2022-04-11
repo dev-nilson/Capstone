@@ -170,10 +170,23 @@ public class GameOverScreen : MonoBehaviour
 
     void displayAlien()
     {
-        if (getP1avatar() == PlayerAvatar.PEASANT) peasantPrefab.SetActive(true);
-        else if (getP1avatar() == PlayerAvatar.PHAROAH)pharoahPrefab.SetActive(true);
-        else if (getP1avatar() == PlayerAvatar.SCRIBE)scribePrefab.SetActive(true);
-        else if (getP1avatar() == PlayerAvatar.WORKER)workerPrefab.SetActive(true);
+        //If player 1 won then display the other alien
+        if (GetWinningPlayer() == PlayerTurn.ONE)
+        {
+            if (getP2avatar() == PlayerAvatar.PEASANT) peasantPrefab.SetActive(true);
+            else if (getP2avatar() == PlayerAvatar.PHAROAH) pharoahPrefab.SetActive(true);
+            else if (getP2avatar() == PlayerAvatar.SCRIBE) scribePrefab.SetActive(true);
+            else if (getP2avatar() == PlayerAvatar.WORKER) workerPrefab.SetActive(true);
+        }
+
+        else
+        {
+            if (getP1avatar() == PlayerAvatar.PEASANT) peasantPrefab.SetActive(true);
+            else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoahPrefab.SetActive(true);
+            else if (getP1avatar() == PlayerAvatar.SCRIBE) scribePrefab.SetActive(true);
+            else if (getP1avatar() == PlayerAvatar.WORKER) workerPrefab.SetActive(true);
+        }
+       
     }
 
     void displayShip()
@@ -233,6 +246,11 @@ public class GameOverScreen : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         readyToDisplayText = true;
+    }
+
+    void resetScreen() 
+    { 
+
     }
 
 }
