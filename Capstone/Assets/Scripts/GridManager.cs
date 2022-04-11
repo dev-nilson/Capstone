@@ -291,7 +291,7 @@ public class GridManager : MonoBehaviour
 
     public void highlightValidTiles(List<Coordinates> locs)
     {
-        GameObject h_Tile;
+        //GameObject h_Tile;
         for (var i = 0; i < Row; ++i)
         {
             for (var j = 0; j < Col; ++j)
@@ -299,7 +299,11 @@ public class GridManager : MonoBehaviour
                 if (locs.Contains(new Coordinates(i, j)))
                 {
                     //Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                    Color32 newColor = new Color32(175, 255, 186, 37);
+
+                    //Color32 newColor = new Color32(155, 234, 242, 200);
+
+                    Color32 newColor = new Color32(155, 234, 242, 200);
+
                     Grid[i, j].GetComponent<Renderer>().material.SetColor("_Color", newColor);
                     //Grid[i, j].GetComponent<Renderer>().material.SetTexture()
 

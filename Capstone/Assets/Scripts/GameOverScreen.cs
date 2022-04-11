@@ -36,13 +36,19 @@ public class GameOverScreen : MonoBehaviour
     public static bool readyForStoryModeSetThree = false;
     public static bool beatStoryMode = false;
 
+    //Aliens
     public GameObject scribePrefab;
     public GameObject workerPrefab;
     public GameObject pharoahPrefab;
     public GameObject peasantPrefab;
 
-    //This is used to determine whether it is time to to dispay the final screen saying you beat storymode
-    int count = 0;
+    //Ships
+    public GameObject scribeShipPrefab;
+    public GameObject workerShipPrefab;
+    public GameObject pharoahShipPrefab;
+    public GameObject peasantShipPrefab;
+
+    static bool readyToDisplayText = false;
 
     // Start is called before the first frame update
     void Start()
@@ -62,8 +68,13 @@ public class GameOverScreen : MonoBehaviour
         pharoahPrefab.SetActive(false);
         peasantPrefab.SetActive(false);
 
-        GameOverPopup();
+        scribeShipPrefab.SetActive(false);
+        workerShipPrefab.SetActive(false);
+        pharoahShipPrefab.SetActive(false);
+        peasantShipPrefab.SetActive(false);
+
         displayAlien();
+        displayShip();
 
         //Multiplayer buttons
         //Back to Menu
@@ -106,12 +117,22 @@ public class GameOverScreen : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        waitForShipToLeave();
+        if (readyToDisplayText)
+        {
+            GameOverPopup();
+        }
+    }
+
     public void GameOverPopup()
     {
         // Local player wins in story mode
         if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
-            if(beatStoryMode)
+            waitForShipToLeave();
+            if (beatStoryMode)
             {
                 beatStoryModeScreen.SetActive(true);
             }
@@ -136,7 +157,9 @@ public class GameOverScreen : MonoBehaviour
             if (getGameType() == GameType.NETWORK)
                 winMultiScreen.SetActive(true);
             else
+            {
                 winQuickGameScreen.SetActive(true);
+            }
         }
 
         // Local player loses in other game type
@@ -146,7 +169,9 @@ public class GameOverScreen : MonoBehaviour
             if (getGameType() == GameType.NETWORK)
                 loseMultiScreen.SetActive(true);
             else
+            {
                 loseQuickGameScreen.SetActive(true);
+            }
         }
     }
 
@@ -158,8 +183,31 @@ public class GameOverScreen : MonoBehaviour
         else if (getP1avatar() == PlayerAvatar.WORKER)workerPrefab.SetActive(true);
     }
 
+    void displayShip()
+    {
+        //If player 1 won then display their ship
+        if(GetWinningPlayer() == PlayerTurn.ONE)
+        {
+            if (getP1avatar() == PlayerAvatar.PEASANT) peasantShipPrefab.SetActive(true);
+            else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoahShipPrefab.SetActive(true);
+            else if (getP1avatar() == PlayerAvatar.SCRIBE) scribeShipPrefab.SetActive(true);
+            else if (getP1avatar() == PlayerAvatar.WORKER) workerShipPrefab.SetActive(true);
+        }
+        //else display the opponents ship
+        else
+        {
+            if (getP2avatar() == PlayerAvatar.PEASANT) peasantShipPrefab.SetActive(true);
+            else if (getP2avatar() == PlayerAvatar.PHAROAH) pharoahShipPrefab.SetActive(true);
+            else if (getP2avatar() == PlayerAvatar.SCRIBE) scribeShipPrefab.SetActive(true);
+            else if (getP2avatar() == PlayerAvatar.WORKER) workerShipPrefab.SetActive(true);
+        }
+
+    }
+
     void backToMenuClicked()
     {
+        Scroll.EnableButtons();
+        GameBoardScreen.EnableButtons();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
         beatStoryMode = false;
@@ -167,6 +215,8 @@ public class GameOverScreen : MonoBehaviour
 
     void rematchClicked()
     {
+        Scroll.EnableButtons();
+        GameBoardScreen.EnableButtons();
         ResetStartingPlayer();
         SceneManager.LoadScene("GameBoard");
         FindObjectOfType<AudioManager>().StopCurrentSong(6);
@@ -180,6 +230,16 @@ public class GameOverScreen : MonoBehaviour
         FindObjectOfType<AudioManager>().StopCurrentSong(3);
 
         beatStoryMode = true;
+    }
+
+    void waitForShipToLeave()
+    {
+        StartCoroutine("shipDelay");
+    }
+    IEnumerator shipDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        readyToDisplayText = true;
     }
 
 }
