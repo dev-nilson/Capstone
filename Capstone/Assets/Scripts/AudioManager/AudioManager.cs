@@ -9,11 +9,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-//Add code for switching music in these places
-//Disconnected back to Menu (Game/FaceOff/MultiplayerScreen Disconnect popups)
-//Will need to change songs based on players preformance in the Story mode (GameOverGraphics)
-
-
 public class AudioManager : MonoBehaviour
 {
     #region Variables

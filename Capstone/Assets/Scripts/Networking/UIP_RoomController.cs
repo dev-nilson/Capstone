@@ -313,9 +313,9 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     #region Miscellaneous Functions
     private void OnGameStarting(Scene current, Scene next)
     {
-        tempPlayer.OpponentAlien();
         if (next.name == "GameBoard")
         {
+            tempPlayer.OpponentAlien();
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
         }
         Debug.Log("Called OnGameStarting");
