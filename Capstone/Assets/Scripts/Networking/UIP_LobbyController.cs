@@ -75,6 +75,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     private void Start()
     {
+        LoadingPanel.SetActive(true);
         if (PhotonNetwork.IsConnected)
             StartCoroutine(DisconnectReconnect());
 
@@ -131,6 +132,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
         intentionalDisconnect = false;
+        LoadingPanel.SetActive(false);
         multiplayerMenuPanel.SetActive(true);
         roomList = new List<RoomInfo>();
 
