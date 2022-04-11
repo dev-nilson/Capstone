@@ -132,9 +132,9 @@ public class GameOverGraphics : MonoBehaviour
         ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        ScreenShake.instance.StartShake(1f, 2f);
+        ScreenShake.instance.StartShake(2.5f, 1f);
         Debug.Log("Wait");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
 
         SceneManager.LoadScene("GameOver");
     }
