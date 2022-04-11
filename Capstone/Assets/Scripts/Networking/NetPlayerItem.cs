@@ -44,6 +44,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
             playerName.text = PlayerPrefs.GetString("NickName");
             setP1username(playerName.text);
 
+
             //if (!PhotonNetwork.IsMasterClient)
             //{
             //    FlipIt(netPlayer);
@@ -166,5 +167,18 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         }
 
         return null;
+    }
+
+    public void ResetValues()
+    {
+        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        {
+            if (player == PhotonNetwork.LocalPlayer)
+            {
+                alienChosen = null;
+                playerAlien.sprite = null;
+                playerProperties["playerAlien"] = null;
+            }
+        }
     }
 }
