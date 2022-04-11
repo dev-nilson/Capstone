@@ -5,30 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class teamIntroScreen : MonoBehaviour, IPointerDownHandler
 {
-    int delay = 3;
+    public GameObject teamIntro;
+    int delay = 5;
     // Start is called before the first frame update
     void Start()
     {
         startTeamIntroVideo();
     }
 
-    void startTeamIntroVideo()
+    void Update()
     {
-        StartCoroutine("startTeamVideo");
+        if (Input.GetMouseButtonDown(0))
+        {
+            StopAllCoroutines();
+            SceneManager.LoadScene("GameIntro");
+        }
     }
 
-    IEnumerator startTeamVideo()
+    void startTeamIntroVideo()
+    {
+        StartCoroutine("startVideo");
+    }
+
+    IEnumerator startVideo()
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene("GameIntro");
     }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("this was clicked");
-        StopCoroutine("startTeamVideo");
-        SceneManager.LoadScene("GameIntro");
-    }
 }
-
-

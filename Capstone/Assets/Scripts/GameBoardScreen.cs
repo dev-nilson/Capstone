@@ -116,18 +116,12 @@ public class GameBoardScreen : MonoBehaviour
 
     void okClicked()
     {
-        Debug.Log("yes was clicked");
-        if(getGameType() == GameType.NETWORK)
-        {
-            NetworkController.playerIntentionallyLeftRoom = true;
-            NetworkController.SendPlayerLeft();
-        }
+        NetworkController.playerIntentionallyLeftRoom = true;
+        NetworkController.SendPlayerLeft();
         ClearGame();
         EnableButtons();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
-        Debug.Log("yes was clicked thats the end");
-
     }
 
     void cancelClicked()

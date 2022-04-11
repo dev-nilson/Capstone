@@ -58,6 +58,9 @@ public class MenuScreen : MonoBehaviour
 
 		PlayingStoryMode = false;
 		SetGameOver();
+
+		GameBoardScreen.EnableButtons();
+		Scroll.EnableButtons();
 	}
 
 	void quickGameClicked()
