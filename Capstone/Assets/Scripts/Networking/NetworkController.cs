@@ -34,6 +34,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void Start()
     {
+        //add in code from laura grace to make sure this is network game
         GameObject player = PhotonNetwork.Instantiate("networkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
         netPlayer = player.GetComponent<NetworkPlayer>();
         playerIntentionallyLeftRoom = false;
@@ -41,6 +42,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        //add in code from laura grace to make sure this is network game
         playerIntentionallyLeftRoom = GetPlayerLeftStatus();
         Debug.Log("Player intentionally left room: " + playerIntentionallyLeftRoom);
 
