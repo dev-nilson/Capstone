@@ -5,35 +5,64 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class introduction : MonoBehaviour
+public class introduction : MonoBehaviour, IPointerDownHandler
 {
     float screenDelay = 5f;
 
     public GameObject teamIntro;
     public GameObject gameIntro;
+    public GameObject introductionPanel;
 
-    public Button goToGameIntro;
-    public Button goToMenu;
+    int count = 0;
 
     void Start()
     {
-        Debug.Log("Here");
-        teamIntro.SetActive(true);
-
-        Button goToGameIntroBtn = goToGameIntro.GetComponent<Button>();
-        goToGameIntroBtn.onClick.AddListener(goToGameIntroClicked);
-
-        Button goToMenuBtn = goToMenu.GetComponent<Button>();
-        goToMenuBtn.onClick.AddListener(goToMenuClicked);
+        startTeamIntroVideo();
     }
-    public void goToGameIntroClicked()
-    {
-        teamIntro.SetActive(false);
-        gameIntro.SetActive(true);
-    }
+   
     public void goToMenuClicked()
     {
         teamIntro.SetActive(false);
         gameIntro.SetActive(false);
+    }
+
+    void startTeamIntroVideo()
+    {
+        StartCoroutine("startTeamVideo");
+    }
+
+    IEnumerator startTeamVideo()
+    {
+        yield return new WaitForSeconds(screenDelay);
+        teamIntro.SetActive(false);
+        startGameIntroVideo();
+    }
+
+    void startGameIntroVideo()
+    {
+        gameIntro.SetActive(true);
+        StartCoroutine("startGameVideo");
+    }
+
+    IEnumerator startGameVideo()
+    {
+        yield return new WaitForSeconds(screenDelay);
+        gameIntro.SetActive(false);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        count++;
+        if(count == 1)
+        {
+            Debug.Log("first click");
+            StopCoroutine("startTeamVideo");
+            startGameIntroVideo();
+        }
+        else
+        {
+            StopCoroutine("startGameVideo");
+            introductionPanel.SetActive(false);
+        }
     }
 }
