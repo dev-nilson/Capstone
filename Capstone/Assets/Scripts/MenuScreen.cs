@@ -32,7 +32,7 @@ public class MenuScreen : MonoBehaviour
 	public GameObject gameIntro;
 	public GameObject introductionPanel;
 
-	static int count = 0;
+	int count = 0;
 	static bool firstTimeThrough = true;
 
 	void Start()
@@ -104,6 +104,8 @@ public class MenuScreen : MonoBehaviour
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
+		Debug.Log(" click");
+
 		count++;
 		if (count == 1)
 		{
