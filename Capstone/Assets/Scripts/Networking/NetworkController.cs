@@ -138,12 +138,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public static void SendPlayerLeft()
     {
-        netPlayer.SendPlayerLeft(playerIntentionallyLeftRoom);
+        if (getGameType() == GameType.NETWORK)
+        {
+            netPlayer.SendPlayerLeft(playerIntentionallyLeftRoom);
+        }
     }
 
     public static void SetPlayerLeftStatus(bool playerStatus)
     {
-        playerIntentionallyLeftRoom = playerStatus;
+        if (getGameType() == GameType.NETWORK)
+        {
+            playerIntentionallyLeftRoom = playerStatus;
+        }
     }
 
     public static bool GetPlayerLeftStatus()
