@@ -35,7 +35,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
     public void SetPlayerInfo(Photon.Realtime.Player netPlayer)
     {
         //AlienPic.transform.RotateAround(transform.position, transform.up, 280f);
-        playerAlien = null;
+        playerAlien.sprite = null;
         player = netPlayer;
         string myNickname = PlayerPrefs.GetString("NickName");
         Debug.Log("This is my Nickname: " + myNickname);
@@ -170,17 +170,17 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         return null;
     }
 
-    public void ResetValues()
-    {
-        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
-        {
-            if (player == PhotonNetwork.LocalPlayer)
-            {
-                alienChosen = null;
-                playerAlien.
-                playerAlien.sprite = null;
-                playerProperties["playerAlien"] = null;
-            }
-        }
-    }
+    //public void ResetValues()
+    //{
+    //    foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+    //    {
+    //        if (player == PhotonNetwork.LocalPlayer)
+    //        {
+    //            alienChosen = null;
+    //            playerAlien.
+    //            playerAlien.sprite = null;
+    //            playerProperties["playerAlien"] = null;
+    //        }
+    //    }
+    //}
 }
