@@ -35,6 +35,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
     public void SetPlayerInfo(Photon.Realtime.Player netPlayer)
     {
         //AlienPic.transform.RotateAround(transform.position, transform.up, 280f);
+        playerAlien = null;
         player = netPlayer;
         string myNickname = PlayerPrefs.GetString("NickName");
         Debug.Log("This is my Nickname: " + myNickname);
@@ -176,6 +177,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
             if (player == PhotonNetwork.LocalPlayer)
             {
                 alienChosen = null;
+                playerAlien.
                 playerAlien.sprite = null;
                 playerProperties["playerAlien"] = null;
             }
