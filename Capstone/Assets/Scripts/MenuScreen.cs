@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,6 +29,7 @@ public class MenuScreen : MonoBehaviour
 
 	void Start()
 	{
+		PhotonNetwork.ConnectUsingSettings();
 		//settingsPopUp.SetActive(false); // false to hide, true to show
 
 		Button quickGameBtn = quickGame.GetComponent<Button>();
