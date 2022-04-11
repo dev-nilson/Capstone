@@ -12,8 +12,6 @@ public class GameOverScreen : MonoBehaviour
     public GameObject loseMultiScreen;
     public Button backToMenu_WM;
     public Button backToMenu_LM;
-    public Button rematch_WM;
-    public Button rematch_LM;
 
     //Quick game
     public GameObject winQuickGameScreen;
@@ -82,11 +80,6 @@ public class GameOverScreen : MonoBehaviour
         backToMenuBtn_WM.onClick.AddListener(backToMenuClicked);
         Button backToMenuBtn_LM = backToMenu_LM.GetComponent<Button>();
         backToMenuBtn_LM.onClick.AddListener(backToMenuClicked);
-        //Rematch
-        Button rematchBtn_WM = rematch_WM.GetComponent<Button>();
-        rematchBtn_WM.onClick.AddListener(rematchClicked);
-        Button rematchBtn_LM = rematch_LM.GetComponent<Button>();
-        rematchBtn_LM.onClick.AddListener(rematchClicked);
 
         //Quick Game buttons
         //Back to Menu
@@ -177,10 +170,23 @@ public class GameOverScreen : MonoBehaviour
 
     void displayAlien()
     {
-        if (getP1avatar() == PlayerAvatar.PEASANT) peasantPrefab.SetActive(true);
-        else if (getP1avatar() == PlayerAvatar.PHAROAH)pharoahPrefab.SetActive(true);
-        else if (getP1avatar() == PlayerAvatar.SCRIBE)scribePrefab.SetActive(true);
-        else if (getP1avatar() == PlayerAvatar.WORKER)workerPrefab.SetActive(true);
+        //If player 1 won then display the other alien
+        if (GetWinningPlayer() == PlayerTurn.ONE)
+        {
+            if (getP2avatar() == PlayerAvatar.PEASANT) peasantPrefab.SetActive(true);
+            else if (getP2avatar() == PlayerAvatar.PHAROAH) pharoahPrefab.SetActive(true);
+            else if (getP2avatar() == PlayerAvatar.SCRIBE) scribePrefab.SetActive(true);
+            else if (getP2avatar() == PlayerAvatar.WORKER) workerPrefab.SetActive(true);
+        }
+
+        else
+        {
+            if (getP1avatar() == PlayerAvatar.PEASANT) peasantPrefab.SetActive(true);
+            else if (getP1avatar() == PlayerAvatar.PHAROAH) pharoahPrefab.SetActive(true);
+            else if (getP1avatar() == PlayerAvatar.SCRIBE) scribePrefab.SetActive(true);
+            else if (getP1avatar() == PlayerAvatar.WORKER) workerPrefab.SetActive(true);
+        }
+       
     }
 
     void displayShip()
@@ -240,6 +246,11 @@ public class GameOverScreen : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         readyToDisplayText = true;
+    }
+
+    void resetScreen() 
+    { 
+
     }
 
 }

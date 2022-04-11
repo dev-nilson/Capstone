@@ -1,25 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class teamIntroScreen : MonoBehaviour
+public class teamIntroScreen : MonoBehaviour, IPointerDownHandler
 {
-    public GameObject teamIntro;
-    int delay = 5;
+    int delay = 3;
     // Start is called before the first frame update
     void Start()
     {
         startTeamIntroVideo();
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            StopAllCoroutines();
-            SceneManager.LoadScene("GameIntro");
-        }
     }
 
     void startTeamIntroVideo()
@@ -30,6 +20,13 @@ public class teamIntroScreen : MonoBehaviour
     IEnumerator startVideo()
     {
         yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene("GameIntro");
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("this was clicked");
+        StopCoroutine("startTeamVideo");
         SceneManager.LoadScene("GameIntro");
     }
 }
