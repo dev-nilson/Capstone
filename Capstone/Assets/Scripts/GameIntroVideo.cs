@@ -1,25 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class GameIntroVideo : MonoBehaviour
+public class GameIntroVideo : MonoBehaviour, IPointerDownHandler
 {
-    public GameObject gameIntro;
     float screenDelay = 5f;
     // Start is called before the first frame update
     void Start()
     {
         startGameIntroVideo();
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("cicked");
-            SceneManager.LoadScene("Menu");
-        }
     }
 
     void startGameIntroVideo()
@@ -30,6 +20,13 @@ public class GameIntroVideo : MonoBehaviour
     IEnumerator startVideo()
     {
         yield return new WaitForSeconds(screenDelay);
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("game intro was clicked");
+        StopCoroutine("startVideo");
         SceneManager.LoadScene("Menu");
     }
 }
