@@ -213,6 +213,11 @@ public class GameOverScreen : MonoBehaviour
     {
         Scroll.EnableButtons();
         GameBoardScreen.EnableButtons();
+        if (getGameType() == GameType.NETWORK)
+        {
+            NetworkController.DisconnectPlayer();
+        }
+
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
         beatStoryMode = false;
