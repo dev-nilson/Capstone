@@ -28,6 +28,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
     public Image playerAlien;
     public Sprite[] aliens;
     public string alienChosen;
+    public int timeToGo = 0;
 
     private PhotonView photonView;
 
@@ -35,11 +36,11 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
 
     public void SetPlayerInfo(Photon.Realtime.Player netPlayer)
     {
-        playerAlienImage.SetActive(false);
+        //playerAlienImage.SetActive(false);
         player = netPlayer;
         string myNickname = PlayerPrefs.GetString("NickName");
         Debug.Log("This is my Nickname: " + myNickname);
-        playerProperties["playerAlien"] = null;
+        //playerProperties["playerAlien"] = null;
 
         if (player == PhotonNetwork.LocalPlayer)
         {
@@ -158,19 +159,44 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         return null;
     }
 
-    public bool OpponentHasChosen()
+    public bool GameStarted()
     {
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
             if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
             {
-                if((bool)p.CustomProperties["playerAlienImage"] == true)
-                {
-                    return true;
-                }
+                p.CustomProperties["playerAlien"] = null;
             }
         }
-        
+
         return false;
+    }
+
+    public int TimeToStart()
+    {
+        int rtn;
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                timeToGo++;
+                rtn = timeToGo;
+                return rtn;
+            }
+        }
+        return 0;
+    }
+
+    public int TimeToStartOpponent()
+    {
+        int rtn = 1;
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber && (int)p.)
+            {
+                return rtn;
+            }
+        }
+        return 0;
     }
 }
