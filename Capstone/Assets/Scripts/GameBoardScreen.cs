@@ -95,7 +95,8 @@ public class GameBoardScreen : MonoBehaviour
     {
         if (Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && CanMove())
             StartAIQs();
-        if (!Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && CanBuild())
+        if ((!Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && (CanBuild()))
+            || IsGameOver())
             EndAIQs();
     }
 
@@ -120,6 +121,7 @@ public class GameBoardScreen : MonoBehaviour
         NetworkController.SendPlayerLeft();
         ClearGame();
         EnableButtons();
+        Scroll.EnableButtons();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
     }
@@ -129,6 +131,7 @@ public class GameBoardScreen : MonoBehaviour
         RotateMainCamera.EnableRotation();
         PlayGame();
         EnableButtons();
+        Scroll.EnableButtons();
         HelpTimer.Set();
         confirmExitPopUp.SetActive(false);
     }
