@@ -11,7 +11,7 @@ public class Scroll : MonoBehaviour
     public Button settings;
     public Button exitSettings;
 
-    private static bool disabled;
+    private static bool disabled = false;
 
     //This is for the setting scroll (makes it look like it's rolling up)
     public GameObject scroll1;
