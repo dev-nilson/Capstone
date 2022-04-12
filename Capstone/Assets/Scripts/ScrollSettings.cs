@@ -7,7 +7,7 @@ using static GameUtilities;
 
 public class ScrollSettings : MonoBehaviour
 {
-    public static ScrollSettings instance;
+    //public static ScrollSettings instance;
     public Toggle musicOn;
     public Toggle musicOff;
     public Slider slider;
@@ -15,23 +15,23 @@ public class ScrollSettings : MonoBehaviour
 
     private static bool hintsOn = true;
 
-    //void Awake()
-    //{
-    //    if (instance == null)
-    //    {
-    //        instance = this;
-    //    }
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //        Debug.Log("DESTROYED");
-    //        return;
-    //    }
+        //void Awake()
+        //{
+        //    if (instance == null)
+        //    {
+        //        instance = this;
+        //    }
+        //    else
+        //    {
+        //        Destroy(gameObject);
+        //        Debug.Log("DESTROYED");
+        //        return;
+        //    }
+        //
+        //    DontDestroyOnLoad(gameObject);
+        //}
 
-    //    DontDestroyOnLoad(gameObject);
-    //}
-
-    // Start is called before the first frame update
+        // Start is called before the first frame update
     void Start()
     {
         Debug.Log("SCROLL STARTED");
@@ -41,11 +41,21 @@ public class ScrollSettings : MonoBehaviour
         //musicOn = GetComponent<Toggle>();
 
         hints.isOn = hintsOn;
-        Debug.Log("scroll volume value is: " + AudioManager.musicVolume);
+        //Debug.Log("scroll volume value is: " + AudioManager.musicVolume);
         Debug.Log("scroll toggle value is: " + AudioManager.musicOn);
-        slider.value = AudioManager.musicVolume;
-        musicOn.isOn = AudioManager.musicOn;
-        musicOff.isOn = !AudioManager.musicOn;
+        //slider.value = AudioManager.musicVolume;
+        //musicOn.isOn = AudioManager.musicOn;
+        //musicOff.isOn = !AudioManager.musicOn;
+        if (AudioManager.musicOn == true)
+        {
+            musicOn.isOn = true;
+            musicOff.isOn = false;
+        }
+        else if (AudioManager.musicOn == false)
+        {
+            musicOff.isOn = true;
+            musicOn.isOn = false;
+        }
     }
 
     void Update()
@@ -53,14 +63,26 @@ public class ScrollSettings : MonoBehaviour
         GameHints();
 
         slider.value = AudioManager.musicVolume;
-        //Debug.Log(musicOn.isOn);
-        if (musicOn.isOn != AudioManager.musicOn)
-        {
-            musicOn.isOn = AudioManager.musicOn;
-            Debug.Log("the scroll value should get changed");
-            musicOff.isOn = !AudioManager.musicOn;
-        }
+        ////Debug.Log(musicOn.isOn);
+        //if (musicOn.isOn != AudioManager.musicOn)
+        //{
+        //    musicOn.isOn = AudioManager.musicOn;
+        //    Debug.Log("the scroll value should get changed");
+        //    musicOff.isOn = !AudioManager.musicOn;
+        //}
 
+        if (AudioManager.musicOn == true)
+        {
+            Debug.Log("AudioManager.musicOn is currently: " + AudioManager.musicOn);
+            musicOn.isOn = true;
+            musicOff.isOn = false;
+        }
+        else if (AudioManager.musicOn == false)
+        {
+            Debug.Log("AudioManager.musicOn is currently: " + AudioManager.musicOn);
+            musicOff.isOn = true;
+            musicOn.isOn = false;
+        }
     }
 
     //public void ToggleSound(Scene current, Scene next)

@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
+using System.Threading;
 using static GameUtilities;
 using UnityEngine.Events;
 using System;
@@ -15,12 +16,14 @@ public class GameBoardScreen : MonoBehaviour
     public Button ok;
     public Button cancel;
 
+    public GameObject firstQ;
+    public GameObject secondQ;
+    public GameObject thirdQ;
+
     //For the tutorial popup
     public Button tutorial;
     public Button exitTutorial;
     public GameObject tutorialPopup;
-
-    // add text for tutorial popup depending on the game phase
     public GameObject placeText;
     public GameObject moveText;
     public GameObject buildText;
@@ -42,7 +45,12 @@ public class GameBoardScreen : MonoBehaviour
     public PlayerAvatar p1Alien;
     public PlayerAvatar p2Alien;
 
+    HelpArrow GameHelp;
+
     private static bool disabled;
+    private static bool Qsready = true;
+
+    //Thread ChildThread = null;
 
     void Start()
     {
@@ -51,6 +59,8 @@ public class GameBoardScreen : MonoBehaviour
 
         p1Alien = getP1avatar();
         p2Alien = getP2avatar();
+
+        //ChildThread = new Thread(StartAIQs);
 
         if (getP1avatar() == PlayerAvatar.PEASANT) p1PeasantIcon.SetActive(true);
         else if (getP1avatar() == PlayerAvatar.PHAROAH) p1PharoahIcon.SetActive(true);
@@ -77,6 +87,17 @@ public class GameBoardScreen : MonoBehaviour
 
         Button exitTutorialBtn = exitTutorial.GetComponent<Button>();
         exitTutorialBtn.onClick.AddListener(exitTutorialClicked);
+
+        GameHelp = gameObject.GetComponent<HelpArrow>();
+    }
+
+    void Update()
+    {
+        if (Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && CanMove())
+            StartAIQs();
+        if ((!Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && (CanBuild()))
+            || IsGameOver())
+            EndAIQs();
     }
 
     void backClicked()
@@ -88,6 +109,7 @@ public class GameBoardScreen : MonoBehaviour
             //switch phases to turn off build and place player to create a fake modal pop up box
             RotateMainCamera.DisableRotation();
             PauseGame();
+            Scroll.DisableButtons();
             DisableButtons();
             HelpTimer.TurnOff();
         }
@@ -99,6 +121,7 @@ public class GameBoardScreen : MonoBehaviour
         NetworkController.SendPlayerLeft();
         ClearGame();
         EnableButtons();
+        Scroll.EnableButtons();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
     }
@@ -108,6 +131,7 @@ public class GameBoardScreen : MonoBehaviour
         RotateMainCamera.EnableRotation();
         PlayGame();
         EnableButtons();
+        Scroll.EnableButtons();
         HelpTimer.Set();
         confirmExitPopUp.SetActive(false);
     }
@@ -116,26 +140,28 @@ public class GameBoardScreen : MonoBehaviour
     {
         if (!disabled)
         {
-            FindObjectOfType<AudioManager>().Play("goldButtonPress");
-            tutorialPopup.SetActive(true);
-            if (CanPlacePawn()) placeText.SetActive(true);
-            else if (CanMove()) moveText.SetActive(true);
-            else if (CanBuild()) buildText.SetActive(true);
-
             PauseGame();
             DisableButtons();
+            Scroll.DisableButtons();
             HelpTimer.TurnOff();
+
+            tutorialPopup.SetActive(true);
+            FindObjectOfType<AudioManager>().Play("goldButtonPress");
+            GameHelp.TutorialStart();
+
+            if (CanPlacePawn()) placeText.SetActive(true);
+            if (CanMove()) moveText.SetActive(true);
+            if (CanBuild()) buildText.SetActive(true);
         }
     }
 
     void exitTutorialClicked()
     {
-        placeText.SetActive(false);
-        moveText.SetActive(false);
-        buildText.SetActive(false);
+        //GameHelp.TutorialEnd();
         tutorialPopup.SetActive(false);
         PlayGame();
         EnableButtons();
+        Scroll.EnableButtons();
         HelpTimer.Set();
     }
 
@@ -147,5 +173,37 @@ public class GameBoardScreen : MonoBehaviour
     public static void EnableButtons()
     {
         disabled = false;
+    }
+
+    public void StartAIQs()
+    {
+        Debug.Log("hereeeeeeeeeee");
+        StartCoroutine("TurnOnQs");
+    }
+
+    IEnumerator TurnOnQs()
+    {
+        Qsready = false;
+        while (true)
+        {
+            firstQ.SetActive(true);
+            yield return new WaitForSeconds(0.7f);
+            firstQ.SetActive(false);
+            secondQ.SetActive(true);
+            yield return new WaitForSeconds(0.7f);
+            secondQ.SetActive(false);
+            thirdQ.SetActive(true);
+            yield return new WaitForSeconds(0.7f);
+            thirdQ.SetActive(false);
+        }
+    }
+
+    public void EndAIQs()
+    {
+        firstQ.SetActive(false);
+        secondQ.SetActive(false);
+        thirdQ.SetActive(false);
+        StopCoroutine("TurnOnQs");
+        Qsready = true;
     }
 }

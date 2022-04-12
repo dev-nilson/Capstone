@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static GameUtilities;
 
-public class MenuScreen : MonoBehaviour
+public class MenuScreen : MonoBehaviour, IPointerDownHandler
 {
 	//Menu Items
 	public Button quickGame;
@@ -25,6 +25,15 @@ public class MenuScreen : MonoBehaviour
 	public GameObject clearPanel;
 
 	LevelChanger levelChanger;
+
+	float screenDelay = 5f;
+
+	public GameObject teamIntro;
+	public GameObject gameIntro;
+	public GameObject introductionPanel;
+
+	int count = 0;
+	static bool firstTimeThrough = true;
 
 	void Start()
 	{
@@ -57,8 +66,59 @@ public class MenuScreen : MonoBehaviour
 		helpPanel.SetActive(false);
 
 		PlayingStoryMode = false;
-		TurnOffGameOver();
+		SetGameOver();
+
+		GameBoardScreen.EnableButtons();
+		Scroll.EnableButtons();
+
+		if (firstTimeThrough)
+		{
+			teamIntro.SetActive(true);
+			startTeamIntroVideo();
+		}
 	}
+	void startTeamIntroVideo()
+	{
+		firstTimeThrough = false;
+		StartCoroutine("startTeamVideo");
+	}
+
+	IEnumerator startTeamVideo()
+	{
+		yield return new WaitForSeconds(screenDelay);
+		teamIntro.SetActive(false);
+		startGameIntroVideo();
+	}
+
+	void startGameIntroVideo()
+	{
+		gameIntro.SetActive(true);
+		StartCoroutine("startGameVideo");
+	}
+
+	IEnumerator startGameVideo()
+	{
+		yield return new WaitForSeconds(screenDelay);
+		gameIntro.SetActive(false);
+	}
+
+	public void OnPointerDown(PointerEventData eventData)
+	{
+        Debug.Log(count);
+
+        count++;
+        if (count == 1)
+        {
+            Debug.Log("first click");
+            StopCoroutine("startTeamVideo");
+            startGameIntroVideo();
+        }
+        else
+        {
+            StopCoroutine("startGameVideo");
+            introductionPanel.SetActive(false);
+        }
+    }
 
 	void quickGameClicked()
 	{

@@ -11,7 +11,7 @@ public class Scroll : MonoBehaviour
     public Button settings;
     public Button exitSettings;
 
-    private static bool disabled;
+    private static bool disabled = false;
 
     //This is for the setting scroll (makes it look like it's rolling up)
     public GameObject scroll1;
@@ -20,6 +20,11 @@ public class Scroll : MonoBehaviour
     public GameObject scroll4;
     public GameObject scroll5;
     public GameObject scroll6;
+
+    private void Awake()
+    {
+        Debug.Log("THE SETTINGS HAVE AWOKEN");
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +38,9 @@ public class Scroll : MonoBehaviour
 
     void settingsClicked()
     {
+        Debug.Log("settings clicked!!!");
         FindObjectOfType<AudioManager>().Play("goldButtonPress");
+        Debug.Log("Disabled is:" + disabled);
         if (!disabled)
         {
             scroll6.SetActive(true);
@@ -42,6 +49,7 @@ public class Scroll : MonoBehaviour
             //switch phases to turn off build and place player to create a fake modal pop up box
             RotateMainCamera.DisableRotation();
             PauseGame();
+            GameBoardScreen.DisableButtons();
             DisableButtons();
             HelpTimer.TurnOff();
         }
@@ -97,6 +105,7 @@ public class Scroll : MonoBehaviour
 
         RotateMainCamera.EnableRotation();
         PlayGame();
+        GameBoardScreen.EnableButtons();
         EnableButtons();
         HelpTimer.Set();
     }
@@ -118,6 +127,7 @@ public class Scroll : MonoBehaviour
 
     IEnumerator openSettingsClicked()
     {
+        Debug.Log("opening settings yeye");
         //time that the scroll waits before it moves on to the next image
         float delay = .001f;
 
@@ -137,15 +147,15 @@ public class Scroll : MonoBehaviour
         //BEAUTIFUL PIECE OF CODE --- Love Dad
         for (int scrollNum = 6; scrollNum >= 1; scrollNum--)
         {
-            Debug.Log(scrollNum);
+            //Debug.Log(scrollNum);
 
             scrollArray[scrollNum].SetActive(true);
             float firstScrollRef = scrollArray[scrollNum].GetComponent<RectTransform>().rect.height;
-            Debug.Log("first scroll: " + firstScrollRef);
+            //Debug.Log("first scroll: " + firstScrollRef);
 
             float tempHeight = firstScrollRef;
             float secondScrollRef = scrollArray[scrollNum - 1].GetComponent<RectTransform>().rect.height;
-            Debug.Log("second scroll: " + secondScrollRef);
+            //Debug.Log("second scroll: " + secondScrollRef);
 
             for (float i = firstScrollRef; i <= (firstScrollRef - ((firstScrollRef - secondScrollRef))); i += 10)
             {
@@ -165,6 +175,7 @@ public class Scroll : MonoBehaviour
 
         RotateMainCamera.EnableRotation();
         PlayGame();
+        GameBoardScreen.EnableButtons();
         EnableButtons();
         HelpTimer.Set();
     }

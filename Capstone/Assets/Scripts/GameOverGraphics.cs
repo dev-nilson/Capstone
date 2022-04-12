@@ -13,49 +13,82 @@ public class GameOverGraphics : MonoBehaviour
     public GameObject opponectDisconnected;
     public GameObject opponentLeft;
     public GameObject backToMenu;
+    public GameObject backToMenu_OpponentLeft;
+
 
     ScreenShake screenShake = new ScreenShake();
 
     bool canShake = false;
 
+    private static bool ready = true;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        resetPopupBoxes();
         Button backToMenuBtn = backToMenu.GetComponent<Button>();
         backToMenuBtn.onClick.AddListener(backToMenuClicked);
-    }
 
-    void Awake()
-    {
-        resetPopupBoxes();
+        Button backToMenu_OLBtn = backToMenu_OpponentLeft.GetComponent<Button>();
+        backToMenu_OLBtn.onClick.AddListener(backToMenuClicked);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Network disconnect
-        if (getGameType() == GameType.NETWORK && IsLocalDisconnect())
+        if (ready)
         {
-            disconnectedPopup.SetActive(true);
-            youDisconnected.SetActive(true);
-        }
-        else if (getGameType() == GameType.NETWORK && IsOpponentDisconnect())
-        {
-            disconnectedPopup.SetActive(true);
-            opponectDisconnected.SetActive(true);
-        }
-        else if (getGameType() == GameType.NETWORK && IsOpponentLeft())
-        {
-            opponentLeft.SetActive(true);
-        }
-        else if (IsGameOver() && canShake == false)
-        {
-            canShake = true;
-            //GameOverPopup();
-            shakeTheScreen();
-            //SceneManager.LoadScene("GameOver");
+            // Network disconnect
+            if (getGameType() == GameType.NETWORK && IsLocalDisconnect())
+            {
+                RotateMainCamera.DisableRotation();
+                PauseGame();
+                GameBoardScreen.DisableButtons();
+                Scroll.DisableButtons();
+                HelpTimer.TurnOff();
+
+                disconnectedPopup.SetActive(true);
+                youDisconnected.SetActive(true);
+
+                ready = false;
+            }
+            else if (getGameType() == GameType.NETWORK && IsOpponentDisconnect())
+            {
+                RotateMainCamera.DisableRotation();
+                PauseGame();
+                GameBoardScreen.DisableButtons();
+                Scroll.DisableButtons();
+                HelpTimer.TurnOff();
+
+                disconnectedPopup.SetActive(true);
+                opponectDisconnected.SetActive(true);
+                ready = false;
+            }
+            else if (getGameType() == GameType.NETWORK && IsOpponentLeft())
+            {
+                RotateMainCamera.DisableRotation();
+                PauseGame();
+                GameBoardScreen.DisableButtons();
+                Scroll.DisableButtons();
+                HelpTimer.TurnOff();
+
+                opponentLeft.SetActive(true);
+                ready = false;
+            }
+            else if (IsGameOver() && canShake == false)
+            {
+                RotateMainCamera.DisableRotation();
+                PauseGame();
+                GameBoardScreen.DisableButtons();
+                Scroll.DisableButtons();
+                HelpTimer.TurnOff();
+
+                canShake = true;
+                //GameOverPopup();
+                shakeTheScreen();
+                //SceneManager.LoadScene("GameOver");
+                ready = false;
+            }
         }
     }
 
@@ -65,6 +98,10 @@ public class GameOverGraphics : MonoBehaviour
         opponectDisconnected.SetActive(false);
         youDisconnected.SetActive(false);
         opponentLeft.SetActive(false);
+
+        ClearGame();
+        GameBoardScreen.EnableButtons();
+        Scroll.EnableButtons();
     }
 
     void backToMenuClicked()
@@ -95,10 +132,20 @@ public class GameOverGraphics : MonoBehaviour
         ScreenShake.instance.StartShake(.5f, 1f);
         Debug.Log("Wait");
         yield return new WaitForSeconds(2f);
-        ScreenShake.instance.StartShake(1f, 2f);
+        ScreenShake.instance.StartShake(2.5f, 1f);
         Debug.Log("Wait");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
 
         SceneManager.LoadScene("GameOver");
+    }
+
+    public static void MakeReady()
+    {
+        ready = true;
+    }
+
+    public static void MakeNotReady()
+    {
+        ready = false;
     }
 }

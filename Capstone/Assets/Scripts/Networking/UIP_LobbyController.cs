@@ -54,7 +54,6 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     [SerializeField]
     private InputField playerNameInput; //Input field so player can change their NickName
 
-
     private string roomName; //string for saving room name, is usually the Players name or Players name + numbers
     public bool intentionalDisconnect = false;
     public bool onFaceoffScreen = false;
@@ -76,6 +75,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     private void Start()
     {
+        LoadingPanel.SetActive(true);
         if (PhotonNetwork.IsConnected)
             StartCoroutine(DisconnectReconnect());
 
@@ -84,6 +84,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         if (PhotonNetwork.AutomaticallySyncScene == false)
             PhotonNetwork.AutomaticallySyncScene = true;
 
+        playerNameInput.characterLimit = 17;
     }
 
     private void Update()
@@ -131,6 +132,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
         intentionalDisconnect = false;
+        LoadingPanel.SetActive(false);
         multiplayerMenuPanel.SetActive(true);
         roomList = new List<RoomInfo>();
 
@@ -217,6 +219,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public void PlayerNameUpdateInputChanged()
     {
         string text = playerNameInput.text;
+
         if (!string.IsNullOrWhiteSpace(text))
         {
             hostRoomButton.SetActive(true);

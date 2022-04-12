@@ -74,11 +74,13 @@ public class QuickGameScreen : MonoBehaviour
 
     void startGameClicked()
     {
-        // GameType and PlayerTurn are set in "ToggleGroup.cs"
         FindObjectOfType<AudioManager>().Play("stoneButtonPress");
-        SceneManager.LoadScene("GameBoard");
 
+        // GameType and PlayerTurn are set in "ToggleGroup.cs"
+        SceneManager.LoadScene("GameBoard");
         FindObjectOfType<AudioManager>().StopCurrentSong(6);
+
+
 
         // Set a random player avatar for player 2 (the AI) other than p1's avatar
         setP2avatar(RandomPlayerAvatar(getP1avatar()));

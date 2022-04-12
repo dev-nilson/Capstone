@@ -34,54 +34,62 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void Start()
     {
-        GameObject player = PhotonNetwork.Instantiate("networkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
-        netPlayer = player.GetComponent<NetworkPlayer>();
-        playerIntentionallyLeftRoom = false;
+        if (getGameType() == GameType.NETWORK)
+        {
+            //add in code from laura grace to make sure this is network game
+            GameObject player = PhotonNetwork.Instantiate("networkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
+            netPlayer = player.GetComponent<NetworkPlayer>();
+            playerIntentionallyLeftRoom = false;
+        }
     }
 
     private void Update()
     {
-        playerIntentionallyLeftRoom = GetPlayerLeftStatus();
-        Debug.Log("Player intentionally left room: " + playerIntentionallyLeftRoom);
-
-        if (getGameType() == GameType.NETWORK && PhotonNetwork.NetworkClientState == ClientState.Disconnected) //local player loses connection
+        if (getGameType() == GameType.NETWORK)
         {
-            //disable game phases
-            DisablePhases();
-            Debug.Log("You have lost network connection");
+            //add in code from laura grace to make sure this is network game
+            playerIntentionallyLeftRoom = GetPlayerLeftStatus();
+            Debug.Log("Player intentionally left room: " + playerIntentionallyLeftRoom);
 
-            SetLocalDisconnect();
-        }
-        else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2) //players opponent initentionally leaves the game
-        {
-            if (playerIntentionallyLeftRoom == true)
-            {
-                DisablePhases();
-                Debug.Log("Your opponent has intentionally left the network");
-
-                //SetOpponentDisconnect();
-                SetOpponentLeft();
-
-                PhotonNetwork.LeaveRoom();
-                PhotonNetwork.LeaveLobby();
-            }
-            else if (playerIntentionallyLeftRoom == false)
+            if (getGameType() == GameType.NETWORK && PhotonNetwork.NetworkClientState == ClientState.Disconnected) //local player loses connection
             {
                 //disable game phases
                 DisablePhases();
-                Debug.Log("Your opponent has lost network connection");
+                Debug.Log("You have lost network connection");
 
-                SetOpponentDisconnect();
+                SetLocalDisconnect();
+            }
+            else if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount < 2) //players opponent initentionally leaves the game
+            {
+                if (playerIntentionallyLeftRoom == true)
+                {
+                    DisablePhases();
+                    Debug.Log("Your opponent has intentionally left the network");
 
+                    //SetOpponentDisconnect();
+                    SetOpponentLeft();
+
+                    PhotonNetwork.LeaveRoom();
+                    PhotonNetwork.LeaveLobby();
+                }
+                else if (playerIntentionallyLeftRoom == false)
+                {
+                    //disable game phases
+                    DisablePhases();
+                    Debug.Log("Your opponent has lost network connection");
+
+                    SetOpponentDisconnect();
+
+                    PhotonNetwork.LeaveRoom();
+                    PhotonNetwork.LeaveLobby();
+                }
+            }
+            else if (PhotonNetwork.IsConnected && playerIntentionallyLeftRoom == true) //local player intentionally leaves the game
+            {
+                Debug.Log("You have left the network");
                 PhotonNetwork.LeaveRoom();
                 PhotonNetwork.LeaveLobby();
             }
-        }
-        else if (PhotonNetwork.IsConnected && playerIntentionallyLeftRoom == true) //local player intentionally leaves the game
-        {
-            Debug.Log("You have left the network");
-            PhotonNetwork.LeaveRoom();
-            PhotonNetwork.LeaveLobby();
         }
     }
     #endregion

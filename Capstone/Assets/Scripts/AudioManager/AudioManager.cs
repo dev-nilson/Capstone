@@ -9,11 +9,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-//Add code for switching music in these places
-//Disconnected back to Menu (Game/FaceOff/MultiplayerScreen Disconnect popups)
-//Will need to change songs based on players preformance in the Story mode (GameOverGraphics)
-
-
 public class AudioManager : MonoBehaviour
 {
     #region Variables
@@ -36,15 +31,16 @@ public class AudioManager : MonoBehaviour
     public static float musicVolume;
     public static bool musicOn = true;
 
-    string[] songs = { "GoldenVagueTower", "VagueTowerGolden", "TowerVagueGolden", "My Quiet Room",
-                        "OrdinaryBankThowr","SerpentClosing", "Devil's Disgrace", 
-                        "Searching Through Sand" };
+    string[] songs = { "GoldenVagueTower", "VagueTowerGolden", "TowerVagueGolden", 
+                        "My Quiet Room", "OrdinaryBankThowr","SerpentClosing", 
+                        "Devil's Disgrace","Searching Through Sand", "endOfGameSound" };
     #endregion
 
     #region AwakeStartUpdate
     // Start is called before the first frame update
     void Awake()
     {
+        Debug.Log("THE AUDIO MANAGER HAS AWOKEN");
         if (instance == null)
         {
             instance = this;
@@ -84,7 +80,7 @@ public class AudioManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         if (currentScreen != newScreen)
         {
             currentSong.source.Stop();
@@ -92,6 +88,15 @@ public class AudioManager : MonoBehaviour
         }
 
         currentScreen = newScreen;
+        Debug.Log("Current screen is " + currentScreen);
+    }
+
+    private void LateUpdate()
+    {
+        if (!musicOn)
+        {
+            currentSong.source.Stop();
+        }
     }
     #endregion
 
@@ -105,14 +110,25 @@ public class AudioManager : MonoBehaviour
 
     public void turnMusicOff()
     {
-        AudioListener.volume = 0;
         musicOn = false;
     }
 
     public void turnMusicOn()
     {
-        AudioListener.volume = 1;
         musicOn = true;
+        //currentScreen somehow becomes null/0 no matter hat when evaluating in this function
+        Debug.Log("Current screen is " + currentScreen);
+
+        if (currentScreen == 6)
+        {
+            nextSong(6);
+
+        }
+        else if (currentScreen == 1)
+        {
+            Debug.Log("WE DID IT!");
+            nextSong(1);
+        }
     }
     #endregion
 
@@ -195,7 +211,14 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        s.source.Play();
+        if (musicOn == false)
+        {
+            return;
+        }
+        else
+        {
+            s.source.Play();
+        }
     }
     #endregion 
 
