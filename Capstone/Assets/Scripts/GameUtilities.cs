@@ -231,7 +231,6 @@ public static class GameUtilities //public  ??
     //////////////////////////////////////
     public static void SetGameOver()
     {
-        Debug.Log("game is set to over");
         gameOver = true;
     }
     
