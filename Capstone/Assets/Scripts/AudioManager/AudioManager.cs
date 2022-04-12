@@ -88,7 +88,7 @@ public class AudioManager : MonoBehaviour
         }
 
         currentScreen = newScreen;
-        //Debug.Log("Current screen is " + currentScreen);
+        Debug.Log("Current screen is " + currentScreen);
     }
 
     private void LateUpdate()

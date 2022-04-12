@@ -148,6 +148,8 @@ public class GameController : MonoBehaviour
                         ReadyForTwoTiles();
                     else if (WaitingForFirstTile())
                     {
+                        // If the mouse was clicked, store that new coordinate
+
                         curLoc = playerController.GetPawn(board_gc, CurrentPlayer, WaitingPlayer);
 
                         // Collect the first tile
