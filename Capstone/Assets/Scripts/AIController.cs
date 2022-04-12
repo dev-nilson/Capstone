@@ -232,7 +232,7 @@ namespace AmazingGame
             {
                 if (depth != 2 && 
                     (gameBoard.IsGameOver(new Coordinates(node.GetMoveTo().X, node.GetMoveTo().Y)) ||
-                    gameBoard.CanBlock(new Coordinates(node.BuildTo().X, node.BuildTo().Y))))
+                    (gameBoard.CanBlock(new Coordinates(node.BuildTo().X, node.BuildTo().Y)) && !gameBoard.IsOccupied(node.GetMoveTo()))))
                 {
                     bestNode = node;
                     return node.score;
