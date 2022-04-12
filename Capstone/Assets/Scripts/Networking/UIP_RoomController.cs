@@ -333,7 +333,6 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         {
             setP2avatar(PlayerAvatar.PHAROAH);
         }
-
         tempPlayer.changeAlien(chosen);
         PharoahButton.SetActive(false);
     }
