@@ -295,6 +295,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             if (player.Value == PhotonNetwork.LocalPlayer)
             {
                 tempPlayer = newPlayerItem;
+                ResetValues();
             }
             if (player.Value == PhotonNetwork.LocalPlayer && PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
@@ -332,7 +333,6 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         {
             setP2avatar(PlayerAvatar.PHAROAH);
         }
-
         tempPlayer.changeAlien(chosen);
         PharoahButton.SetActive(false);
     }
@@ -386,6 +386,18 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
         tempPlayer.changeAlien(chosen);
         PeasantButton.SetActive(false);
+    }
+
+    public void ResetValues()
+    {
+        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        {
+            if (player == PhotonNetwork.LocalPlayer)
+            {
+                tempPlayer.alienChosen = null;
+                tempPlayer.playerAlien.sprite = null;
+            }
+        }
     }
     #endregion
 }

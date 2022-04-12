@@ -1184,6 +1184,7 @@ MonoBehaviour:
   joinRoomBackButton: {fileID: 735383631}
   multiplayerMenuBackButton: {fileID: 1099315261}
   disconnectedBackButton: {fileID: 13977344}
+  loadingBackButton: {fileID: 1347761377}
   multiplayerMenuPanel: {fileID: 2299199394656597057}
   JoinGamePanel: {fileID: 1184890172}
   HostGamePanel: {fileID: 1812378415}
@@ -4481,7 +4482,7 @@ GameObject:
   - component: {fileID: 1347761380}
   - component: {fileID: 1347761379}
   m_Layer: 5
-  m_Name: MultiplayerMenuBackButton
+  m_Name: LoadingBackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4564,7 +4565,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 180410092}
         m_TargetAssemblyTypeName: UIP_LobbyController, Assembly-CSharp
-        m_MethodName: MultiplayerMenuBackButton
+        m_MethodName: LoadingBackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
