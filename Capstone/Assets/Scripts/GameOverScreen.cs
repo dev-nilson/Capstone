@@ -186,7 +186,6 @@ public class GameOverScreen : MonoBehaviour
             else if (getP1avatar() == PlayerAvatar.SCRIBE) scribePrefab.SetActive(true);
             else if (getP1avatar() == PlayerAvatar.WORKER) workerPrefab.SetActive(true);
         }
-       
     }
 
     void displayShip()
@@ -207,7 +206,6 @@ public class GameOverScreen : MonoBehaviour
             else if (getP2avatar() == PlayerAvatar.SCRIBE) scribeShipPrefab.SetActive(true);
             else if (getP2avatar() == PlayerAvatar.WORKER) workerShipPrefab.SetActive(true);
         }
-
     }
 
     void backToMenuClicked()
@@ -235,7 +233,7 @@ public class GameOverScreen : MonoBehaviour
         SceneManager.LoadScene("StoryMode");
         FindObjectOfType<AudioManager>().StopCurrentSong(3);
 
-        beatStoryMode = true;
+        //beatStoryMode = true;
     }
 
     void waitForShipToLeave()
@@ -247,10 +245,4 @@ public class GameOverScreen : MonoBehaviour
         yield return new WaitForSeconds(2f);
         readyToDisplayText = true;
     }
-
-    void resetScreen() 
-    { 
-
-    }
-
 }
