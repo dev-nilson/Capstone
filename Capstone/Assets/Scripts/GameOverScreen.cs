@@ -46,7 +46,8 @@ public class GameOverScreen : MonoBehaviour
     public GameObject pharoahShipPrefab;
     public GameObject peasantShipPrefab;
 
-    static bool readyToDisplayText = false;
+    bool readyToDisplayText = false;
+    private bool done = false;
 
     // Start is called before the first frame update
     void Start()
@@ -113,7 +114,7 @@ public class GameOverScreen : MonoBehaviour
     void Update()
     {
         waitForShipToLeave();
-        if (readyToDisplayText)
+        if (!done && readyToDisplayText)
         {
             GameOverPopup();
         }
@@ -127,10 +128,14 @@ public class GameOverScreen : MonoBehaviour
             waitForShipToLeave();
             if (beatStoryMode)
             {
+                done = true;
+
                 beatStoryModeScreen.SetActive(true);
             }
             else
             {
+                done = true;
+
                 // Local player wins in story mode!
                 winStoryModeScreen.SetActive(true);
             }
