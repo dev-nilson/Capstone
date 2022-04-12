@@ -71,6 +71,7 @@ public class GameOverScreen : MonoBehaviour
         pharoahShipPrefab.SetActive(false);
         peasantShipPrefab.SetActive(false);
 
+        readyToDisplayText = false;
         displayAlien();
         displayShip();
 
