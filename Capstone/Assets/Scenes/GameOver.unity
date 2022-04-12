@@ -2794,8 +2794,6 @@ MonoBehaviour:
   loseMultiScreen: {fileID: 1236661225}
   backToMenu_WM: {fileID: 1559275913}
   backToMenu_LM: {fileID: 2130602279}
-  rematch_WM: {fileID: 359564121}
-  rematch_LM: {fileID: 394368829}
   winQuickGameScreen: {fileID: 1063019856}
   loseQuickGameScreen: {fileID: 429248914}
   backToMenu_WQ: {fileID: 738516650}
