@@ -445,7 +445,7 @@ public class GridManager : MonoBehaviour
 
             //Debug.Log(h_cur + " --> " + y);
             player.transform.position = new Vector3(x, y, z);
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.04f);
         }
         player.transform.position = endLocation;
 
