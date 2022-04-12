@@ -22,8 +22,9 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
     public Text playerName;
     public GameObject leftArrowButton;
     public GameObject rightArrowButton;
+    public GameObject playerAlienImage;
 
-    ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
+    public ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     public Image playerAlien;
     public Sprite[] aliens;
     public string alienChosen;
@@ -34,29 +35,23 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
 
     public void SetPlayerInfo(Photon.Realtime.Player netPlayer)
     {
-        //AlienPic.transform.RotateAround(transform.position, transform.up, 280f);
+        playerAlienImage.SetActive(false);
         player = netPlayer;
         string myNickname = PlayerPrefs.GetString("NickName");
         Debug.Log("This is my Nickname: " + myNickname);
+        playerProperties["playerAlien"] = null;
 
         if (player == PhotonNetwork.LocalPlayer)
         {
             playerName.text = PlayerPrefs.GetString("NickName");
             setP1username(playerName.text);
-
-
-            //if (!PhotonNetwork.IsMasterClient)
-            //{
-            //    FlipIt(netPlayer);
-            //} 
         }
         else if (player != PhotonNetwork.LocalPlayer)
         {
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
                 if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
-                {
-                    
+                { 
                     playerName.text = p.NickName;
                     setP2username(playerName.text);
                 }
@@ -64,12 +59,6 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         }
 
         UpdatePlayerItem(player);
-    }
-
-    public void ApplyLocalChanges()
-    {
-        //leftArrowButton.SetActive(true);
-        //rightArrowButton.SetActive(true);
     }
 
     public void FlipIt(Photon.Realtime.Player netPlayer)
@@ -167,5 +156,21 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         }
 
         return null;
+    }
+
+    public bool OpponentHasChosen()
+    {
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                if((bool)p.CustomProperties["playerAlienImage"] == true)
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 }
