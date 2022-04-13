@@ -79,6 +79,7 @@ public class GridManager : MonoBehaviour
         //get original color of the GameObject
         Original = Renderer.material.color;
 
+        // testing where this needs to be cleared :))
         selectedTile = new Coordinates();
     }
 
@@ -122,6 +123,9 @@ public class GridManager : MonoBehaviour
         parent.transform.position = new Vector3(0f, 0f, 0f);
         parent.transform.localScale = new Vector3(5f, 5f, 1f);
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+        // testing where this needs to be cleared :))
+        selectedTile = new Coordinates();
     }
 
     void setPlayerPrefab()
@@ -135,6 +139,9 @@ public class GridManager : MonoBehaviour
         else if (getP2avatar() == PlayerAvatar.PHAROAH) player2Prefab = pharoahPrefab;
         else if (getP2avatar() == PlayerAvatar.SCRIBE) player2Prefab = scribePrefab;
         else if (getP2avatar() == PlayerAvatar.WORKER) player2Prefab = workerPrefab;
+
+        // testing where this needs to be cleared :))
+        selectedTile = new Coordinates();
     }
 
     //This is used once at the beginning of the game when the players are first placed
