@@ -78,6 +78,8 @@ public class GridManager : MonoBehaviour
         Renderer = GetComponent<MeshRenderer>();
         //get original color of the GameObject
         Original = Renderer.material.color;
+
+        selectedTile = new Coordinates();
     }
 
     public void createBoard(int[,] temp)
