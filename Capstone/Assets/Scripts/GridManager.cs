@@ -80,7 +80,7 @@ public class GridManager : MonoBehaviour
         Original = Renderer.material.color;
 
         // testing where this needs to be cleared :))
-        selectedTile = new Coordinates();
+        clearSelectedTile();
     }
 
     public void createBoard(int[,] temp)
@@ -125,7 +125,7 @@ public class GridManager : MonoBehaviour
         parent.transform.rotation = Quaternion.Euler(90, 0, 0);
 
         // testing where this needs to be cleared :))
-        selectedTile = new Coordinates();
+        clearSelectedTile();
     }
 
     void setPlayerPrefab()
@@ -141,7 +141,7 @@ public class GridManager : MonoBehaviour
         else if (getP2avatar() == PlayerAvatar.WORKER) player2Prefab = workerPrefab;
 
         // testing where this needs to be cleared :))
-        selectedTile = new Coordinates();
+        clearSelectedTile();
     }
 
     //This is used once at the beginning of the game when the players are first placed
