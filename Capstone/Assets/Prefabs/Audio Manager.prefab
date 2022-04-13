@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4862038227617439602
+--- !u!1 &378250239567762820
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4862038227617439604}
-  - component: {fileID: 4862038227617439603}
-  - component: {fileID: 4862038227617439605}
+  - component: {fileID: 378250239567762818}
+  - component: {fileID: 378250239567762821}
+  - component: {fileID: 378250239567762819}
   m_Layer: 0
-  m_Name: Audio Manager
+  m_Name: Audio Manager 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4862038227617439604
+--- !u!4 &378250239567762818
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4862038227617439602}
+  m_GameObject: {fileID: 378250239567762820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 394.9927, y: 209.34741, z: -80.203186}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,17 +32,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &4862038227617439603
+--- !u!82 &378250239567762821
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4862038227617439602}
+  m_GameObject: {fileID: 378250239567762820}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b7b80c4e09a86a54fa2b36c971f21f0d, type: 3}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 308228a91cc0b354ab8141e3934ef30c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -128,34 +128,108 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4862038227617439605
+--- !u!114 &378250239567762819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4862038227617439602}
+  m_GameObject: {fileID: 378250239567762820}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54dcd765c24be3e43aeaeedd45a7b476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Golden Sea
-    clip: {fileID: 8300000, guid: b7b80c4e09a86a54fa2b36c971f21f0d, type: 3}
-    volume: 0.5
+  - name: GoldenVagueTower
+    clip: {fileID: 8300000, guid: 308228a91cc0b354ab8141e3934ef30c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  - name: VagueTowerGolden
+    clip: {fileID: 8300000, guid: af2f3bbd30f15a049b0910059c360498, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  - name: TowerVagueGolden
+    clip: {fileID: 8300000, guid: 255013db10a8d6e42875fe3aaf08af2c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  - name: My Quiet Room
+    clip: {fileID: 8300000, guid: 6d92413b123b9c2428bd4e9085c94977, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  - name: OrdinaryBankThowr
+    clip: {fileID: 8300000, guid: 85710e9008c8d6b458840e26de20829c, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
     source: {fileID: 0}
-  - name: Vagueness
-    clip: {fileID: 8300000, guid: deaf33a34852aa7419d4b4797d568c5f, type: 3}
-    volume: 0.5
+  - name: SerpentClosing
+    clip: {fileID: 8300000, guid: d8881c972a77a434bae95a4033089ce6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  - name: Devil's Disgrace
+    clip: {fileID: 8300000, guid: c9a9569b153ee894499c00d281582794, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
     source: {fileID: 0}
-  - name: Ivory Towers
-    clip: {fileID: 8300000, guid: ea5c397dff615364191c043f09ad82d5, type: 3}
-    volume: 0.5
+  - name: Searching Through Sand
+    clip: {fileID: 8300000, guid: adcc33739ae34e44cba6591e724d72f6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  - name: stoneButtonPress
+    clip: {fileID: 8300000, guid: c7c44ae05cda1444bb5041de9611d077, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
     source: {fileID: 0}
+  - name: goldButtonPress
+    clip: {fileID: 8300000, guid: 760abc3f90b4ef4449a233fe4904b28f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  - name: endOfGameSound
+    clip: {fileID: 8300000, guid: 7dd251e7845bd4146984d9e8c50bf280, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  - name: pyramidFalling
+    clip: {fileID: 8300000, guid: afe87c1f025e31544aa84d58143b2f73, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  - name: placingPiece
+    clip: {fileID: 8300000, guid: 51938dcbe11faae439cab25d07e657ca, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    group: {fileID: 24300002, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}
+    source: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: daa7f4b93b395cf4ea74cd19d4eed927, type: 2}

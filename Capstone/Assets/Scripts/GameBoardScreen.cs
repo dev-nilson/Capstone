@@ -95,7 +95,8 @@ public class GameBoardScreen : MonoBehaviour
     {
         if (Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && CanMove())
             StartAIQs();
-        if (!Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && CanBuild())
+        if ((!Qsready && getGameType() == GameType.DIFFICULT && GetPlayerTurn() == PlayerTurn.TWO && (CanBuild()))
+            || IsGameOver())
             EndAIQs();
     }
 
@@ -116,18 +117,13 @@ public class GameBoardScreen : MonoBehaviour
 
     void okClicked()
     {
-        Debug.Log("yes was clicked");
-        if(getGameType() == GameType.NETWORK)
-        {
-            NetworkController.playerIntentionallyLeftRoom = true;
-            NetworkController.SendPlayerLeft();
-        }
+        NetworkController.playerIntentionallyLeftRoom = true;
+        NetworkController.SendPlayerLeft();
         ClearGame();
         EnableButtons();
+        Scroll.EnableButtons();
         SceneManager.LoadScene("Menu");
         FindObjectOfType<AudioManager>().StopCurrentSong(1);
-        Debug.Log("yes was clicked thats the end");
-
     }
 
     void cancelClicked()
@@ -135,6 +131,7 @@ public class GameBoardScreen : MonoBehaviour
         RotateMainCamera.EnableRotation();
         PlayGame();
         EnableButtons();
+        Scroll.EnableButtons();
         HelpTimer.Set();
         confirmExitPopUp.SetActive(false);
     }

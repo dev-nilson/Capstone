@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     GameObject[,] tempPlayer;
 
     public GameObject board;
+    int turnsCount = 0;
 
     private NetworkController networkController;
 
@@ -125,7 +126,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (GameUtilities.getGameType() == GameType.DIFFICULT)
         {
-            AIController.SimulateTurnExpert(currentPlayer, waitingPlayer, board);
+            ++turnsCount;
+
+            if (turnsCount < 4) AIController.SimulateTurn(currentPlayer, waitingPlayer, board);
+            else AIController.SimulateTurnExpert(currentPlayer, waitingPlayer, board);
+            
             Debug.Log("Playing hard AI");
             return AIController.bestNode.GetMoveFrom();
         }

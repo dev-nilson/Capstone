@@ -1,14 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class teamIntroScreen : MonoBehaviour
+public class teamIntroScreen : MonoBehaviour, IPointerDownHandler
 {
-    public GameObject teamIntro;
-    public GameObject gameIntro;
-
-    int clickCount = 0;
     int delay = 3;
     // Start is called before the first frame update
     void Start()
@@ -16,48 +12,21 @@ public class teamIntroScreen : MonoBehaviour
         startTeamIntroVideo();
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            teamIntro.SetActive(false);
-            StopCoroutine("startTeamVideo");
-            startGameIntroVideo();
-
-            clickCount++;
-
-            if (clickCount == 2)
-            {
-                Debug.Log("second click");
-
-                SceneManager.LoadScene("Menu");
-            }
-        }
-    }
-
     void startTeamIntroVideo()
     {
-        StartCoroutine("startTeamVideo");
+        StartCoroutine("startVideo");
     }
 
-    IEnumerator startTeamVideo()
+    IEnumerator startVideo()
     {
         yield return new WaitForSeconds(delay);
-        teamIntro.SetActive(false);
-        startGameIntroVideo();
+        SceneManager.LoadScene("GameIntro");
     }
 
-    void startGameIntroVideo()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        StartCoroutine("starGameVideo");
-    }
-
-    IEnumerator starGameVideo()
-    {
-        gameIntro.SetActive(true);
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene("Menu");
+        Debug.Log("this was clicked");
+        StopCoroutine("startTeamVideo");
+        SceneManager.LoadScene("GameIntro");
     }
 }
-
-

@@ -30,6 +30,8 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     private GameObject multiplayerMenuBackButton;
     [SerializeField]
     private GameObject disconnectedBackButton;
+    [SerializeField]
+    private GameObject loadingBackButton;
 
     //Panels
     [SerializeField]
@@ -75,6 +77,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     private void Start()
     {
+        LoadingPanel.SetActive(true);
         if (PhotonNetwork.IsConnected)
             StartCoroutine(DisconnectReconnect());
 
@@ -131,6 +134,7 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
         intentionalDisconnect = false;
+        LoadingPanel.SetActive(false);
         multiplayerMenuPanel.SetActive(true);
         roomList = new List<RoomInfo>();
 
@@ -334,6 +338,17 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         multiplayerMenuPanel.SetActive(true);
         JoinGamePanel.SetActive(false);
         PhotonNetwork.LeaveLobby();
+    }
+
+    public void LoadingBackButton()
+    {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+        if (PhotonNetwork.IsConnected)
+        {
+            intentionalDisconnect = true;
+            PhotonNetwork.Disconnect(); ;
+        }
+        SceneManager.LoadScene("Menu");
     }
     #endregion
 }
