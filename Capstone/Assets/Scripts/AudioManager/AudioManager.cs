@@ -67,7 +67,6 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(firstTime);
         if (firstTime == true)
         {
             firstTime = false;
@@ -110,12 +109,12 @@ public class AudioManager : MonoBehaviour
 
     public void turnMusicOff()
     {
-        musicOn = false;
+        audioMixer.SetFloat("Volume", -65);
     }
 
     public void turnMusicOn()
     {
-        musicOn = true;
+        audioMixer.SetFloat("Volume", musicVolume);
         //currentScreen somehow becomes null/0 no matter hat when evaluating in this function
         Debug.Log("Current screen is " + currentScreen);
 
