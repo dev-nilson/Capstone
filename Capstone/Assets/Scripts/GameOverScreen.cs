@@ -47,6 +47,7 @@ public class GameOverScreen : MonoBehaviour
     public GameObject peasantShipPrefab;
 
     static bool readyToDisplayText = false;
+    private bool waiting = true;
 
     // Start is called before the first frame update
     void Start()
@@ -112,9 +113,14 @@ public class GameOverScreen : MonoBehaviour
 
     void Update()
     {
-        waitForShipToLeave();
+        if (waiting)
+        {
+            waiting = false;
+            waitForShipToLeave();
+        }
         if (readyToDisplayText)
         {
+            readyToDisplayText = false;
             GameOverPopup();
         }
     }
@@ -124,7 +130,7 @@ public class GameOverScreen : MonoBehaviour
         // Local player wins in story mode
         if (PlayingStoryMode && GetWinningPlayer() == PlayerTurn.ONE)
         {
-            waitForShipToLeave();
+            //waitForShipToLeave();
             if (beatStoryMode)
             {
                 beatStoryModeScreen.SetActive(true);
