@@ -385,6 +385,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     }
     public void choosePharoah()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         int chosen = 0;
         tempPlayer.ChangeTimeToGo();
 
@@ -404,6 +405,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     public void chooseScribe()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         int chosen = 1;
         tempPlayer.ChangeTimeToGo();
 
@@ -423,6 +425,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     public void chooseWorker()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         int chosen = 2;
         tempPlayer.ChangeTimeToGo();
 
@@ -442,6 +445,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     public void choosePeasant()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         int chosen = 3;
         tempPlayer.ChangeTimeToGo();
 
