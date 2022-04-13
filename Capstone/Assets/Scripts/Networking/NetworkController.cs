@@ -40,6 +40,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
             GameObject player = PhotonNetwork.Instantiate("networkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
             netPlayer = player.GetComponent<NetworkPlayer>();
             playerIntentionallyLeftRoom = false;
+            coordinates = new Coordinates();
         }
     }
 
