@@ -2396,9 +2396,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You Pharoahs are despeicable, this war all started because of you're endless
-    need for more, so many lives have been destroyed because of you. So while you're
-    only one Pharoah, I will avenge those who your kind has hurt
+  m_Text: You Pharoahs are despicable, this war all started because of you're endless
+    need for more, so many lives have been destroyed because of you all. So while
+    you're only one Pharoah, I will avenge those who your kind has hurt
 --- !u!222 &552723643
 CanvasRenderer:
   m_ObjectHideFlags: 0
