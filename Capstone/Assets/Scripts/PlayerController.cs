@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
     private NetworkController networkController;
     Coordinates netloc;
-    bool netpause = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (getGameType() == GameType.NETWORK && GetPlayerTurn() == PlayerTurn.TWO && !netpause)
+        if (getGameType() == GameType.NETWORK && GetPlayerTurn() == PlayerTurn.TWO)
             netloc = NetworkController.GetCoordinates();
     }
 
@@ -102,8 +101,6 @@ public class PlayerController : MonoBehaviour
     {
         if (currentPlayer.Type() == Player.Tag.LOCAL)
         {
-            netpause = false;
-
             // If the mouse was clicked, return that coordinate
             if (Input.GetMouseButtonDown(0))
             {
@@ -124,10 +121,7 @@ public class PlayerController : MonoBehaviour
         {
             Coordinates loc = netloc;
             if (GameBoard.IsValidCoord(loc))
-            {
-                netpause = true;
                 return loc;
-            }
             else
                 return new Coordinates();
         }
