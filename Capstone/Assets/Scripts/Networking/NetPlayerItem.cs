@@ -24,6 +24,7 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
     public GameObject rightArrowButton;
     public GameObject playerAlienImage;
 
+    public ExitGames.Client.Photon.Hashtable playerStart = new ExitGames.Client.Photon.Hashtable();
     public ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     public Image playerAlien;
     public Sprite[] aliens;
@@ -74,7 +75,20 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         {
             UpdatePlayerItem(targetPlayer);
         }
+    }
 
+    public void ChangeTimeToGo()
+    {
+        if (player == PhotonNetwork.LocalPlayer)
+        {
+            playerStart["timeToGo"] = 1;
+            PhotonNetwork.SetPlayerCustomProperties(playerStart);
+
+            if (timeToGo < 1)
+            {
+                timeToGo++;
+            }
+        }
     }
 
     void UpdatePlayerItem(Photon.Realtime.Player player)
@@ -172,29 +186,33 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         return false;
     }
 
-    public int TimeToStart()
-    {
-        int rtn;
-        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
-        {
-            if (p.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
-            {
-                timeToGo++;
-                rtn = timeToGo;
-                return rtn;
-            }
-        }
-        return 0;
-    }
+    //public int TimeToStart()
+    //{
+    //    int rtn;
+    //    foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+    //    {
+    //        if (p.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+    //        {
+    //            timeToGo++;
+    //            rtn = timeToGo;
+    //            return rtn;
+    //        }
+    //    }
+    //    return 0;
+    //}
 
     public int TimeToStartOpponent()
     {
         int rtn = 1;
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
-            if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber && (int)p.)
+            if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
             {
-                return rtn;
+                Debug.Log("time to go in custom properties for opponent is: " + (int)p.CustomProperties["timeToGo"]);
+                if (((int)p.CustomProperties["timeToGo"] == 1))
+                {
+                    return rtn;
+                }
             }
         }
         return 0;
