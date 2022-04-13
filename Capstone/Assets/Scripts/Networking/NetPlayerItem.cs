@@ -22,11 +22,14 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
     public Text playerName;
     public GameObject leftArrowButton;
     public GameObject rightArrowButton;
+    public GameObject playerAlienImage;
 
-    ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
+    public ExitGames.Client.Photon.Hashtable playerStart = new ExitGames.Client.Photon.Hashtable();
+    public ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     public Image playerAlien;
     public Sprite[] aliens;
     public string alienChosen;
+    public int timeToGo = 0;
 
     private PhotonView photonView;
 
@@ -34,29 +37,23 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
 
     public void SetPlayerInfo(Photon.Realtime.Player netPlayer)
     {
-        //AlienPic.transform.RotateAround(transform.position, transform.up, 280f);
+        //playerAlienImage.SetActive(false);
         player = netPlayer;
         string myNickname = PlayerPrefs.GetString("NickName");
         Debug.Log("This is my Nickname: " + myNickname);
+        //playerProperties["playerAlien"] = null;
 
         if (player == PhotonNetwork.LocalPlayer)
         {
             playerName.text = PlayerPrefs.GetString("NickName");
             setP1username(playerName.text);
-
-
-            //if (!PhotonNetwork.IsMasterClient)
-            //{
-            //    FlipIt(netPlayer);
-            //} 
         }
         else if (player != PhotonNetwork.LocalPlayer)
         {
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
                 if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
-                {
-                    
+                { 
                     playerName.text = p.NickName;
                     setP2username(playerName.text);
                 }
@@ -64,12 +61,6 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         }
 
         UpdatePlayerItem(player);
-    }
-
-    public void ApplyLocalChanges()
-    {
-        //leftArrowButton.SetActive(true);
-        //rightArrowButton.SetActive(true);
     }
 
     public void FlipIt(Photon.Realtime.Player netPlayer)
@@ -84,7 +75,20 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         {
             UpdatePlayerItem(targetPlayer);
         }
+    }
 
+    public void ChangeTimeToGo()
+    {
+        if (player == PhotonNetwork.LocalPlayer)
+        {
+            playerStart["timeToGo"] = 1;
+            PhotonNetwork.SetPlayerCustomProperties(playerStart);
+
+            if (timeToGo < 1)
+            {
+                timeToGo++;
+            }
+        }
     }
 
     void UpdatePlayerItem(Photon.Realtime.Player player)
@@ -167,5 +171,50 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         }
 
         return null;
+    }
+
+    public bool GameStarted()
+    {
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                p.CustomProperties["playerAlien"] = null;
+            }
+        }
+
+        return false;
+    }
+
+    //public int TimeToStart()
+    //{
+    //    int rtn;
+    //    foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+    //    {
+    //        if (p.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+    //        {
+    //            timeToGo++;
+    //            rtn = timeToGo;
+    //            return rtn;
+    //        }
+    //    }
+    //    return 0;
+    //}
+
+    public int TimeToStartOpponent()
+    {
+        int rtn = 1;
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                Debug.Log("time to go in custom properties for opponent is: " + (int)p.CustomProperties["timeToGo"]);
+                if (((int)p.CustomProperties["timeToGo"] == 1))
+                {
+                    return rtn;
+                }
+            }
+        }
+        return 0;
     }
 }
