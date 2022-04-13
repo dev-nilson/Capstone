@@ -49,7 +49,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     public Transform playerItemParent;
 
     private NetPlayerItem tempPlayer;
-    private int otherPlayerReady;
+    private int localPlayerReady = 0;
     private bool readyUpStatus;
     #endregion
 
@@ -174,7 +174,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         Debug.Log("time to go is: " + tempPlayer.timeToGo + " time to go opp is: " + tempPlayer.TimeToStartOpponent());
         if (PhotonNetwork.IsMasterClient && 
             PhotonNetwork.CurrentRoom.PlayerCount == 2 && 
-            tempPlayer.timeToGo == 1 &&
+            localPlayerReady == 1 &&
             tempPlayer.TimeToStartOpponent() == 1)
         {
             StartGameButton.SetActive(true);
@@ -285,6 +285,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
             FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+            localPlayerReady = 0;
             tempPlayer.GameStarted();
             PhotonNetwork.LoadLevel("GameBoard");
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
@@ -381,18 +382,18 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     public void choosePharoah()
     {
         int chosen = 0;
+        tempPlayer.ChangeTimeToGo();
 
         if (PhotonNetwork.IsMasterClient)
         {
             setP1avatar(PlayerAvatar.PHAROAH);
+            localPlayerReady = tempPlayer.timeToGo;
         }
         else if (!PhotonNetwork.IsMasterClient)
         {
-            otherPlayerReady = tempPlayer.TimeToStartOpponent();
             setP2avatar(PlayerAvatar.PHAROAH);
         }
         tempPlayer.changeAlien(chosen);
-        tempPlayer.ChangeTimeToGo();
         PharoahButton.SetActive(false);
 
     }
@@ -400,57 +401,57 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     public void chooseScribe()
     {
         int chosen = 1;
+        tempPlayer.ChangeTimeToGo();
 
         if (PhotonNetwork.IsMasterClient)
         {
             setP1avatar(PlayerAvatar.SCRIBE);
+            localPlayerReady = tempPlayer.timeToGo;
         }
         else if (!PhotonNetwork.IsMasterClient)
         {
-            otherPlayerReady = tempPlayer.TimeToStartOpponent();
             setP2avatar(PlayerAvatar.SCRIBE);
         }
 
         tempPlayer.changeAlien(chosen);
-        tempPlayer.ChangeTimeToGo();
         ScribeButton.SetActive(false);
     }
 
     public void chooseWorker()
     {
         int chosen = 2;
+        tempPlayer.ChangeTimeToGo();
 
         if (PhotonNetwork.IsMasterClient)
         {
             setP1avatar(PlayerAvatar.WORKER);
+            localPlayerReady = tempPlayer.timeToGo;
         }
         else if (!PhotonNetwork.IsMasterClient)
         {
-            otherPlayerReady = tempPlayer.TimeToStartOpponent();
             setP2avatar(PlayerAvatar.WORKER);
         }
 
         tempPlayer.changeAlien(chosen);
-        tempPlayer.ChangeTimeToGo();
         WorkerButton.SetActive(false);
     }
 
     public void choosePeasant()
     {
         int chosen = 3;
+        tempPlayer.ChangeTimeToGo();
 
         if (PhotonNetwork.IsMasterClient)
         {
             setP1avatar(PlayerAvatar.PEASANT);
+            localPlayerReady = tempPlayer.timeToGo;
         }
         else if (!PhotonNetwork.IsMasterClient)
         {
-            otherPlayerReady = tempPlayer.TimeToStartOpponent();
             setP2avatar(PlayerAvatar.PEASANT);
         }
 
         tempPlayer.changeAlien(chosen);
-        tempPlayer.ChangeTimeToGo();
         PeasantButton.SetActive(false);
     }
     #endregion
