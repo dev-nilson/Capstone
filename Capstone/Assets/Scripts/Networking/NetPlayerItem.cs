@@ -186,21 +186,6 @@ public class NetPlayerItem : MonoBehaviourPunCallbacks
         return false;
     }
 
-    //public int TimeToStart()
-    //{
-    //    int rtn;
-    //    foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
-    //    {
-    //        if (p.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
-    //        {
-    //            timeToGo++;
-    //            rtn = timeToGo;
-    //            return rtn;
-    //        }
-    //    }
-    //    return 0;
-    //}
-
     public int TimeToStartOpponent()
     {
         int rtn = 1;

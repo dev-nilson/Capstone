@@ -117,6 +117,7 @@ public class QuickGameScreen : MonoBehaviour
 
     void pharoahClicked()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         resetAll();
         pharoah_H.SetActive(true);
         pharoah_figure.SetActive(true);
@@ -129,6 +130,7 @@ public class QuickGameScreen : MonoBehaviour
 
     void scribeClicked()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         resetAll();
         scribe_H.SetActive(true);
         scribe_figure.SetActive(true);
@@ -141,6 +143,7 @@ public class QuickGameScreen : MonoBehaviour
 
     void peasantClicked()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         resetAll();
         peasant_H.SetActive(true);
         peasant_figure.SetActive(true);
@@ -153,6 +156,7 @@ public class QuickGameScreen : MonoBehaviour
 
     void workerClicked()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         resetAll();
         worker_H.SetActive(true);
         worker_figure.SetActive(true);
