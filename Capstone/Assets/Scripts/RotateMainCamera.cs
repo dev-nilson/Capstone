@@ -31,6 +31,12 @@ public class RotateMainCamera : MonoBehaviour
 		Board = boardController.GetComponent<GridManager>();
     }
 
+    private void Update()
+    {
+        if (getGameType() == GameType.NETWORK && GetPlayerTurn() == PlayerTurn.TWO)
+            DisableRotation();
+    }
+
     void rotateLeftClick()
     {
         if (x == 0)
