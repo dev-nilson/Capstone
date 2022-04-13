@@ -10,6 +10,7 @@ public class ArrowSelectButton : MonoBehaviour
     public Button RightArrow;
     public Button LeftArrow;
     public Button step1;
+    public Button step1Continue;
     public Button step2;
     public Button step3;
     public Button step4;
@@ -19,6 +20,7 @@ public class ArrowSelectButton : MonoBehaviour
     public Button step8;
     public Button step9;
     public Button FinalButton;
+    public Button StartButton;
     public Button BackToMenu;
     public GameObject Stone;
     private int _index;
@@ -35,16 +37,28 @@ public class ArrowSelectButton : MonoBehaviour
         Button backToMenu = BackToMenu.GetComponent<Button>();
         backToMenu.onClick.AddListener(ChangeScene);
 
+        Button startButton = StartButton.GetComponent<Button>();
+        startButton.onClick.AddListener(RightArrowSelect2);
+
         _index = 2;
         //video1.SetActive(true);
         // script1.SetActive(true);
     }
 
+    public void RightArrowSelect2()
+    {
+        _index = 2;
+        swapVideo();
+    }
+
+
     public void RightArrowSelect()
     {
+        
         _index++;
+     
         if (_index > 10)
-            _index = 2;
+            _index = 1;
 
         Debug.Log(_index);
         swapVideo();
@@ -53,7 +67,9 @@ public class ArrowSelectButton : MonoBehaviour
 
     public void LeftArrowSelect()
     {
+        
         _index--;
+
         if (_index < 1)
             _index = 10;
         Debug.Log(_index);
@@ -68,7 +84,6 @@ public class ArrowSelectButton : MonoBehaviour
         {
             //video1.SetActive(true);
            step1.onClick.Invoke();
-
         }
         else if (_index == 2)
         {

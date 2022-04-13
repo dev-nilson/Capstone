@@ -393,7 +393,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d94654376bcc9524b9a17af5dc61224a, type: 3}
+  m_Texture: {fileID: 2800000, guid: ed564f9ce7f2db845a89358c1ff8f72d, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1703,7 +1703,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 260.23624, y: -111.81102}
-  m_SizeDelta: {x: 183.9, y: 216.2}
+  m_SizeDelta: {x: 190, y: 216.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &545416059
 MonoBehaviour:
@@ -1725,7 +1725,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: a4826c853206e3f4882b86f3e7dd1cf8, type: 3}
+  m_Texture: {fileID: 2800000, guid: a1d8dbe7076503445a451879816ddcbc, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2794,8 +2794,6 @@ MonoBehaviour:
   loseMultiScreen: {fileID: 1236661225}
   backToMenu_WM: {fileID: 1559275913}
   backToMenu_LM: {fileID: 2130602279}
-  rematch_WM: {fileID: 359564121}
-  rematch_LM: {fileID: 394368829}
   winQuickGameScreen: {fileID: 1063019856}
   loseQuickGameScreen: {fileID: 429248914}
   backToMenu_WQ: {fileID: 738516650}
