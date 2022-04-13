@@ -73,6 +73,8 @@ public class MenuScreen : MonoBehaviour, IPointerDownHandler
 		GameBoardScreen.EnableButtons();
 		Scroll.EnableButtons();
 
+		Debug.Log("First time through is: " + firstTimeThrough);
+
 		if (firstTimeThrough)
 		{
 			teamIntro.SetActive(true);
@@ -102,6 +104,7 @@ public class MenuScreen : MonoBehaviour, IPointerDownHandler
 	{
 		yield return new WaitForSeconds(screenDelay);
 		gameIntro.SetActive(false);
+		introductionPanel.SetActive(false);
 	}
 
 	public void OnPointerDown(PointerEventData eventData)
