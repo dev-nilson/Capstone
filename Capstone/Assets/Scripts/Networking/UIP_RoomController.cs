@@ -304,10 +304,14 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient)
         {
             JoinGamePanel.SetActive(true);
+            tempPlayer.timeToGo = 0;
+            tempPlayer.playerStart["timeToGo"] = 0;
         }
         else
         {
             multiplayerMenuPanel.SetActive(true);
+            tempPlayer.timeToGo = 0;
+            tempPlayer.playerStart["timeToGo"] = 0;
         }
         FindObjectOfType<AudioManager>().Play("stoneButtonPress");
 
@@ -381,6 +385,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     }
     public void choosePharoah()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         int chosen = 0;
         tempPlayer.ChangeTimeToGo();
 
@@ -400,6 +405,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     public void chooseScribe()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         int chosen = 1;
         tempPlayer.ChangeTimeToGo();
 
@@ -419,6 +425,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     public void chooseWorker()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         int chosen = 2;
         tempPlayer.ChangeTimeToGo();
 
@@ -438,6 +445,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
     public void choosePeasant()
     {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
         int chosen = 3;
         tempPlayer.ChangeTimeToGo();
 
