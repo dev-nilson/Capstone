@@ -83,7 +83,6 @@ public class MenuScreen : MonoBehaviour, IPointerDownHandler
 	}
 	void startTeamIntroVideo()
 	{
-		firstTimeThrough = false;
 		StartCoroutine("startTeamVideo");
 	}
 
@@ -105,25 +104,27 @@ public class MenuScreen : MonoBehaviour, IPointerDownHandler
 		yield return new WaitForSeconds(screenDelay);
 		gameIntro.SetActive(false);
 		introductionPanel.SetActive(false);
+		firstTimeThrough = false;
 	}
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-        Debug.Log(count);
+        Debug.Log("Count is: " + count);
 
         count++;
-        if (count == 1)
+        if (count == 1 && firstTimeThrough == true)
         {
             Debug.Log("first click");
             StopCoroutine("startTeamVideo");
             startGameIntroVideo();
         }
-        else
+        else if(count == 2 && firstTimeThrough == true) 
         {
             StopCoroutine("startGameVideo");
             introductionPanel.SetActive(false);
-        }
-    }
+			firstTimeThrough = false;
+		}
+	}
 
 	void quickGameClicked()
 	{
