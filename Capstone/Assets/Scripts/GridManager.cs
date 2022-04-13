@@ -406,8 +406,6 @@ public class GridManager : MonoBehaviour
         Scroll.DisableButtons();
         RotateMainCamera.DisableRotation();
 
-        while (RotateMainCamera.currentlyRotating == true) ;
-
         startLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, 7f, Grid[location.X, location.Y].transform.position.z);
         endLocation = new Vector3(Grid[location.X, location.Y].transform.position.x, levelHeight, Grid[location.X, location.Y].transform.position.z);
 
@@ -432,8 +430,6 @@ public class GridManager : MonoBehaviour
         PauseGame();
         RotateMainCamera.DisableRotation();
         GameOverGraphics.MakeNotReady();
-
-        while (RotateMainCamera.currentlyRotating == true) ;
 
         StartCoroutine(movePlayerDelay(player, heightChange));
     }
