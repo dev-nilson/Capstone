@@ -49,6 +49,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
     public Transform playerItemParent;
 
     private NetPlayerItem tempPlayer;
+    private int otherPlayerReady;
     private bool readyUpStatus;
     #endregion
 
@@ -138,15 +139,43 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
                     ScribeButton.SetActive(true);
                 }
             }
+            else if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
+            {
+                if (tempPlayer.alienChosen == "PHAROAH")
+                {
+                    WorkerButton.SetActive(true);
+                    ScribeButton.SetActive(true);
+                    PeasantButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "SCRIBE")
+                {
+                    PharoahButton.SetActive(true);
+                    WorkerButton.SetActive(true);
+                    PeasantButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "WORKER")
+                {
+                    PharoahButton.SetActive(true);
+                    ScribeButton.SetActive(true);
+                    PeasantButton.SetActive(true);
+                }
+                else if (tempPlayer.alienChosen == "PEASANT")
+                {
+                    ScribeButton.SetActive(true);
+                    PharoahButton.SetActive(true);
+                    WorkerButton.SetActive(true);
+                }
+            }
         }
     }
 
     private void LateUpdate()
     {
+        Debug.Log("time to go is: " + tempPlayer.timeToGo + " time to go opp is: " + tempPlayer.TimeToStartOpponent());
         if (PhotonNetwork.IsMasterClient && 
             PhotonNetwork.CurrentRoom.PlayerCount == 2 && 
-            tempPlayer.alienChosen != null && 
-            tempPlayer.OpponentAlien() != null)
+            tempPlayer.timeToGo == 1 &&
+            tempPlayer.TimeToStartOpponent() == 1)
         {
             StartGameButton.SetActive(true);
         }
@@ -166,11 +195,11 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             DisabledStartButton.SetActive(true);
-            //tempPlayer.alienChosen = null;
+            //tempPlayer.playerProperties["playerAlien"] = null;
         }
         else
         {
-            //tempPlayer.alienChosen = null;
+            //tempPlayer.playerProperties["playerAlien"] = null;
             WaitingForOpponents.text = "Waiting for Host to start";
         }
         UpdatePlayerList();
@@ -215,6 +244,31 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             ScribeButton.SetActive(true);
             WorkerButton.SetActive(true);
         }
+        else if (tempPlayer.OpponentAlien() == "PHAROAH")
+        {
+            ScribeButton.SetActive(true);
+            WorkerButton.SetActive(true);
+            PeasantButton.SetActive(true);
+            Debug.Log("DONE");
+        }
+        else if (tempPlayer.OpponentAlien() == "SCRIBE")
+        {
+            PharoahButton.SetActive(true);
+            WorkerButton.SetActive(true);
+            PeasantButton.SetActive(true);
+        }
+        else if (tempPlayer.OpponentAlien() == "WORKER")
+        {
+            PharoahButton.SetActive(true);
+            ScribeButton.SetActive(true);
+            PeasantButton.SetActive(true);
+        }
+        else if (tempPlayer.OpponentAlien() == "PEASANT")
+        {
+            PharoahButton.SetActive(true);
+            ScribeButton.SetActive(true);
+            WorkerButton.SetActive(true);
+        }
         else if (tempPlayer.alienChosen == null)
         {
             PharoahButton.SetActive(true);
@@ -231,6 +285,7 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false; //Comment out if you want player to join after the game has started
             FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+            tempPlayer.GameStarted();
             PhotonNetwork.LoadLevel("GameBoard");
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
             readyUpStatus = false;
@@ -293,9 +348,9 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
             **********************************************************************************************/
 
             if (player.Value == PhotonNetwork.LocalPlayer)
-            {
+            { 
                 tempPlayer = newPlayerItem;
-                ResetValues();
+                //tempPlayer.playerProperties["playerAlien"] = null;
             }
             if (player.Value == PhotonNetwork.LocalPlayer && PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
@@ -317,6 +372,8 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (next.name == "GameBoard")
         {
             tempPlayer.OpponentAlien();
+            tempPlayer.timeToGo = 0;
+            tempPlayer.playerStart["timeToGo"] = 0;
             FindObjectOfType<AudioManager>().StopCurrentSong(6);
         }
         Debug.Log("Called OnGameStarting");
@@ -331,10 +388,13 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         }
         else if (!PhotonNetwork.IsMasterClient)
         {
+            otherPlayerReady = tempPlayer.TimeToStartOpponent();
             setP2avatar(PlayerAvatar.PHAROAH);
         }
         tempPlayer.changeAlien(chosen);
+        tempPlayer.ChangeTimeToGo();
         PharoahButton.SetActive(false);
+
     }
 
     public void chooseScribe()
@@ -343,14 +403,16 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            setP1avatar(PlayerAvatar.PHAROAH);
+            setP1avatar(PlayerAvatar.SCRIBE);
         }
         else if (!PhotonNetwork.IsMasterClient)
         {
-            setP2avatar(PlayerAvatar.PHAROAH);
+            otherPlayerReady = tempPlayer.TimeToStartOpponent();
+            setP2avatar(PlayerAvatar.SCRIBE);
         }
 
         tempPlayer.changeAlien(chosen);
+        tempPlayer.ChangeTimeToGo();
         ScribeButton.SetActive(false);
     }
 
@@ -360,14 +422,16 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            setP1avatar(PlayerAvatar.PHAROAH);
+            setP1avatar(PlayerAvatar.WORKER);
         }
         else if (!PhotonNetwork.IsMasterClient)
         {
-            setP2avatar(PlayerAvatar.PHAROAH);
+            otherPlayerReady = tempPlayer.TimeToStartOpponent();
+            setP2avatar(PlayerAvatar.WORKER);
         }
 
         tempPlayer.changeAlien(chosen);
+        tempPlayer.ChangeTimeToGo();
         WorkerButton.SetActive(false);
     }
 
@@ -377,27 +441,17 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            setP1avatar(PlayerAvatar.PHAROAH);
+            setP1avatar(PlayerAvatar.PEASANT);
         }
         else if (!PhotonNetwork.IsMasterClient)
         {
-            setP2avatar(PlayerAvatar.PHAROAH);
+            otherPlayerReady = tempPlayer.TimeToStartOpponent();
+            setP2avatar(PlayerAvatar.PEASANT);
         }
 
         tempPlayer.changeAlien(chosen);
+        tempPlayer.ChangeTimeToGo();
         PeasantButton.SetActive(false);
-    }
-
-    public void ResetValues()
-    {
-        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
-        {
-            if (player == PhotonNetwork.LocalPlayer)
-            {
-                tempPlayer.alienChosen = null;
-                tempPlayer.playerAlien.sprite = null;
-            }
-        }
     }
     #endregion
 }
