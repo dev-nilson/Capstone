@@ -7,6 +7,7 @@ using static GameUtilities;
 public class RotateMainCamera : MonoBehaviour
 {
     static bool rotateOn = true;
+    public static bool currentlyRotating = false;
 
 	GameObject boardController;
 	GridManager Board;
@@ -122,7 +123,8 @@ public class RotateMainCamera : MonoBehaviour
 
     IEnumerator rotateBoardRight()
     {
-        PauseGame();
+        currentlyRotating = true;
+        //PauseGame();
         DisableRotation();
         DisableButtons();
 
@@ -134,7 +136,8 @@ public class RotateMainCamera : MonoBehaviour
             yield return new WaitForSeconds(.01f);
         }
 
-        PlayGame();
+        //PlayGame();
+        currentlyRotating = false;
         EnableRotation();
         EnableButtons();
     }
@@ -147,7 +150,8 @@ public class RotateMainCamera : MonoBehaviour
 
     IEnumerator rotateBoardLeft()
     {
-        PauseGame();
+        currentlyRotating = true;
+        //PauseGame();
         DisableRotation();
         DisableButtons();
 
@@ -159,7 +163,8 @@ public class RotateMainCamera : MonoBehaviour
             yield return new WaitForSeconds(.01f);
         }
 
-        PlayGame();
+        //PlayGame();
+        currentlyRotating = false;
         EnableRotation();
         EnableButtons();
     }
