@@ -304,10 +304,14 @@ public class UIP_RoomController : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient)
         {
             JoinGamePanel.SetActive(true);
+            tempPlayer.timeToGo = 0;
+            tempPlayer.playerStart["timeToGo"] = 0;
         }
         else
         {
             multiplayerMenuPanel.SetActive(true);
+            tempPlayer.timeToGo = 0;
+            tempPlayer.playerStart["timeToGo"] = 0;
         }
         FindObjectOfType<AudioManager>().Play("stoneButtonPress");
 
