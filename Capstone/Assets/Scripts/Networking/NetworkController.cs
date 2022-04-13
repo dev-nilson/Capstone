@@ -40,6 +40,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
             GameObject player = PhotonNetwork.Instantiate("networkPlayer", new Vector3(0, 0, 0), Quaternion.identity, 0);
             netPlayer = player.GetComponent<NetworkPlayer>();
             playerIntentionallyLeftRoom = false;
+            coordinates = new Coordinates();
         }
     }
 
@@ -138,12 +139,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public static void SendPlayerLeft()
     {
-        netPlayer.SendPlayerLeft(playerIntentionallyLeftRoom);
+        if (getGameType() == GameType.NETWORK)
+        {
+            netPlayer.SendPlayerLeft(playerIntentionallyLeftRoom);
+        }
     }
 
     public static void SetPlayerLeftStatus(bool playerStatus)
     {
-        playerIntentionallyLeftRoom = playerStatus;
+        if (getGameType() == GameType.NETWORK)
+        {
+            playerIntentionallyLeftRoom = playerStatus;
+        }
     }
 
     public static bool GetPlayerLeftStatus()
@@ -152,6 +159,11 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
     #endregion
 
+    public static void DisconnectPlayer()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LeaveLobby();
+    }
 }
 
 

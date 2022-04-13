@@ -30,6 +30,8 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
     private GameObject multiplayerMenuBackButton;
     [SerializeField]
     private GameObject disconnectedBackButton;
+    [SerializeField]
+    private GameObject loadingBackButton;
 
     //Panels
     [SerializeField]
@@ -336,6 +338,17 @@ public class UIP_LobbyController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         multiplayerMenuPanel.SetActive(true);
         JoinGamePanel.SetActive(false);
         PhotonNetwork.LeaveLobby();
+    }
+
+    public void LoadingBackButton()
+    {
+        FindObjectOfType<AudioManager>().Play("stoneButtonPress");
+        if (PhotonNetwork.IsConnected)
+        {
+            intentionalDisconnect = true;
+            PhotonNetwork.Disconnect(); ;
+        }
+        SceneManager.LoadScene("Menu");
     }
     #endregion
 }

@@ -18,6 +18,7 @@ public class NetworkPlayer : MonoBehaviourPunCallbacks
 	private void Start()
 	{
 		photonView = PhotonView.Get(this);
+		coordinates = new Coordinates();
 	}
 
     [PunRPC]
