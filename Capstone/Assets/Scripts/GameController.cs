@@ -128,6 +128,8 @@ public class GameController : MonoBehaviour
             }
             else if (CanMove())
             {
+                if (getGameType() == GameType.NETWORK && GetPlayerTurn() == PlayerTurn.TWO) RotateMainCamera.DisableRotation();
+
                 if (CurrentPlayer.HasNoMoves(board_gc))
                 {
                     // GAME OVER: CURRENT PLAYER HAS NO AVAILABLE MOVES AND THEREFORE LOSES
@@ -245,6 +247,8 @@ public class GameController : MonoBehaviour
             }
             else if (CanBuild())
             {
+                if (getGameType() == GameType.NETWORK && GetPlayerTurn() == PlayerTurn.TWO) RotateMainCamera.DisableRotation();
+
                 //If not currently waiting for any tiles, change this to wait for tiles
                 if (!WaitingForFirstTile() && !WaitingForSecondTile())
                 {
